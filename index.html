@@ -60,44 +60,47 @@
         .title-section h1 { color: #333; font-size: 1.1em; }
         .title-section .time { color: #666; font-size: 0.85em; margin-top: 3px; }
         
-        /* 股市守则 */
+        /* 股市守则 + 总投资 并排布局 */
+        .rules-capital-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* 股市守则 - 2 列 */
         .rules-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            font-size: 0.75em;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+            font-size: 0.7em;
         }
         .rules-list { list-style: none; }
         .rules-list li { padding: 2px 0; color: #666; }
         .rules-list li:before { content: '✓ '; color: #0a0; }
         
-        /* 仪表盘布局 */
-        .gauges-layout {
+        /* 总投资 */
+        .capital-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-        }
-        
-        /* 中央大仪表盘 - 总资金 */
-        .capital-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            padding: 10px;
+            gap: 8px;
         }
         .capital-gauge {
-            width: 180px;
-            height: 110px;
+            width: 140px;
+            height: 85px;
         }
         .capital-info {
-            text-align: left;
-            font-size: 0.85em;
+            width: 100%;
+            font-size: 0.75em;
         }
-        .capital-info div { margin: 4px 0; }
-        .capital-label { color: #666; }
-        .capital-value { font-weight: bold; font-size: 1.1em; }
+        .capital-info div { 
+            display: flex;
+            justify-content: space-between;
+            margin: 3px 0;
+        }
+        .capital-label { color: #888; }
+        .capital-value { font-weight: bold; }
         .profit-up { color: #d00; }
         .profit-down { color: #0a0; }
         
@@ -105,27 +108,27 @@
         .stocks-row {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         .stock-gauge-item {
             text-align: center;
         }
         .stock-gauge {
-            width: 130px;
-            height: 80px;
+            width: 120px;
+            height: 75px;
         }
-        .stock-info { font-size: 0.7em; margin-top: 5px; }
-        .stock-code { color: #888; font-size: 0.85em; }
+        .stock-info { font-size: 0.65em; margin-top: 5px; }
+        .stock-code { color: #999; font-size: 0.85em; }
         .stock-name { font-weight: bold; color: #333; margin: 2px 0; }
-        .stock-detail { color: #666; font-size: 0.85em; }
+        .stock-detail { color: #777; font-size: 0.85em; }
         .stock-profit { font-weight: bold; margin-top: 2px; }
         
         /* 响应式 */
         @media (max-width: 500px) {
-            .rules-grid { grid-template-columns: 1fr; font-size: 0.7em; }
-            .capital-gauge { width: 150px; height: 95px; }
-            .stock-gauge { width: 110px; height: 70px; }
+            .rules-capital-row { grid-template-columns: 1fr; }
+            .rules-grid { grid-template-columns: 1fr; font-size: 0.75em; }
+            .stock-gauge { width: 100px; height: 65px; }
             .status-text { font-size: 1em; }
             .title-section h1 { font-size: 1em; }
         }
@@ -147,37 +150,37 @@
                 <div class="time">{{ time }}</div>
             </div>
             
-            <!-- 股市守则 -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">股市守则</div>
+            <!-- 股市守则 + 总投资 并排 -->
+            <div class="rules-capital-row">
+                <!-- 股市守则 -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">股市守则</div>
+                    </div>
+                    <div class="rules-grid">
+                        <ul class="rules-list">
+                            <li v-for="r in rules.slice(0,5)" :key="r.id">{{ r.text }}</li>
+                        </ul>
+                        <ul class="rules-list">
+                            <li v-for="r in rules.slice(5,10)" :key="r.id">{{ r.text }}</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="rules-grid">
-                    <ul class="rules-list">
-                        <li v-for="r in rules.slice(0,4)" :key="r.id">{{ r.text }}</li>
-                    </ul>
-                    <ul class="rules-list">
-                        <li v-for="r in rules.slice(3,7)" :key="r.id">{{ r.text }}</li>
-                    </ul>
-                    <ul class="rules-list">
-                        <li v-for="r in rules.slice(6,10)" :key="r.id">{{ r.text }}</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- 总投资情况 -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">总投资</div>
-                </div>
-                <div class="capital-section">
-                    <div class="capital-gauge" id="capital-gauge"></div>
-                    <div class="capital-info">
-                        <div><span class="capital-label">本金：</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
-                        <div><span class="capital-label">占用：</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
-                        <div><span class="capital-label">可用：</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
-                        <div><span class="capital-label">总盈亏：</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
-                        <div><span class="capital-label">收益率：</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
+                
+                <!-- 总投资 -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">总投资</div>
+                    </div>
+                    <div class="capital-section">
+                        <div class="capital-gauge" id="capital-gauge"></div>
+                        <div class="capital-info">
+                            <div><span class="capital-label">本金</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
+                            <div><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
+                            <div><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
+                            <div><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
+                            <div><span class="capital-label">收益</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -187,19 +190,17 @@
                 <div class="card-header">
                     <div class="card-title">持仓明细</div>
                 </div>
-                <div class="gauges-layout">
-                    <div class="stocks-row">
-                        <div class="stock-gauge-item" v-for="s in sortedStocks" :key="s.code">
-                            <div :id="'gauge-'+s.code" class="stock-gauge"></div>
-                            <div class="stock-info">
-                                <div class="stock-code">{{ s.code }}</div>
-                                <div class="stock-name">{{ s.name }}</div>
-                                <div class="stock-detail">买入：¥{{ s.cost }} × {{ s.qty }}股</div>
-                                <div class="stock-detail">现价：¥{{ s.price }}</div>
-                                <div class="stock-detail">市值：¥{{ formatNum(s.price * s.qty) }}</div>
-                                <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
-                                    盈亏：{{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}% (¥{{ formatNum(s.profit) }})
-                                </div>
+                <div class="stocks-row">
+                    <div class="stock-gauge-item" v-for="s in sortedStocks" :key="s.code">
+                        <div :id="'gauge-'+s.code" class="stock-gauge"></div>
+                        <div class="stock-info">
+                            <div class="stock-code">{{ s.code }}</div>
+                            <div class="stock-name">{{ s.name }}</div>
+                            <div class="stock-detail">¥{{ s.cost }}×{{ s.qty }}股</div>
+                            <div class="stock-detail">现：¥{{ s.price }}</div>
+                            <div class="stock-detail">值：¥{{ formatNum(s.price * s.qty) }}</div>
+                            <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
+                                {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
                         </div>
                     </div>
@@ -323,17 +324,17 @@
                                 max: 100,
                                 splitNumber: 5,
                                 itemStyle: { color: '#0a0' },
-                                progress: { show: true, width: 16 },
-                                pointer: { show: true, length: '70%', width: 4 },
-                                axisLine: { lineStyle: { width: 16, color: [[1, '#ddd']] } },
+                                progress: { show: true, width: 14 },
+                                pointer: { show: true, length: '65%', width: 3 },
+                                axisLine: { lineStyle: { width: 14, color: [[1, '#ddd']] } },
                                 axisTick: { show: false },
                                 splitLine: { show: false },
                                 axisLabel: { show: false },
                                 anchor: { show: false },
                                 detail: {
                                     valueAnimation: true,
-                                    offsetCenter: [0, '35%'],
-                                    fontSize: 16,
+                                    offsetCenter: [0, '40%'],
+                                    fontSize: 14,
                                     fontWeight: 'bold',
                                     formatter: '{value}%',
                                     color: '#333'
@@ -359,17 +360,17 @@
                                     max: 10,
                                     splitNumber: 5,
                                     itemStyle: { color },
-                                    progress: { show: true, width: 14 },
-                                    pointer: { show: true, length: '65%', width: 3 },
-                                    axisLine: { lineStyle: { width: 14, color: [[1, '#ddd']] } },
+                                    progress: { show: true, width: 12 },
+                                    pointer: { show: true, length: '60%', width: 2 },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
                                     axisTick: { show: false },
                                     splitLine: { show: false },
                                     axisLabel: { show: false },
                                     anchor: { show: false },
                                     detail: {
                                         valueAnimation: true,
-                                        offsetCenter: [0, '30%'],
-                                        fontSize: 14,
+                                        offsetCenter: [0, '35%'],
+                                        fontSize: 12,
                                         fontWeight: 'bold',
                                         formatter: '{value}%',
                                         color
