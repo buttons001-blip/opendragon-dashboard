@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenDragon 测试</title>
+    <script src="./js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{ message }}</h1>
+        <p>Vue 版本：{{ vueVersion }}</p>
+        <p>时间：{{ currentTime }}</p>
+    </div>
+    
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    vueVersion: Vue.version,
+                    currentTime: new Date().toLocaleString()
+                }
+            }
+        }).mount('#app');
+        console.log('Vue 应用已启动！');
+    </script>
+</body>
+</html>
