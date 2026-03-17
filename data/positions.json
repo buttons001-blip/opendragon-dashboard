@@ -1,0 +1,43 @@
+{
+  "positions": [
+    {
+      "code": "688297",
+      "name": "中无人机",
+      "costPrice": 55.77,
+      "quantity": 1400,
+      "currentPrice": 55.77
+    },
+    {
+      "code": "300750",
+      "name": "宁德时代",
+      "costPrice": 404.90,
+      "quantity": 200,
+      "currentPrice": 404.90
+    },
+    {
+      "code": "603986",
+      "name": "兆易创新",
+      "costPrice": 285.80,
+      "quantity": 300,
+      "currentPrice": 285.80
+    },
+    {
+      "code": "002594",
+      "name": "比亚迪",
+      "costPrice": 102.46,
+      "quantity": 500,
+      "currentPrice": 102.46
+    },
+    {
+      "code": "002389",
+      "name": "航天彩虹",
+      "costPrice": 24.43,
+      "quantity": 1200,
+      "currentPrice": 24.43
+    }
+  ],
+  "capital": {
+    "initial": 1000000,
+    "available": 674656
+  }
+}

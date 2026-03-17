@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐉 OpenDragon 股票仪表盘</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #e94560;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #e94560;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+        }
+        
+        .subtitle {
+            color: #888;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+        
+        .last-update {
+            color: #0f0;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-title {
+            font-size: 1.4em;
+            color: #e94560;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 十大原则 */
+        .principles-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .principle-item {
+            background: rgba(233, 69, 96, 0.1);
+            border-left: 4px solid #e94560;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .principle-number {
+            color: #e94560;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .principle-title {
+            font-weight: bold;
+            margin: 8px 0;
+            color: #fff;
+        }
+        
+        .principle-core {
+            color: #aaa;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        
+        .principle-application {
+            color: #4ecdc4;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        
+        /* 持仓表格 */
+        .positions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .positions-table th,
+        .positions-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .positions-table th {
+            color: #e94560;
+            font-weight: 600;
+        }
+        
+        .positions-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .profit-positive {
+            color: #0f0;
+            font-weight: bold;
+        }
+        
+        .profit-negative {
+            color: #f00;
+            font-weight: bold;
+        }
+        
+        /* 仪表盘图表 */
+        .gauge-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .gauge-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .gauge-chart {
+            height: 180px;
+        }
+        
+        .gauge-label {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #fff;
+        }
+        
+        .gauge-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        /* 资金概览 */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .overview-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .overview-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        
+        .overview-value {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #e94560;
+        }
+        
+        /* 操作记录 */
+        .records-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .record-item {
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 4px solid #4ecdc4;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .record-date {
+            color: #888;
+            font-size: 0.85em;
+        }
+        
+        .record-action {
+            font-weight: bold;
+            margin: 5px 0;
+            color: #fff;
+        }
+        
+        .record-detail {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #e94560;
+            border-radius: 4px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .positions-table {
+                font-size: 0.85em;
+            }
+            
+            .positions-table th,
+            .positions-table td {
+                padding: 8px;
+            }
+        }
+        
+        /* 加载动画 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #e94560;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <header>
+                <h1>🐉 OpenDragon 股票仪表盘</h1>
+                <div class="subtitle">A 股模拟交易系统 · 利弗摩尔原则实践</div>
+                <div class="last-update">
+                    最后更新：<span>{{ lastUpdateTime }}</span>
+                    <span v-if="isTradingDay && isTradingTime" style="color: #0f0; margin-left: 10px;">● 交易中</span>
+                    <span v-else style="color: #888; margin-left: 10px;">○ 休市中</span>
+                </div>
+            </header>
+            
+            <div class="dashboard-grid">
+                <!-- 十大原则 -->
+                <div class="card">
+                    <div class="card-title">📜 利弗摩尔十大原则</div>
+                    <div class="principles-list">
+                        <div v-for="principle in principles" :key="principle.序号" class="principle-item">
+                            <div class="principle-number">原则 {{ principle.序号 }}</div>
+                            <div class="principle-title">{{ principle.原则 }}</div>
+                            <div class="principle-core">💡 {{ principle.核心要点 }}</div>
+                            <div class="principle-application">🎯 {{ principle.A 股应用 }}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 持仓情况 -->
+                <div class="card">
+                    <div class="card-title">📊 当前持仓</div>
+                    <div v-if="loading" class="loading">
+                        <div class="loading-spinner"></div>
+                        正在获取实时行情...
+                    </div>
+                    <table v-else class="positions-table">
+                        <thead>
+                            <tr>
+                                <th>代码</th>
+                                <th>名称</th>
+                                <th>现价</th>
+                                <th>成本</th>
+                                <th>盈亏</th>
+                                <th>盈亏率</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="stock in positions" :key="stock.code">
+                                <td>{{ stock.code }}</td>
+                                <td>{{ stock.name }}</td>
+                                <td>¥{{ stock.currentPrice }}</td>
+                                <td>¥{{ stock.costPrice }}</td>
+                                <td :class="stock.profit >= 0 ? 'profit-positive' : 'profit-negative'">
+                                    {{ stock.profit >= 0 ? '+' : '' }}¥{{ stock.profit.toFixed(2) }}
+                                </td>
+                                <td :class="stock.profitRate >= 0 ? 'profit-positive' : 'profit-negative'">
+                                    {{ stock.profitRate >= 0 ? '+' : '' }}{{ stock.profitRate.toFixed(2) }}%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 资金概览 -->
+                <div class="card">
+                    <div class="card-title">💰 资金概览</div>
+                    <div class="overview-grid">
+                        <div class="overview-item">
+                            <div class="overview-label">初始资金</div>
+                            <div class="overview-value">¥{{ formatNumber(capital.initial) }}</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">持仓市值</div>
+                            <div class="overview-value">¥{{ formatNumber(capital.positionValue) }}</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">可用资金</div>
+                            <div class="overview-value" style="color: #4ecdc4;">¥{{ formatNumber(capital.available) }}</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">总资产</div>
+                            <div class="overview-value">¥{{ formatNumber(capital.total) }}</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">总盈亏</div>
+                            <div class="overview-value" :style="capital.totalProfit >= 0 ? 'color: #0f0' : 'color: #f00'">
+                                {{ capital.totalProfit >= 0 ? '+' : '' }}¥{{ formatNumber(capital.totalProfit) }}
+                            </div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">收益率</div>
+                            <div class="overview-value" :style="capital.returnRate >= 0 ? 'color: #0f0' : 'color: #f00'">
+                                {{ capital.returnRate >= 0 ? '+' : '' }}{{ capital.returnRate.toFixed(2) }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 盈亏仪表盘 -->
+                <div class="card">
+                    <div class="card-title">📈 盈亏仪表盘</div>
+                    <div class="gauge-container">
+                        <div class="gauge-item">
+                            <div id="gauge-total" class="gauge-chart"></div>
+                            <div class="gauge-label">总收益率</div>
+                            <div class="gauge-value" :style="capital.returnRate >= 0 ? 'color: #0f0' : 'color: #f00'">
+                                {{ capital.returnRate >= 0 ? '+' : '' }}{{ capital.returnRate.toFixed(2) }}%
+                            </div>
+                        </div>
+                        <div class="gauge-item">
+                            <div id="gauge-position" class="gauge-chart"></div>
+                            <div class="gauge-label">持仓比例</div>
+                            <div class="gauge-value">{{ capital.positionRate.toFixed(1) }}%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 操作记录 -->
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="card-title">📝 操作记录</div>
+                    <div class="records-list">
+                        <div v-for="record in records" :key="record.id" class="record-item">
+                            <div class="record-date">{{ record.date }} {{ record.time }}</div>
+                            <div class="record-action">{{ record.action }} {{ record.stockCode }} {{ record.stockName }}</div>
+                            <div class="record-detail">
+                                {{ record.detail }} | {{ record.reason }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    loading: true,
+                    lastUpdateTime: '',
+                    isTradingDay: true,
+                    isTradingTime: false,
+                    principles: [],
+                    positions: [],
+                    capital: {
+                        initial: 1000000,
+                        positionValue: 0,
+                        available: 674656,
+                        total: 0,
+                        totalProfit: 0,
+                        returnRate: 0,
+                        positionRate: 0
+                    },
+                    records: []
+                };
+            },
+            
+            mounted() {
+                this.loadData();
+                this.updateTime();
+                
+                // 交易日每 30 分钟刷新
+                setInterval(() => {
+                    if (this.isTradingDay && this.isTradingTime) {
+                        this.loadStockPrices();
+                    }
+                }, 30 * 60 * 1000);
+                
+                // 每分钟检查交易状态
+                setInterval(() => {
+                    this.checkTradingStatus();
+                }, 60 * 1000);
+            },
+            
+            methods: {
+                async loadData() {
+                    // 加载十大原则
+                    const principlesRes = await fetch('data/principles.json');
+                    this.principles = await principlesRes.json();
+                    
+                    // 加载持仓数据
+                    const positionsRes = await fetch('data/positions.json');
+                    const positionsData = await positionsRes.json();
+                    this.positions = positionsData.positions;
+                    this.capital.available = positionsData.capital.available;
+                    
+                    // 加载操作记录
+                    const recordsRes = await fetch('data/records.json');
+                    this.records = await recordsRes.json();
+                    
+                    // 获取实时股价
+                    await this.loadStockPrices();
+                    
+                    this.loading = false;
+                    this.calculateCapital();
+                    this.renderGauges();
+                },
+                
+                async loadStockPrices() {
+                    for (let stock of this.positions) {
+                        try {
+                            // 使用新浪财经 API
+                            const response = await fetch(`https://hq.sinajs.cn/t=${this.getStockSymbol(stock.code)}`);
+                            const text = await response.text();
+                            const data = text.match(/="([^"]+)"/);
+                            if (data && data[1]) {
+                                const elements = data[1].split(',');
+                                stock.currentPrice = parseFloat(elements[3]);
+                                stock.name = elements[0];
+                            }
+                        } catch (e) {
+                            console.error(`获取 ${stock.code} 价格失败:`, e);
+                        }
+                    }
+                    
+                    this.calculateCapital();
+                    this.updateGauges();
+                    this.updateTime();
+                },
+                
+                getStockSymbol(code) {
+                    // 根据股票代码返回正确的市场前缀
+                    if (code.startsWith('6') || code.startsWith('5')) {
+                        return 'sh' + code;
+                    } else {
+                        return 'sz' + code;
+                    }
+                },
+                
+                calculateCapital() {
+                    let positionValue = 0;
+                    let totalCost = 0;
+                    
+                    this.positions.forEach(stock => {
+                        const marketValue = stock.currentPrice * stock.quantity;
+                        const costValue = stock.costPrice * stock.quantity;
+                        positionValue += marketValue;
+                        totalCost += costValue;
+                        stock.profit = marketValue - costValue;
+                        stock.profitRate = ((marketValue - costValue) / costValue) * 100;
+                    });
+                    
+                    this.capital.positionValue = positionValue;
+                    this.capital.total = positionValue + this.capital.available;
+                    this.capital.totalProfit = this.capital.total - this.capital.initial;
+                    this.capital.returnRate = (this.capital.totalProfit / this.capital.initial) * 100;
+                    this.capital.positionRate = (positionValue / this.capital.total) * 100;
+                },
+                
+                renderGauges() {
+                    // 总收益率仪表盘
+                    const gaugeTotal = echarts.init(document.getElementById('gauge-total'));
+                    gaugeTotal.setOption({
+                        series: [{
+                            type: 'gauge',
+                            progress: { show: true, width: 18 },
+                            axisLine: { lineStyle: { width: 18 } },
+                            axisTick: { show: false },
+                            splitLine: { show: false },
+                            axisLabel: { show: false },
+                            detail: { show: false },
+                            data: [{ value: this.capital.returnRate }],
+                            min: -20,
+                            max: 50,
+                            itemStyle: {
+                                color: this.capital.returnRate >= 0 ? '#0f0' : '#f00'
+                            }
+                        }]
+                    });
+                    
+                    // 持仓比例仪表盘
+                    const gaugePosition = echarts.init(document.getElementById('gauge-position'));
+                    gaugePosition.setOption({
+                        series: [{
+                            type: 'gauge',
+                            progress: { show: true, width: 18 },
+                            axisLine: { lineStyle: { width: 18 } },
+                            axisTick: { show: false },
+                            splitLine: { show: false },
+                            axisLabel: { show: false },
+                            detail: { show: false },
+                            data: [{ value: this.capital.positionRate }],
+                            min: 0,
+                            max: 100,
+                            itemStyle: { color: '#e94560' }
+                        }]
+                    });
+                    
+                    this.gaugeTotal = gaugeTotal;
+                    this.gaugePosition = gaugePosition;
+                },
+                
+                updateGauges() {
+                    if (this.gaugeTotal) {
+                        this.gaugeTotal.setOption({
+                            series: [{
+                                data: [{ value: this.capital.returnRate }],
+                                itemStyle: {
+                                    color: this.capital.returnRate >= 0 ? '#0f0' : '#f00'
+                                }
+                            }]
+                        });
+                    }
+                    if (this.gaugePosition) {
+                        this.gaugePosition.setOption({
+                            series: [{ data: [{ value: this.capital.positionRate }] }]
+                        });
+                    }
+                },
+                
+                updateTime() {
+                    const now = new Date();
+                    this.lastUpdateTime = now.toLocaleString('zh-CN', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
+                },
+                
+                checkTradingStatus() {
+                    const now = new Date();
+                    const day = now.getDay();
+                    const hour = now.getHours();
+                    const minute = now.getMinutes();
+                    
+                    // 周末休市
+                    this.isTradingDay = (day !== 0 && day !== 6);
+                    
+                    // 交易时间：9:30-11:30, 13:00-15:00
+                    const isMorning = (hour === 9 && minute >= 30) || (hour === 10) || (hour === 11 && minute <= 30);
+                    const isAfternoon = (hour >= 13 && hour < 15);
+                    this.isTradingTime = this.isTradingDay && (isMorning || isAfternoon);
+                },
+                
+                formatNumber(num) {
+                    return num.toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
