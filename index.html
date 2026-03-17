@@ -3,160 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐉 OpenDragon 炒股信息看板</title>
+    <title>🐉 OpenDragon 炒股看板</title>
     <script src="./js/vue.min.js"></script>
     <script src="./js/echarts.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(180deg, #0d3b0d 0%, #1a1a2e 50%, #0d3b0d 100%);
+            background: #f5f5f5;
             min-height: 100vh;
-            color: #333;
-            padding: 10px;
+            padding: 8px;
             overflow-x: hidden;
         }
-        .container { max-width: 900px; margin: 0 auto; }
+        .container { max-width: 750px; margin: 0 auto; }
         
-        /* 头部 */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-        }
-        .header h1 { color: #fff; font-size: 1.3em; }
-        .header .time { color: #fff; font-size: 1em; }
-        
-        /* 交易状态 */
+        /* 交易状态 - 顶部 */
         .status-bar {
             text-align: center;
-            padding: 10px;
+            padding: 8px;
             background: linear-gradient(135deg, #1a5c1a 0%, #0d3b0d 100%);
-            border-radius: 8px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 15px rgba(0,255,0,0.3);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0,255,0,0.3);
         }
         .status-text {
             color: #0f0;
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: bold;
-            text-shadow: 0 0 20px rgba(0,255,0,0.5);
+            text-shadow: 0 0 10px rgba(0,255,0,0.5);
         }
         
         /* 卡片 */
         .card {
             background: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
         }
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #eee;
-            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 8px;
         }
-        .card-title { font-size: 1em; font-weight: bold; color: #333; }
+        .card-title { font-size: 0.9em; font-weight: bold; color: #333; }
+        
+        /* 标题区 - 下移 */
+        .title-section {
+            text-align: center;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        .title-section h1 { color: #333; font-size: 1.1em; }
+        .title-section .time { color: #666; font-size: 0.85em; margin-top: 3px; }
         
         /* 股市守则 */
         .rules-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            font-size: 0.85em;
+            gap: 5px;
+            font-size: 0.75em;
         }
         .rules-list { list-style: none; }
-        .rules-list li { padding: 3px 0; color: #555; }
-        .rules-list li:before { content: '✓ '; color: #0f0; }
+        .rules-list li { padding: 2px 0; color: #666; }
+        .rules-list li:before { content: '✓ '; color: #0a0; }
         
         /* 仪表盘布局 */
         .gauges-layout {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         
         /* 中央大仪表盘 - 总资金 */
-        .capital-gauge-container {
-            width: 100%;
+        .capital-section {
             display: flex;
             justify-content: center;
+            align-items: center;
+            gap: 15px;
             padding: 10px;
         }
         .capital-gauge {
-            width: 280px;
-            height: 160px;
+            width: 180px;
+            height: 110px;
         }
+        .capital-info {
+            text-align: left;
+            font-size: 0.85em;
+        }
+        .capital-info div { margin: 4px 0; }
+        .capital-label { color: #666; }
+        .capital-value { font-weight: bold; font-size: 1.1em; }
+        .profit-up { color: #d00; }
+        .profit-down { color: #0a0; }
         
         /* 个股仪表盘行 */
         .stocks-row {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         .stock-gauge-item {
             text-align: center;
         }
         .stock-gauge {
-            width: 160px;
-            height: 100px;
+            width: 130px;
+            height: 80px;
         }
-        .stock-info { font-size: 0.8em; margin-top: 8px; }
-        .stock-code { color: #666; font-size: 0.85em; }
-        .stock-name { font-weight: bold; color: #333; margin: 3px 0; }
-        .stock-price { color: #555; font-size: 0.85em; }
-        .stock-profit { font-weight: bold; margin-top: 3px; }
-        .profit-up { color: #d00; }
-        .profit-down { color: #0a0; }
-        
-        /* 投资情况 */
-        .summary {
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 10px;
-        }
-        .summary-item { text-align: center; }
-        .summary-label { font-size: 0.85em; color: #666; margin-bottom: 5px; }
-        .summary-value { font-size: 1.3em; font-weight: bold; }
+        .stock-info { font-size: 0.7em; margin-top: 5px; }
+        .stock-code { color: #888; font-size: 0.85em; }
+        .stock-name { font-weight: bold; color: #333; margin: 2px 0; }
+        .stock-detail { color: #666; font-size: 0.85em; }
+        .stock-profit { font-weight: bold; margin-top: 2px; }
         
         /* 响应式 */
-        @media (max-width: 600px) {
-            .rules-grid { grid-template-columns: 1fr; font-size: 0.8em; }
-            .capital-gauge { width: 220px; height: 130px; }
-            .stock-gauge { width: 130px; height: 85px; }
-            .header h1 { font-size: 1.1em; }
-            .status-text { font-size: 1.2em; }
+        @media (max-width: 500px) {
+            .rules-grid { grid-template-columns: 1fr; font-size: 0.7em; }
+            .capital-gauge { width: 150px; height: 95px; }
+            .stock-gauge { width: 110px; height: 70px; }
+            .status-text { font-size: 1em; }
+            .title-section h1 { font-size: 1em; }
         }
         
-        .loading { text-align: center; padding: 20px; color: #888; }
+        .loading { text-align: center; padding: 15px; color: #888; font-size: 0.85em; }
     </style>
 </head>
 <body>
     <div id="app">
         <div class="container">
-            <!-- 头部 -->
-            <div class="header">
-                <h1>🐉 OpenDragon 炒股信息看板</h1>
-                <div class="time">{{ time }}</div>
-            </div>
-            
-            <!-- 交易状态 -->
+            <!-- 交易状态 - 顶部 -->
             <div class="status-bar">
                 <div class="status-text">{{ statusText }}</div>
+            </div>
+            
+            <!-- 标题区 - 下移 -->
+            <div class="title-section card">
+                <h1>🐉 OpenDragon 炒股看板</h1>
+                <div class="time">{{ time }}</div>
             </div>
             
             <!-- 股市守则 -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">股市守则</div>
-                    <div>1/1</div>
                 </div>
                 <div class="rules-grid">
                     <ul class="rules-list">
@@ -171,10 +165,20 @@
                 </div>
             </div>
             
-            <!-- 中央大仪表盘 - 总资金 -->
+            <!-- 总投资情况 -->
             <div class="card">
-                <div class="capital-gauge-container">
-                    <div id="capital-gauge" class="capital-gauge"></div>
+                <div class="card-header">
+                    <div class="card-title">总投资</div>
+                </div>
+                <div class="capital-section">
+                    <div class="capital-gauge" id="capital-gauge"></div>
+                    <div class="capital-info">
+                        <div><span class="capital-label">本金：</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
+                        <div><span class="capital-label">占用：</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
+                        <div><span class="capital-label">可用：</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
+                        <div><span class="capital-label">总盈亏：</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
+                        <div><span class="capital-label">收益率：</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
+                    </div>
                 </div>
             </div>
             
@@ -190,32 +194,13 @@
                             <div class="stock-info">
                                 <div class="stock-code">{{ s.code }}</div>
                                 <div class="stock-name">{{ s.name }}</div>
-                                <div class="stock-price">买入：¥{{ s.cost }}</div>
-                                <div class="stock-price">现价：¥{{ s.price }}</div>
+                                <div class="stock-detail">买入：¥{{ s.cost }} × {{ s.qty }}股</div>
+                                <div class="stock-detail">现价：¥{{ s.price }}</div>
+                                <div class="stock-detail">市值：¥{{ formatNum(s.price * s.qty) }}</div>
                                 <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
-                                    盈亏：{{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
+                                    盈亏：{{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}% (¥{{ formatNum(s.profit) }})
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 投资情况 -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">投资情况</div>
-                    <div>1/4</div>
-                </div>
-                <div class="summary">
-                    <div class="summary-item">
-                        <div class="summary-label">总投资</div>
-                        <div class="summary-value" style="color: #0a0;">¥{{ formatNum(initialCapital) }}</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">总盈亏</div>
-                        <div class="summary-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">
-                            {{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}
                         </div>
                     </div>
                 </div>
@@ -256,8 +241,10 @@
                 totalProfit() {
                     return this.totalMarketValue - this.totalCost;
                 },
+                returnRate() {
+                    return ((this.totalProfit / this.initialCapital) * 100).toFixed(2);
+                },
                 sortedStocks() {
-                    // 按持仓市值排序，大的在前
                     return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty));
                 }
             },
@@ -287,6 +274,7 @@
                             price: p.costPrice,
                             qty: p.quantity,
                             profitRate: 0,
+                            profit: 0,
                             marketValue: p.costPrice * p.quantity
                         }));
                         this.availableCapital = data.capital.available;
@@ -309,6 +297,7 @@
                                     s.price = price;
                                     s.name = parts[0];
                                     s.profitRate = ((price - s.cost) / s.cost * 100).toFixed(2);
+                                    s.profit = (price - s.cost) * s.qty;
                                     s.marketValue = price * s.qty;
                                 }
                             }
@@ -333,20 +322,20 @@
                                 min: 0,
                                 max: 100,
                                 splitNumber: 5,
-                                itemStyle: { color: '#0f0' },
-                                progress: { show: true, width: 22 },
-                                pointer: { show: true, length: '75%', width: 6 },
-                                axisLine: { lineStyle: { width: 22, color: [[1, '#333']] } },
+                                itemStyle: { color: '#0a0' },
+                                progress: { show: true, width: 16 },
+                                pointer: { show: true, length: '70%', width: 4 },
+                                axisLine: { lineStyle: { width: 16, color: [[1, '#ddd']] } },
                                 axisTick: { show: false },
-                                splitLine: { length: 15, lineStyle: { width: 2, color: '#999' } },
-                                axisLabel: { distance: 30, color: '#999', fontSize: 10 },
-                                anchor: { show: true, showAbove: true, size: 10, itemStyle: { borderWidth: 5 } },
+                                splitLine: { show: false },
+                                axisLabel: { show: false },
+                                anchor: { show: false },
                                 detail: {
                                     valueAnimation: true,
-                                    offsetCenter: [0, '30%'],
-                                    fontSize: 22,
+                                    offsetCenter: [0, '35%'],
+                                    fontSize: 16,
                                     fontWeight: 'bold',
-                                    formatter: '资金\n{value}%',
+                                    formatter: '{value}%',
                                     color: '#333'
                                 },
                                 data: [{ value: positionRate }]
@@ -360,7 +349,6 @@
                         if (el) {
                             const chart = echarts.init(el);
                             const color = s.profitRate >= 0 ? '#d00' : '#0a0';
-                            const absRate = Math.abs(s.profitRate);
                             chart.setOption({
                                 series: [{
                                     type: 'gauge',
@@ -371,17 +359,17 @@
                                     max: 10,
                                     splitNumber: 5,
                                     itemStyle: { color },
-                                    progress: { show: true, width: 18 },
-                                    pointer: { show: true, length: '70%', width: 5 },
-                                    axisLine: { lineStyle: { width: 18, color: [[1, '#333']] } },
+                                    progress: { show: true, width: 14 },
+                                    pointer: { show: true, length: '65%', width: 3 },
+                                    axisLine: { lineStyle: { width: 14, color: [[1, '#ddd']] } },
                                     axisTick: { show: false },
-                                    splitLine: { length: 12, lineStyle: { width: 2, color: '#999' } },
+                                    splitLine: { show: false },
                                     axisLabel: { show: false },
-                                    anchor: { show: true, showAbove: true, size: 8, itemStyle: { borderWidth: 4 } },
+                                    anchor: { show: false },
                                     detail: {
                                         valueAnimation: true,
-                                        offsetCenter: [0, '25%'],
-                                        fontSize: 16,
+                                        offsetCenter: [0, '30%'],
+                                        fontSize: 14,
                                         fontWeight: 'bold',
                                         formatter: '{value}%',
                                         color
@@ -393,7 +381,7 @@
                     });
                 },
                 formatNum(n) {
-                    return n.toLocaleString('zh-CN');
+                    return n.toLocaleString('zh-CN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 },
                 isTradingTime() {
                     const now = new Date();
