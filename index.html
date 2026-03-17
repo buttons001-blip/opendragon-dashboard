@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐉 OpenDragon 股票仪表盘</title>
-    <!-- 使用阿里云 CDN -->
-    <script src="https://g.alicdn.com/code/lib/vue/3.3.4/vue.global.min.js"></script>
-    <script src="https://g.alicdn.com/code/lib/echarts/5.4.3/echarts.min.js"></script>
+    <!-- 使用 Cloudflare CDN（更可靠） -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -454,12 +454,10 @@
                 this.loadData();
                 this.updateTime();
                 
-                // 交易日每 30 分钟刷新
+                // 每 30 秒刷新一次数据（方案 C：完全实时）
                 setInterval(() => {
-                    if (this.isTradingDay && this.isTradingTime) {
-                        this.loadStockPrices();
-                    }
-                }, 30 * 60 * 1000);
+                    this.loadRealTimeData();
+                }, 30 * 1000);
                 
                 // 每分钟检查交易状态
                 setInterval(() => {
@@ -469,26 +467,58 @@
             
             methods: {
                 async loadData() {
-                    // 加载十大原则
-                    const principlesRes = await fetch('data/principles.json');
-                    this.principles = await principlesRes.json();
-                    
-                    // 加载持仓数据
-                    const positionsRes = await fetch('data/positions.json');
-                    const positionsData = await positionsRes.json();
-                    this.positions = positionsData.positions;
-                    this.capital.available = positionsData.capital.available;
-                    
-                    // 加载操作记录
-                    const recordsRes = await fetch('data/records.json');
-                    this.records = await recordsRes.json();
-                    
-                    // 获取实时股价
-                    await this.loadStockPrices();
-                    
+                    // 加载实时数据（后端 API）
+                    await this.loadRealTimeData();
                     this.loading = false;
-                    this.calculateCapital();
                     this.renderGauges();
+                },
+                
+                async loadRealTimeData() {
+                    try {
+                        // 从后端 API 获取持仓和实时价格
+                        const apiHost = window.location.hostname === 'localhost' ? 'http://localhost:8000' : '';
+                        const positionsRes = await fetch(`${apiHost}/api/positions`);
+                        const positionsData = await positionsRes.json();
+                        
+                        if (positionsData.success) {
+                            this.positions = positionsData.data.positions;
+                            this.capital = positionsData.data.capital;
+                        }
+                        
+                        // 加载十大原则
+                        const principlesRes = await fetch(`${apiHost}/api/principles`);
+                        const principlesData = await principlesRes.json();
+                        this.principles = principlesData.data;
+                        
+                        // 加载操作记录
+                        const recordsRes = await fetch(`${apiHost}/api/records`);
+                        const recordsData = await recordsRes.json();
+                        this.records = recordsData.data;
+                        
+                        this.updateTime();
+                    } catch (e) {
+                        console.error('加载数据失败:', e);
+                        // 降级：使用本地数据
+                        await this.loadLocalData();
+                    }
+                },
+                
+                async loadLocalData() {
+                    try {
+                        const principlesRes = await fetch('data/principles.json');
+                        this.principles = await principlesRes.json();
+                        
+                        const positionsRes = await fetch('data/positions.json');
+                        const positionsData = await positionsRes.json();
+                        this.positions = positionsData.positions;
+                        
+                        const recordsRes = await fetch('data/records.json');
+                        this.records = await recordsRes.json();
+                        
+                        await this.loadStockPrices();
+                    } catch (e) {
+                        console.error('加载本地数据失败:', e);
+                    }
                 },
                 
                 async loadStockPrices() {
