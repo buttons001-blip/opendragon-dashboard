@@ -38,10 +38,14 @@
         
         /* 上半部分：股市守则 + 总投资 并排 */
         .top-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: row;
             gap: 8px;
             margin-bottom: 8px;
+        }
+        .top-row > .card {
+            flex: 1;
+            min-width: 0;
         }
         
         /* 股市守则 - 2 列 */
