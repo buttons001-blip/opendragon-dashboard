@@ -8,117 +8,71 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
             color: #eee;
             padding: 20px;
         }
-        .container { max-width: 1400px; margin: 0 auto; }
-        header { text-align: center; padding: 30px 0; border-bottom: 2px solid #e94560; margin-bottom: 30px; }
-        h1 { font-size: 2em; color: #e94560; }
-        .subtitle { color: #888; margin-top: 10px; }
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .card-title { font-size: 1.3em; color: #e94560; margin-bottom: 15px; }
-        .principle-item {
-            background: rgba(233, 69, 96, 0.1);
-            border-left: 4px solid #e94560;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 0 8px 8px 0;
-        }
-        .principle-number { color: #e94560; font-weight: bold; font-size: 0.9em; }
-        .principle-title { font-weight: bold; margin: 6px 0; color: #fff; }
-        .principle-core { color: #aaa; font-size: 0.85em; margin: 4px 0; }
-        .principle-application { color: #4ecdc4; font-size: 0.85em; font-style: italic; }
-        .positions-table { width: 100%; border-collapse: collapse; }
-        .positions-table th, .positions-table td {
-            padding: 10px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9em;
-        }
-        .positions-table th { color: #e94560; }
-        .profit-positive { color: #0f0; }
-        .profit-negative { color: #f00; }
-        .overview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .overview-item { background: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 8px; text-align: center; }
-        .overview-label { color: #888; font-size: 0.8em; margin-bottom: 5px; }
-        .overview-value { font-size: 1.3em; font-weight: bold; color: #e94560; }
-        .last-update { color: #0f0; font-size: 0.85em; margin-top: 10px; }
-        @media (max-width: 768px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 1.5em; }
-            .overview-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #e94560; margin-bottom: 10px; }
+        .subtitle { color: #888; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .card h2 { color: #e94560; margin-bottom: 15px; font-size: 1.2em; }
+        .item { background: rgba(233,69,96,0.1); border-left: 3px solid #e94560; padding: 10px; margin-bottom: 10px; border-radius: 0 5px 5px 0; }
+        .item .no { color: #e94560; font-weight: bold; font-size: 0.85em; }
+        .item .title { font-weight: bold; margin: 5px 0; }
+        .item .core { color: #aaa; font-size: 0.85em; }
+        .item .app { color: #4ecdc4; font-size: 0.85em; font-style: italic; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.85em; }
+        th { color: #e94560; }
+        .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .stat { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; text-align: center; }
+        .stat .label { color: #888; font-size: 0.8em; margin-bottom: 5px; }
+        .stat .value { font-size: 1.2em; font-weight: bold; color: #e94560; }
+        .time { color: #0f0; font-size: 0.85em; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div id="app">
         <div class="container">
-            <header>
-                <h1>🐉 OpenDragon 股票仪表盘</h1>
-                <div class="subtitle">A 股模拟交易系统 · 利弗摩尔原则实践</div>
-                <div class="last-update">更新时间：{{ lastUpdateTime }}</div>
-            </header>
+            <h1>🐉 OpenDragon 股票仪表盘</h1>
+            <p class="subtitle">A 股模拟交易系统</p>
+            <p class="time">更新时间：{{ time }}</p>
             
-            <div class="dashboard-grid">
-                <!-- 十大原则 -->
+            <div class="grid">
                 <div class="card">
-                    <div class="card-title">📜 利弗摩尔十大原则</div>
-                    <div class="principle-item" v-for="p in principles" :key="p.id">
-                        <div class="principle-number">原则 {{ p.no }}</div>
-                        <div class="principle-title">{{ p.title }}</div>
-                        <div class="principle-core">💡 {{ p.core }}</div>
-                        <div class="principle-application">🎯 {{ p.application }}</div>
+                    <h2>📜 十大原则</h2>
+                    <div class="item" v-for="p in principles" :key="p.id">
+                        <div class="no">原则 {{ p.no }}</div>
+                        <div class="title">{{ p.title }}</div>
+                        <div class="core">💡 {{ p.core }}</div>
+                        <div class="app">🎯 {{ p.app }}</div>
                     </div>
                 </div>
                 
-                <!-- 持仓情况 -->
                 <div class="card">
-                    <div class="card-title">📊 当前持仓</div>
-                    <table class="positions-table">
-                        <thead>
-                            <tr>
-                                <th>代码</th><th>名称</th><th>成本</th><th>数量</th><th>金额</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="s in positions" :key="s.code">
-                                <td>{{ s.code }}</td>
-                                <td>{{ s.name }}</td>
-                                <td>¥{{ s.price }}</td>
-                                <td>{{ s.qty }}</td>
-                                <td>¥{{ (s.price * s.qty).toLocaleString() }}</td>
-                            </tr>
-                        </tbody>
+                    <h2>📊 持仓</h2>
+                    <table>
+                        <tr><th>代码</th><th>名称</th><th>价格</th><th>数量</th></tr>
+                        <tr v-for="s in stocks" :key="s.code">
+                            <td>{{ s.code }}</td>
+                            <td>{{ s.name }}</td>
+                            <td>¥{{ s.price }}</td>
+                            <td>{{ s.qty }}</td>
+                        </tr>
                     </table>
                 </div>
                 
-                <!-- 资金概览 -->
                 <div class="card">
-                    <div class="card-title">💰 资金概览</div>
-                    <div class="overview-grid">
-                        <div class="overview-item">
-                            <div class="overview-label">初始资金</div>
-                            <div class="overview-value">¥100 万</div>
-                        </div>
-                        <div class="overview-item">
-                            <div class="overview-label">已用资金</div>
-                            <div class="overview-value">¥{{ formatNumber(usedCapital) }}</div>
-                        </div>
-                        <div class="overview-item">
-                            <div class="overview-label">可用资金</div>
-                            <div class="overview-value" style="color: #4ecdc4;">¥{{ formatNumber(availableCapital) }}</div>
-                        </div>
-                        <div class="overview-item">
-                            <div class="overview-label">持仓比例</div>
-                            <div class="overview-value">{{ positionRate }}%</div>
-                        </div>
+                    <h2>💰 资金</h2>
+                    <div class="stats">
+                        <div class="stat"><div class="label">初始</div><div class="value">100 万</div></div>
+                        <div class="stat"><div class="label">已用</div><div class="value">32.5 万</div></div>
+                        <div class="stat"><div class="label">可用</div><div class="value" style="color:#4ecdc4">67.5 万</div></div>
+                        <div class="stat"><div class="label">仓位</div><div class="value">32.5%</div></div>
                     </div>
                 </div>
             </div>
@@ -129,41 +83,31 @@
         Vue.createApp({
             data() {
                 return {
-                    lastUpdateTime: new Date().toLocaleString('zh-CN'),
+                    time: new Date().toLocaleString(),
                     principles: [
-                        {id:1, no:1, title:"市场永远正确，顺应最小阻力方向", core:"市场走势由群体行为驱动", application:"不要与大盘趋势作对"},
-                        {id:2, no:2, title:"耐心等待关键点", core:"只在价格突破关键位时行动", application:"等待突破重要均线再进场"},
-                        {id:3, no:3, title:"截断亏损，让利润奔跑", core:"亏损立即了结，盈利耐心持有", application:"买入前设止损点 -5%"},
-                        {id:4, no:4, title:"金字塔加仓原则", core:"只有盈利才可逐步加仓", application:"底仓 30%，盈利 5% 后加仓"},
-                        {id:5, no:5, title:"锁定利润，提取现金", core:"将部分利润转化为实际所得", application:"盈利超 20% 提取 10%"},
-                        {id:6, no:6, title:"追随领头羊", core:"只专注表现最突出的股票", application:"重点跟踪板块龙头"},
-                        {id:7, no:7, title:"绝不向下摊平成本", core:"亏损说明判断有误", application:"亏损不加仓，触发止损离场"},
-                        {id:8, no:8, title:"内幕消息是毒药", core:"只相信自己的判断", application:"不看小道消息"},
-                        {id:9, no:9, title:"投机是一项严肃的事业", core:"需要详细记录和分析", application:"建立交易日志"},
-                        {id:10, no:10, title:"最大的敌人是自己", core:"贪婪恐惧是头号敌人", application:"制定计划，严格执行"}
+                        {id:1,no:1,title:"市场永远正确",core:"顺应最小阻力方向",app:"不与大盘作对"},
+                        {id:2,no:2,title:"耐心等待关键点",core:"突破关键位再行动",app:"等待突破均线"},
+                        {id:3,no:3,title:"截断亏损让利润奔跑",core:"亏损立即了结",app:"设止损点 -5%"},
+                        {id:4,no:4,title:"金字塔加仓",core:"只有盈利才加仓",app:"底仓 30% 盈利后加"},
+                        {id:5,no:5,title:"锁定利润",core:"提取现金",app:"盈利 20% 提 10%"},
+                        {id:6,no:6,title:"追随领头羊",core:"专注龙头股",app:"跟踪板块龙头"},
+                        {id:7,no:7,title:"不向下摊平",core:"亏损不加仓",app:"触发止损离场"},
+                        {id:8,no:8,title:"内幕消息是毒药",core:"相信自己判断",app:"不看小道消息"},
+                        {id:9,no:9,title:"投机是事业",core:"详细记录分析",app:"建立交易日志"},
+                        {id:10,no:10,title:"最大敌人是自己",core:"克服贪婪恐惧",app:"严格执行计划"}
                     ],
-                    positions: [
-                        {code:"688297", name:"中无人机", price:55.77, qty:1400},
-                        {code:"300750", name:"宁德时代", price:404.90, qty:200},
-                        {code:"603986", name:"兆易创新", price:285.80, qty:300},
-                        {code:"002594", name:"比亚迪", price:102.46, qty:500},
-                        {code:"002389", name:"航天彩虹", price:24.43, qty:1200}
-                    ],
-                    usedCapital: 325344,
-                    availableCapital: 674656,
-                    positionRate: 32.5
-                };
+                    stocks: [
+                        {code:"688297",name:"中无人机",price:55.77,qty:1400},
+                        {code:"300750",name:"宁德时代",price:404.90,qty:200},
+                        {code:"603986",name:"兆易创新",price:285.80,qty:300},
+                        {code:"002594",name:"比亚迪",price:102.46,qty:500},
+                        {code:"002389",name:"航天彩虹",price:24.43,qty:1200}
+                    ]
+                }
             },
             mounted() {
-                console.log('✅ OpenDragon 仪表盘已启动');
-                setInterval(() => {
-                    this.lastUpdateTime = new Date().toLocaleString('zh-CN');
-                }, 60000);
-            },
-            methods: {
-                formatNumber(num) {
-                    return num.toLocaleString('zh-CN');
-                }
+                console.log('✅ 仪表盘启动成功');
+                setInterval(() => { this.time = new Date().toLocaleString(); }, 60000);
             }
         }).mount('#app');
     </script>
