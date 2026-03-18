@@ -17,14 +17,43 @@
         .container { max-width: 750px; margin: 0 auto; }
         
         .status-bar {
-            text-align: center;
-            padding: 8px;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
             background: linear-gradient(135deg, #1a5c1a 0%, #0d3b0d 100%);
             border-radius: 6px;
             margin-bottom: 8px;
+            gap: 15px;
         }
-        .status-text { color: #0f0; font-size: 1.2em; font-weight: bold; text-shadow: 0 0 10px rgba(0,255,0,0.5); }
+        .status-indicator {
+            color: #0f0;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0,255,0,0.5);
+            white-space: nowrap;
+        }
         .status-closed { color: #888; text-shadow: none; }
+        .index-ticker {
+            flex: 1;
+            overflow: hidden;
+            color: #fff;
+            font-size: 0.9em;
+        }
+        .index-ticker-content {
+            display: flex;
+            gap: 20px;
+            animation: scroll 20s linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .index-item { display: flex; align-items: center; gap: 5px; }
+        .index-name { color: #aaa; }
+        .index-value { font-weight: bold; }
+        .index-up { color: #ff6b6b; }
+        .index-down { color: #51cf66; }
         
         .card { background: #fff; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
         .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
@@ -75,8 +104,25 @@
     <div id="app">
         <div class="container">
             <div class="status-bar">
-                <div class="status-text" :class="{ 'status-closed': !isTradingTime }">
+                <div class="status-indicator" :class="{ 'status-closed': !isTradingTime }">
                     {{ statusText }}
+                </div>
+                <div class="index-ticker">
+                    <div class="index-ticker-content">
+                        <div class="index-item" v-for="i in indices" :key="i.name">
+                            <span class="index-name">{{ i.name }}</span>
+                            <span class="index-value" :class="i.change >= 0 ? 'index-up' : 'index-down'">
+                                {{ i.value }} ({{ i.change >= 0 ? '+' : '' }}{{ i.changePercent }}%)
+                            </span>
+                        </div>
+                        <!-- 复制一份用于无缝滚动 -->
+                        <div class="index-item" v-for="i in indices" :key="i.name + '-dup'">
+                            <span class="index-name">{{ i.name }}</span>
+                            <span class="index-value" :class="i.change >= 0 ? 'index-up' : 'index-down'">
+                                {{ i.value }} ({{ i.change >= 0 ? '+' : '' }}{{ i.changePercent }}%)
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -181,11 +227,16 @@
             data() {
                 return {
                     time: new Date().toLocaleString(),
-                    statusText: '休市中',
+                    statusText: '⚫ 休市中',
                     apiStatus: '连接中...',
                     apiStatusClass: '',
                     initialCapital: 1000000,
                     availableCapital: 674656,
+                    indices: [
+                        { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
+                        { name: '深证成指', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
+                        { name: '科创50', value: '1,250.80', change: 8.90, changePercent: '0.72' }
+                    ],
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
                         no: r.序号,
@@ -245,7 +296,7 @@
                 updateTime() {
                     const now = new Date();
                     this.time = now.toLocaleString();
-                    this.statusText = this.isTradingTime ? '🔴 开市中' : '⚫ 休市中';
+                    this.statusText = this.isTradingTime ? '🔴 交易中' : '⚫ 休市';
                 },
                 
                 async fetchPrices() {
