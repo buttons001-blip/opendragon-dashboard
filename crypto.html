@@ -263,12 +263,12 @@
             {"序号": 10, "原则": "最大的敌人是自己"}
         ];
         
-        // 数字货币持仓数据
+        // 数字货币持仓数据（来自crypto_daily_report.py）
         const POSITIONS = [
-            {"code": "BTC", "name": "比特币", "costPrice": 73573.73, "quantity": 0.108734},
-            {"code": "ETH", "name": "以太坊", "costPrice": 2268.89, "quantity": 2.644461},
-            {"code": "SOL", "name": "Solana", "costPrice": 93.68, "quantity": 32.022857},
-            {"code": "LINK", "name": "Chainlink", "costPrice": 9.67, "quantity": 206.859749}
+            {"code": "BTC", "name": "比特币", "costPrice": 73573.73, "quantity": 0.108734, "amount": 8000},
+            {"code": "ETH", "name": "以太坊", "costPrice": 2268.89, "quantity": 2.644461, "amount": 6000},
+            {"code": "SOL", "name": "Solana", "costPrice": 93.68, "quantity": 32.022857, "amount": 3000},
+            {"code": "LINK", "name": "Chainlink", "costPrice": 9.67, "quantity": 206.859749, "amount": 2000}
         ];
 
         const { createApp } = Vue;
@@ -280,8 +280,8 @@
                     statusText: '🟢 24H交易',
                     apiStatus: '连接中...',
                     apiStatusClass: '',
-                    initialCapital: 20000,
-                    availableCapital: 0,
+                    initialCapital: 19000,
+                    availableCapital: 81000,
                     indices: [
                         { name: 'BTC', value: '67,890.50', change: 1250.30, changePercent: '1.88' },
                         { name: 'ETH', value: '3,520.80', change: 45.20, changePercent: '1.30' },
