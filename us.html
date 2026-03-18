@@ -344,42 +344,64 @@
                 
                 async fetchPrices() {
                     try {
-                        // 使用 Yahoo Finance API 获取美股实时价格
-                        const symbols = 'NVDA,MSFT,AMZN';
-                        const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
+                        // 使用腾讯财经API获取美股实时价格（国内可用）
+                        const symbols = 'usNVDA,usMSFT,usAMZN';
+                        const url = `https://qt.gtimg.cn/q=${symbols}`;
                         
                         const response = await fetch(url);
-                        const data = await response.json();
+                        const text = await response.text();
                         
-                        if (data.quoteResponse && data.quoteResponse.result) {
-                            const quotes = data.quoteResponse.result;
-                            
-                            quotes.forEach(quote => {
-                                const stock = this.stocks.find(s => s.code === quote.symbol);
-                                if (stock) {
-                                    stock.price = quote.regularMarketPrice || stock.cost;
-                                    const prevClose = quote.regularMarketPreviousClose || stock.price;
-                                    stock.dayChange = stock.price - prevClose;
-                                    stock.dayChangePercent = ((stock.dayChange / prevClose) * 100).toFixed(2);
-                                    stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
-                                }
-                            });
-                            
-                            this.apiStatus = 'Yahoo Finance ✓';
-                            this.apiStatusClass = 'success';
-                            
-                            this.$nextTick(() => {
-                                this.renderGauges();
-                            });
-                        }
+                        // 解析腾讯API返回的数据
+                        const priceMap = {
+                            'NVDA': this.extractPrice(text, 'v_usNVDA'),
+                            'MSFT': this.extractPrice(text, 'v_usMSFT'),
+                            'AMZN': this.extractPrice(text, 'v_usAMZN')
+                        };
+                        
+                        this.stocks.forEach(stock => {
+                            const data = priceMap[stock.code];
+                            if (data) {
+                                stock.price = data.price;
+                                stock.dayChange = data.change;
+                                stock.dayChangePercent = data.changePercent;
+                                stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                            }
+                        });
+                        
+                        this.apiStatus = '腾讯财经 ✓';
+                        this.apiStatusClass = 'success';
+                        
+                        this.$nextTick(() => {
+                            this.renderGauges();
+                        });
+                        
                     } catch (e) {
                         console.error('获取美股价格失败:', e);
-                        this.apiStatus = '演示模式';
-                        this.apiStatusClass = 'success';
+                        this.apiStatus = '获取失败';
+                        this.apiStatusClass = 'error';
                         this.$nextTick(() => {
                             this.renderGauges();
                         });
                     }
+                },
+                
+                extractPrice(text, varName) {
+                    try {
+                        const regex = new RegExp(`${varName}="([^"]+)"`);
+                        const match = text.match(regex);
+                        if (match && match[1]) {
+                            const parts = match[1].split('~');
+                            // 腾讯格式: v_usNVDA="200~名称~代码~当前价~昨收~..."
+                            const price = parseFloat(parts[3]);
+                            const prevClose = parseFloat(parts[4]);
+                            const change = price - prevClose;
+                            const changePercent = ((change / prevClose) * 100).toFixed(2);
+                            return { price, change, changePercent };
+                        }
+                    } catch (e) {
+                        console.error('解析价格失败:', e);
+                    }
+                    return null;
                 },
                 
                 renderGauges() {
