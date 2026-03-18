@@ -210,11 +210,11 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">总本金</span><span class="capital-value">${{ formatNum(totalAssets) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总投入</span><span class="capital-value">${{ formatNum(totalInvestment) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">持仓成本</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
                             <div class="capital-row"><span class="capital-label">持仓市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
                             <div class="capital-row"><span class="capital-label">USDT现金</span><span class="capital-value" style="color:#00d084">${{ formatNum(usdtCash) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">总成本</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
@@ -280,9 +280,8 @@
                     statusText: '🟢 24H交易',
                     apiStatus: '演示模式（静态数据）',
                     apiStatusClass: 'success',
-                    totalAssets: 100000,      // 总资产
-                    usdtCash: 81000,          // USDT现金
-                    totalCost: 19000,         // 持仓成本
+                    totalInvestment: 100000,  // 总投入本金
+                    usdtCash: 81000,          // USDT现金剩余
                     indices: [
                         { name: 'BTC', value: '67,890.50', change: 1250.30, changePercent: '1.88' },
                         { name: 'ETH', value: '3,520.80', change: 45.20, changePercent: '1.30' },
@@ -317,7 +316,7 @@
                     return this.totalMarketValue - this.totalCost; 
                 },
                 returnRate() { 
-                    return ((this.totalProfit / this.initialCapital) * 100).toFixed(2); 
+                    return ((this.totalProfit / this.totalInvestment) * 100).toFixed(2); 
                 },
                 sortedStocks() { 
                     return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); 
@@ -442,7 +441,7 @@
                                         formatter: '{value}%',
                                         color: '#fff'
                                     },
-                                    data: [{ value: ((this.totalCost / this.initialCapital) * 100).toFixed(1) }]
+                                    data: [{ value: ((this.totalCost / this.totalInvestment) * 100).toFixed(1) }]
                                 }]
                             });
                         }
