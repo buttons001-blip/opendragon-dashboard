@@ -283,9 +283,9 @@
                     initialCapital: 100000,
                     availableCapital: 83200,
                     indices: [
-                        { name: '标普500', value: '5,800.20', change: 15.30, changePercent: '0.26' },
-                        { name: '纳斯达克', value: '18,500.80', change: 85.40, changePercent: '0.46' },
-                        { name: '道琼斯', value: '42,100.50', change: -25.60, changePercent: '-0.06' }
+                        { name: '标普500', value: '5,800.20', change: 0, changePercent: '0.00' },
+                        { name: '纳斯达克', value: '18,500.80', change: 0, changePercent: '0.00' },
+                        { name: '道琼斯', value: '42,100.50', change: 0, changePercent: '0.00' }
                     ],
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
@@ -345,14 +345,14 @@
                 
                 async fetchPrices() {
                     try {
-                        // 使用腾讯财经API获取美股实时价格（国内可用）
-                        const symbols = 'usNVDA,usMSFT,usAMZN';
+                        // 使用腾讯财经API获取美股实时价格和指数（国内可用）
+                        const symbols = 'usNVDA,usMSFT,usAMZN,usSPX,usIXIC,usDJI';
                         const url = `https://qt.gtimg.cn/q=${symbols}`;
                         
                         const response = await fetch(url);
                         const text = await response.text();
                         
-                        // 解析腾讯API返回的数据
+                        // 解析个股数据
                         const priceMap = {
                             'NVDA': this.extractPrice(text, 'v_usNVDA'),
                             'MSFT': this.extractPrice(text, 'v_usMSFT'),
@@ -368,6 +368,27 @@
                                 stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
                             }
                         });
+                        
+                        // 解析指数数据
+                        const spxData = this.extractPrice(text, 'v_usSPX');
+                        const ixicData = this.extractPrice(text, 'v_usIXIC');
+                        const djiData = this.extractPrice(text, 'v_usDJI');
+                        
+                        if (spxData) {
+                            this.indices[0].value = spxData.price.toLocaleString();
+                            this.indices[0].change = spxData.change;
+                            this.indices[0].changePercent = spxData.changePercent;
+                        }
+                        if (ixicData) {
+                            this.indices[1].value = ixicData.price.toLocaleString();
+                            this.indices[1].change = ixicData.change;
+                            this.indices[1].changePercent = ixicData.changePercent;
+                        }
+                        if (djiData) {
+                            this.indices[2].value = djiData.price.toLocaleString();
+                            this.indices[2].change = djiData.change;
+                            this.indices[2].changePercent = djiData.changePercent;
+                        }
                         
                         this.apiStatus = '腾讯财经 ✓';
                         this.apiStatusClass = 'success';
