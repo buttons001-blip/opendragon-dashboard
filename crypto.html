@@ -337,9 +337,10 @@
                 
                 async fetchPrices() {
                     try {
-                        // 使用 OKX API（国内可用）
-                        // OKX API 文档: https://www.okx.com/docs-v5/en/#rest-api-market-data-get-tickers
-                        const url = 'https://www.okx.com/api/v5/market/tickers?instType=SPOT';
+                        // 使用 OKX API + CORS代理（确保国内可用）
+                        const corsProxy = 'https://api.allorigins.win/raw?url=';
+                        const targetUrl = encodeURIComponent('https://www.okx.com/api/v5/market/tickers?instType=SPOT');
+                        const url = corsProxy + targetUrl;
                         
                         const response = await fetch(url);
                         const result = await response.json();
