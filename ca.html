@@ -93,10 +93,13 @@
         
         .stocks-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .stock-item { text-align: center; background: #fff; border-radius: 6px; padding: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stock-gauge { width: 115px; height: 70px; }
         .stock-code { color: #d32f2f; font-weight: bold; font-size: 0.9em; }
         .stock-name { color: #333; margin: 2px 0; font-size: 0.8em; }
         .stock-sector { color: #888; font-size: 0.6em; }
         .stock-detail { color: #777; margin: 1px 0; font-size: 0.7em; }
+        .profit-up { color: #d00; }
+        .profit-down { color: #0a0; }
         
         .notice-box {
             background: #fff3cd;
@@ -335,7 +338,7 @@
                     if (typeof echarts === 'undefined') return;
                     
                     setTimeout(() => {
-                        // 个股仪表盘（显示当天涨跌幅）
+                        // 个股仪表盘（显示当天涨跌幅）- 圆形仪表盘，和A股一样
                         this.stocks.forEach(stock => {
                             const el = document.getElementById('gauge-' + stock.code);
                             if (el) {
@@ -350,11 +353,12 @@
                                         max: 10,
                                         itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
                                         progress: { show: true, width: 10 },
-                                        pointer: { show: true, length: '55%' },
+                                        pointer: { show: true, length: '55%', itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' } },
                                         axisLine: { lineStyle: { width: 10, color: [[1, '#ddd']] } },
                                         axisTick: { show: false },
                                         splitLine: { show: false },
                                         axisLabel: { show: false },
+                                        anchor: { show: false },
                                         detail: {
                                             valueAnimation: true,
                                             offsetCenter: [0, '35%'],
