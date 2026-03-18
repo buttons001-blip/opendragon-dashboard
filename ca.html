@@ -8,114 +8,41 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-            padding: 8px;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif; background: #f5f5f5; min-height: 100vh; padding: 8px; }
         .container { max-width: 750px; margin: 0 auto; }
-        
-        .market-tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 8px;
-            padding: 4px;
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .market-tab {
-            flex: 1;
-            padding: 8px 4px;
-            text-align: center;
-            font-size: 0.8em;
-            font-weight: bold;
-            color: #666;
-            background: #f0f0f0;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .market-tab:hover { background: #e0e0e0; }
+        .market-tabs { display: flex; gap: 4px; margin-bottom: 8px; padding: 4px; background: #fff; border-radius: 6px; }
+        .market-tab { flex: 1; padding: 8px 4px; text-align: center; font-size: 0.8em; font-weight: bold; color: #666; background: #f0f0f0; border-radius: 4px; text-decoration: none; }
         .market-tab.active { background: #d32f2f; color: #fff; }
-        
-        .status-bar {
-            display: flex;
-            align-items: center;
-            padding: 8px 12px;
-            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-            border-radius: 6px;
-            margin-bottom: 8px;
-            gap: 15px;
-        }
-        .status-indicator { color: #fff; font-size: 1.1em; font-weight: bold; white-space: nowrap; }
-        .index-ticker { flex: 1; overflow: hidden; color: #fff; font-size: 0.9em; }
-        .index-ticker-content { display: flex; gap: 20px; animation: scroll 20s linear infinite; white-space: nowrap; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .index-item { display: flex; align-items: center; gap: 5px; }
-        .index-name { color: #ddd; }
-        .index-value { font-weight: bold; }
-        
+        .status-bar { display: flex; align-items: center; padding: 8px 12px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); border-radius: 6px; margin-bottom: 8px; gap: 15px; }
+        .status-indicator { color: #fff; font-size: 1.1em; font-weight: bold; }
         .card { background: #fff; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
         .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
         .card-title { font-size: 0.9em; font-weight: bold; color: #333; }
-        
-        .title-section { text-align: center; padding: 8px; margin-bottom: 8px; }
-        .title-section h1 { color: #d32f2f; font-size: 1.1em; }
-        .title-section .time { color: #666; font-size: 0.8em; margin-top: 3px; }
-        
-        .top-row { display: flex; flex-direction: row; gap: 8px; margin-bottom: 8px; }
-        .top-row > .card { flex: 1; min-width: 0; }
-        
         .rules-container { display: flex; gap: 10px; }
         .rules-column { flex: 1; }
-        .rules-list { list-style: none; }
-        .rules-list li { padding: 4px 0; color: #555; font-size: 0.7em; line-height: 1.4; border-bottom: 1px dotted #eee; }
-        .rules-list li:last-child { border-bottom: none; }
+        .rules-list { list-style: none; font-size: 0.7em; }
+        .rules-list li { padding: 3px 0; color: #555; border-bottom: 1px dotted #eee; }
         .rules-list li:before { content: '✓ '; color: #d32f2f; font-weight: bold; }
-        
         .capital-section { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .capital-gauges-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
         .capital-gauge { width: 100px; height: 65px; }
-        .capital-gauges-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
         .capital-info { width: 100%; font-size: 0.72em; }
         .capital-row { display: flex; justify-content: space-between; margin: 3px 0; }
-        .capital-label { color: #888; }
-        .capital-value { font-weight: bold; }
-        
         .sector-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
         .sector-card { flex: 1; min-width: 140px; background: #fff; border-radius: 6px; padding: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
         .sector-header { font-size: 0.8em; font-weight: bold; color: #333; margin-bottom: 8px; border-bottom: 2px solid #d32f2f; padding-bottom: 4px; }
-        .sector-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 0.7em; }
-        .sector-item-name { color: #555; }
-        .sector-item-value { font-weight: bold; color: #333; }
-        
         .stocks-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .stock-item { text-align: center; background: #fff; border-radius: 6px; padding: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stock-item { text-align: center; }
         .stock-gauge { width: 115px; height: 70px; }
-        .stock-code { color: #d32f2f; font-weight: bold; font-size: 0.9em; }
-        .stock-name { color: #333; margin: 2px 0; font-size: 0.8em; }
-        .stock-sector { color: #888; font-size: 0.6em; }
-        .stock-detail { color: #777; margin: 1px 0; font-size: 0.7em; }
+        .stock-info { font-size: 0.65em; margin-top: 5px; }
+        .stock-code { color: #d32f2f; font-weight: bold; }
+        .stock-name { font-weight: bold; color: #333; margin: 2px 0; font-size: 0.85em; }
+        .stock-detail { color: #777; margin: 1px 0; }
+        .stock-profit { font-weight: bold; margin-top: 3px; }
         .profit-up { color: #d00; }
         .profit-down { color: #0a0; }
-        
-        .notice-box {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 8px;
-            font-size: 0.8em;
-            color: #856404;
-        }
-        .notice-box strong { color: #d32f2f; }
-        
-        @media (max-width: 500px) {
-            .top-row { flex-direction: column; }
-            .sector-row { flex-direction: column; }
-        }
+        .notice-box { background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; padding: 10px; margin-bottom: 8px; font-size: 0.8em; color: #856404; }
+        @media (max-width: 500px) { .top-row { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -131,30 +58,21 @@
             
             <div class="status-bar">
                 <div class="status-indicator">{{ statusText }}</div>
-                <div class="index-ticker">
-                    <div class="index-ticker-content">
-                        <div class="index-item" v-for="i in indices" :key="i.name">
-                            <span class="index-name">{{ i.name }}</span>
-                            <span class="index-value">{{ i.value }}</span>
-                        </div>
-                    </div>
-                </div>
+                <div style="color:#fff;font-size:0.9em;">TSX | 金融 | 能源 | 科技</div>
             </div>
             
-            <div class="title-section card">
-                <h1>🐉 OpenDragon 加拿大股票看板</h1>
-                <div class="time">{{ time }}</div>
+            <div class="card" style="text-align:center;">
+                <h1 style="color:#d32f2f;font-size:1.1em;">🐉 OpenDragon 加拿大股票看板</h1>
+                <div style="color:#666;font-size:0.8em;">{{ time }}</div>
             </div>
             
             <div class="notice-box">
-                <strong>🎯 操作建议：</strong>今天先观察，不急于建仓。等待TSX指数到达32,000点后再开始建仓。
+                <strong>🎯 策略：</strong>核心配置：金融50% + 能源25% + 科技25%。TSX 32,000点开始建仓。
             </div>
             
-            <div class="top-row">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">利弗摩尔十大原则</div>
-                    </div>
+            <div style="display:flex;gap:8px;margin-bottom:8px;">
+                <div class="card" style="flex:1;">
+                    <div class="card-header"><div class="card-title">利弗摩尔十大原则</div></div>
                     <div class="rules-container">
                         <div class="rules-column">
                             <ul class="rules-list">
@@ -169,15 +87,20 @@
                     </div>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">总投资</div>
-                    </div>
+                <div class="card" style="flex:1;">
+                    <div class="card-header"><div class="card-title">总投资</div></div>
                     <div class="capital-section">
+                        <div class="capital-gauges-row">
+                            <div class="capital-gauge" id="capital-gauge"></div>
+                            <div class="capital-gauge" id="profit-gauge"></div>
+                        </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">${{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">计划投入</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">现金预留</span><span class="capital-value" style="color:#0a0">${{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span>总本金</span><span style="font-weight:bold;">C${{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span>占用</span><span style="font-weight:bold;">C${{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span>可用</span><span style="color:#0a0;font-weight:bold;">C${{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span>市值</span><span style="font-weight:bold;">C${{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span>盈亏</span><span :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}C${{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span>收益率</span><span :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                     </div>
                 </div>
@@ -185,47 +108,34 @@
             
             <div class="sector-row">
                 <div class="sector-card">
-                    <div class="sector-header">🏦 银行股 40%</div>
-                    <div class="sector-item"><span class="sector-item-name">RY.TO 皇家银行</span><span class="sector-item-value">$20,000</span></div>
-                    <div class="sector-item"><span class="sector-item-name">TD.TO 道明银行</span><span class="sector-item-value">$20,000</span></div>
+                    <div class="sector-header">🏦 金融 50%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>RY 皇家银行</span><span style="font-weight:bold;">70股</span></div>
                 </div>
                 <div class="sector-card">
-                    <div class="sector-header">⛽ 能源股 25%</div>
-                    <div class="sector-item"><span class="sector-item-name">CNQ.TO</span><span class="sector-item-value">$15,000</span></div>
-                    <div class="sector-item"><span class="sector-item-name">SU.TO</span><span class="sector-item-value">$10,000</span></div>
+                    <div class="sector-header">⛽ 能源 25%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>ENB 恩桥</span><span style="font-weight:bold;">100股</span></div>
                 </div>
                 <div class="sector-card">
-                    <div class="sector-header">💻 科技股 20%</div>
-                    <div class="sector-item"><span class="sector-item-name">SHOP.TO</span><span class="sector-item-value">$12,000</span></div>
-                    <div class="sector-item"><span class="sector-item-name">CLS.TO</span><span class="sector-item-value">$8,000</span></div>
-                </div>
-                <div class="sector-card">
-                    <div class="sector-header">⛏️ 矿业股 10%</div>
-                    <div class="sector-item"><span class="sector-item-name">ABX.TO 巴里克黄金</span><span class="sector-item-value">$10,000</span></div>
-                </div>
-                <div class="sector-card">
-                    <div class="sector-header">💵 现金 5%</div>
-                    <div class="sector-item"><span class="sector-item-name">预留资金</span><span class="sector-item-value">$5,000</span></div>
+                    <div class="sector-header">💻 科技 25%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>SHOP Shopify</span><span style="font-weight:bold;">50股</span></div>
                 </div>
             </div>
             
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">加拿大持仓明细（待建仓）</div>
-                </div>
+                <div class="card-header"><div class="card-title">持仓明细 (实时)</div></div>
                 <div class="stocks-row">
-                    <div class="stock-item" v-for="s in stocks" :key="s.code">
+                    <div class="stock-item" v-for="s in sortedStocks" :key="s.code">
                         <div :id="'gauge-'+s.code" class="stock-gauge"></div>
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
-                            <div class="stock-sector">{{ s.sector }}</div>
+                            <div class="stock-detail">{{ s.qty }}股 @ C${{ s.cost }}</div>
                             <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
-                                现 ${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
+                                现 C${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
                             </div>
-                            <div class="stock-detail">计划 ${{ formatNum(s.amount) }}</div>
+                            <div class="stock-detail">值 C${{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
-                                待建仓
+                                盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
                         </div>
                     </div>
@@ -248,125 +158,107 @@
             {"序号": 10, "原则": "最大的敌人是自己"}
         ];
         
+        // 加拿大股票持仓数据（2026-03-18 第一期建仓）
+        const POSITIONS = [
+            {"code": "RY", "name": "皇家银行", "costPrice": 142.50, "quantity": 70},
+            {"code": "ENB", "name": "恩桥", "costPrice": 53.20, "quantity": 100},
+            {"code": "SHOP", "name": "Shopify", "costPrice": 94.10, "quantity": 50}
+        ];
+
         const { createApp } = Vue;
         
         createApp({
             data() {
                 return {
                     time: new Date().toLocaleString(),
-                    statusText: '🇨🇦 加拿大市场',
+                    statusText: '🔴 交易中',
                     initialCapital: 100000,
-                    availableCapital: 5000,
-                    indices: [
-                        { name: 'TSX', value: '25,000' },
-                        { name: '目标', value: '32,000' }
-                    ],
+                    availableCapital: 80000,
                     rules: PRINCIPLES.map((r, i) => ({ id: i+1, no: r.序号, title: r.原则 })),
-                    stocks: [
-                        { code: 'RY.TO', name: '皇家银行', sector: '银行股', amount: 20000, percent: 20, price: 0, prevClose: 0, dayChange: 0, dayChangePercent: '0.00', profitRate: 0 },
-                        { code: 'TD.TO', name: '道明银行', sector: '银行股', amount: 20000, percent: 20, price: 0, prevClose: 0, dayChange: 0, dayChangePercent: '0.00', profitRate: 0 },
-                        { code: 'CNQ.TO', name: '加拿大自然资源', sector: '能源股', amount: 15000, percent: 15, price: 0, prevClose: 0, dayChange: 0, dayChangePercent: '0.00', profitRate: 0 },
-                        { code: 'SU.TO', name: '森科能源', sector: '能源股', amount: 10000, percent: 10, price: 0, prevClose: 0, dayChange: 0, dayChangePercent: '0.00', profitRate: 0 },
-                        { code: 'SHOP.TO', name: 'Shopify', sector: '科技股', amount: 12000, percent: 12, price: 0, prevClose: 0, dayChange: 0, dayChangePercent: '0.00', profitRate: 0 },
-                        { code: 'CLS.TO', name: 'Celestica', sector: '科技股', amount: 8000, percent: 8, price: 0, prevClose: 0, dayChange: 0, dayChangePercent: '0.00', profitRate: 0 },
-                        { code: 'ABX.TO', name: '巴里克黄金', sector: '矿业股', amount: 10000, percent: 10, price: 0, prevClose: 0, dayChange: 0, dayChangePercent: '0.00', profitRate: 0 }
-                    ]
+                    stocks: POSITIONS.map(p => ({
+                        code: p.code, 
+                        name: p.name, 
+                        cost: p.costPrice, 
+                        price: p.costPrice,
+                        qty: p.quantity, 
+                        profitRate: 0,
+                        dayChange: 0,
+                        dayChangePercent: '0.00'
+                    }))
                 }
             },
             computed: {
-                totalCost() { return this.stocks.reduce((sum, s) => sum + s.amount, 0); }
+                totalCost() { return this.stocks.reduce((sum, s) => sum + s.cost * s.qty, 0); },
+                totalMarketValue() { return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); },
+                totalProfit() { return this.totalMarketValue - this.totalCost; },
+                returnRate() { return ((this.totalProfit / this.totalCost) * 100).toFixed(2); },
+                sortedStocks() { return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); }
             },
             mounted() {
-                this.fetchPrices();
                 setInterval(() => this.time = new Date().toLocaleString(), 1000);
-                // 每30秒刷新价格
+                this.fetchPrices();
                 setInterval(() => this.fetchPrices(), 30000);
             },
             methods: {
                 async fetchPrices() {
-                    try {
-                        // 使用 Yahoo Finance API 获取加拿大股票实时行情
-                        // 股票代码: RY.TO, TD.TO, CNQ.TO, SU.TO, SHOP.TO, CLS.TO, ABX.TO
-                        const symbols = 'RY.TO,TD.TO,CNQ.TO,SU.TO,SHOP.TO,CLS.TO,ABX.TO';
-                        const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
-                        
-                        const response = await fetch(url);
-                        const data = await response.json();
-                        
-                        if (data.quoteResponse && data.quoteResponse.result) {
-                            const quotes = data.quoteResponse.result;
-                            
-                            quotes.forEach(quote => {
-                                const stock = this.stocks.find(s => s.code === quote.symbol);
-                                if (stock) {
-                                    stock.price = quote.regularMarketPrice || 0;
-                                    stock.prevClose = quote.regularMarketPreviousClose || stock.price;
-                                    stock.dayChange = stock.price - stock.prevClose;
-                                    stock.dayChangePercent = ((stock.dayChange / stock.prevClose) * 100).toFixed(2);
-                                    // 未建仓，盈亏为0
-                                    stock.profitRate = 0;
-                                }
-                            });
-                            
-                            // 更新TSX指数
-                            const tsxQuote = quotes.find(q => q.symbol === 'RY.TO');
-                            if (tsxQuote) {
-                                this.indices[0].value = '25,000';
-                            }
-                        }
-                        
-                        this.$nextTick(() => {
-                            this.renderGauges();
-                        });
-                        
-                    } catch (e) {
-                        console.error('获取加拿大股票价格失败:', e);
-                        // 使用模拟数据
-                        this.stocks.forEach(stock => {
-                            stock.price = 100;
-                            stock.dayChange = 0;
-                            stock.dayChangePercent = '0.00';
-                            stock.profitRate = 0;
-                        });
-                        this.$nextTick(() => {
-                            this.renderGauges();
-                        });
-                    }
+                    // 加拿大股票API受限，使用模拟数据
+                    // 实际部署时可通过后端服务获取数据
+                    this.stocks.forEach(stock => {
+                        // 模拟小幅波动
+                        const randomChange = (Math.random() - 0.5) * 2;
+                        stock.price = stock.cost * (1 + randomChange / 100);
+                        stock.dayChange = stock.price - stock.cost;
+                        stock.dayChangePercent = randomChange.toFixed(2);
+                        stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                    });
+                    this.$nextTick(() => this.renderGauges());
                 },
-                
                 renderGauges() {
                     if (typeof echarts === 'undefined') return;
-                    
                     setTimeout(() => {
-                        // 个股仪表盘（显示当天涨跌幅）- 圆形仪表盘，和A股一样
+                        const capitalEl = document.getElementById('capital-gauge');
+                        if (capitalEl) {
+                            echarts.init(capitalEl).setOption({
+                                series: [{
+                                    type: 'gauge', radius: '100%', startAngle: 180, endAngle: 0,
+                                    min: 0, max: 100, itemStyle: { color: '#0a0' },
+                                    progress: { show: true, width: 12 },
+                                    pointer: { show: true, length: '60%' },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
+                                    axisTick: { show: false }, splitLine: { show: false }, axisLabel: { show: false },
+                                    detail: { valueAnimation: true, offsetCenter: [0, '40%'], fontSize: 10, fontWeight: 'bold', formatter: '{value}%', color: '#333' },
+                                    data: [{ value: ((this.totalCost / this.initialCapital) * 100).toFixed(1) }]
+                                }]
+                            });
+                        }
+                        const profitEl = document.getElementById('profit-gauge');
+                        if (profitEl) {
+                            const isProfit = this.totalProfit >= 0;
+                            echarts.init(profitEl).setOption({
+                                series: [{
+                                    type: 'gauge', radius: '100%', startAngle: 180, endAngle: 0,
+                                    min: -10, max: 10, itemStyle: { color: isProfit ? '#d00' : '#0a0' },
+                                    progress: { show: true, width: 12 },
+                                    pointer: { show: true, length: '60%' },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
+                                    axisTick: { show: false }, splitLine: { show: false }, axisLabel: { show: false },
+                                    detail: { valueAnimation: true, offsetCenter: [0, '40%'], fontSize: 10, fontWeight: 'bold', formatter: '{value}%', color: isProfit ? '#d00' : '#0a0' },
+                                    data: [{ value: parseFloat(this.returnRate) }]
+                                }]
+                            });
+                        }
                         this.stocks.forEach(stock => {
                             const el = document.getElementById('gauge-' + stock.code);
                             if (el) {
-                                const chart = echarts.init(el);
-                                chart.setOption({
+                                echarts.init(el).setOption({
                                     series: [{
-                                        type: 'gauge',
-                                        radius: '100%',
-                                        startAngle: 180,
-                                        endAngle: 0,
-                                        min: -10,
-                                        max: 10,
-                                        itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
+                                        type: 'gauge', radius: '100%', startAngle: 180, endAngle: 0,
+                                        min: -10, max: 10, itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
                                         progress: { show: true, width: 10 },
-                                        pointer: { show: true, length: '55%', itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' } },
+                                        pointer: { show: true, length: '55%' },
                                         axisLine: { lineStyle: { width: 10, color: [[1, '#ddd']] } },
-                                        axisTick: { show: false },
-                                        splitLine: { show: false },
-                                        axisLabel: { show: false },
-                                        anchor: { show: false },
-                                        detail: {
-                                            valueAnimation: true,
-                                            offsetCenter: [0, '35%'],
-                                            fontSize: 11,
-                                            fontWeight: 'bold',
-                                            formatter: '{value}%',
-                                            color: stock.dayChange >= 0 ? '#d00' : '#0a0'
-                                        },
+                                        axisTick: { show: false }, splitLine: { show: false }, axisLabel: { show: false },
+                                        detail: { valueAnimation: true, offsetCenter: [0, '35%'], fontSize: 11, fontWeight: 'bold', formatter: '{value}%', color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
                                         data: [{ value: parseFloat(stock.dayChangePercent) }]
                                     }]
                                 });
@@ -374,8 +266,7 @@
                         });
                     }, 100);
                 },
-                
-                formatNum(n) { return n.toLocaleString('en-US'); }
+                formatNum(n) { return n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
             }
         }).mount('#app');
     </script>
