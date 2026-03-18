@@ -43,7 +43,8 @@
         .rules-list li:before { content: '✓ '; color: #0a0; font-weight: bold; }
         
         .capital-section { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .capital-gauge { width: 130px; height: 80px; }
+        .capital-gauge { width: 100px; height: 65px; }
+        .capital-gauges-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
         .capital-info { width: 100%; font-size: 0.72em; }
         .capital-row { display: flex; justify-content: space-between; margin: 3px 0; }
         .capital-label { color: #888; }
@@ -108,7 +109,7 @@
                         <div class="card-title">总投资</div>
                     </div>
                     <div class="capital-section">
-                        <div style="display: flex; gap: 10px; justify-content: center;">
+                        <div class="capital-gauges-row">
                             <div class="capital-gauge" id="capital-gauge"></div>
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
@@ -354,9 +355,9 @@
                                     detail: {
                                         valueAnimation: true,
                                         offsetCenter: [0, '40%'],
-                                        fontSize: 12,
+                                        fontSize: 10,
                                         fontWeight: 'bold',
-                                        formatter: '占用\n{value}%',
+                                        formatter: '{value}%',
                                         color: '#333'
                                     },
                                     data: [{ value: ((this.totalCost / this.initialCapital) * 100).toFixed(1) }]
@@ -388,9 +389,9 @@
                                     detail: {
                                         valueAnimation: true,
                                         offsetCenter: [0, '40%'],
-                                        fontSize: 12,
+                                        fontSize: 10,
                                         fontWeight: 'bold',
-                                        formatter: '收益\n{value}%',
+                                        formatter: '{value}%',
                                         color: isProfit ? '#d00' : '#0a0'
                                     },
                                     data: [{ value: profitRate }]
