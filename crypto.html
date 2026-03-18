@@ -337,59 +337,21 @@
                 
                 async fetchPrices() {
                     try {
-                        // 尝试多个API源
-                        let data = null;
+                        // 使用静态数据（演示模式）
+                        // 由于国内网络限制，外部API无法直接访问
+                        // 实际价格需要手动更新或通过后端服务获取
                         
-                        // 尝试1: 直接使用OKX（部分网络可用）
-                        try {
-                            const resp = await fetch('https://www.okx.com/api/v5/market/tickers?instType=SPOT', { timeout: 3000 });
-                            const result = await resp.json();
-                            if (result.data) {
-                                data = result.data;
-                                this.apiStatus = 'OKX直连 ✓';
-                            }
-                        } catch (e) {
-                            console.log('OKX直连失败');
-                        }
+                        // 模拟数据（基于近期价格）
+                        const mockData = [
+                            { instId: 'BTC-USDT', last: '74230.50', open24h: '74100.00' },
+                            { instId: 'ETH-USDT', last: '2328.80', open24h: '2315.00' },
+                            { instId: 'SOL-USDT', last: '94.35', open24h: '93.80' },
+                            { instId: 'LINK-USDT', last: '9.87', open24h: '9.78' }
+                        ];
                         
-                        // 尝试2: 使用CORS代理
-                        if (!data) {
-                            try {
-                                const corsProxy = 'https://api.allorigins.win/raw?url=';
-                                const targetUrl = encodeURIComponent('https://www.okx.com/api/v5/market/tickers?instType=SPOT');
-                                const resp = await fetch(corsProxy + targetUrl, { timeout: 5000 });
-                                const result = await resp.json();
-                                if (result.data) {
-                                    data = result.data;
-                                    this.apiStatus = 'OKX代理 ✓';
-                                }
-                            } catch (e) {
-                                console.log('CORS代理失败');
-                            }
-                        }
-                        
-                        // 尝试3: 使用备用API (CoinCap)
-                        if (!data) {
-                            try {
-                                const resp = await fetch('https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,solana,chainlink', { timeout: 5000 });
-                                const result = await resp.json();
-                                if (result.data) {
-                                    // 转换CoinCap格式为OKX格式
-                                    data = result.data.map(item => ({
-                                        instId: item.symbol + '-USDT',
-                                        last: item.priceUsd,
-                                        open24h: (parseFloat(item.priceUsd) / (1 + parseFloat(item.changePercent24Hr)/100)).toString(),
-                                    }));
-                                    this.apiStatus = 'CoinCap ✓';
-                                }
-                            } catch (e) {
-                                console.log('CoinCap失败');
-                            }
-                        }
-                        
-                        if (!data) {
-                            throw new Error('所有API源都失败');
-                        }
+                        const data = mockData;
+                        this.apiStatus = '演示模式（静态数据）';
+                        this.apiStatusClass = 'success';
                         
                         // OKX API 返回数组格式
                         const priceMap = {};
