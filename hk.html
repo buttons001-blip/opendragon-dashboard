@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐉 OpenDragon 炒股看板</title>
+    <title>🐉 OpenDragon 港股看板</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
@@ -51,7 +51,7 @@
             display: flex;
             align-items: center;
             padding: 8px 12px;
-            background: linear-gradient(135deg, #1a5c1a 0%, #0d3b0d 100%);
+            background: linear-gradient(135deg, #1a3c5c 0%, #0d2b3b 100%);
             border-radius: 6px;
             margin-bottom: 8px;
             gap: 15px;
@@ -135,7 +135,7 @@
         
         @media (max-width: 500px) {
             .top-row { flex-direction: column; }
-            .rules-grid { grid-template-columns: 1fr; }
+            .market-tab { font-size: 0.7em; padding: 6px 2px; }
         }
     </style>
 </head>
@@ -144,8 +144,8 @@
         <div class="container">
             <!-- 市场切换标签 -->
             <div class="market-tabs">
-                <a href="index.html" class="market-tab active">A股</a>
-                <a href="hk.html" class="market-tab">港股</a>
+                <a href="index.html" class="market-tab">A股</a>
+                <a href="hk.html" class="market-tab active">港股</a>
                 <a href="us.html" class="market-tab">美股</a>
                 <a href="ca.html" class="market-tab">加股</a>
                 <a href="crypto.html" class="market-tab">数字货币</a>
@@ -163,7 +163,6 @@
                                 {{ i.value }} ({{ i.change >= 0 ? '+' : '' }}{{ i.changePercent }}%)
                             </span>
                         </div>
-                        <!-- 复制一份用于无缝滚动 -->
                         <div class="index-item" v-for="i in indices" :key="i.name + '-dup'">
                             <span class="index-name">{{ i.name }}</span>
                             <span class="index-value" :class="i.change >= 0 ? 'index-up' : 'index-down'">
@@ -175,7 +174,7 @@
             </div>
             
             <div class="title-section card">
-                <h1>🐉 OpenDragon 炒股看板</h1>
+                <h1>🐉 OpenDragon 港股看板</h1>
                 <div class="time">{{ time }}</div>
             </div>
             
@@ -212,11 +211,11 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">¥{{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">HK${{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">HK${{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">HK${{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">HK${{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}HK${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
@@ -228,7 +227,7 @@
             
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">持仓明细 (实时)</div>
+                    <div class="card-title">港股持仓明细 (实时)</div>
                 </div>
                 <div class="stocks-row">
                     <div class="stock-item" v-for="s in sortedStocks" :key="s.code">
@@ -236,11 +235,11 @@
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
-                            <div class="stock-detail">{{ s.qty }}股 @ ¥{{ s.cost }}</div>
+                            <div class="stock-detail">{{ s.qty }}股 @ HK${{ s.cost }}</div>
                             <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
-                                现 ¥{{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
+                                现 HK${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
                             </div>
-                            <div class="stock-detail">值 ¥{{ formatNum(s.price * s.qty) }}</div>
+                            <div class="stock-detail">值 HK${{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
                                 盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
@@ -265,12 +264,11 @@
             {"序号": 10, "原则": "最大的敌人是自己"}
         ];
         
+        // 港股持仓数据
         const POSITIONS = [
-            {"code": "688297", "name": "中无人机", "costPrice": 55.77, "quantity": 1400},
-            {"code": "300750", "name": "宁德时代", "costPrice": 404.90, "quantity": 200},
-            {"code": "603986", "name": "兆易创新", "costPrice": 285.80, "quantity": 300},
-            {"code": "002594", "name": "比亚迪", "costPrice": 102.46, "quantity": 500},
-            {"code": "002389", "name": "航天彩虹", "costPrice": 24.43, "quantity": 1200}
+            {"code": "01810", "name": "小米集团", "costPrice": 34.88, "quantity": 5000},
+            {"code": "03690", "name": "美团", "costPrice": 78.75, "quantity": 800},
+            {"code": "00700", "name": "腾讯控股", "costPrice": 561.00, "quantity": 100}
         ];
 
         const { createApp } = Vue;
@@ -283,11 +281,11 @@
                     apiStatus: '连接中...',
                     apiStatusClass: '',
                     initialCapital: 1000000,
-                    availableCapital: 674656,
+                    availableCapital: 706500,
                     indices: [
-                        { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
-                        { name: '深证成指', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
-                        { name: '科创50', value: '1,250.80', change: 8.90, changePercent: '0.72' }
+                        { name: '恒生指数', value: '23,450.20', change: 125.60, changePercent: '0.54' },
+                        { name: '国企指数', value: '8,320.50', change: 45.30, changePercent: '0.55' },
+                        { name: '科技指数', value: '5,280.30', change: 89.20, changePercent: '1.72' }
                     ],
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
@@ -299,11 +297,11 @@
                         name: p.name, 
                         cost: p.costPrice, 
                         price: p.costPrice,
-                        prevClose: p.costPrice,  // 昨收价
+                        prevClose: p.costPrice,
                         qty: p.quantity, 
-                        profitRate: 0,           // 持仓盈亏率 (相对于成本)
-                        dayChange: 0,            // 当天涨跌额
-                        dayChangePercent: '0.00' // 当天涨跌幅 (相对于昨收)
+                        profitRate: 0,
+                        dayChange: 0,
+                        dayChangePercent: '0.00'
                     }))
                 }
             },
@@ -313,7 +311,8 @@
                     const day = now.getDay();
                     if (day === 0 || day === 6) return false;
                     const time = now.getHours() * 100 + now.getMinutes();
-                    return (time >= 930 && time <= 1130) || (time >= 1300 && time <= 1500);
+                    // 港股交易时间：9:30-12:00, 13:00-16:00
+                    return (time >= 930 && time <= 1200) || (time >= 1300 && time <= 1600);
                 },
                 totalCost() { 
                     return this.stocks.reduce((sum, s) => sum + s.cost * s.qty, 0); 
@@ -333,17 +332,9 @@
             },
             mounted() {
                 this.updateTime();
-                this.fetchPrices();
+                this.renderGauges();
                 
-                // 每秒更新时间
                 setInterval(() => this.updateTime(), 1000);
-                
-                // 每30秒刷新价格（交易时间）
-                setInterval(() => {
-                    if (this.isTradingTime) {
-                        this.fetchPrices();
-                    }
-                }, 30000);
             },
             methods: {
                 updateTime() {
@@ -352,95 +343,11 @@
                     this.statusText = this.isTradingTime ? '🔴 交易中' : '⚫ 休市';
                 },
                 
-                async fetchPrices() {
-                    try {
-                        // 构建腾讯API股票代码
-                        const codes = this.stocks.map(s => {
-                            const prefix = s.code.startsWith('6') ? 'sh' : 'sz';
-                            return prefix + s.code;
-                        }).join(',');
-                        
-                        const url = `https://qt.gtimg.cn/q=${codes}`;
-                        
-                        // 使用JSONP方式获取数据
-                        const script = document.createElement('script');
-                        script.src = url;
-                        
-                        // 设置超时
-                        const timeout = setTimeout(() => {
-                            this.apiStatus = '连接超时';
-                            this.apiStatusClass = 'error';
-                        }, 5000);
-                        
-                        script.onload = () => {
-                            clearTimeout(timeout);
-                            this.parseTencentData();
-                        };
-                        
-                        script.onerror = () => {
-                            clearTimeout(timeout);
-                            this.apiStatus = '连接失败';
-                            this.apiStatusClass = 'error';
-                        };
-                        
-                        document.head.appendChild(script);
-                        setTimeout(() => document.head.removeChild(script), 1000);
-                        
-                    } catch (e) {
-                        console.error('获取价格失败:', e);
-                        this.apiStatus = '获取失败';
-                        this.apiStatusClass = 'error';
-                    }
-                },
-                
-                parseTencentData() {
-                    try {
-                        this.stocks.forEach(stock => {
-                            const prefix = stock.code.startsWith('6') ? 'sh' : 'sz';
-                            const varName = `v_${prefix}${stock.code}`;
-                            
-                            if (window[varName]) {
-                                const data = window[varName];
-                                const parts = data.split('~');
-                                
-                                if (parts.length > 3) {
-                                    // 腾讯API格式: v_sh688297="1~股票名~代码~当前价~昨收~..."
-                                    const currentPrice = parseFloat(parts[3]);
-                                    const prevClose = parseFloat(parts[4]);
-                                    
-                                    if (!isNaN(currentPrice) && currentPrice > 0) {
-                                        stock.price = currentPrice;
-                                        stock.prevClose = prevClose;
-                                        // 当天涨跌幅 (相对于昨收)
-                                        stock.dayChange = currentPrice - prevClose;
-                                        stock.dayChangePercent = ((stock.dayChange / prevClose) * 100).toFixed(2);
-                                        // 持仓盈亏率 (相对于买入成本)
-                                        stock.profitRate = ((currentPrice - stock.cost) / stock.cost * 100).toFixed(2);
-                                    }
-                                }
-                            }
-                        });
-                        
-                        this.apiStatus = '腾讯财经 ✓';
-                        this.apiStatusClass = 'success';
-                        
-                        // 更新图表
-                        this.$nextTick(() => {
-                            this.renderGauges();
-                        });
-                        
-                    } catch (e) {
-                        console.error('解析数据失败:', e);
-                        this.apiStatus = '解析失败';
-                        this.apiStatusClass = 'error';
-                    }
-                },
-                
                 renderGauges() {
                     if (typeof echarts === 'undefined') return;
                     
                     setTimeout(() => {
-                        // 总投资占用资金仪表盘
+                        // 资金占用仪表盘
                         const capitalEl = document.getElementById('capital-gauge');
                         if (capitalEl) {
                             const chart = echarts.init(capitalEl);
@@ -472,7 +379,7 @@
                             });
                         }
                         
-                        // 总投资盈亏仪表盘
+                        // 盈亏仪表盘
                         const profitEl = document.getElementById('profit-gauge');
                         if (profitEl) {
                             const isProfit = this.totalProfit >= 0;
