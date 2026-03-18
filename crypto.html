@@ -195,9 +195,64 @@
                 sortedStocks() { return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); }
             },
             mounted() {
-                setInterval(() => this.time = new Date().toLocaleString(), 1000);
+                this.updateTime();
+                this.fetchPrices();
+                setInterval(() => this.updateTime(), 1000);
+                setInterval(() => this.fetchPrices(), 30000);
             },
             methods: {
+                updateTime() {
+                    this.time = new Date().toLocaleString();
+                },
+                
+                async fetchPrices() {
+                    try {
+                        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,chainlink&vs_currencies=usd&include_24hr_change=true';
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        
+                        const priceMap = {
+                            'BTC': data.bitcoin,
+                            'ETH': data.ethereum,
+                            'SOL': data.solana,
+                            'LINK': data.chainlink
+                        };
+                        
+                        this.stocks.forEach(stock => {
+                            const cryptoData = priceMap[stock.code];
+                            if (cryptoData) {
+                                stock.price = cryptoData.usd;
+                                stock.dayChangePercent = cryptoData.usd_24h_change ? cryptoData.usd_24h_change.toFixed(2) : '0.00';
+                                stock.dayChange = stock.price * (parseFloat(stock.dayChangePercent) / 100);
+                                stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                            }
+                        });
+                        
+                        this.apiStatus = 'CoinGecko ✓';
+                        this.apiStatusClass = 'success';
+                        
+                        if (data.bitcoin) {
+                            this.indices[0].value = data.bitcoin.usd.toLocaleString();
+                            this.indices[0].changePercent = data.bitcoin.usd_24h_change ? data.bitcoin.usd_24h_change.toFixed(2) : '0.00';
+                            this.indices[0].change = data.bitcoin.usd_24h_change || 0;
+                        }
+                        if (data.ethereum) {
+                            this.indices[1].value = data.ethereum.usd.toLocaleString();
+                            this.indices[1].changePercent = data.ethereum.usd_24h_change ? data.ethereum.usd_24h_change.toFixed(2) : '0.00';
+                            this.indices[1].change = data.ethereum.usd_24h_change || 0;
+                        }
+                        if (data.solana) {
+                            this.indices[2].value = data.solana.usd.toLocaleString();
+                            this.indices[2].changePercent = data.solana.usd_24h_change ? data.solana.usd_24h_change.toFixed(2) : '0.00';
+                            this.indices[2].change = data.solana.usd_24h_change || 0;
+                        }
+                        
+                    } catch (e) {
+                        console.error('获取价格失败:', e);
+                        this.apiStatus = '获取失败';
+                        this.apiStatusClass = 'error';
+                    }
+                },
                 formatNum(n) {
                     if (n >= 1000) return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     else if (n >= 1) return n.toLocaleString('zh-CN', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
