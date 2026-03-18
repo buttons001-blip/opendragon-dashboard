@@ -14,7 +14,15 @@
         .market-tab { flex: 1; padding: 8px 4px; text-align: center; font-size: 0.8em; font-weight: bold; color: #666; background: #f0f0f0; border-radius: 4px; text-decoration: none; }
         .market-tab.active { background: #d32f2f; color: #fff; }
         .status-bar { display: flex; align-items: center; padding: 8px 12px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); border-radius: 6px; margin-bottom: 8px; gap: 15px; }
-        .status-indicator { color: #fff; font-size: 1.1em; font-weight: bold; }
+        .status-indicator { color: #fff; font-size: 1.1em; font-weight: bold; white-space: nowrap; }
+        .index-ticker { flex: 1; overflow: hidden; color: #fff; font-size: 0.9em; }
+        .index-ticker-content { display: flex; gap: 20px; animation: scroll 20s linear infinite; white-space: nowrap; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .index-item { display: flex; align-items: center; gap: 5px; }
+        .index-name { color: #ddd; }
+        .index-value { font-weight: bold; }
+        .index-up { color: #ff6b6b; }
+        .index-down { color: #51cf66; }
         .card { background: #fff; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
         .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
         .card-title { font-size: 0.9em; font-weight: bold; color: #333; }
@@ -58,7 +66,22 @@
             
             <div class="status-bar">
                 <div class="status-indicator">{{ statusText }}</div>
-                <div style="color:#fff;font-size:0.9em;">TSX | 金融 | 能源 | 科技</div>
+                <div class="index-ticker">
+                    <div class="index-ticker-content">
+                        <div class="index-item" v-for="i in indices" :key="i.name">
+                            <span class="index-name">{{ i.name }}</span>
+                            <span class="index-value" :class="i.change >= 0 ? 'index-up' : 'index-down'">
+                                {{ i.value }} ({{ i.change >= 0 ? '+' : '' }}{{ i.changePercent }}%)
+                            </span>
+                        </div>
+                        <div class="index-item" v-for="i in indices" :key="i.name + '-dup'">
+                            <span class="index-name">{{ i.name }}</span>
+                            <span class="index-value" :class="i.change >= 0 ? 'index-up' : 'index-down'">
+                                {{ i.value }} ({{ i.change >= 0 ? '+' : '' }}{{ i.changePercent }}%)
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="card" style="text-align:center;">
@@ -184,7 +207,12 @@
                         profitRate: 0,
                         dayChange: 0,
                         dayChangePercent: '0.00'
-                    }))
+                    })),
+                    indices: [
+                        { name: 'TSX', value: '25,847.32', change: 125.45, changePercent: '0.49' },
+                        { name: 'S&P/TSX 60', value: '1,245.80', change: 8.32, changePercent: '0.67' },
+                        { name: 'TSX Venture', value: '612.45', change: -3.21, changePercent: '-0.52' }
+                    ]
                 }
             },
             computed: {
@@ -211,6 +239,17 @@
                         stock.dayChangePercent = randomChange.toFixed(2);
                         stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
                     });
+                    
+                    // 更新TSX指数（模拟数据）
+                    this.indices.forEach(idx => {
+                        const randomChange = (Math.random() - 0.5) * 1;
+                        const currentValue = parseFloat(idx.value.replace(',', ''));
+                        const newValue = currentValue * (1 + randomChange / 100);
+                        idx.value = newValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                        idx.changePercent = randomChange.toFixed(2);
+                        idx.change = randomChange;
+                    });
+                    
                     this.$nextTick(() => this.renderGauges());
                 },
                 renderGauges() {
