@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐉 OpenDragon 港股看板</title>
+    <title>🐉 OpenDragon 数字货币看板</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
-            background: #f5f5f5;
+            background: #1a1a2e;
             min-height: 100vh;
             padding: 8px;
+            color: #fff;
         }
         .container { max-width: 750px; margin: 0 auto; }
         
@@ -22,9 +23,8 @@
             gap: 4px;
             margin-bottom: 8px;
             padding: 4px;
-            background: #fff;
+            background: #2d2d44;
             border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         .market-tab {
             flex: 1;
@@ -32,18 +32,18 @@
             text-align: center;
             font-size: 0.8em;
             font-weight: bold;
-            color: #666;
-            background: #f0f0f0;
+            color: #aaa;
+            background: #3d3d5c;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
         }
         .market-tab:hover {
-            background: #e0e0e0;
+            background: #4d4d6c;
         }
         .market-tab.active {
-            background: #1a5c1a;
+            background: #f7931a;
             color: #fff;
         }
         
@@ -51,19 +51,18 @@
             display: flex;
             align-items: center;
             padding: 8px 12px;
-            background: linear-gradient(135deg, #1a3c5c 0%, #0d2b3b 100%);
+            background: linear-gradient(135deg, #f7931a 0%, #c76d00 100%);
             border-radius: 6px;
             margin-bottom: 8px;
             gap: 15px;
         }
         .status-indicator {
-            color: #0f0;
+            color: #fff;
             font-size: 1.1em;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,255,0,0.5);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
             white-space: nowrap;
         }
-        .status-closed { color: #888; text-shadow: none; }
         .index-ticker {
             flex: 1;
             overflow: hidden;
@@ -81,18 +80,18 @@
             100% { transform: translateX(-50%); }
         }
         .index-item { display: flex; align-items: center; gap: 5px; }
-        .index-name { color: #aaa; }
+        .index-name { color: #ddd; }
         .index-value { font-weight: bold; }
-        .index-up { color: #ff6b6b; }
-        .index-down { color: #51cf66; }
+        .index-up { color: #00d084; }
+        .index-down { color: #ff4757; }
         
-        .card { background: #fff; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
-        .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
-        .card-title { font-size: 0.9em; font-weight: bold; color: #333; }
+        .card { background: #2d2d44; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.3); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #3d3d5c; margin-bottom: 8px; }
+        .card-title { font-size: 0.9em; font-weight: bold; color: #fff; }
         
         .title-section { text-align: center; padding: 8px; margin-bottom: 8px; }
-        .title-section h1 { color: #333; font-size: 1.1em; }
-        .title-section .time { color: #666; font-size: 0.8em; margin-top: 3px; }
+        .title-section h1 { color: #f7931a; font-size: 1.1em; }
+        .title-section .time { color: #aaa; font-size: 0.8em; margin-top: 3px; }
         
         .top-row { display: flex; flex-direction: row; gap: 8px; margin-bottom: 8px; }
         .top-row > .card { flex: 1; min-width: 0; }
@@ -102,13 +101,13 @@
         .rules-list { list-style: none; }
         .rules-list li { 
             padding: 4px 0; 
-            color: #555; 
+            color: #ccc; 
             font-size: 0.7em; 
             line-height: 1.4;
-            border-bottom: 1px dotted #eee;
+            border-bottom: 1px dotted #3d3d5c;
         }
         .rules-list li:last-child { border-bottom: none; }
-        .rules-list li:before { content: '✓ '; color: #0a0; font-weight: bold; }
+        .rules-list li:before { content: '✓ '; color: #00d084; font-weight: bold; }
         
         .capital-section { display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .capital-gauge { width: 100px; height: 65px; }
@@ -117,21 +116,21 @@
         .capital-row { display: flex; justify-content: space-between; margin: 3px 0; }
         .capital-label { color: #888; }
         .capital-value { font-weight: bold; }
-        .profit-up { color: #d00; }
-        .profit-down { color: #0a0; }
+        .profit-up { color: #00d084; }
+        .profit-down { color: #ff4757; }
         
         .stocks-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .stock-item { text-align: center; }
+        .stock-item { text-align: center; background: #3d3d5c; border-radius: 6px; padding: 8px; }
         .stock-gauge { width: 115px; height: 70px; }
         .stock-info { font-size: 0.65em; margin-top: 5px; }
-        .stock-code { color: #999; }
-        .stock-name { font-weight: bold; color: #333; margin: 2px 0; font-size: 0.9em; }
-        .stock-detail { color: #777; margin: 1px 0; }
+        .stock-code { color: #f7931a; font-weight: bold; }
+        .stock-name { color: #fff; margin: 2px 0; font-size: 0.9em; }
+        .stock-detail { color: #aaa; margin: 1px 0; }
         .stock-profit { font-weight: bold; margin-top: 3px; }
         
-        .api-status { font-size: 0.7em; color: #666; margin-top: 5px; }
-        .api-status.error { color: #d00; }
-        .api-status.success { color: #0a0; }
+        .api-status { font-size: 0.7em; color: #888; margin-top: 5px; }
+        .api-status.error { color: #ff4757; }
+        .api-status.success { color: #00d084; }
         
         @media (max-width: 500px) {
             .top-row { flex-direction: column; }
@@ -145,14 +144,14 @@
             <!-- 市场切换标签 -->
             <div class="market-tabs">
                 <a href="index.html" class="market-tab">A股</a>
-                <a href="hk.html" class="market-tab active">港股</a>
+                <a href="hk.html" class="market-tab">港股</a>
                 <a href="us.html" class="market-tab">美股</a>
                 <a href="ca.html" class="market-tab">加股</a>
-                <a href="crypto.html" class="market-tab">数字货币</a>
+                <a href="crypto.html" class="market-tab active">数字货币</a>
             </div>
             
             <div class="status-bar">
-                <div class="status-indicator" :class="{ 'status-closed': !isTradingTime }">
+                <div class="status-indicator">
                     {{ statusText }}
                 </div>
                 <div class="index-ticker">
@@ -174,7 +173,7 @@
             </div>
             
             <div class="title-section card">
-                <h1>🐉 OpenDragon 港股看板</h1>
+                <h1>🐉 OpenDragon 数字货币看板</h1>
                 <div class="time">{{ time }}</div>
             </div>
             
@@ -211,11 +210,11 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">HK${{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">HK${{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">HK${{ formatNum(availableCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">HK${{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}HK${{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">${{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#00d084">${{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
@@ -227,7 +226,7 @@
             
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">港股持仓明细 (实时)</div>
+                    <div class="card-title">数字货币持仓 (实时)</div>
                 </div>
                 <div class="stocks-row">
                     <div class="stock-item" v-for="s in sortedStocks" :key="s.code">
@@ -235,11 +234,11 @@
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
-                            <div class="stock-detail">{{ s.qty }}股 @ HK${{ s.cost }}</div>
+                            <div class="stock-detail">{{ s.qty }} @ ${{ s.cost }}</div>
                             <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
-                                现 HK${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
+                                现 ${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
                             </div>
-                            <div class="stock-detail">值 HK${{ formatNum(s.price * s.qty) }}</div>
+                            <div class="stock-detail">值 ${{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
                                 盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
@@ -264,11 +263,12 @@
             {"序号": 10, "原则": "最大的敌人是自己"}
         ];
         
-        // 港股持仓数据
+        // 数字货币持仓数据
         const POSITIONS = [
-            {"code": "01810", "name": "小米集团", "costPrice": 34.88, "quantity": 5000},
-            {"code": "03690", "name": "美团", "costPrice": 78.75, "quantity": 800},
-            {"code": "00700", "name": "腾讯控股", "costPrice": 561.00, "quantity": 100}
+            {"code": "BTC", "name": "比特币", "costPrice": 73573.73, "quantity": 0.108734},
+            {"code": "ETH", "name": "以太坊", "costPrice": 2268.89, "quantity": 2.644461},
+            {"code": "SOL", "name": "Solana", "costPrice": 93.68, "quantity": 32.022857},
+            {"code": "LINK", "name": "Chainlink", "costPrice": 9.67, "quantity": 206.859749}
         ];
 
         const { createApp } = Vue;
@@ -277,15 +277,15 @@
             data() {
                 return {
                     time: new Date().toLocaleString(),
-                    statusText: '⚫ 休市中',
+                    statusText: '🟢 24H交易',
                     apiStatus: '连接中...',
                     apiStatusClass: '',
-                    initialCapital: 1000000,
-                    availableCapital: 706500,
+                    initialCapital: 20000,
+                    availableCapital: 0,
                     indices: [
-                        { name: '恒生指数', value: '23,450.20', change: 125.60, changePercent: '0.54' },
-                        { name: '国企指数', value: '8,320.50', change: 45.30, changePercent: '0.55' },
-                        { name: '科技指数', value: '5,280.30', change: 89.20, changePercent: '1.72' }
+                        { name: 'BTC', value: '67,890.50', change: 1250.30, changePercent: '1.88' },
+                        { name: 'ETH', value: '3,520.80', change: 45.20, changePercent: '1.30' },
+                        { name: 'SOL', value: '145.60', change: -2.30, changePercent: '-1.55' }
                     ],
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
@@ -306,14 +306,6 @@
                 }
             },
             computed: {
-                isTradingTime() {
-                    const now = new Date();
-                    const day = now.getDay();
-                    if (day === 0 || day === 6) return false;
-                    const time = now.getHours() * 100 + now.getMinutes();
-                    // 港股交易时间：9:30-12:00, 13:00-16:00
-                    return (time >= 930 && time <= 1200) || (time >= 1300 && time <= 1600);
-                },
                 totalCost() { 
                     return this.stocks.reduce((sum, s) => sum + s.cost * s.qty, 0); 
                 },
@@ -335,61 +327,67 @@
                 this.fetchPrices();
                 
                 setInterval(() => this.updateTime(), 1000);
-                // 港股交易时间刷新
-                setInterval(() => {
-                    if (this.isTradingTime) {
-                        this.fetchPrices();
-                    }
-                }, 30000);
+                // 数字货币24小时交易，每30秒刷新
+                setInterval(() => this.fetchPrices(), 30000);
             },
             methods: {
                 updateTime() {
-                    const now = new Date();
-                    this.time = now.toLocaleString();
-                    this.statusText = this.isTradingTime ? '🔴 交易中' : '⚫ 休市';
+                    this.time = new Date().toLocaleString();
                 },
                 
                 async fetchPrices() {
                     try {
-                        // 港股使用腾讯API，前缀为 hk
-                        const codes = this.stocks.map(s => 'hk' + s.code).join(',');
-                        const url = `https://qt.gtimg.cn/q=${codes}`;
+                        // 使用 CoinGecko API 获取实时价格
+                        const ids = 'bitcoin,ethereum,solana,chainlink';
+                        const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
                         
                         const response = await fetch(url);
-                        const text = await response.text();
+                        const data = await response.json();
                         
-                        // 解析腾讯API返回的数据
+                        // 映射数据
+                        const priceMap = {
+                            'BTC': data.bitcoin,
+                            'ETH': data.ethereum,
+                            'SOL': data.solana,
+                            'LINK': data.chainlink
+                        };
+                        
                         this.stocks.forEach(stock => {
-                            const varName = `v_hk${stock.code}`;
-                            const regex = new RegExp(`${varName}="([^"]+)"`);
-                            const match = text.match(regex);
-                            
-                            if (match && match[1]) {
-                                const parts = match[1].split('~');
-                                if (parts.length > 3) {
-                                    const currentPrice = parseFloat(parts[3]);
-                                    const prevClose = parseFloat(parts[4]);
-                                    
-                                    if (!isNaN(currentPrice) && currentPrice > 0) {
-                                        stock.price = currentPrice;
-                                        stock.prevClose = prevClose;
-                                        stock.dayChange = currentPrice - prevClose;
-                                        stock.dayChangePercent = ((stock.dayChange / prevClose) * 100).toFixed(2);
-                                        stock.profitRate = ((currentPrice - stock.cost) / stock.cost * 100).toFixed(2);
-                                    }
-                                }
+                            const cryptoData = priceMap[stock.code];
+                            if (cryptoData) {
+                                stock.price = cryptoData.usd;
+                                stock.dayChangePercent = cryptoData.usd_24h_change ? cryptoData.usd_24h_change.toFixed(2) : '0.00';
+                                stock.dayChange = stock.price * (parseFloat(stock.dayChangePercent) / 100);
+                                stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
                             }
                         });
                         
-                        this.apiStatus = '腾讯财经 ✓';
+                        this.apiStatus = 'CoinGecko ✓';
                         this.apiStatusClass = 'success';
+                        
+                        // 更新指数显示
+                        if (data.bitcoin) {
+                            this.indices[0].value = data.bitcoin.usd.toLocaleString();
+                            this.indices[0].changePercent = data.bitcoin.usd_24h_change ? data.bitcoin.usd_24h_change.toFixed(2) : '0.00';
+                            this.indices[0].change = data.bitcoin.usd_24h_change || 0;
+                        }
+                        if (data.ethereum) {
+                            this.indices[1].value = data.ethereum.usd.toLocaleString();
+                            this.indices[1].changePercent = data.ethereum.usd_24h_change ? data.ethereum.usd_24h_change.toFixed(2) : '0.00';
+                            this.indices[1].change = data.ethereum.usd_24h_change || 0;
+                        }
+                        if (data.solana) {
+                            this.indices[2].value = data.solana.usd.toLocaleString();
+                            this.indices[2].changePercent = data.solana.usd_24h_change ? data.solana.usd_24h_change.toFixed(2) : '0.00';
+                            this.indices[2].change = data.solana.usd_24h_change || 0;
+                        }
                         
                         this.$nextTick(() => {
                             this.renderGauges();
                         });
                         
                     } catch (e) {
-                        console.error('获取港股价格失败:', e);
+                        console.error('获取价格失败:', e);
                         this.apiStatus = '获取失败';
                         this.apiStatusClass = 'error';
                     }
@@ -411,10 +409,10 @@
                                     endAngle: 0,
                                     min: 0,
                                     max: 100,
-                                    itemStyle: { color: '#0a0' },
+                                    itemStyle: { color: '#f7931a' },
                                     progress: { show: true, width: 12 },
                                     pointer: { show: true, length: '60%' },
-                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#3d3d5c']] } },
                                     axisTick: { show: false },
                                     splitLine: { show: false },
                                     axisLabel: { show: false },
@@ -424,7 +422,7 @@
                                         fontSize: 10,
                                         fontWeight: 'bold',
                                         formatter: '{value}%',
-                                        color: '#333'
+                                        color: '#fff'
                                     },
                                     data: [{ value: ((this.totalCost / this.initialCapital) * 100).toFixed(1) }]
                                 }]
@@ -443,12 +441,12 @@
                                     radius: '100%',
                                     startAngle: 180,
                                     endAngle: 0,
-                                    min: -10,
-                                    max: 10,
-                                    itemStyle: { color: isProfit ? '#d00' : '#0a0' },
+                                    min: -50,
+                                    max: 50,
+                                    itemStyle: { color: isProfit ? '#00d084' : '#ff4757' },
                                     progress: { show: true, width: 12 },
                                     pointer: { show: true, length: '60%' },
-                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#3d3d5c']] } },
                                     axisTick: { show: false },
                                     splitLine: { show: false },
                                     axisLabel: { show: false },
@@ -458,14 +456,14 @@
                                         fontSize: 10,
                                         fontWeight: 'bold',
                                         formatter: '{value}%',
-                                        color: isProfit ? '#d00' : '#0a0'
+                                        color: isProfit ? '#00d084' : '#ff4757'
                                     },
                                     data: [{ value: profitRate }]
                                 }]
                             });
                         }
                         
-                        // 个股仪表盘
+                        // 币种仪表盘
                         this.stocks.forEach(stock => {
                             const el = document.getElementById('gauge-' + stock.code);
                             if (el) {
@@ -476,12 +474,12 @@
                                         radius: '100%',
                                         startAngle: 180,
                                         endAngle: 0,
-                                        min: -10,
-                                        max: 10,
-                                        itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
+                                        min: -20,
+                                        max: 20,
+                                        itemStyle: { color: stock.dayChange >= 0 ? '#00d084' : '#ff4757' },
                                         progress: { show: true, width: 10 },
                                         pointer: { show: true, length: '55%' },
-                                        axisLine: { lineStyle: { width: 10, color: [[1, '#ddd']] } },
+                                        axisLine: { lineStyle: { width: 10, color: [[1, '#3d3d5c']] } },
                                         axisTick: { show: false },
                                         splitLine: { show: false },
                                         axisLabel: { show: false },
@@ -491,7 +489,7 @@
                                             fontSize: 11,
                                             fontWeight: 'bold',
                                             formatter: '{value}%',
-                                            color: stock.dayChange >= 0 ? '#d00' : '#0a0'
+                                            color: stock.dayChange >= 0 ? '#00d084' : '#ff4757'
                                         },
                                         data: [{ value: parseFloat(stock.dayChangePercent) }]
                                     }]
@@ -502,7 +500,13 @@
                 },
                 
                 formatNum(n) {
-                    return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    if (n >= 1000) {
+                        return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    } else if (n >= 1) {
+                        return n.toLocaleString('zh-CN', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+                    } else {
+                        return n.toLocaleString('zh-CN', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
+                    }
                 }
             }
         }).mount('#app');
