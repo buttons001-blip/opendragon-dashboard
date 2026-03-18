@@ -266,9 +266,9 @@
         // 美股持仓数据（2026-03-18 第一周建仓）
         // 注意：买入价是建仓时的实际成交价，当前价通过API获取
         const POSITIONS = [
-            {"code": "NVDA", "name": "Nvidia", "costPrice": 185.00, "quantity": 10},
-            {"code": "MSFT", "name": "Microsoft", "costPrice": 400.00, "quantity": 5},
-            {"code": "AMZN", "name": "Amazon", "costPrice": 215.00, "quantity": 8}
+            {"code": "NVDA", "name": "Nvidia", "costPrice": 182.13, "quantity": 40},
+            {"code": "MSFT", "name": "Microsoft", "costPrice": 394.76, "quantity": 10},
+            {"code": "AMZN", "name": "Amazon", "costPrice": 211.68, "quantity": 6}
         ];
 
         const { createApp } = Vue;
@@ -281,7 +281,7 @@
                     apiStatus: '连接中...',
                     apiStatusClass: '',
                     initialCapital: 100000,
-                    availableCapital: 83200,
+                    availableCapital: 87497,
                     indices: [
                         { name: '标普500', value: '5,800.20', change: 0, changePercent: '0.00' },
                         { name: '纳斯达克', value: '18,500.80', change: 0, changePercent: '0.00' },
