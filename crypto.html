@@ -210,11 +210,11 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">${{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#00d084">${{ formatNum(availableCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总本金</span><span class="capital-value">${{ formatNum(totalAssets) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">持仓市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">USDT现金</span><span class="capital-value" style="color:#00d084">${{ formatNum(usdtCash) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总成本</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
@@ -278,10 +278,11 @@
                 return {
                     time: new Date().toLocaleString(),
                     statusText: '🟢 24H交易',
-                    apiStatus: '连接中...',
-                    apiStatusClass: '',
-                    initialCapital: 19000,
-                    availableCapital: 81000,
+                    apiStatus: '演示模式（静态数据）',
+                    apiStatusClass: 'success',
+                    totalAssets: 100000,      // 总资产
+                    usdtCash: 81000,          // USDT现金
+                    totalCost: 19000,         // 持仓成本
                     indices: [
                         { name: 'BTC', value: '67,890.50', change: 1250.30, changePercent: '1.88' },
                         { name: 'ETH', value: '3,520.80', change: 45.20, changePercent: '1.30' },
