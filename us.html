@@ -131,8 +131,11 @@
                         <div class="stock-code">{{ s.code }}</div>
                         <div class="stock-name">{{ s.name }}</div>
                         <div class="stock-sector">{{ s.sector }}</div>
-                        <div class="stock-detail">${{ formatNum(s.amount) }}</div>
-                        <div class="stock-detail" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">{{ s.status }}</div>
+                        <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
+                            现 ${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
+                        </div>
+                        <div class="stock-detail">计划 ${{ formatNum(s.amount) }}</div>
+                        <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">{{ s.status }}</div>
                     </div>
                 </div>
             </div>
@@ -165,23 +168,50 @@
                     cashReserve: 20000,
                     rules: PRINCIPLES.map((r, i) => ({ id: i+1, no: r.序号, title: r.原则 })),
                     stocks: [
-                        { code: 'NVDA', name: 'Nvidia', sector: 'AI/半导体', amount: 15000, status: '待建仓' },
-                        { code: 'MSFT', name: 'Microsoft', sector: '云计算', amount: 12000, status: '待建仓' },
-                        { code: 'AMZN', name: 'Amazon', sector: '云计算', amount: 10000, status: '待建仓' },
-                        { code: 'GOOGL', name: 'Alphabet', sector: 'AI/搜索', amount: 8000, status: '待建仓' },
-                        { code: 'TSLA', name: 'Tesla', sector: '电动车', amount: 8000, status: '待建仓' },
-                        { code: 'META', name: 'Meta', sector: '社交媒体', amount: 7000, status: '待建仓' },
-                        { code: 'AVGO', name: 'Broadcom', sector: '半导体', amount: 7000, status: '待建仓' },
-                        { code: 'JPM', name: 'JPMorgan', sector: '金融', amount: 5000, status: '待建仓' },
-                        { code: 'LLY', name: 'Eli Lilly', sector: '医药', amount: 5000, status: '待建仓' },
-                        { code: 'UNH', name: 'UnitedHealth', sector: '医疗保险', amount: 3000, status: '待建仓' }
+                        { code: 'NVDA', name: 'Nvidia', sector: 'AI/半导体', amount: 15000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'MSFT', name: 'Microsoft', sector: '云计算', amount: 12000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'AMZN', name: 'Amazon', sector: '云计算', amount: 10000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'GOOGL', name: 'Alphabet', sector: 'AI/搜索', amount: 8000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'TSLA', name: 'Tesla', sector: '电动车', amount: 8000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'META', name: 'Meta', sector: '社交媒体', amount: 7000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'AVGO', name: 'Broadcom', sector: '半导体', amount: 7000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'JPM', name: 'JPMorgan', sector: '金融', amount: 5000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'LLY', name: 'Eli Lilly', sector: '医药', amount: 5000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'UNH', name: 'UnitedHealth', sector: '医疗保险', amount: 3000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' }
                     ]
                 }
             },
             mounted() {
+                this.fetchPrices();
                 setInterval(() => this.time = new Date().toLocaleString(), 1000);
+                setInterval(() => this.fetchPrices(), 30000);
             },
             methods: {
+                async fetchPrices() {
+                    try {
+                        const symbols = 'NVDA,MSFT,AMZN,GOOGL,TSLA,META,AVGO,JPM,LLY,UNH';
+                        const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
+                        
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        
+                        if (data.quoteResponse && data.quoteResponse.result) {
+                            const quotes = data.quoteResponse.result;
+                            
+                            quotes.forEach(quote => {
+                                const stock = this.stocks.find(s => s.code === quote.symbol);
+                                if (stock) {
+                                    stock.price = quote.regularMarketPrice || 0;
+                                    const prevClose = quote.regularMarketPreviousClose || stock.price;
+                                    stock.dayChange = stock.price - prevClose;
+                                    stock.dayChangePercent = ((stock.dayChange / prevClose) * 100).toFixed(2);
+                                }
+                            });
+                        }
+                    } catch (e) {
+                        console.error('获取美股价格失败:', e);
+                    }
+                },
                 formatNum(n) { return n.toLocaleString('en-US'); }
             }
         }).mount('#app');
