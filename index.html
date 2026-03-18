@@ -108,13 +108,17 @@
                         <div class="card-title">总投资</div>
                     </div>
                     <div class="capital-section">
-                        <div class="capital-gauge" id="capital-gauge"></div>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <div class="capital-gauge" id="capital-gauge"></div>
+                            <div class="capital-gauge" id="profit-gauge"></div>
+                        </div>
                         <div class="capital-info">
                             <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
                             <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
                             <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">¥{{ formatNum(totalMarketValue) }}</span></div>
                             <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">收益</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
+                            <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
                             数据源: {{ apiStatus }}
@@ -328,7 +332,7 @@
                     if (typeof echarts === 'undefined') return;
                     
                     setTimeout(() => {
-                        // 总投资仪表盘
+                        // 总投资占用资金仪表盘
                         const capitalEl = document.getElementById('capital-gauge');
                         if (capitalEl) {
                             const chart = echarts.init(capitalEl);
@@ -350,12 +354,46 @@
                                     detail: {
                                         valueAnimation: true,
                                         offsetCenter: [0, '40%'],
-                                        fontSize: 13,
+                                        fontSize: 12,
                                         fontWeight: 'bold',
-                                        formatter: '{value}%',
+                                        formatter: '占用\n{value}%',
                                         color: '#333'
                                     },
                                     data: [{ value: ((this.totalCost / this.initialCapital) * 100).toFixed(1) }]
+                                }]
+                            });
+                        }
+                        
+                        // 总投资盈亏仪表盘
+                        const profitEl = document.getElementById('profit-gauge');
+                        if (profitEl) {
+                            const isProfit = this.totalProfit >= 0;
+                            const profitRate = parseFloat(this.returnRate);
+                            const chart = echarts.init(profitEl);
+                            chart.setOption({
+                                series: [{
+                                    type: 'gauge',
+                                    radius: '100%',
+                                    startAngle: 180,
+                                    endAngle: 0,
+                                    min: -10,
+                                    max: 10,
+                                    itemStyle: { color: isProfit ? '#d00' : '#0a0' },
+                                    progress: { show: true, width: 12 },
+                                    pointer: { show: true, length: '60%' },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
+                                    axisTick: { show: false },
+                                    splitLine: { show: false },
+                                    axisLabel: { show: false },
+                                    detail: {
+                                        valueAnimation: true,
+                                        offsetCenter: [0, '40%'],
+                                        fontSize: 12,
+                                        fontWeight: 'bold',
+                                        formatter: '收益\n{value}%',
+                                        color: isProfit ? '#d00' : '#0a0'
+                                    },
+                                    data: [{ value: profitRate }]
                                 }]
                             });
                         }
