@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🐉 OpenDragon 美股看板</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif; background: #f5f5f5; min-height: 100vh; padding: 8px; }
+        .container { max-width: 750px; margin: 0 auto; }
+        .market-tabs { display: flex; gap: 4px; margin-bottom: 8px; padding: 4px; background: #fff; border-radius: 6px; }
+        .market-tab { flex: 1; padding: 8px 4px; text-align: center; font-size: 0.8em; font-weight: bold; color: #666; background: #f0f0f0; border-radius: 4px; text-decoration: none; }
+        .market-tab.active { background: #1976d2; color: #fff; }
+        .status-bar { display: flex; align-items: center; padding: 8px 12px; background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%); border-radius: 6px; margin-bottom: 8px; gap: 15px; }
+        .status-indicator { color: #fff; font-size: 1.1em; font-weight: bold; }
+        .card { background: #fff; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
+        .card-title { font-size: 0.9em; font-weight: bold; color: #333; }
+        .rules-container { display: flex; gap: 10px; }
+        .rules-column { flex: 1; }
+        .rules-list { list-style: none; font-size: 0.7em; }
+        .rules-list li { padding: 4px 0; color: #555; border-bottom: 1px dotted #eee; }
+        .rules-list li:before { content: '✓ '; color: #1976d2; font-weight: bold; }
+        .capital-info { width: 100%; font-size: 0.72em; }
+        .capital-row { display: flex; justify-content: space-between; margin: 3px 0; }
+        .sector-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+        .sector-card { flex: 1; min-width: 140px; background: #fff; border-radius: 6px; padding: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
+        .sector-header { font-size: 0.8em; font-weight: bold; color: #333; margin-bottom: 8px; border-bottom: 2px solid #1976d2; padding-bottom: 4px; }
+        .stocks-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .stock-item { text-align: center; background: #fff; border-radius: 6px; padding: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stock-gauge { width: 115px; height: 70px; }
+        .stock-code { color: #1976d2; font-weight: bold; font-size: 0.9em; }
+        .stock-name { color: #333; margin: 2px 0; font-size: 0.75em; }
+        .stock-sector { color: #888; font-size: 0.6em; }
+        .profit-up { color: #d00; }
+        .profit-down { color: #0a0; }
+        .notice-box { background: #e3f2fd; border: 1px solid #bbdefb; border-radius: 6px; padding: 10px; margin-bottom: 8px; font-size: 0.8em; color: #1565c0; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="market-tabs">
+                <a href="index.html" class="market-tab">A股</a>
+                <a href="hk.html" class="market-tab">港股</a>
+                <a href="us.html" class="market-tab active">美股</a>
+                <a href="ca.html" class="market-tab">加股</a>
+                <a href="crypto.html" class="market-tab">数字货币</a>
+            </div>
+            
+            <div class="status-bar">
+                <div class="status-indicator">{{ statusText }}</div>
+                <div style="color:#fff;font-size:0.9em;">标普500 | 纳斯达克 | 道琼斯</div>
+            </div>
+            
+            <div class="card" style="text-align:center;">
+                <h1 style="color:#1976d2;font-size:1.1em;">🐉 OpenDragon 美股看板</h1>
+                <div style="color:#666;font-size:0.8em;">{{ time }}</div>
+            </div>
+            
+            <div class="notice-box">
+                <strong>🎯 策略：</strong>DCA分批建仓，核心仓位80%，现金20%。止损-10%，止盈+25%。
+            </div>
+            
+            <div style="display:flex;gap:8px;margin-bottom:8px;">
+                <div class="card" style="flex:1;">
+                    <div class="card-header"><div class="card-title">利弗摩尔十大原则</div></div>
+                    <div class="rules-container">
+                        <div class="rules-column">
+                            <ul class="rules-list">
+                                <li v-for="r in rules.slice(0,5)" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                            </ul>
+                        </div>
+                        <div class="rules-column">
+                            <ul class="rules-list">
+                                <li v-for="r in rules.slice(5,10)" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="flex:1;">
+                    <div class="card-header"><div class="card-title">总投资</div></div>
+                    <div class="capital-info">
+                        <div class="capital-row"><span>总投入</span><span style="font-weight:bold;">${{ formatNum(totalInvestment) }}</span></div>
+                        <div class="capital-row"><span>核心仓位</span><span style="font-weight:bold;">${{ formatNum(corePosition) }}</span></div>
+                        <div class="capital-row"><span>现金储备</span><span style="color:#0a0;font-weight:bold;">${{ formatNum(cashReserve) }}</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sector-row">
+                <div class="sector-card">
+                    <div class="sector-header">🚀 AI/半导体 30%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>NVDA</span><span style="font-weight:bold;">$15,000</span></div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>AVGO</span><span style="font-weight:bold;">$7,000</span></div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-header">☁️ 云计算 25%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>MSFT</span><span style="font-weight:bold;">$12,000</span></div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>AMZN</span><span style="font-weight:bold;">$10,000</span></div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>GOOGL</span><span style="font-weight:bold;">$8,000</span></div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-header">🚗 电动车 15%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>TSLA</span><span style="font-weight:bold;">$8,000</span></div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>META</span><span style="font-weight:bold;">$7,000</span></div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-header">🏛️ 金融 10%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>JPM</span><span style="font-weight:bold;">$5,000</span></div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-header">💊 医疗 10%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>LLY</span><span style="font-weight:bold;">$5,000</span></div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>UNH</span><span style="font-weight:bold;">$3,000</span></div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-header">💵 现金 10%</div>
+                    <div style="font-size:0.7em;display:flex;justify-content:space-between;padding:4px 0;"><span>预留</span><span style="font-weight:bold;">$20,000</span></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header"><div class="card-title">美股持仓明细（待建仓）</div></div>
+                <div class="stocks-row">
+                    <div class="stock-item" v-for="s in stocks" :key="s.code">
+                        <div :id="'gauge-'+s.code" class="stock-gauge"></div>
+                        <div class="stock-code">{{ s.code }}</div>
+                        <div class="stock-name">{{ s.name }}</div>
+                        <div class="stock-sector">{{ s.sector }}</div>
+                        <div class="stock-detail">${{ formatNum(s.amount) }}</div>
+                        <div class="stock-detail" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">{{ s.status }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const PRINCIPLES = [
+            {"序号": 1, "原则": "市场永远正确，顺应最小阻力方向"},
+            {"序号": 2, "原则": "耐心等待关键点"},
+            {"序号": 3, "原则": "截断亏损，让利润奔跑"},
+            {"序号": 4, "原则": "金字塔加仓原则"},
+            {"序号": 5, "原则": "锁定利润，提取现金"},
+            {"序号": 6, "原则": "追随领头羊，远离弱势股"},
+            {"序号": 7, "原则": "绝不向下摊平成本"},
+            {"序号": 8, "原则": "内幕消息是毒药"},
+            {"序号": 9, "原则": "投机是一项严肃的事业"},
+            {"序号": 10, "原则": "最大的敌人是自己"}
+        ];
+        
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    time: new Date().toLocaleString(),
+                    statusText: '🇺🇸 美股市场',
+                    totalInvestment: 100000,
+                    corePosition: 80000,
+                    cashReserve: 20000,
+                    rules: PRINCIPLES.map((r, i) => ({ id: i+1, no: r.序号, title: r.原则 })),
+                    stocks: [
+                        { code: 'NVDA', name: 'Nvidia', sector: 'AI/半导体', amount: 15000, status: '待建仓' },
+                        { code: 'MSFT', name: 'Microsoft', sector: '云计算', amount: 12000, status: '待建仓' },
+                        { code: 'AMZN', name: 'Amazon', sector: '云计算', amount: 10000, status: '待建仓' },
+                        { code: 'GOOGL', name: 'Alphabet', sector: 'AI/搜索', amount: 8000, status: '待建仓' },
+                        { code: 'TSLA', name: 'Tesla', sector: '电动车', amount: 8000, status: '待建仓' },
+                        { code: 'META', name: 'Meta', sector: '社交媒体', amount: 7000, status: '待建仓' },
+                        { code: 'AVGO', name: 'Broadcom', sector: '半导体', amount: 7000, status: '待建仓' },
+                        { code: 'JPM', name: 'JPMorgan', sector: '金融', amount: 5000, status: '待建仓' },
+                        { code: 'LLY', name: 'Eli Lilly', sector: '医药', amount: 5000, status: '待建仓' },
+                        { code: 'UNH', name: 'UnitedHealth', sector: '医疗保险', amount: 3000, status: '待建仓' }
+                    ]
+                }
+            },
+            mounted() {
+                setInterval(() => this.time = new Date().toLocaleString(), 1000);
+            },
+            methods: {
+                formatNum(n) { return n.toLocaleString('en-US'); }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
