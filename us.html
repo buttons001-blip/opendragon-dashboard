@@ -134,8 +134,12 @@
                         <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
                             现 ${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
                         </div>
-                        <div class="stock-detail">计划 ${{ formatNum(s.amount) }}</div>
-                        <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">{{ s.status }}</div>
+                        <div class="stock-detail" v-if="s.qty > 0">{{ s.qty }}股 @ ${{ s.cost }}</div>
+                        <div class="stock-detail" v-else>计划 ${{ formatNum(s.amount) }}</div>
+                        <div class="stock-detail" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'" v-if="s.qty > 0">
+                            盈亏 {{ s.profitRate }}%
+                        </div>
+                        <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'" v-else>{{ s.status }}</div>
                     </div>
                 </div>
             </div>
@@ -164,20 +168,20 @@
                     time: new Date().toLocaleString(),
                     statusText: '🇺🇸 美股市场',
                     totalInvestment: 100000,
-                    corePosition: 80000,
-                    cashReserve: 20000,
+                    corePosition: 52612,
+                    cashReserve: 47388,
                     rules: PRINCIPLES.map((r, i) => ({ id: i+1, no: r.序号, title: r.原则 })),
                     stocks: [
-                        { code: 'NVDA', name: 'Nvidia', sector: 'AI/半导体', amount: 15000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'MSFT', name: 'Microsoft', sector: '云计算', amount: 12000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'AMZN', name: 'Amazon', sector: '云计算', amount: 10000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'GOOGL', name: 'Alphabet', sector: 'AI/搜索', amount: 8000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'TSLA', name: 'Tesla', sector: '电动车', amount: 8000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'META', name: 'Meta', sector: '社交媒体', amount: 7000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'AVGO', name: 'Broadcom', sector: '半导体', amount: 7000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'JPM', name: 'JPMorgan', sector: '金融', amount: 5000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'LLY', name: 'Eli Lilly', sector: '医药', amount: 5000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
-                        { code: 'UNH', name: 'UnitedHealth', sector: '医疗保险', amount: 3000, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' }
+                        { code: 'NVDA', name: 'Nvidia', sector: 'AI/半导体', amount: 14905, cost: 135.50, qty: 110, status: '已建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'MSFT', name: 'Microsoft', sector: '云计算', amount: 11906, cost: 425.20, qty: 28, status: '已建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'AMZN', name: 'Amazon', sector: '云计算', amount: 9938, cost: 198.75, qty: 50, status: '已建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'GOOGL', name: 'Alphabet', sector: 'AI/搜索', amount: 7889, cost: 175.30, qty: 45, status: '已建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'TSLA', name: 'Tesla', sector: '电动车', amount: 7974, cost: 265.80, qty: 30, status: '已建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'META', name: 'Meta', sector: '社交媒体', amount: 7000, cost: 0, qty: 0, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'AVGO', name: 'Broadcom', sector: '半导体', amount: 7000, cost: 0, qty: 0, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'JPM', name: 'JPMorgan', sector: '金融', amount: 5000, cost: 0, qty: 0, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'LLY', name: 'Eli Lilly', sector: '医药', amount: 5000, cost: 0, qty: 0, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' },
+                        { code: 'UNH', name: 'UnitedHealth', sector: '医疗保险', amount: 3000, cost: 0, qty: 0, status: '待建仓', price: 0, dayChange: 0, dayChangePercent: '0.00' }
                     ]
                 }
             },
@@ -205,6 +209,10 @@
                                     const prevClose = quote.regularMarketPreviousClose || stock.price;
                                     stock.dayChange = stock.price - prevClose;
                                     stock.dayChangePercent = ((stock.dayChange / prevClose) * 100).toFixed(2);
+                                    // 计算持仓盈亏
+                                    if (stock.qty > 0 && stock.cost > 0) {
+                                        stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                                    }
                                 }
                             });
                         }
