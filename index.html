@@ -197,12 +197,12 @@
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
                             <div class="stock-detail">{{ s.qty }}股 @ ¥{{ s.cost }}</div>
-                            <div class="stock-detail" :class="s.change >= 0 ? 'profit-up' : 'profit-down'">
-                                现 ¥{{ s.price }} ({{ s.change >= 0 ? '+' : '' }}{{ s.changePercent }}%)
+                            <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
+                                现 ¥{{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
                             </div>
                             <div class="stock-detail">值 ¥{{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
-                                {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
+                                盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
                         </div>
                     </div>
@@ -259,10 +259,11 @@
                         name: p.name, 
                         cost: p.costPrice, 
                         price: p.costPrice,
+                        prevClose: p.costPrice,  // 昨收价
                         qty: p.quantity, 
-                        profitRate: 0,
-                        change: 0,
-                        changePercent: '0.00'
+                        profitRate: 0,           // 持仓盈亏率 (相对于成本)
+                        dayChange: 0,            // 当天涨跌额
+                        dayChangePercent: '0.00' // 当天涨跌幅 (相对于昨收)
                     }))
                 }
             },
@@ -369,8 +370,11 @@
                                     
                                     if (!isNaN(currentPrice) && currentPrice > 0) {
                                         stock.price = currentPrice;
-                                        stock.change = currentPrice - prevClose;
-                                        stock.changePercent = ((stock.change / prevClose) * 100).toFixed(2);
+                                        stock.prevClose = prevClose;
+                                        // 当天涨跌幅 (相对于昨收)
+                                        stock.dayChange = currentPrice - prevClose;
+                                        stock.dayChangePercent = ((stock.dayChange / prevClose) * 100).toFixed(2);
+                                        // 持仓盈亏率 (相对于买入成本)
                                         stock.profitRate = ((currentPrice - stock.cost) / stock.cost * 100).toFixed(2);
                                     }
                                 }
@@ -475,7 +479,7 @@
                                         endAngle: 0,
                                         min: -10,
                                         max: 10,
-                                        itemStyle: { color: stock.profitRate >= 0 ? '#d00' : '#0a0' },
+                                        itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
                                         progress: { show: true, width: 10 },
                                         pointer: { show: true, length: '55%' },
                                         axisLine: { lineStyle: { width: 10, color: [[1, '#ddd']] } },
@@ -488,9 +492,9 @@
                                             fontSize: 11,
                                             fontWeight: 'bold',
                                             formatter: '{value}%',
-                                            color: stock.profitRate >= 0 ? '#d00' : '#0a0'
+                                            color: stock.dayChange >= 0 ? '#d00' : '#0a0'
                                         },
-                                        data: [{ value: parseFloat(stock.profitRate) }]
+                                        data: [{ value: parseFloat(stock.dayChangePercent) }]
                                     }]
                                 });
                             }
