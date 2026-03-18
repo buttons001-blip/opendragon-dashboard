@@ -1,0 +1,11 @@
+/* 确保股票名字使用清晰的中文字体 */
+.stock-name {
+    font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif !important;
+    font-weight: bold;
+    color: #333;
+    margin: 2px 0;
+    font-size: 0.85em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
