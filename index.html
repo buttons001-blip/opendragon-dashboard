@@ -424,6 +424,39 @@
                         this.apiStatus = '腾讯财经 ✓';
                         this.apiStatusClass = 'success';
                         
+                        // 获取 A 股指数
+                        const indexCodes = 'sh000001,sz399001,sz399006';
+                        const indexScript = document.createElement('script');
+                        indexScript.src = `https://qt.gtimg.cn/q=${indexCodes}`;
+                        indexScript.onload = () => {
+                            const indexMap = {
+                                'v_sh000001': '上证指数',
+                                'v_sz399001': '深证成指',
+                                'v_sz399006': '科创 50'
+                            };
+                            Object.keys(indexMap).forEach(key => {
+                                if (window[key]) {
+                                    const data = window[key];
+                                    const parts = data.split('~');
+                                    if (parts.length > 3) {
+                                        const current = parseFloat(parts[3]);
+                                        const prevClose = parseFloat(parts[4]);
+                                        const change = current - prevClose;
+                                        const changePercent = ((change / prevClose) * 100).toFixed(2);
+                                        
+                                        const index = this.indices.find(i => i.name === indexMap[key]);
+                                        if (index) {
+                                            index.value = current.toLocaleString();
+                                            index.change = change;
+                                            index.changePercent = changePercent;
+                                        }
+                                    }
+                                }
+                            });
+                        };
+                        document.head.appendChild(indexScript);
+                        setTimeout(() => document.head.removeChild(indexScript), 1000);
+                        
                         // 更新图表
                         this.$nextTick(() => {
                             this.renderGauges();
