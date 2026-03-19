@@ -207,24 +207,22 @@
                 
                 async fetchPrices() {
                     try {
-                        // 使用火币API（国内可访问）
-                        const url = 'https://api.huobi.pro/market/tickers';
-                        const response = await fetch(url);
-                        const result = await response.json();
-                        const data = result.data;
+                        // 使用币安API（支持CORS，国内可访问）
+                        const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'LINKUSDT'];
+                        const promises = symbols.map(symbol => 
+                            fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`)
+                                .then(r => r.json())
+                        );
+                        const results = await Promise.all(promises);
                         
-                        // 映射火币数据
+                        // 映射币安数据
                         const priceMap = {};
-                        data.forEach(item => {
-                            if (item.symbol === 'btcusdt') {
-                                priceMap['BTC'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
-                            } else if (item.symbol === 'ethusdt') {
-                                priceMap['ETH'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
-                            } else if (item.symbol === 'solusdt') {
-                                priceMap['SOL'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
-                            } else if (item.symbol === 'linkusdt') {
-                                priceMap['LINK'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
-                            }
+                        results.forEach(item => {
+                            const code = item.symbol.replace('USDT', '');
+                            priceMap[code] = { 
+                                price: parseFloat(item.lastPrice), 
+                                change: parseFloat(item.priceChangePercent) 
+                            };
                         });
                         
                         this.stocks.forEach(stock => {
@@ -237,7 +235,7 @@
                             }
                         });
                         
-                        this.apiStatus = '火币 ✓';
+                        this.apiStatus = '币安 ✓';
                         this.apiStatusClass = 'success';
                         
                         if (priceMap['BTC']) {
