@@ -207,18 +207,24 @@
                 
                 async fetchPrices() {
                     try {
-                        // 使用CoinGecko API（免费，国内可访问）
-                        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,chainlink&vs_currencies=usd&include_24hr_change=true';
+                        // 使用Gate.io API（国内可访问）
+                        const url = 'https://api.gateio.ws/api/v4/spot/tickers';
                         const response = await fetch(url);
                         const data = await response.json();
                         
-                        // 映射CoinGecko数据
-                        const priceMap = {
-                            'BTC': { price: data.bitcoin.usd, change: data.bitcoin.usd_24h_change },
-                            'ETH': { price: data.ethereum.usd, change: data.ethereum.usd_24h_change },
-                            'SOL': { price: data.solana.usd, change: data.solana.usd_24h_change },
-                            'LINK': { price: data.chainlink.usd, change: data.chainlink.usd_24h_change }
-                        };
+                        // 映射Gate.io数据
+                        const priceMap = {};
+                        data.forEach(item => {
+                            if (item.currency_pair === 'BTC_USDT') {
+                                priceMap['BTC'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
+                            } else if (item.currency_pair === 'ETH_USDT') {
+                                priceMap['ETH'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
+                            } else if (item.currency_pair === 'SOL_USDT') {
+                                priceMap['SOL'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
+                            } else if (item.currency_pair === 'LINK_USDT') {
+                                priceMap['LINK'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
+                            }
+                        });
                         
                         this.stocks.forEach(stock => {
                             const cryptoData = priceMap[stock.code];
@@ -230,7 +236,7 @@
                             }
                         });
                         
-                        this.apiStatus = 'CoinGecko ✓';
+                        this.apiStatus = 'Gate.io ✓';
                         this.apiStatusClass = 'success';
                         
                         if (priceMap['BTC']) {
