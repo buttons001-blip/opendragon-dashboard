@@ -267,8 +267,7 @@
         // 港股持仓数据
         const POSITIONS = [
             {"code": "01810", "name": "小米集团", "costPrice": 34.88, "quantity": 5000},
-            {"code": "03690", "name": "美团", "costPrice": 78.75, "quantity": 800},
-            {"code": "00700", "name": "腾讯控股", "costPrice": 561.00, "quantity": 100}
+            {"code": "03690", "name": "美团", "costPrice": 78.75, "quantity": 800}
         ];
 
         const { createApp } = Vue;
@@ -283,9 +282,9 @@
                     initialCapital: 1000000,
                     availableCapital: 706500,
                     indices: [
-                        { name: '恒生指数', value: '23,450.20', change: 125.60, changePercent: '0.54' },
-                        { name: '国企指数', value: '8,320.50', change: 45.30, changePercent: '0.55' },
-                        { name: '科技指数', value: '5,280.30', change: 89.20, changePercent: '1.72' }
+                        { name: '恒生指数', value: '25,500.58', change: -524.84, changePercent: '-2.02' },
+                        { name: '国企指数', value: '8,695.88', change: -139.62, changePercent: '-1.58' },
+                        { name: '恒生科技', value: '5,850.30', change: 89.20, changePercent: '1.55' }
                     ],
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
