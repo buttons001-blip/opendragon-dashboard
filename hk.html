@@ -281,6 +281,7 @@
                     apiStatusClass: '',
                     initialCapital: 994390,
                     availableCapital: 756990,
+                    realizedProfit: -5610,  // 腾讯止损损失
                     indices: [
                         { name: '恒生指数', value: '25,500.58', change: -524.84, changePercent: '-2.02' },
                         { name: '国企指数', value: '8,695.88', change: -139.62, changePercent: '-1.58' },
@@ -320,7 +321,7 @@
                     return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); 
                 },
                 totalProfit() { 
-                    return this.totalMarketValue - this.totalCost; 
+                    return this.totalMarketValue - this.totalCost + this.realizedProfit; 
                 },
                 returnRate() { 
                     return ((this.totalProfit / this.initialCapital) * 100).toFixed(2); 
