@@ -13,9 +13,13 @@
         .market-tabs { display: flex; gap: 4px; margin-bottom: 8px; padding: 4px; background: #fff; border-radius: 6px; }
         .market-tab { flex: 1; padding: 8px 4px; text-align: center; font-size: 0.8em; font-weight: bold; color: #666; background: #f0f0f0; border-radius: 4px; text-decoration: none; }
         .market-tab.active { background: #d32f2f; color: #fff; }
-        .status-bar { display: flex; align-items: center; padding: 8px 12px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); border-radius: 6px; margin-bottom: 8px; gap: 15px; }
+        .status-bar { display: flex; align-items: center; padding: 8px 12px; background: linear-gradient(135deg, #1a3c5c 0%, #0d2b3b 100%); border-radius: 6px; margin-bottom: 8px; gap: 15px; }
         .status-indicator { color: #fff; font-size: 1.1em; font-weight: bold; white-space: nowrap; }
         .index-ticker { flex: 1; overflow: hidden; color: #fff; font-size: 0.9em; }
+        .index-name { color: #ddd; }
+        .index-value { font-weight: bold; }
+        .index-up { color: #ff6b6b; }
+        .index-down { color: #51cf66; }
         .index-ticker-content { display: flex; gap: 20px; animation: scroll 20s linear infinite; white-space: nowrap; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .index-item { display: flex; align-items: center; gap: 5px; }
