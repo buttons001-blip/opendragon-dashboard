@@ -243,7 +243,7 @@
                     this.time = new Date().toLocaleString();
                     this.statusText = this.isTradingTime ? '🔴 交易中' : '⚫ 休市中';
                 },
-            methods: {
+                
                 async fetchPrices() {
                     // 加拿大股票API受限，使用模拟数据
                     // 实际部署时可通过后端服务获取数据
