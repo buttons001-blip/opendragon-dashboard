@@ -207,44 +207,53 @@
                 
                 async fetchPrices() {
                     try {
-                        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,chainlink&vs_currencies=usd&include_24hr_change=true';
+                        // 使用火币API（国内可访问）
+                        const url = 'https://api.huobi.pro/market/tickers';
                         const response = await fetch(url);
-                        const data = await response.json();
+                        const result = await response.json();
+                        const data = result.data;
                         
-                        const priceMap = {
-                            'BTC': data.bitcoin,
-                            'ETH': data.ethereum,
-                            'SOL': data.solana,
-                            'LINK': data.chainlink
-                        };
+                        // 映射火币数据
+                        const priceMap = {};
+                        data.forEach(item => {
+                            if (item.symbol === 'btcusdt') {
+                                priceMap['BTC'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
+                            } else if (item.symbol === 'ethusdt') {
+                                priceMap['ETH'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
+                            } else if (item.symbol === 'solusdt') {
+                                priceMap['SOL'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
+                            } else if (item.symbol === 'linkusdt') {
+                                priceMap['LINK'] = { price: item.close, change: (item.close - item.open) / item.open * 100 };
+                            }
+                        });
                         
                         this.stocks.forEach(stock => {
                             const cryptoData = priceMap[stock.code];
                             if (cryptoData) {
-                                stock.price = cryptoData.usd;
-                                stock.dayChangePercent = cryptoData.usd_24h_change ? cryptoData.usd_24h_change.toFixed(2) : '0.00';
-                                stock.dayChange = stock.price * (parseFloat(stock.dayChangePercent) / 100);
+                                stock.price = cryptoData.price;
+                                stock.dayChangePercent = cryptoData.change.toFixed(2);
+                                stock.dayChange = stock.price * (cryptoData.change / 100);
                                 stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
                             }
                         });
                         
-                        this.apiStatus = 'CoinGecko ✓';
+                        this.apiStatus = '火币 ✓';
                         this.apiStatusClass = 'success';
                         
-                        if (data.bitcoin) {
-                            this.indices[0].value = data.bitcoin.usd.toLocaleString();
-                            this.indices[0].changePercent = data.bitcoin.usd_24h_change ? data.bitcoin.usd_24h_change.toFixed(2) : '0.00';
-                            this.indices[0].change = data.bitcoin.usd_24h_change || 0;
+                        if (priceMap['BTC']) {
+                            this.indices[0].value = priceMap['BTC'].price.toLocaleString();
+                            this.indices[0].changePercent = priceMap['BTC'].change.toFixed(2);
+                            this.indices[0].change = priceMap['BTC'].change;
                         }
-                        if (data.ethereum) {
-                            this.indices[1].value = data.ethereum.usd.toLocaleString();
-                            this.indices[1].changePercent = data.ethereum.usd_24h_change ? data.ethereum.usd_24h_change.toFixed(2) : '0.00';
-                            this.indices[1].change = data.ethereum.usd_24h_change || 0;
+                        if (priceMap['ETH']) {
+                            this.indices[1].value = priceMap['ETH'].price.toLocaleString();
+                            this.indices[1].changePercent = priceMap['ETH'].change.toFixed(2);
+                            this.indices[1].change = priceMap['ETH'].change;
                         }
-                        if (data.solana) {
-                            this.indices[2].value = data.solana.usd.toLocaleString();
-                            this.indices[2].changePercent = data.solana.usd_24h_change ? data.solana.usd_24h_change.toFixed(2) : '0.00';
-                            this.indices[2].change = data.solana.usd_24h_change || 0;
+                        if (priceMap['SOL']) {
+                            this.indices[2].value = priceMap['SOL'].price.toLocaleString();
+                            this.indices[2].changePercent = priceMap['SOL'].change.toFixed(2);
+                            this.indices[2].change = priceMap['SOL'].change;
                         }
                         
                         // 更新图表
