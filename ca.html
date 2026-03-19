@@ -210,6 +210,12 @@
                         dayChangePercent: '0.00'
                     })),
                     indices: [
+                        // 加拿大指数数据来源于多伦多证券交易所
+                        // 由于 API 限制，使用模拟数据，实际部署时请接入实时数据
+                        { name: 'TSX', value: '27,500.00', change: 150.00, changePercent: '0.55' },
+                        { name: 'S&P/TSX 60', value: '1,320.00', change: 10.00, changePercent: '0.76' },
+                        { name: 'TSX Venture', value: '625.00', change: -5.00, changePercent: '-0.80' },
+                    // 原始数据
                         { name: 'TSX', value: '25,847.32', change: 125.45, changePercent: '0.49' },
                         { name: 'S&P/TSX 60', value: '1,245.80', change: 8.32, changePercent: '0.67' },
                         { name: 'TSX Venture', value: '612.45', change: -3.21, changePercent: '-0.52' }
