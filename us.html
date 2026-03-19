@@ -332,11 +332,11 @@
             },
             mounted() {
                 this.updateTime();
-                this.loadIndices();
+                // 指数在 fetchPrices 中获取
                 this.fetchPrices();
                 
                 setInterval(() => this.updateTime(), 1000);
-                setInterval(() => { this.loadIndices(); }, 5000);
+                setInterval(() => { // 指数在 fetchPrices 中获取 }, 5000);
                 setInterval(() => this.fetchPrices(), 30000);
             },
             methods: {
