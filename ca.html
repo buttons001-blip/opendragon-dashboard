@@ -241,7 +241,9 @@
             },
             mounted() {
                 this.updateTime();
+                this.loadIndices();
                 setInterval(() => this.updateTime(), 1000);
+                setInterval(() => { this.loadIndices(); }, 5000);
                 this.fetchPrices();
                 setInterval(() => this.fetchPrices(), 30000);
             },

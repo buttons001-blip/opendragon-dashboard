@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-03-19T19:55:01.599737",
+  "cn": {
+    "上证指数": {
+      "value": 4006.55,
+      "change": -43.36,
+      "changePercent": -1.07
+    },
+    "深证成指": {
+      "value": 13901.57,
+      "change": -138.13,
+      "changePercent": -0.98
+    },
+    "科创 50": {
+      "value": 1339.03,
+      "change": -33.54,
+      "changePercent": -2.44
+    }
+  },
+  "hk": {
+    "恒生指数": {
+      "value": 25500.58,
+      "change": -524.84,
+      "changePercent": -2.02
+    },
+    "国企指数": {
+      "value": 8695.88,
+      "change": -139.62,
+      "changePercent": -1.58
+    },
+    "恒生科技": {
+      "value": 0,
+      "change": 0,
+      "changePercent": 0
+    }
+  },
+  "us": {
+    "道琼斯": {
+      "value": 46225.15,
+      "change": -768.11,
+      "changePercent": -1.63
+    },
+    "纳斯达克": {
+      "value": 22152.42,
+      "change": -327.11,
+      "changePercent": -1.46
+    },
+    "标普 500": {
+      "value": 6624.7,
+      "change": -91.39,
+      "changePercent": -1.36
+    }
+  },
+  "ca": {
+    "TSX": {
+      "value": 32312.67,
+      "change": -616.42,
+      "changePercent": -1.87
+    },
+    "S&P/TSX 60": {
+      "value": 0,
+      "change": 0,
+      "changePercent": 0
+    },
+    "TSX Venture": {
+      "value": 0,
+      "change": 0,
+      "changePercent": 0
+    }
+  },
+  "crypto": {
+    "BTC": {
+      "value": 69975.83,
+      "change": -1275.83,
+      "changePercent": -1.79
+    },
+    "ETH": {
+      "value": 2168.55,
+      "change": -35.1,
+      "changePercent": -1.59
+    },
+    "SOL": {
+      "value": 89.59,
+      "change": -0.47,
+      "changePercent": -0.53
+    }
+  }
+}

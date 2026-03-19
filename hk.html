@@ -334,9 +334,11 @@
             },
             mounted() {
                 this.updateTime();
+                this.loadIndices();
                 this.fetchPrices();
                 
                 setInterval(() => this.updateTime(), 1000);
+                setInterval(() => { this.loadIndices(); }, 5000);
                 // 港股交易时间刷新
                 setInterval(() => {
                     if (this.isTradingTime) {

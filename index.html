@@ -334,10 +334,16 @@
             },
             mounted() {
                 this.updateTime();
+                this.loadIndices();
                 this.fetchPrices();
                 
                 // 每秒更新时间
                 setInterval(() => this.updateTime(), 1000);
+                
+                // 每 5 秒刷新指数
+                setInterval(() => {
+                    this.loadIndices();
+                }, 5000);
                 
                 // 每30秒刷新价格（交易时间）
                 setInterval(() => {
