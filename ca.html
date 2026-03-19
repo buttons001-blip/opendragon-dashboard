@@ -334,6 +334,28 @@
                         });
                     }, 100);
                 },
+                async loadIndices() {
+                    try {
+                        const response = await fetch('data/ca_crypto.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        if (data.ca && this.indices) {
+                            const caMap = {'TSX':0, 'S&P/TSX 60':1, 'TSX Venture':2};
+                            Object.keys(data.ca).forEach(name => {
+                                const idx = caMap[name];
+                                if (idx !== undefined && this.indices[idx]) {
+                                    const val = data.ca[name];
+                                    this.indices[idx].value = val.value.toLocaleString();
+                                    this.indices[idx].change = val.change;
+                                    this.indices[idx].changePercent = val.changePercent.toFixed(2);
+                                }
+                            });
+                        }
+                    } catch (e) {
+                        console.log('加载加拿大指数失败:', e.message);
+                    }
+                },
+
                 formatNum(n) { return n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
             }
         }).mount('#app');

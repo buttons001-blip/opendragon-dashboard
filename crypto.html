@@ -379,6 +379,28 @@
                         });
                     }, 100);
                 },
+                async loadIndices() {
+                    try {
+                        const response = await fetch('data/ca_crypto.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        if (data.crypto && this.indices) {
+                            const cryptoMap = {'BTC':0, 'ETH':1, 'SOL':2};
+                            Object.keys(data.crypto).forEach(name => {
+                                const idx = cryptoMap[name];
+                                if (idx !== undefined && this.indices[idx]) {
+                                    const val = data.crypto[name];
+                                    this.indices[idx].value = val.value.toLocaleString();
+                                    this.indices[idx].change = val.change;
+                                    this.indices[idx].changePercent = val.changePercent.toFixed(2);
+                                }
+                            });
+                        }
+                    } catch (e) {
+                        console.log('加载数字货币数据失败:', e.message);
+                    }
+                },
+
                 formatNum(n) {
                     if (n >= 1000) return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     else if (n >= 1) return n.toLocaleString('zh-CN', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
