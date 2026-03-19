@@ -284,6 +284,7 @@
                     apiStatusClass: '',
                     initialCapital: 1000000,
                     availableCapital: 674656,
+                    realizedProfit: 0,
                     indices: [
                         { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
                         { name: '深证成指', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
@@ -322,7 +323,7 @@
                     return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); 
                 },
                 totalProfit() { 
-                    return this.totalMarketValue - this.totalCost; 
+                    return this.totalMarketValue - this.totalCost + this.realizedProfit; 
                 },
                 returnRate() { 
                     return ((this.totalProfit / this.initialCapital) * 100).toFixed(2); 

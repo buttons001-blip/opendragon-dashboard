@@ -215,7 +215,9 @@
                             <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">HK${{ formatNum(totalCost) }}</span></div>
                             <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">HK${{ formatNum(availableCapital) }}</span></div>
                             <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">HK${{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}HK${{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}HK${{ formatNum(totalMarketValue - totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}HK${{ formatNum(realizedProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}HK${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">

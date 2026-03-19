@@ -282,6 +282,7 @@
                     apiStatusClass: '',
                     initialCapital: 100000,
                     availableCapital: 87497,
+                    realizedProfit: 0,
                     indices: [
                         { name: '标普500', value: '5,800.20', change: 0, changePercent: '0.00' },
                         { name: '纳斯达克', value: '18,500.80', change: 0, changePercent: '0.00' },
@@ -320,7 +321,7 @@
                     return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); 
                 },
                 totalProfit() { 
-                    return this.totalMarketValue - this.totalCost; 
+                    return this.totalMarketValue - this.totalCost + this.realizedProfit; 
                 },
                 returnRate() { 
                     return ((this.totalProfit / this.totalCost) * 100).toFixed(2); 
