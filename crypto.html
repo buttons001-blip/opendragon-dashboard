@@ -207,32 +207,18 @@
                 
                 async fetchPrices() {
                     try {
-                        // 使用OKX API（国内可访问）
-                        const url = 'https://www.okx.com/api/v5/market/tickers?instType=SPOT';
+                        // 使用CoinGecko API（免费，国内可访问）
+                        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,chainlink&vs_currencies=usd&include_24hr_change=true';
                         const response = await fetch(url);
-                        const result = await response.json();
+                        const data = await response.json();
                         
-                        if (result.code !== '0') {
-                            throw new Error(result.msg);
-                        }
-                        
-                        // 映射OKX数据
-                        const priceMap = {};
-                        result.data.forEach(item => {
-                            if (item.instId === 'BTC-USDT') {
-                                const change = ((parseFloat(item.last) - parseFloat(item.open24h)) / parseFloat(item.open24h) * 100);
-                                priceMap['BTC'] = { price: parseFloat(item.last), change: change };
-                            } else if (item.instId === 'ETH-USDT') {
-                                const change = ((parseFloat(item.last) - parseFloat(item.open24h)) / parseFloat(item.open24h) * 100);
-                                priceMap['ETH'] = { price: parseFloat(item.last), change: change };
-                            } else if (item.instId === 'SOL-USDT') {
-                                const change = ((parseFloat(item.last) - parseFloat(item.open24h)) / parseFloat(item.open24h) * 100);
-                                priceMap['SOL'] = { price: parseFloat(item.last), change: change };
-                            } else if (item.instId === 'LINK-USDT') {
-                                const change = ((parseFloat(item.last) - parseFloat(item.open24h)) / parseFloat(item.open24h) * 100);
-                                priceMap['LINK'] = { price: parseFloat(item.last), change: change };
-                            }
-                        });
+                        // 映射CoinGecko数据
+                        const priceMap = {
+                            'BTC': { price: data.bitcoin.usd, change: data.bitcoin.usd_24h_change },
+                            'ETH': { price: data.ethereum.usd, change: data.ethereum.usd_24h_change },
+                            'SOL': { price: data.solana.usd, change: data.solana.usd_24h_change },
+                            'LINK': { price: data.chainlink.usd, change: data.chainlink.usd_24h_change }
+                        };
                         
                         this.stocks.forEach(stock => {
                             const cryptoData = priceMap[stock.code];
@@ -244,7 +230,7 @@
                             }
                         });
                         
-                        this.apiStatus = 'OKX ✓';
+                        this.apiStatus = 'CoinGecko ✓';
                         this.apiStatusClass = 'success';
                         
                         if (priceMap['BTC']) {
