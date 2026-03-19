@@ -247,11 +247,122 @@
                             this.indices[2].change = data.solana.usd_24h_change || 0;
                         }
                         
+                        // 更新图表
+                        this.$nextTick(() => {
+                            this.renderGauges();
+                        });
+                        
                     } catch (e) {
                         console.error('获取价格失败:', e);
-                        this.apiStatus = '获取失败';
+                        this.apiStatus = '获取失败 - ' + e.message;
                         this.apiStatusClass = 'error';
                     }
+                },
+                
+                renderGauges() {
+                    if (typeof echarts === 'undefined') return;
+                    
+                    setTimeout(() => {
+                        // 资金占用仪表盘
+                        const capitalEl = document.getElementById('capital-gauge');
+                        if (capitalEl) {
+                            const chart = echarts.init(capitalEl);
+                            chart.setOption({
+                                series: [{
+                                    type: 'gauge',
+                                    radius: '100%',
+                                    startAngle: 180,
+                                    endAngle: 0,
+                                    min: 0,
+                                    max: 100,
+                                    itemStyle: { color: '#f7931a' },
+                                    progress: { show: true, width: 12 },
+                                    pointer: { show: true, length: '60%' },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
+                                    axisTick: { show: false },
+                                    splitLine: { show: false },
+                                    axisLabel: { show: false },
+                                    detail: {
+                                        valueAnimation: true,
+                                        offsetCenter: [0, '40%'],
+                                        fontSize: 10,
+                                        fontWeight: 'bold',
+                                        formatter: '{value}%',
+                                        color: '#333'
+                                    },
+                                    data: [{ value: ((this.totalCost / this.totalInvestment) * 100).toFixed(1) }]
+                                }]
+                            });
+                        }
+                        
+                        // 盈亏仪表盘
+                        const profitEl = document.getElementById('profit-gauge');
+                        if (profitEl) {
+                            const isProfit = this.totalProfit >= 0;
+                            const profitRate = parseFloat(this.returnRate);
+                            const chart = echarts.init(profitEl);
+                            chart.setOption({
+                                series: [{
+                                    type: 'gauge',
+                                    radius: '100%',
+                                    startAngle: 180,
+                                    endAngle: 0,
+                                    min: -50,
+                                    max: 50,
+                                    itemStyle: { color: isProfit ? '#d00' : '#0a0' },
+                                    progress: { show: true, width: 12 },
+                                    pointer: { show: true, length: '60%' },
+                                    axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
+                                    axisTick: { show: false },
+                                    splitLine: { show: false },
+                                    axisLabel: { show: false },
+                                    detail: {
+                                        valueAnimation: true,
+                                        offsetCenter: [0, '40%'],
+                                        fontSize: 10,
+                                        fontWeight: 'bold',
+                                        formatter: '{value}%',
+                                        color: isProfit ? '#d00' : '#0a0'
+                                    },
+                                    data: [{ value: profitRate }]
+                                }]
+                            });
+                        }
+                        
+                        // 币种仪表盘
+                        this.stocks.forEach(stock => {
+                            const el = document.getElementById('gauge-' + stock.code);
+                            if (el) {
+                                const chart = echarts.init(el);
+                                chart.setOption({
+                                    series: [{
+                                        type: 'gauge',
+                                        radius: '100%',
+                                        startAngle: 180,
+                                        endAngle: 0,
+                                        min: -20,
+                                        max: 20,
+                                        itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
+                                        progress: { show: true, width: 10 },
+                                        pointer: { show: true, length: '55%' },
+                                        axisLine: { lineStyle: { width: 10, color: [[1, '#ddd']] } },
+                                        axisTick: { show: false },
+                                        splitLine: { show: false },
+                                        axisLabel: { show: false },
+                                        detail: {
+                                            valueAnimation: true,
+                                            offsetCenter: [0, '35%'],
+                                            fontSize: 11,
+                                            fontWeight: 'bold',
+                                            formatter: '{value}%',
+                                            color: stock.dayChange >= 0 ? '#d00' : '#0a0'
+                                        },
+                                        data: [{ value: parseFloat(stock.dayChangePercent) }]
+                                    }]
+                                });
+                            }
+                        });
+                    }, 100);
                 },
                 formatNum(n) {
                     if (n >= 1000) return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

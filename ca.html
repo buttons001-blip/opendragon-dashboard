@@ -194,7 +194,7 @@
             data() {
                 return {
                     time: new Date().toLocaleString(),
-                    statusText: '🔴 交易中',
+                    statusText: '⚫ 休市中',
                     initialCapital: 100000,
                     availableCapital: 80000,
                     rules: PRINCIPLES.map((r, i) => ({ id: i+1, no: r.序号, title: r.原则 })),
@@ -216,6 +216,16 @@
                 }
             },
             computed: {
+                isTradingTime() {
+                    const now = new Date();
+                    const day = now.getDay();
+                    // 加拿大股市：周一至周五 9:30-16:00 (多伦多时间，UTC-4/-5)
+                    // 换算到北京时间：周一至周五 21:30-次日04:00（夏令时）或 22:30-次日05:00（冬令时）
+                    if (day === 0 || day === 6) return false;
+                    const time = now.getHours() * 100 + now.getMinutes();
+                    // 简化判断：北京时间 21:30-04:00 为交易时间
+                    return (time >= 2130 && time <= 2359) || (time >= 0 && time <= 400);
+                },
                 totalCost() { return this.stocks.reduce((sum, s) => sum + s.cost * s.qty, 0); },
                 totalMarketValue() { return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); },
                 totalProfit() { return this.totalMarketValue - this.totalCost; },
@@ -223,10 +233,16 @@
                 sortedStocks() { return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); }
             },
             mounted() {
-                setInterval(() => this.time = new Date().toLocaleString(), 1000);
+                this.updateTime();
+                setInterval(() => this.updateTime(), 1000);
                 this.fetchPrices();
                 setInterval(() => this.fetchPrices(), 30000);
             },
+            methods: {
+                updateTime() {
+                    this.time = new Date().toLocaleString();
+                    this.statusText = this.isTradingTime ? '🔴 交易中' : '⚫ 休市中';
+                },
             methods: {
                 async fetchPrices() {
                     // 加拿大股票API受限，使用模拟数据
