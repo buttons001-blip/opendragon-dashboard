@@ -208,46 +208,41 @@
                     this.time = new Date().toLocaleString();
                 },
                 
-                async fetchPrices() {
+                                async fetchPrices() {
                     try {
-                        // 使用Gate.io API（国内可访问）
-                        const url = 'https://api.gateio.ws/api/v4/spot/tickers';
-                        const response = await fetch(url);
+                        // 读取本地 JSON 文件（与顶部指数同一数据源）
+                        const response = await fetch('data/ca_crypto.json?t=' + Date.now());
                         const data = await response.json();
                         
-                        // 映射Gate.io数据
-                        const priceMap = {};
-                        data.forEach(item => {
-                            if (item.currency_pair === 'BTC_USDT') {
-                                priceMap['BTC'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
-                            } else if (item.currency_pair === 'ETH_USDT') {
-                                priceMap['ETH'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
-                            } else if (item.currency_pair === 'SOL_USDT') {
-                                priceMap['SOL'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
-                            } else if (item.currency_pair === 'LINK_USDT') {
-                                priceMap['LINK'] = { price: parseFloat(item.last), change: parseFloat(item.change_percentage) };
-                            }
-                        });
+                        if (data.crypto) {
+                            const cryptoData = data.crypto;
+                            
+                            // 更新持仓价格
+                            this.stocks.forEach(stock => {
+                                const coinData = cryptoData[stock.code];
+                                if (coinData) {
+                                    stock.price = coinData.value;
+                                    stock.dayChangePercent = coinData.changePercent.toFixed(2);
+                                    stock.dayChange = coinData.change;
+                                    stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                                }
+                            });
+                        }
                         
-                        this.stocks.forEach(stock => {
-                            const cryptoData = priceMap[stock.code];
-                            if (cryptoData) {
-                                stock.price = cryptoData.price;
-                                stock.dayChangePercent = cryptoData.change.toFixed(2);
-                                stock.dayChange = stock.price * (cryptoData.change / 100);
-                                stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
-                            }
-                        });
-                        
-                        this.apiStatus = 'Gate.io ✓';
+                        this.apiStatus = 'Yahoo Finance ✓';
                         this.apiStatusClass = 'success';
                         
-                        if (priceMap['BTC']) {
-                            this.indices[0].value = priceMap['BTC'].price.toLocaleString();
-                            this.indices[0].changePercent = priceMap['BTC'].change.toFixed(2);
-                            this.indices[0].change = priceMap['BTC'].change;
-                        }
-                        if (priceMap['ETH']) {
+                        this.$nextTick(() => {
+                            this.renderGauges();
+                        });
+                        
+                    } catch (e) {
+                        console.error('获取价格失败:', e);
+                        this.apiStatus = '获取失败 - ' + e.message;
+                        this.apiStatusClass = 'error';
+                    }
+                },
+if (priceMap['ETH']) {
                             this.indices[1].value = priceMap['ETH'].price.toLocaleString();
                             this.indices[1].changePercent = priceMap['ETH'].change.toFixed(2);
                             this.indices[1].change = priceMap['ETH'].change;
