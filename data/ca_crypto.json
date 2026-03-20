@@ -1,5 +1,5 @@
 {
-    "timestamp": "2026-03-20T11:35:02.181740",
+    "timestamp": "2026-03-20T11:40:00.000000",
     "ca": {
         "TSX": {
             "value": 31854.98,
@@ -18,11 +18,6 @@
         }
     },
     "stocks": {
-        "RY": {
-            "price": 142.50,
-            "change": 0.00,
-            "changePercent": 0.00
-        },
         "ENB": {
             "price": 53.20,
             "change": 0.00,
@@ -30,6 +25,11 @@
         },
         "SHOP": {
             "price": 94.10,
+            "change": 0.00,
+            "changePercent": 0.00
+        },
+        "RY": {
+            "price": 142.50,
             "change": 0.00,
             "changePercent": 0.00
         }
