@@ -286,13 +286,13 @@
             {"序号": 10, "原则": "最大的敌人是自己"}
         ];
         
-        const POSITIONS = [
-            {"code": "688297", "name": "中无人机", "costPrice": 55.77, "quantity": 1400},
-            {"code": "300750", "name": "宁德时代", "costPrice": 404.90, "quantity": 200},
-            {"code": "603986", "name": "兆易创新", "costPrice": 285.80, "quantity": 300},
-            {"code": "002594", "name": "比亚迪", "costPrice": 102.46, "quantity": 500},
-            {"code": "002389", "name": "航天彩虹", "costPrice": 24.43, "quantity": 1200}
-        ];
+        // 飞书配置
+        const FEISHU_CONFIG = {
+            appToken: 'R9u7b3UTeagvfrsQEiGcgG7snBc',
+            tableId: 'tblYYndqV1vTDg8I'
+        };
+        
+        // 不再硬编码 POSITIONS，从飞书读取
 
         const { createApp } = Vue;
         
@@ -304,31 +304,10 @@
                     apiStatus: '连接中...',
                     apiStatusClass: '',
                     initialCapital: 1000000,
-                    availableCapital: 771658,  // 674656 + 70266(中无人机卖出) + 26736(航天彩虹卖出)
-                    realizedProfit: -10392,  // 中无人机 -7812 + 航天彩虹 -2580
-                    closedPositions: [
-                        {
-                            code: '688297',
-                            name: '中无人机',
-                            costPrice: 55.77,
-                            quantity: 1400,
-                            sellPrice: 50.19,
-                            profit: -7812,
-                            closeDate: '2026-03-20',
-                            reason: '止损'
-                        },
-                        {
-                            code: '002389',
-                            name: '航天彩虹',
-                            costPrice: 24.43,
-                            quantity: 1200,
-                            sellPrice: 22.28,
-                            profit: -2580,
-                            closeDate: '2026-03-20',
-                            reason: '止损'
-                        }
-                    ],
-                    stocks: [],  // 在 mounted 中初始化
+                    availableCapital: 0,  // 从飞书计算
+                    realizedProfit: 0,  // 从飞书计算
+                    closedPositions: [],  // 从飞书读取
+                    stocks: [],  // 从飞书计算
                     indices: [
                         { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
                         { name: '深证成指', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
@@ -369,22 +348,9 @@
                     return this.$data.closedPositions || [];
                 }
             },
-            mounted() {
-                // 初始化持仓（排除已清仓股票）
-                const closedCodes = this.$data.closedPositions.map(cp => cp.code);
-                this.stocks = POSITIONS
-                    .filter(p => !closedCodes.includes(p.code))
-                    .map(p => ({
-                        code: p.code, 
-                        name: p.name, 
-                        cost: p.costPrice, 
-                        price: p.costPrice,
-                        prevClose: p.costPrice,
-                        qty: p.quantity, 
-                        profitRate: 0,
-                        dayChange: 0,
-                        dayChangePercent: '0.00'
-                    }));
+            async mounted() {
+                // 从飞书读取交易记录
+                await this.loadFeishuData();
                 
                 this.updateTime();
                 this.fetchPrices();
