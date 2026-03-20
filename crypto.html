@@ -31,10 +31,12 @@
         .title-section .time { color: #666; font-size: 0.8em; margin-top: 3px; }
         .top-row { display: flex; flex-direction: row; gap: 8px; margin-bottom: 8px; }
         .top-row > .card { flex: 1; min-width: 0; }
-        .rules-container { display: flex; gap: 10px; }
-        .rules-column { flex: 1; }
+        .rules-container { display: flex; gap: 10px; overflow: hidden; position: relative; }
+        .rules-scroller { flex: 1; overflow: hidden; height: 80px; position: relative; }
+        .rules-track { position: absolute; width: 100%; animation: scrollRules 40s linear infinite; }
+        @keyframes scrollRules { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
         .rules-list { list-style: none; }
-        .rules-list li { padding: 4px 0; color: #555; font-size: 0.7em; line-height: 1.4; border-bottom: 1px dotted #eee; }
+        .rules-list li { padding: 6px 0; color: #555; font-size: 0.75em; line-height: 1.5; border-bottom: 1px dotted #eee; }
         .rules-list li:last-child { border-bottom: none; }
         .rules-list li:before { content: "✓ "; color: #f7931a; font-weight: bold; }
         .capital-section { display: flex; flex-direction: column; align-items: center; gap: 8px; }
@@ -94,15 +96,13 @@
                 <div class="card">
                     <div class="card-header"><div class="card-title">利弗摩尔十大原则</div></div>
                     <div class="rules-container">
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(0,5)" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
-                            </ul>
-                        </div>
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(5,10)" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
-                            </ul>
+                        <div class="rules-scroller">
+                            <div class="rules-track">
+                                <ul class="rules-list">
+                                    <li v-for="r in rules" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                    <li v-for="r in rules" :key="r.id + '-dup'"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

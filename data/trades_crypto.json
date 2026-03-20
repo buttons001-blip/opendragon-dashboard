@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-20T23:37:03.880Z",
+  "timestamp": "2026-03-21T07:47:00.000Z",
   "market": "数字货币",
-  "initialCapital": 20000,
+  "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
     {
@@ -38,11 +38,11 @@
       "type": "充值",
       "code": "",
       "name": "初始资金",
-      "price": 20000,
+      "price": 100000,
       "quantity": 1,
-      "amount": 20000,
+      "amount": 100000,
       "date": "2025-03-14",
-      "reason": "数字货币模拟交易初始资金",
+      "reason": "数字货币模拟交易初始资金，10 万元投入",
       "status": ""
     },
     {
