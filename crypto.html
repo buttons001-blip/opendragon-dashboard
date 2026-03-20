@@ -215,7 +215,6 @@
                         const response = await fetch('data/ca_crypto.json?t=' + Date.now());
                         const data = await response.json();
                         const data = await response.json();
-                        
                         if (data.crypto) {
                             // 更新持仓价格
                             this.stocks.forEach(stock => {
