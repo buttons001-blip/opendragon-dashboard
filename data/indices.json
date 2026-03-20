@@ -1,32 +1,32 @@
 {
-  "timestamp": "2026-03-19T23:00:02.002869",
+  "timestamp": "2026-03-20T11:20:02.580806",
   "cn": {
     "上证指数": {
-      "value": 4006.55,
-      "change": -43.36,
-      "changePercent": -1.07
+      "value": 3987.5,
+      "change": -19.05,
+      "changePercent": -0.48
     },
     "深证成指": {
-      "value": 13901.57,
-      "change": -138.13,
-      "changePercent": -0.98
+      "value": 13968.19,
+      "change": 66.63,
+      "changePercent": 0.48
     },
     "科创 50": {
-      "value": 1339.03,
-      "change": -33.54,
-      "changePercent": -2.44
+      "value": 1327.65,
+      "change": -11.38,
+      "changePercent": -0.85
     }
   },
   "hk": {
     "恒生指数": {
-      "value": 25500.58,
-      "change": -524.84,
-      "changePercent": -2.02
+      "value": 25325.17,
+      "change": -175.41,
+      "changePercent": -0.69
     },
     "国企指数": {
-      "value": 8695.88,
-      "change": -139.62,
-      "changePercent": -1.58
+      "value": 8609.45,
+      "change": -86.43,
+      "changePercent": -0.99
     },
     "恒生科技": {
       "value": 0,
@@ -36,26 +36,26 @@
   },
   "us": {
     "道琼斯": {
-      "value": 45861.48,
-      "change": -363.67,
-      "changePercent": -0.79
+      "value": 46021.43,
+      "change": -203.72,
+      "changePercent": -0.44
     },
     "纳斯达克": {
-      "value": 22011.25,
-      "change": -141.17,
-      "changePercent": -0.64
+      "value": 22090.69,
+      "change": -61.73,
+      "changePercent": -0.28
     },
     "标普 500": {
-      "value": 6586.67,
-      "change": -38.03,
-      "changePercent": -0.57
+      "value": 6606.49,
+      "change": -18.21,
+      "changePercent": -0.27
     }
   },
   "ca": {
     "TSX": {
-      "value": 31787.35,
-      "change": -525.32,
-      "changePercent": -1.63
+      "value": 31854.98,
+      "change": -457.69,
+      "changePercent": -1.42
     },
     "S&P/TSX 60": {
       "value": 0,
@@ -70,19 +70,19 @@
   },
   "crypto": {
     "BTC": {
-      "value": 69517.01,
-      "change": -1734.65,
-      "changePercent": -2.43
+      "value": 70421.55,
+      "change": 499.66,
+      "changePercent": 0.71
     },
     "ETH": {
-      "value": 2124.03,
-      "change": -79.61,
-      "changePercent": -3.61
+      "value": 2145.8,
+      "change": 8.13,
+      "changePercent": 0.38
     },
     "SOL": {
-      "value": 88.24,
-      "change": -1.83,
-      "changePercent": -2.03
+      "value": 89.34,
+      "change": 0.43,
+      "changePercent": 0.48
     }
   }
 }
