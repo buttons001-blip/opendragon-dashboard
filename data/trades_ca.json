@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-21T07:35:00.000Z",
+  "timestamp": "2026-03-21T07:42:00.000Z",
   "market": "加股",
-  "initialCapital": 25000,
+  "initialCapital": 35000,
   "realizedProfit": 0,
   "holdings": [
     {
@@ -14,14 +14,14 @@
     {
       "code": "ENB",
       "name": "恩桥",
-      "costPrice": 53.2,
+      "costPrice": 74.03,
       "quantity": 100,
       "reason": "加股第一期建仓，能源 25%，北美最大管道，稳定分红"
     },
     {
       "code": "SHOP",
       "name": "Shopify",
-      "costPrice": 94.1,
+      "costPrice": 170.07,
       "quantity": 50,
       "reason": "加股第一期建仓，科技 25%，电商平台，高增长"
     }
@@ -31,9 +31,9 @@
       "type": "充值",
       "code": "",
       "name": "初始资金",
-      "price": 25000,
+      "price": 35000,
       "quantity": 1,
-      "amount": 25000,
+      "amount": 35000,
       "date": "2025-03-16",
       "reason": "加股模拟交易初始资金",
       "status": ""
@@ -53,9 +53,9 @@
       "type": "买入",
       "code": "ENB",
       "name": "恩桥",
-      "price": 53.2,
+      "price": 74.03,
       "quantity": 100,
-      "amount": 5320,
+      "amount": 7403,
       "date": "2025-03-16",
       "reason": "加股第一期建仓，能源 25%，北美最大管道，稳定分红",
       "status": ""
@@ -64,9 +64,9 @@
       "type": "买入",
       "code": "SHOP",
       "name": "Shopify",
-      "price": 94.1,
+      "price": 170.07,
       "quantity": 50,
-      "amount": 4705,
+      "amount": 8503.5,
       "date": "2025-03-16",
       "reason": "加股第一期建仓，科技 25%，电商平台，高增长",
       "status": ""
