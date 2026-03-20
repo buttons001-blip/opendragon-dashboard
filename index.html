@@ -106,13 +106,17 @@
         .rules-scroller {
             flex: 1;
             overflow: hidden;
-            height: 120px;
+            height: 140px;
             position: relative;
         }
         .rules-track {
             position: absolute;
             width: 100%;
-            animation: scrollRules 30s linear infinite;
+            animation: scrollRules 40s linear infinite;
+        }
+        @keyframes scrollRules {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
         @keyframes scrollRules {
             0% { transform: translateY(0); }
