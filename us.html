@@ -336,7 +336,7 @@
                 this.fetchPrices();
                 
                 setInterval(() => this.updateTime(), 1000);
-                setInterval(() => { // 指数在 fetchPrices 中获取 }, 5000);
+                setInterval(() => { this.loadIndices(); }, 5000);
                 setInterval(() => this.fetchPrices(), 30000);
             },
             methods: {
@@ -344,6 +344,44 @@
                     const now = new Date();
                     this.time = now.toLocaleString();
                     this.statusText = this.isTradingTime ? '🔴 交易中' : '⚫ 休市';
+                },
+                
+                async loadIndices() {
+                    try {
+                        // 从本地 JSON 读取美股指数
+                        const response = await fetch('data/indices.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        if (data.us) {
+                            const usIndices = data.us;
+                            
+                            // 更新标普 500
+                            if (usIndices['标普 500']) {
+                                const idx = usIndices['标普 500'];
+                                this.indices[0].value = idx.value.toLocaleString();
+                                this.indices[0].change = idx.change;
+                                this.indices[0].changePercent = idx.changePercent.toFixed(2);
+                            }
+                            
+                            // 更新纳斯达克
+                            if (usIndices['纳斯达克']) {
+                                const idx = usIndices['纳斯达克'];
+                                this.indices[1].value = idx.value.toLocaleString();
+                                this.indices[1].change = idx.change;
+                                this.indices[1].changePercent = idx.changePercent.toFixed(2);
+                            }
+                            
+                            // 更新道琼斯
+                            if (usIndices['道琼斯']) {
+                                const idx = usIndices['道琼斯'];
+                                this.indices[2].value = idx.value.toLocaleString();
+                                this.indices[2].change = idx.change;
+                                this.indices[2].changePercent = idx.changePercent.toFixed(2);
+                            }
+                        }
+                    } catch (e) {
+                        console.error('加载美股指数失败:', e);
+                    }
                 },
                 
                 async fetchPrices() {
