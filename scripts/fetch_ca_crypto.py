@@ -57,6 +57,25 @@ def main():
             }
             print(f"  ✓ {name}: {data['value']} ({data['changePercent']:+.2f}%)")
     
+    # 加拿大个股（多伦多证券交易所，代码后缀 .TO）
+    ca_stocks = {
+        'RY': 'RY.TO',        # 皇家银行
+        'ENB': 'ENB.TO',      # 恩桥
+        'SHOP': 'SHOP.TO'     # Shopify
+    }
+    
+    result['stocks'] = {}
+    for name, symbol in ca_stocks.items():
+        print(f"获取加股 {name} ({symbol})...")
+        data = fetch_yahoo_data(symbol)
+        if data:
+            result['stocks'][name] = {
+                'price': round(data['value'], 2),
+                'change': round(data['change'], 2),
+                'changePercent': round(data['changePercent'], 2)
+            }
+            print(f"  ✓ {name}: ${data['value']:.2f} ({data['changePercent']:+.2f}%)")
+    
     # 数字货币
     crypto = {
         'BTC': 'BTC-USD',
@@ -76,21 +95,9 @@ def main():
             }
             print(f"  ✓ {name}: {data['value']} ({data['changePercent']:+.2f}%)")
     
-    # 保存 - 保留 stocks 字段
+    # 保存
     output_file = '/home/admin/.openclaw/workspace/stock-dashboard/data/ca_crypto.json'
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
-    
-    # 读取现有文件，保留 stocks 字段
-    existing_data = {}
-    if os.path.exists(output_file):
-        try:
-            with open(output_file, 'r', encoding='utf-8') as f:
-                existing_data = json.load(f)
-                if 'stocks' in existing_data:
-                    result['stocks'] = existing_data['stocks']
-                    print("✓ 保留 stocks 字段")
-        except:
-            pass
     
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
