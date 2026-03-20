@@ -304,20 +304,19 @@
                     apiStatus: '连接中...',
                     apiStatusClass: '',
                     initialCapital: 1000000,
-                    availableCapital: 674656,
-                    realizedProfit: 0,
+                    availableCapital: 682468,  // 674656 + 7812 (止损收回资金)
+                    realizedProfit: -7812,  // 中无人机止损损失
                     closedPositions: [
-                        // 示例：如有止损/止盈操作，添加到这里
-                        // {
-                        //     code: '000XXX',
-                        //     name: '股票名',
-                        //     costPrice: 10.00,
-                        //     quantity: 1000,
-                        //     sellPrice: 9.50,
-                        //     profit: -500,
-                        //     closeDate: '2026-03-20',
-                        //     reason: '止损'
-                        // }
+                        {
+                            code: '688297',
+                            name: '中无人机',
+                            costPrice: 55.77,
+                            quantity: 1400,
+                            sellPrice: 50.19,
+                            profit: -7812,
+                            closeDate: '2026-03-20',
+                            reason: '止损'
+                        }
                     ],
                     indices: [
                         { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
@@ -329,7 +328,9 @@
                         no: r.序号,
                         title: r.原则
                     })),
-                    stocks: POSITIONS.map(p => ({
+                    stocks: POSITIONS.filter(p => 
+                        !this.$data?.closedPositions?.some(cp => cp.code === p.code)
+                    ).map(p => ({
                         code: p.code, 
                         name: p.name, 
                         cost: p.costPrice, 
