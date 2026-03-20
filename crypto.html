@@ -255,17 +255,6 @@
                         this.$nextTick(() => this.renderGauges());
                     }
                 },
-                        
-                    } catch (e) {
-                        console.error('获取价格失败:', e);
-                        this.apiStatus = '获取失败 - 请使用VPN访问实时行情';
-                        this.apiStatusClass = 'error';
-                        // 使用静态数据作为备用
-                        this.$nextTick(() => {
-                            this.renderGauges();
-                        });
-                    }
-                },
                 
                 renderGauges() {
                     if (typeof echarts === 'undefined') return;
@@ -389,18 +378,3 @@
                                 }
                             });
                         }
-                    } catch (e) {
-                        console.log('加载数字货币数据失败:', e.message);
-                    }
-                },
-
-                formatNum(n) {
-                    if (n >= 1000) return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    else if (n >= 1) return n.toLocaleString('zh-CN', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
-                    else return n.toLocaleString('zh-CN', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
-                }
-            }
-        }).mount('#app');
-    </script>
-</body>
-</html>
