@@ -216,7 +216,9 @@
                             <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
                             <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
                             <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">¥{{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}¥{{ formatNum(totalMarketValue - totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}¥{{ formatNum(realizedProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
@@ -244,6 +246,25 @@
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
                                 盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" v-if="closedPositions.length > 0">
+                <div class="card-header">
+                    <div class="card-title">已清仓记录</div>
+                </div>
+                <div class="stocks-row">
+                    <div class="stock-item" v-for="s in closedPositions" :key="s.code" style="opacity:0.7">
+                        <div class="stock-info">
+                            <div class="stock-code">{{ s.code }}</div>
+                            <div class="stock-name">{{ s.name }} <span style="color:#999;font-size:0.8em">(已清仓)</span></div>
+                            <div class="stock-detail">买入：¥{{ s.costPrice }} × {{ s.quantity }}股</div>
+                            <div class="stock-detail" :class="s.profit >= 0 ? 'profit-up' : 'profit-down'">
+                                卖出：¥{{ s.sellPrice }} | 盈亏 {{ s.profit >= 0 ? '+' : '' }}¥{{ formatNum(s.profit) }}
+                            </div>
+                            <div class="stock-detail" style="color:#999;font-size:0.7em">{{ s.closeDate }}</div>
                         </div>
                     </div>
                 </div>
@@ -284,6 +305,20 @@
                     apiStatusClass: '',
                     initialCapital: 1000000,
                     availableCapital: 674656,
+                    realizedProfit: 0,
+                    closedPositions: [
+                        // 示例：如有止损/止盈操作，添加到这里
+                        // {
+                        //     code: '000XXX',
+                        //     name: '股票名',
+                        //     costPrice: 10.00,
+                        //     quantity: 1000,
+                        //     sellPrice: 9.50,
+                        //     profit: -500,
+                        //     closeDate: '2026-03-20',
+                        //     reason: '止损'
+                        // }
+                    ],
                     indices: [
                         { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
                         { name: '深证成指', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
@@ -322,13 +357,16 @@
                     return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); 
                 },
                 totalProfit() { 
-                    return this.totalMarketValue - this.totalCost; 
+                    return this.totalMarketValue - this.totalCost + this.realizedProfit; 
                 },
                 returnRate() { 
                     return ((this.totalProfit / this.initialCapital) * 100).toFixed(2); 
                 },
                 sortedStocks() { 
                     return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); 
+                },
+                closedPositions() {
+                    return this.$data.closedPositions || [];
                 }
             },
             mounted() {
