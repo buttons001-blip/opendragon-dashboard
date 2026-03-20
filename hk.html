@@ -355,34 +355,55 @@
                 
                 async loadIndices() {
                     try {
-                        const response = await fetch('data/indices.json?t=' + Date.now());
-                        const data = await response.json();
+                        // 使用腾讯财经 API 获取港股指数（与个股相同数据源）
+                        const codes = 'r_hkHSI,r_hkHSCEI,r_hkHSTECH';
+                        const url = `https://qt.gtimg.cn/q=${codes}`;
                         
-                        if (data.hk) {
-                            const hkIndices = data.hk;
-                            
-                            // 更新恒生指数
-                            if (hkIndices['恒生指数']) {
-                                const idx = hkIndices['恒生指数'];
-                                this.indices[0].value = idx.value.toLocaleString();
-                                this.indices[0].change = idx.change;
-                                this.indices[0].changePercent = idx.changePercent.toFixed(2);
+                        const response = await fetch(url);
+                        const text = await response.text();
+                        
+                        // 解析恒生指数
+                        const hsiMatch = text.match(/v_r_hkHSI="([^"]+)"/);
+                        if (hsiMatch && hsiMatch[1]) {
+                            const parts = hsiMatch[1].split('~');
+                            const current = parseFloat(parts[3]);
+                            const prevClose = parseFloat(parts[4]);
+                            if (!isNaN(current) && current > 0) {
+                                const change = current - prevClose;
+                                const changePercent = ((change / prevClose) * 100).toFixed(2);
+                                this.indices[0].value = current.toLocaleString();
+                                this.indices[0].change = change;
+                                this.indices[0].changePercent = changePercent;
                             }
-                            
-                            // 更新国企指数
-                            if (hkIndices['国企指数']) {
-                                const idx = hkIndices['国企指数'];
-                                this.indices[1].value = idx.value.toLocaleString();
-                                this.indices[1].change = idx.change;
-                                this.indices[1].changePercent = idx.changePercent.toFixed(2);
+                        }
+                        
+                        // 解析国企指数
+                        const hsceiMatch = text.match(/v_r_hkHSCEI="([^"]+)"/);
+                        if (hsceiMatch && hsceiMatch[1]) {
+                            const parts = hsceiMatch[1].split('~');
+                            const current = parseFloat(parts[3]);
+                            const prevClose = parseFloat(parts[4]);
+                            if (!isNaN(current) && current > 0) {
+                                const change = current - prevClose;
+                                const changePercent = ((change / prevClose) * 100).toFixed(2);
+                                this.indices[1].value = current.toLocaleString();
+                                this.indices[1].change = change;
+                                this.indices[1].changePercent = changePercent;
                             }
-                            
-                            // 更新恒生科技
-                            if (hkIndices['恒生科技'] && hkIndices['恒生科技'].value > 0) {
-                                const idx = hkIndices['恒生科技'];
-                                this.indices[2].value = idx.value.toLocaleString();
-                                this.indices[2].change = idx.change;
-                                this.indices[2].changePercent = idx.changePercent.toFixed(2);
+                        }
+                        
+                        // 解析恒生科技指数
+                        const hstechMatch = text.match(/v_r_hkHSTECH="([^"]+)"/);
+                        if (hstechMatch && hstechMatch[1]) {
+                            const parts = hstechMatch[1].split('~');
+                            const current = parseFloat(parts[3]);
+                            const prevClose = parseFloat(parts[4]);
+                            if (!isNaN(current) && current > 0) {
+                                const change = current - prevClose;
+                                const changePercent = ((change / prevClose) * 100).toFixed(2);
+                                this.indices[2].value = current.toLocaleString();
+                                this.indices[2].change = change;
+                                this.indices[2].changePercent = changePercent;
                             }
                         }
                     } catch (e) {
