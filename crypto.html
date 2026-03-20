@@ -211,9 +211,9 @@
                 async fetchPrices() {
                     try {
                         // 从本地 JSON 读取数字货币价格
-                        console.log('Fetching crypto data...');
                         const response = await fetch('data/ca_crypto.json?t=' + Date.now());
                         const data = await response.json();
+                        
                         if (data.crypto) {
                             // 更新持仓价格
                             this.stocks.forEach(stock => {
