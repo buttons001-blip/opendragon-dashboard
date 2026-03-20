@@ -370,6 +370,22 @@
                 }
             },
             mounted() {
+                // 初始化持仓（排除已清仓股票）
+                const closedCodes = this.$data.closedPositions.map(cp => cp.code);
+                this.stocks = POSITIONS
+                    .filter(p => !closedCodes.includes(p.code))
+                    .map(p => ({
+                        code: p.code, 
+                        name: p.name, 
+                        cost: p.costPrice, 
+                        price: p.costPrice,
+                        prevClose: p.costPrice,
+                        qty: p.quantity, 
+                        profitRate: 0,
+                        dayChange: 0,
+                        dayChangePercent: '0.00'
+                    }));
+                
                 this.updateTime();
                 this.fetchPrices();
                 
