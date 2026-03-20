@@ -186,6 +186,12 @@
             {"code": "LINK", "name": "Chainlink", "costPrice": 9.67, "quantity": 206.859749}
         ];
 
+        // 飞书配置
+        const FEISHU_CONFIG = {
+            appToken: 'R9u7b3UTeagvfrsQEiGcgG7snBc',
+            tableId: 'tblYYndqV1vTDg8I'
+        };
+        
         const { createApp } = Vue;
         
         createApp({
@@ -218,7 +224,7 @@
                 },
                 sortedStocks() { return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); }
             },
-            mounted() {
+            async mounted() {
                 this.updateTime();
                 this.loadIndices();
                 this.fetchPrices();

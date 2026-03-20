@@ -285,6 +285,12 @@
             {"code": "03690", "name": "美团", "costPrice": 78.75, "quantity": 800}
         ];
 
+        // 飞书配置
+        const FEISHU_CONFIG = {
+            appToken: 'R9u7b3UTeagvfrsQEiGcgG7snBc',
+            tableId: 'tblYYndqV1vTDg8I'
+        };
+        
         const { createApp } = Vue;
         
         createApp({
@@ -360,7 +366,7 @@
                     return this.$data.closedPositions || [];
                 }
             },
-            mounted() {
+            async mounted() {
                 this.updateTime();
                 this.loadIndices();
                 this.fetchPrices();

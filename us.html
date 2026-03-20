@@ -284,6 +284,12 @@
             {"code": "AMZN", "name": "Amazon", "costPrice": 211.68, "quantity": 6}
         ];
 
+        // 飞书配置
+        const FEISHU_CONFIG = {
+            appToken: 'R9u7b3UTeagvfrsQEiGcgG7snBc',
+            tableId: 'tblYYndqV1vTDg8I'
+        };
+        
         const { createApp } = Vue;
         
         createApp({
@@ -293,9 +299,12 @@
                     statusText: '🔴 交易中',
                     apiStatus: '连接中...',
                     apiStatusClass: '',
-                    initialCapital: 100000,
-                    availableCapital: 87497,
-                    realizedProfit: 0,
+                    initialCapital: 0,  // 从飞书计算
+                    availableCapital: 0,  // 从飞书计算
+                    realizedProfit: 0,  // 从飞书计算
+                    closedPositions: [],  // 从飞书读取
+                    transactions: [],  // 交易记录
+                    
                     closedPositions: [],
                     indices: [
                         { name: '标普500', value: '5,800.20', change: 0, changePercent: '0.00' },
@@ -347,7 +356,7 @@
                     return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); 
                 }
             },
-            mounted() {
+            async mounted() {
                 this.updateTime();
                 // 指数在 fetchPrices 中获取
                 this.fetchPrices();
