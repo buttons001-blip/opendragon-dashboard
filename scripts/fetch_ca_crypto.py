@@ -76,9 +76,22 @@ def main():
             }
             print(f"  ✓ {name}: {data['value']} ({data['changePercent']:+.2f}%)")
     
-    # 保存
+    # 保存 - 保留 stocks 字段
     output_file = '/home/admin/.openclaw/workspace/stock-dashboard/data/ca_crypto.json'
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    
+    # 读取现有文件，保留 stocks 字段
+    existing_data = {}
+    if os.path.exists(output_file):
+        try:
+            with open(output_file, 'r', encoding='utf-8') as f:
+                existing_data = json.load(f)
+                if 'stocks' in existing_data:
+                    result['stocks'] = existing_data['stocks']
+                    print("✓ 保留 stocks 字段")
+        except:
+            pass
+    
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"\n数据已保存到：{output_file}")
