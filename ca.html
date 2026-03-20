@@ -214,13 +214,7 @@
                         dayChangePercent: '0.00'
                     })),
                     indices: [
-                        // 加拿大指数数据来源于多伦多证券交易所
-                        // 由于 API 限制，使用模拟数据，实际部署时请接入实时数据
-                        { name: 'TSX', value: '27,500.00', change: 150.00, changePercent: '0.55' },
-                        { name: 'S&P/TSX 60', value: '1,320.00', change: 10.00, changePercent: '0.76' },
-                        { name: 'TSX Venture', value: '625.00', change: -5.00, changePercent: '-0.80' },
-                    // 原始数据
-                        { name: 'TSX', value: '25,847.32', change: 125.45, changePercent: '0.49' },
+                        { name: 'TSX', value: '31,854.98', change: -457.69, changePercent: '-1.42' },
                         { name: 'S&P/TSX 60', value: '1,245.80', change: 8.32, changePercent: '0.67' },
                         { name: 'TSX Venture', value: '612.45', change: -3.21, changePercent: '-0.52' }
                     ]
@@ -258,28 +252,28 @@
                 },
                 
                 async fetchPrices() {
-                    // 加拿大股票API受限，使用模拟数据
-                    // 实际部署时可通过后端服务获取数据
-                    this.stocks.forEach(stock => {
-                        // 模拟小幅波动
-                        const randomChange = (Math.random() - 0.5) * 2;
-                        stock.price = stock.cost * (1 + randomChange / 100);
-                        stock.dayChange = stock.price - stock.cost;
-                        stock.dayChangePercent = randomChange.toFixed(2);
-                        stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
-                    });
-                    
-                    // 更新TSX指数（模拟数据）
-                    this.indices.forEach(idx => {
-                        const randomChange = (Math.random() - 0.5) * 1;
-                        const currentValue = parseFloat(idx.value.replace(',', ''));
-                        const newValue = currentValue * (1 + randomChange / 100);
-                        idx.value = newValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                        idx.changePercent = randomChange.toFixed(2);
-                        idx.change = randomChange;
-                    });
-                    
-                    this.$nextTick(() => this.renderGauges());
+                    try {
+                        // 从本地 JSON 读取加拿大股票和指数数据
+                        const response = await fetch('data/ca_crypto.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        // 更新个股价格
+                        if (data.stocks) {
+                            this.stocks.forEach(stock => {
+                                const stockData = data.stocks[stock.code];
+                                if (stockData) {
+                                    stock.price = parseFloat(stockData.price.toFixed(2));
+                                    stock.dayChange = parseFloat(stockData.change.toFixed(2));
+                                    stock.dayChangePercent = stockData.changePercent.toFixed(2);
+                                    stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                                }
+                            });
+                        }
+                        
+                        this.$nextTick(() => this.renderGauges());
+                    } catch (e) {
+                        console.error('获取加拿大股价失败:', e);
+                    }
                 },
                 renderGauges() {
                     if (typeof echarts === 'undefined') return;
