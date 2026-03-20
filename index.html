@@ -156,9 +156,67 @@
         .api-status.error { color: #d00; }
         .api-status.success { color: #0a0; }
         
+        /* 交易记录表格样式 */
+        .trades-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .trades-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+        .trades-table th {
+            background: #f5f5f5;
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            color: #333;
+            white-space: nowrap;
+        }
+        .trades-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            line-height: 1.5;
+        }
+        .trades-table .type-cell { font-weight: bold; }
+        .trades-table .type-充值 { color: #2e7d32; }
+        .trades-table .type-提现 { color: #f57c00; }
+        .trades-table .type-买入 { color: #1565c0; }
+        .trades-table .type-卖出 { color: #c62828; }
+        .trades-table .reason-cell {
+            color: #666;
+            font-size: 0.95em;
+            max-width: 200px;
+        }
+        .trades-table tr:nth-child(even) { background: #fafafa; }
+        .trades-table tr:hover { background: #f0f0f0; }
+        
+        /* 充值行特殊样式 */
+        .trades-table tr.deposit-row { background: #e8f5e9 !important; }
+        .trades-table tr.sell-row { background: #ffebee !important; }
+        
+        /* 移动端优化 */
         @media (max-width: 500px) {
             .top-row { flex-direction: column; }
             .rules-grid { grid-template-columns: 1fr; }
+            
+            /* 手机端交易记录表格优化 */
+            .trades-table {
+                font-size: 1em; /* 放大字体 */
+            }
+            .trades-table th {
+                padding: 12px 6px;
+                font-size: 0.9em;
+            }
+            .trades-table td {
+                padding: 12px 6px;
+                font-size: 0.95em;
+            }
+            .trades-table .reason-cell {
+                font-size: 1em;
+                max-width: 150px;
+            }
         }
     </style>
 </head>
@@ -272,34 +330,31 @@
                 <div class="card-header">
                     <div class="card-title">交易记录</div>
                 </div>
-                <div style="overflow-x:auto;">
-                    <table style="width:100%;font-size:0.7em;border-collapse:collapse;">
+                <div class="trades-table-wrapper">
+                    <table class="trades-table">
                         <thead>
-                            <tr style="background:#f5f5f5;">
-                                <th style="padding:8px;border:1px solid #ddd;">日期</th>
-                                <th style="padding:8px;border:1px solid #ddd;">类型</th>
-                                <th style="padding:8px;border:1px solid #ddd;">代码</th>
-                                <th style="padding:8px;border:1px solid #ddd;">名称</th>
-                                <th style="padding:8px;border:1px solid #ddd;">价格</th>
-                                <th style="padding:8px;border:1px solid #ddd;">数量</th>
-                                <th style="padding:8px;border:1px solid #ddd;">金额</th>
-                                <th style="padding:8px;border:1px solid #ddd;">原因</th>
+                            <tr>
+                                <th>日期</th>
+                                <th>类型</th>
+                                <th>代码</th>
+                                <th>名称</th>
+                                <th>价格</th>
+                                <th>数量</th>
+                                <th>金额</th>
+                                <th>原因</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="t in transactions" :key="t.id" :style="t.type === '充值' ? 'background:#e8f5e9;' : (t.type === '卖出' ? 'background:#ffebee;' : '')">
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.date }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">
-                                    <span :style="t.type === '充值' ? 'color:#2e7d32;font-weight:bold;' : (t.type === '卖出' ? 'color:#c62828;' : (t.type === '买入' ? 'color:#1565c0;' : 'color:#f57c00;'))">
-                                        {{ t.type }}
-                                    </span>
-                                </td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.code || '-' }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.name }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">¥{{ t.price }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.quantity }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">¥{{ formatNum(t.amount) }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.reason || '-' }}</td>
+                            <tr v-for="t in transactions" :key="t.id" 
+                                :class="{'deposit-row': t.type === '充值', 'sell-row': t.type === '卖出'}">
+                                <td>{{ t.date }}</td>
+                                <td class="type-cell" :class="'type-' + t.type">{{ t.type }}</td>
+                                <td>{{ t.code || '-' }}</td>
+                                <td>{{ t.name }}</td>
+                                <td>¥{{ t.price }}</td>
+                                <td>{{ t.quantity }}</td>
+                                <td>¥{{ formatNum(t.amount) }}</td>
+                                <td class="reason-cell">{{ t.reason || '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
