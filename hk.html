@@ -249,6 +249,25 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="card" v-if="closedPositions.length > 0">
+                <div class="card-header">
+                    <div class="card-title">已清仓记录</div>
+                </div>
+                <div class="stocks-row">
+                    <div class="stock-item" v-for="s in closedPositions" :key="s.code" style="opacity:0.7">
+                        <div class="stock-info">
+                            <div class="stock-code">{{ s.code }}</div>
+                            <div class="stock-name">{{ s.name }} <span style="color:#999;font-size:0.8em">(已清仓)</span></div>
+                            <div class="stock-detail">买入：HK${{ s.costPrice }} × {{ s.quantity }}股</div>
+                            <div class="stock-detail" :class="s.profit >= 0 ? 'profit-up' : 'profit-down'">
+                                卖出：HK${{ s.sellPrice }} | 盈亏 {{ s.profit >= 0 ? '+' : '' }}HK${{ formatNum(s.profit) }}
+                            </div>
+                            <div class="stock-detail" style="color:#999;font-size:0.7em">{{ s.closeDate }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -284,6 +303,18 @@
                     initialCapital: 1000000,  // 初始本金始终为 100 万
                     availableCapital: 756990,  // 可用资金 = 100 万 - 持仓占用 - 已实现亏损
                     realizedProfit: -5610,  // 腾讯止损损失
+                    closedPositions: [
+                        {
+                            code: '00700',
+                            name: '腾讯控股',
+                            costPrice: 561.00,
+                            quantity: 100,
+                            sellPrice: 504.90,
+                            profit: -5610,
+                            closeDate: '2026-03-19',
+                            reason: '止损'
+                        }
+                    ],
                     indices: [
                         { name: '恒生指数', value: '25,500.58', change: -524.84, changePercent: '-2.02' },
                         { name: '国企指数', value: '8,695.88', change: -139.62, changePercent: '-1.58' },
@@ -330,6 +361,9 @@
                 },
                 sortedStocks() { 
                     return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); 
+                },
+                closedPositions() {
+                    return this.$data.closedPositions || [];
                 }
             },
             mounted() {
