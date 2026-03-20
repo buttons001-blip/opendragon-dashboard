@@ -363,11 +363,7 @@
                 },
                 async loadIndices() {
                     try {
-                        console.log('Fetching crypto data...');
                         const response = await fetch('data/ca_crypto.json?t=' + Date.now());
-                        const data = await response.json();
-                        console.log('Crypto data:', data.crypto);
-                        const data = await response.json();
                         
                         if (data.crypto && this.indices) {
                             const cryptoMap = {'BTC':0, 'ETH':1, 'SOL':2};
