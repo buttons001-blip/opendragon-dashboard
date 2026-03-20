@@ -338,19 +338,7 @@
                         no: r.序号,
                         title: r.原则
                     })),
-                    stocks: POSITIONS.filter(p => 
-                        !this.$data?.closedPositions?.some(cp => cp.code === p.code)
-                    ).map(p => ({
-                        code: p.code, 
-                        name: p.name, 
-                        cost: p.costPrice, 
-                        price: p.costPrice,
-                        prevClose: p.costPrice,  // 昨收价
-                        qty: p.quantity, 
-                        profitRate: 0,           // 持仓盈亏率 (相对于成本)
-                        dayChange: 0,            // 当天涨跌额
-                        dayChangePercent: '0.00' // 当天涨跌幅 (相对于昨收)
-                    }))
+                    stocks: []
                 }
             },
             computed: {
@@ -395,6 +383,24 @@
                 }, 30000);
             },
             methods: {
+                initStocks() {
+                    // 初始化持仓，排除已清仓的股票
+                    const closedCodes = this.closedPositions.map(cp => cp.code);
+                    this.stocks = POSITIONS
+                        .filter(p => !closedCodes.includes(p.code))
+                        .map(p => ({
+                            code: p.code, 
+                            name: p.name, 
+                            cost: p.costPrice, 
+                            price: p.costPrice,
+                            prevClose: p.costPrice,
+                            qty: p.quantity, 
+                            profitRate: 0,
+                            dayChange: 0,
+                            dayChangePercent: '0.00'
+                        }));
+                },
+                
                 updateTime() {
                     const now = new Date();
                     this.time = now.toLocaleString();
