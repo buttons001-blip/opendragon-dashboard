@@ -353,6 +353,43 @@
                     this.statusText = this.isTradingTime ? '🔴 交易中' : '⚫ 休市';
                 },
                 
+                async loadIndices() {
+                    try {
+                        const response = await fetch('data/indices.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        if (data.hk) {
+                            const hkIndices = data.hk;
+                            
+                            // 更新恒生指数
+                            if (hkIndices['恒生指数']) {
+                                const idx = hkIndices['恒生指数'];
+                                this.indices[0].value = idx.value.toLocaleString();
+                                this.indices[0].change = idx.change;
+                                this.indices[0].changePercent = idx.changePercent.toFixed(2);
+                            }
+                            
+                            // 更新国企指数
+                            if (hkIndices['国企指数']) {
+                                const idx = hkIndices['国企指数'];
+                                this.indices[1].value = idx.value.toLocaleString();
+                                this.indices[1].change = idx.change;
+                                this.indices[1].changePercent = idx.changePercent.toFixed(2);
+                            }
+                            
+                            // 更新恒生科技
+                            if (hkIndices['恒生科技'] && hkIndices['恒生科技'].value > 0) {
+                                const idx = hkIndices['恒生科技'];
+                                this.indices[2].value = idx.value.toLocaleString();
+                                this.indices[2].change = idx.change;
+                                this.indices[2].changePercent = idx.changePercent.toFixed(2);
+                            }
+                        }
+                    } catch (e) {
+                        console.error('加载港股指数失败:', e);
+                    }
+                },
+                
                 async fetchPrices() {
                     try {
                         // 港股使用腾讯API，前缀为 hk
