@@ -1,0 +1,220 @@
+{
+  "timestamp": "2026-03-20T22:58:09.432Z",
+  "markets": {
+    "cn": {
+      "trades": [
+        {
+          "type": "充值",
+          "code": "",
+          "name": "初始资金",
+          "price": 1000000,
+          "quantity": 1,
+          "amount": 1000000,
+          "date": "2024-03-16",
+          "reason": "A 股模拟交易初始资金，100 万元启动",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "688297",
+          "name": "中无人机",
+          "price": 55.77,
+          "quantity": 1400,
+          "amount": 78078,
+          "date": "2024-03-16",
+          "reason": "无人机龙头，军工政策支持，低位建仓",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "300750",
+          "name": "宁德时代",
+          "price": 404.9,
+          "quantity": 200,
+          "amount": 80980,
+          "date": "2024-03-16",
+          "reason": "新能源电池龙头，海外扩张，行业领军",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "603986",
+          "name": "兆易创新",
+          "price": 285.8,
+          "quantity": 300,
+          "amount": 85740,
+          "date": "2024-03-16",
+          "reason": "存储芯片龙头，科技自立自强，国产替代",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "002594",
+          "name": "比亚迪",
+          "price": 102.46,
+          "quantity": 500,
+          "amount": 51230,
+          "date": "2024-03-16",
+          "reason": "新能源汽车龙头，销量领先，垂直整合",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "002389",
+          "name": "航天彩虹",
+          "price": 24.43,
+          "quantity": 1200,
+          "amount": 29316,
+          "date": "2024-03-16",
+          "reason": "军工材料龙头，低位反弹，彩虹系列无人机",
+          "status": ""
+        },
+        {
+          "type": "卖出",
+          "code": "688297",
+          "name": "中无人机",
+          "price": 50.19,
+          "quantity": 1400,
+          "amount": 70266,
+          "date": "2025-03-20",
+          "reason": "触发 -5% 止损线，严格执行纪律",
+          "status": "已止损"
+        },
+        {
+          "type": "卖出",
+          "code": "002389",
+          "name": "航天彩虹",
+          "price": 22.28,
+          "quantity": 1200,
+          "amount": 26736,
+          "date": "2025-03-20",
+          "reason": "触发 -5% 止损线，严格执行纪律",
+          "status": "已止损"
+        }
+      ],
+      "holdings": [
+        {
+          "code": "300750",
+          "name": "宁德时代",
+          "costPrice": 404.9,
+          "quantity": 200,
+          "reason": "新能源电池龙头，海外扩张，行业领军"
+        },
+        {
+          "code": "603986",
+          "name": "兆易创新",
+          "costPrice": 285.8,
+          "quantity": 300,
+          "reason": "存储芯片龙头，科技自立自强，国产替代"
+        },
+        {
+          "code": "002594",
+          "name": "比亚迪",
+          "costPrice": 102.46,
+          "quantity": 500,
+          "reason": "新能源汽车龙头，销量领先，垂直整合"
+        }
+      ],
+      "initialCapital": 1000000,
+      "realizedProfit": -10392
+    },
+    "hk": {
+      "trades": [],
+      "holdings": [],
+      "initialCapital": 0,
+      "realizedProfit": 0
+    },
+    "us": {
+      "trades": [],
+      "holdings": [],
+      "initialCapital": 0,
+      "realizedProfit": 0
+    },
+    "ca": {
+      "trades": [],
+      "holdings": [],
+      "initialCapital": 0,
+      "realizedProfit": 0
+    },
+    "crypto": {
+      "trades": [
+        {
+          "type": "买入",
+          "code": "BTC",
+          "name": "比特币",
+          "price": 73573.73,
+          "quantity": 0.108734,
+          "amount": 7999.99,
+          "date": "2025-03-15",
+          "reason": "数字货币第一期建仓，数字黄金，价值存储",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "ETH",
+          "name": "以太坊",
+          "price": 2268.89,
+          "quantity": 2.644461,
+          "amount": 5999.99,
+          "date": "2025-03-15",
+          "reason": "数字货币第一期建仓，智能合约平台，DeFi 基础",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "SOL",
+          "name": "Solana",
+          "price": 93.68,
+          "quantity": 32.022857,
+          "amount": 2999.99,
+          "date": "2025-03-15",
+          "reason": "数字货币第一期建仓，高性能公链，快速低费",
+          "status": ""
+        },
+        {
+          "type": "买入",
+          "code": "LINK",
+          "name": "Chainlink",
+          "price": 9.67,
+          "quantity": 206.859749,
+          "amount": 1999.99,
+          "date": "2025-03-15",
+          "reason": "数字货币第一期建仓，预言机龙头，链上链下桥梁",
+          "status": ""
+        }
+      ],
+      "holdings": [
+        {
+          "code": "BTC",
+          "name": "比特币",
+          "costPrice": 73573.73,
+          "quantity": 0.108734,
+          "reason": "数字货币第一期建仓，数字黄金，价值存储"
+        },
+        {
+          "code": "ETH",
+          "name": "以太坊",
+          "costPrice": 2268.89,
+          "quantity": 2.644461,
+          "reason": "数字货币第一期建仓，智能合约平台，DeFi 基础"
+        },
+        {
+          "code": "SOL",
+          "name": "Solana",
+          "costPrice": 93.68,
+          "quantity": 32.022857,
+          "reason": "数字货币第一期建仓，高性能公链，快速低费"
+        },
+        {
+          "code": "LINK",
+          "name": "Chainlink",
+          "costPrice": 9.67,
+          "quantity": 206.859749,
+          "reason": "数字货币第一期建仓，预言机龙头，链上链下桥梁"
+        }
+      ],
+      "initialCapital": 0,
+      "realizedProfit": 0
+    }
+  }
+}

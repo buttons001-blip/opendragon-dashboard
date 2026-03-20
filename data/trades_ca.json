@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-03-20T22:58:53.288Z",
+  "market": "加股",
+  "initialCapital": 15000,
+  "realizedProfit": 0,
+  "holdings": [
+    {
+      "code": "RY",
+      "name": "皇家银行",
+      "costPrice": 142.5,
+      "quantity": 70,
+      "reason": "加股第一期建仓，金融 50%，加拿大最大银行，高分红"
+    },
+    {
+      "code": "ENB",
+      "name": "恩桥",
+      "costPrice": 53.2,
+      "quantity": 100,
+      "reason": "加股第一期建仓，能源 25%，北美最大管道，稳定分红"
+    },
+    {
+      "code": "SHOP",
+      "name": "Shopify",
+      "costPrice": 94.1,
+      "quantity": 50,
+      "reason": "加股第一期建仓，科技 25%，电商平台，高增长"
+    }
+  ],
+  "trades": [
+    {
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 15000,
+      "quantity": 1,
+      "amount": 15000,
+      "date": "2025-03-16",
+      "reason": "加股模拟交易初始资金",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "RY",
+      "name": "皇家银行",
+      "price": 142.5,
+      "quantity": 70,
+      "amount": 9975,
+      "date": "2025-03-16",
+      "reason": "加股第一期建仓，金融 50%，加拿大最大银行，高分红",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "ENB",
+      "name": "恩桥",
+      "price": 53.2,
+      "quantity": 100,
+      "amount": 5320,
+      "date": "2025-03-16",
+      "reason": "加股第一期建仓，能源 25%，北美最大管道，稳定分红",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "SHOP",
+      "name": "Shopify",
+      "price": 94.1,
+      "quantity": 50,
+      "amount": 4705,
+      "date": "2025-03-16",
+      "reason": "加股第一期建仓，科技 25%，电商平台，高增长",
+      "status": ""
+    }
+  ]
+}

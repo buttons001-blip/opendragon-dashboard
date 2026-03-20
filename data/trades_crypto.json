@@ -1,0 +1,93 @@
+{
+  "timestamp": "2026-03-20T22:58:53.288Z",
+  "market": "数字货币",
+  "initialCapital": 20000,
+  "realizedProfit": 0,
+  "holdings": [
+    {
+      "code": "BTC",
+      "name": "比特币",
+      "costPrice": 73573.73,
+      "quantity": 0.108734,
+      "reason": "数字货币第一期建仓，数字黄金，价值存储"
+    },
+    {
+      "code": "ETH",
+      "name": "以太坊",
+      "costPrice": 2268.89,
+      "quantity": 2.644461,
+      "reason": "数字货币第一期建仓，智能合约平台，DeFi 基础"
+    },
+    {
+      "code": "SOL",
+      "name": "Solana",
+      "costPrice": 93.68,
+      "quantity": 32.022857,
+      "reason": "数字货币第一期建仓，高性能公链，快速低费"
+    },
+    {
+      "code": "LINK",
+      "name": "Chainlink",
+      "costPrice": 9.67,
+      "quantity": 206.859749,
+      "reason": "数字货币第一期建仓，预言机龙头，链上链下桥梁"
+    }
+  ],
+  "trades": [
+    {
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 20000,
+      "quantity": 1,
+      "amount": 20000,
+      "date": "2025-03-14",
+      "reason": "数字货币模拟交易初始资金",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "BTC",
+      "name": "比特币",
+      "price": 73573.73,
+      "quantity": 0.108734,
+      "amount": 7999.99,
+      "date": "2025-03-14",
+      "reason": "数字货币第一期建仓，数字黄金，价值存储",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "ETH",
+      "name": "以太坊",
+      "price": 2268.89,
+      "quantity": 2.644461,
+      "amount": 5999.99,
+      "date": "2025-03-14",
+      "reason": "数字货币第一期建仓，智能合约平台，DeFi 基础",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "SOL",
+      "name": "Solana",
+      "price": 93.68,
+      "quantity": 32.022857,
+      "amount": 2999.99,
+      "date": "2025-03-14",
+      "reason": "数字货币第一期建仓，高性能公链，快速低费",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "LINK",
+      "name": "Chainlink",
+      "price": 9.67,
+      "quantity": 206.859749,
+      "amount": 1999.99,
+      "date": "2025-03-14",
+      "reason": "数字货币第一期建仓，预言机龙头，链上链下桥梁",
+      "status": ""
+    }
+  ]
+}

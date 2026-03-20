@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-03-20T22:58:53.288Z",
+  "market": "美股",
+  "initialCapital": 20000,
+  "realizedProfit": 0,
+  "holdings": [
+    {
+      "code": "NVDA",
+      "name": "Nvidia",
+      "costPrice": 182.13,
+      "quantity": 40,
+      "reason": "美股第一期建仓，AI 芯片龙头，GPU+ 数据中心"
+    },
+    {
+      "code": "MSFT",
+      "name": "Microsoft",
+      "costPrice": 394.76,
+      "quantity": 10,
+      "reason": "美股第一期建仓，软件 + 云+AI 龙头，企业数字化"
+    },
+    {
+      "code": "AMZN",
+      "name": "Amazon",
+      "costPrice": 211.68,
+      "quantity": 6,
+      "reason": "美股第一期建仓，电商 + 云+AI 龙头，全球零售"
+    }
+  ],
+  "trades": [
+    {
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 20000,
+      "quantity": 1,
+      "amount": 20000,
+      "date": "2025-03-16",
+      "reason": "美股模拟交易初始资金",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "NVDA",
+      "name": "Nvidia",
+      "price": 182.13,
+      "quantity": 40,
+      "amount": 7285.2,
+      "date": "2025-03-16",
+      "reason": "美股第一期建仓，AI 芯片龙头，GPU+ 数据中心",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "MSFT",
+      "name": "Microsoft",
+      "price": 394.76,
+      "quantity": 10,
+      "amount": 3947.6,
+      "date": "2025-03-16",
+      "reason": "美股第一期建仓，软件 + 云+AI 龙头，企业数字化",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "AMZN",
+      "name": "Amazon",
+      "price": 211.68,
+      "quantity": 6,
+      "amount": 1270.08,
+      "date": "2025-03-16",
+      "reason": "美股第一期建仓，电商 + 云+AI 龙头，全球零售",
+      "status": ""
+    }
+  ]
+}
