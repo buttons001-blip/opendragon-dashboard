@@ -184,19 +184,13 @@
                         <div class="card-title">利弗摩尔十大原则</div>
                     </div>
                     <div class="rules-container">
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(0,5)" :key="r.id">
-                                    <strong>{{ r.no }}.</strong> {{ r.title }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(5,10)" :key="r.id">
-                                    <strong>{{ r.no }}.</strong> {{ r.title }}
-                                </li>
-                            </ul>
+                        <div class="rules-scroller">
+                            <div class="rules-track">
+                                <ul class="rules-list">
+                                    <li v-for="r in rules" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                    <li v-for="r in rules" :key="r.id + '-dup'"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
