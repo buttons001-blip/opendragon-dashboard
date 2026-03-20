@@ -143,6 +143,25 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="card" v-if="closedPositions.length > 0">
+                <div class="card-header">
+                    <div class="card-title">已清仓记录</div>
+                </div>
+                <div class="stocks-row">
+                    <div class="stock-item" v-for="s in closedPositions" :key="s.code" style="opacity:0.7">
+                        <div class="stock-info">
+                            <div class="stock-code">{{ s.code }}</div>
+                            <div class="stock-name">{{ s.name }} <span style="color:#999;font-size:0.8em">(已清仓)</span></div>
+                            <div class="stock-detail">买入：${{ s.costPrice }} × {{ s.quantity }}股</div>
+                            <div class="stock-detail" :class="s.profit >= 0 ? 'profit-up' : 'profit-down'">
+                                卖出：${{ s.sellPrice }} | 盈亏 {{ s.profit >= 0 ? '+' : '' }}${{ formatNum(s.profit) }}
+                            </div>
+                            <div class="stock-detail" style="color:#999;font-size:0.7em">{{ s.closeDate }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -179,6 +198,7 @@
                     totalInvestment: 19000,
                     usdtCash: 81000,
                     realizedProfit: 0,
+                    closedPositions: [],
                     indices: [
                         { name: 'BTC', value: '67,890.50', change: 1250.30, changePercent: '1.88' },
                         { name: 'ETH', value: '3,520.80', change: 45.20, changePercent: '1.30' },
@@ -193,6 +213,9 @@
                 totalMarketValue() { return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); },
                 totalProfit() { return this.totalMarketValue - this.totalCost + this.realizedProfit; },
                 returnRate() { return ((this.totalProfit / this.totalCost) * 100).toFixed(2); },
+                closedPositions() {
+                    return this.$data.closedPositions || [];
+                },
                 sortedStocks() { return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); }
             },
             mounted() {
