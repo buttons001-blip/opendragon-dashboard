@@ -256,18 +256,6 @@
                     }
                 },
                         
-                    } catch (e) {
-                        console.error('获取价格失败:', e);
-                        this.apiStatus = '获取失败 - 请使用VPN访问实时行情';
-                        this.apiStatusClass = 'error';
-                        // 使用静态数据作为备用
-                        this.$nextTick(() => {
-                            this.renderGauges();
-                        });
-                    }
-                },
-                
-                renderGauges() {
                     if (typeof echarts === 'undefined') return;
                     
                     setTimeout(() => {
