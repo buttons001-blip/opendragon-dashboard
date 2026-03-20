@@ -1,59 +1,59 @@
 {
-    "timestamp": "2026-03-20T11:40:00.000000",
-    "ca": {
-        "TSX": {
-            "value": 31854.98,
-            "change": -457.69,
-            "changePercent": -1.42
-        },
-        "S&P/TSX 60": {
-            "value": 1245.80,
-            "change": 8.32,
-            "changePercent": 0.67
-        },
-        "TSX Venture": {
-            "value": 612.45,
-            "change": -3.21,
-            "changePercent": -0.52
-        }
+  "timestamp": "2026-03-20T11:50:00.000000",
+  "ca": {
+    "TSX": {
+      "value": 31854.98,
+      "change": -457.69,
+      "changePercent": -1.42
     },
-    "stocks": {
-        "ENB": {
-            "price": 53.20,
-            "change": 0.00,
-            "changePercent": 0.00
-        },
-        "SHOP": {
-            "price": 94.10,
-            "change": 0.00,
-            "changePercent": 0.00
-        },
-        "RY": {
-            "price": 142.50,
-            "change": 0.00,
-            "changePercent": 0.00
-        }
+    "S&P/TSX 60": {
+      "value": 1245.80,
+      "change": 8.32,
+      "changePercent": 0.67
     },
-    "crypto": {
-        "BTC": {
-            "value": 70740.77,
-            "change": 818.88,
-            "changePercent": 1.17
-        },
-        "ETH": {
-            "value": 2156.05,
-            "change": 18.39,
-            "changePercent": 0.86
-        },
-        "SOL": {
-            "value": 89.62,
-            "change": 0.70,
-            "changePercent": 0.79
-        },
-        "LINK": {
-            "value": 9.13,
-            "change": 0.08,
-            "changePercent": 0.87
-        }
+    "TSX Venture": {
+      "value": 612.45,
+      "change": -3.21,
+      "changePercent": -0.52
     }
+  },
+  "stocks": {
+    "RY": {
+      "price": 142.50,
+      "change": 0.00,
+      "changePercent": 0.00
+    },
+    "ENB": {
+      "price": 53.20,
+      "change": 0.00,
+      "changePercent": 0.00
+    },
+    "SHOP": {
+      "price": 94.10,
+      "change": 0.00,
+      "changePercent": 0.00
+    }
+  },
+  "crypto": {
+    "BTC": {
+      "value": 70610.58,
+      "change": 688.69,
+      "changePercent": 0.98
+    },
+    "ETH": {
+      "value": 2149.49,
+      "change": 11.82,
+      "changePercent": 0.55
+    },
+    "SOL": {
+      "value": 89.42,
+      "change": 0.51,
+      "changePercent": 0.57
+    },
+    "LINK": {
+      "value": 9.11,
+      "change": 0.06,
+      "changePercent": 0.70
+    }
+  }
 }
