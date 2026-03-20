@@ -304,8 +304,8 @@
                     apiStatus: '连接中...',
                     apiStatusClass: '',
                     initialCapital: 1000000,
-                    availableCapital: 682468,  // 674656 + 7812 (止损收回资金)
-                    realizedProfit: -7812,  // 中无人机止损损失
+                    availableCapital: 699846,  // 674656 + 7812 + 2580 + 14858 (两次止损收回资金)
+                    realizedProfit: -10392,  // 中无人机 -7812 + 航天彩虹 -2580
                     closedPositions: [
                         {
                             code: '688297',
@@ -314,6 +314,16 @@
                             quantity: 1400,
                             sellPrice: 50.19,
                             profit: -7812,
+                            closeDate: '2026-03-20',
+                            reason: '止损'
+                        },
+                        {
+                            code: '002389',
+                            name: '航天彩虹',
+                            costPrice: 24.43,
+                            quantity: 1200,
+                            sellPrice: 22.28,
+                            profit: -2580,
                             closeDate: '2026-03-20',
                             reason: '止损'
                         }
