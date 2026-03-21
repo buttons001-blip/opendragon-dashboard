@@ -274,7 +274,9 @@
                             <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
                             <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">${{ formatNum(availableCapital) }}</span></div>
                             <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}${{ formatNum(totalMarketValue - totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}${{ formatNum(realizedProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
@@ -833,43 +835,5 @@
             }
         }).mount('#app');
     </script>
-            <!-- 交易记录 -->
-            <div class="card" v-if="transactions.length > 0">
-                <div class="card-header">
-                    <div class="card-title">交易记录</div>
-                </div>
-                <div class="trades-table-wrapper">
-                    <table class="trades-table">
-                        <thead>
-                            <tr>
-                                <th>日期</th>
-                                <th>类型</th>
-                                <th>代码</th>
-                                <th>名称</th>
-                                <th>价格</th>
-                                <th>数量</th>
-                                <th>金额</th>
-                                <th>原因</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="t in transactions" :key="t.id" 
-                                :class="{'deposit-row': t.type === '充值', 'sell-row': t.type === '卖出'}">
-                                <td>{{ t.date }}</td>
-                                <td class="type-cell" :class="'type-' + t.type">{{ t.type }}</td>
-                                <td class="code-cell">{{ t.code || '-' }}</td>
-                                <td>{{ t.name }}</td>
-                                <td>${{ t.price }}</td>
-                                <td>{{ t.quantity }}</td>
-                                <td>${{ formatNum(t.amount) }}</td>
-                                <td class="reason-cell">{{ t.reason || '-' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    
 </body>
 </html>

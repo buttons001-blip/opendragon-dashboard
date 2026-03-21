@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-03-20T23:37:03.879Z",
+  "timestamp": "2026-03-21T08:48:00.000Z",
   "market": "港股",
   "initialCapital": 500000,
-  "realizedProfit": 0,
+  "realizedProfit": -5610,
   "holdings": [
     {
       "code": "01810",
@@ -28,7 +28,7 @@
       "quantity": 1,
       "amount": 500000,
       "date": "2025-03-14",
-      "reason": "港股模拟交易初始资金",
+      "reason": "港股模拟交易初始资金，50 万港币启动",
       "status": ""
     },
     {
@@ -54,14 +54,25 @@
       "status": ""
     },
     {
+      "type": "买入",
+      "code": "00700",
+      "name": "腾讯控股",
+      "price": 561,
+      "quantity": 100,
+      "amount": 56100,
+      "date": "2025-03-14",
+      "reason": "港股第一期建仓，社交 + 游戏龙头",
+      "status": ""
+    },
+    {
       "type": "卖出",
       "code": "00700",
       "name": "腾讯控股",
       "price": 504.9,
       "quantity": 100,
       "amount": 50490,
-      "date": "2025-03-19",
-      "reason": "港股第一期建仓，社交 + 游戏龙头，2026-03-19 止损卖出",
+      "date": "2025-03-20",
+      "reason": "触发 -5% 止损线，严格执行纪律",
       "status": "已止损"
     }
   ]

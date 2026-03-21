@@ -179,10 +179,10 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">总投入</span><span class="capital-value">{{ formatNum(totalInvestment) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">持仓成本</span><span class="capital-value">{{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">持仓市值</span><span class="capital-value">{{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">USDT现金</span><span class="capital-value" style="color:#0a0">{{ formatNum(usdtCash) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">{{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">{{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">{{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">USDT现金</span><span class="capital-value" style="color:#0a0">{{ formatNum(availableCapital) }}</span></div>
                             <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}{{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
@@ -279,12 +279,6 @@
             {"序号": 10, "原则": "最大的敌人是自己"}
         ];
         
-        const POSITIONS = [
-            {"code": "BTC", "name": "比特币", "costPrice": 73573.73, "quantity": 0.108734},
-            {"code": "ETH", "name": "以太坊", "costPrice": 2268.89, "quantity": 2.644461},
-            {"code": "SOL", "name": "Solana", "costPrice": 93.68, "quantity": 32.022857},
-            {"code": "LINK", "name": "Chainlink", "costPrice": 9.67, "quantity": 206.859749}
-        ];
 
         // 飞书配置
         const FEISHU_CONFIG = {
@@ -301,8 +295,8 @@
                     statusText: '24H交易',
                     apiStatus: '演示模式',
                     apiStatusClass: 'success',
-                    totalInvestment: 19000,
-                    usdtCash: 81000,
+                    initialCapital: 0,  // 从飞书计算
+                    availableCapital: 0,  // 从飞书计算
                     realizedProfit: 0,
                     closedPositions: [],
                     transactions: [],  // 交易记录
@@ -312,7 +306,7 @@
                         { name: 'SOL', value: '145.60', change: -2.30, changePercent: '-1.55' }
                     ],
                     rules: PRINCIPLES.map((r, i) => ({ id: i+1, no: r.序号, title: r.原则 })),
-                    stocks: POSITIONS.map(p => ({ code: p.code, name: p.name, cost: p.costPrice, price: p.costPrice, qty: p.quantity, profitRate: 0, dayChange: 0, dayChangePercent: '0.00' }))
+                    stocks: []  // 从飞书读取
                 }
             },
             computed: {
@@ -542,7 +536,7 @@
                                         formatter: '{value}%',
                                         color: '#333'
                                     },
-                                    data: [{ value: ((this.totalCost / this.totalInvestment) * 100).toFixed(1) }]
+                                    data: [{ value: ((this.totalCost / this.initialCapital) * 100).toFixed(1) }]
                                 }]
                             });
                         }

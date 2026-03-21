@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-21T07:42:00.000Z",
+  "timestamp": "2026-03-21T08:48:00.000Z",
   "market": "加股",
-  "initialCapital": 35000,
+  "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
     {
@@ -31,11 +31,11 @@
       "type": "充值",
       "code": "",
       "name": "初始资金",
-      "price": 35000,
+      "price": 100000,
       "quantity": 1,
-      "amount": 35000,
+      "amount": 100000,
       "date": "2025-03-16",
-      "reason": "加股模拟交易初始资金",
+      "reason": "加股模拟交易初始资金，10 万加元启动",
       "status": ""
     },
     {
