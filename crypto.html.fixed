@@ -106,13 +106,17 @@
         .rules-scroller {
             flex: 1;
             overflow: hidden;
-            height: 120px;
+            height: 80px;
             position: relative;
         }
         .rules-track {
             position: absolute;
             width: 100%;
-            animation: scrollRules 30s linear infinite;
+            animation: scrollRules 40s linear infinite;
+        }
+        @keyframes scrollRules {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
         @keyframes scrollRules {
             0% { transform: translateY(0); }
@@ -152,9 +156,77 @@
         .api-status.error { color: #d00; }
         .api-status.success { color: #0a0; }
         
+        /* 交易记录表格样式 */
+        .trades-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .trades-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            min-width: 600px; /* 保证最小宽度，触发横向滚动 */
+        }
+        .trades-table th {
+            background: #f5f5f5;
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            color: #333;
+            white-space: nowrap;
+            font-size: 0.95em;
+        }
+        .trades-table td {
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            line-height: 1.6;
+            vertical-align: top;
+        }
+        .trades-table .type-cell { font-weight: bold; white-space: nowrap; }
+        .trades-table .type-充值 { color: #2e7d32; }
+        .trades-table .type-提现 { color: #f57c00; }
+        .trades-table .type-买入 { color: #1565c0; }
+        .trades-table .type-卖出 { color: #c62828; }
+        .trades-table .code-cell { white-space: nowrap; font-family: monospace; font-weight: bold; }
+        .trades-table .reason-cell {
+            color: #666;
+            font-size: 0.9em;
+            white-space: normal; /* 允许换行 */
+            word-break: break-word; /* 长词换行 */
+            min-width: 180px; /* 原因列最小宽度 */
+        }
+        .trades-table tr:nth-child(even) { background: #fafafa; }
+        .trades-table tr:hover { background: #f0f0f0; }
+        
+        /* 充值行特殊样式 */
+        .trades-table tr.deposit-row { background: #e8f5e9 !important; }
+        .trades-table tr.sell-row { background: #ffebee !important; }
+        
+        /* 移动端优化 */
         @media (max-width: 500px) {
             .top-row { flex-direction: column; }
             .rules-grid { grid-template-columns: 1fr; }
+            
+            /* 手机端交易记录表格优化 */
+            .trades-table {
+                font-size: 1.1em; /* 再放大字体 */
+                min-width: 700px; /* 更大的最小宽度 */
+            }
+            .trades-table th {
+                padding: 14px 8px;
+                font-size: 1em;
+            }
+            .trades-table td {
+                padding: 14px 8px;
+                font-size: 1em;
+            }
+            .trades-table .reason-cell {
+                font-size: 0.95em;
+                min-width: 200px; /* 原因列更宽 */
+            }
+            .trades-table .code-cell {
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
@@ -204,19 +276,13 @@
                         <div class="card-title">利弗摩尔十大原则</div>
                     </div>
                     <div class="rules-container">
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(0,5)" :key="r.id">
-                                    <strong>{{ r.no }}.</strong> {{ r.title }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(5,10)" :key="r.id">
-                                    <strong>{{ r.no }}.</strong> {{ r.title }}
-                                </li>
-                            </ul>
+                        <div class="rules-scroller">
+                            <div class="rules-track">
+                                <ul class="rules-list">
+                                    <li v-for="r in rules" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                    <li v-for="r in rules" :key="r.id + '-dup'"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -231,13 +297,13 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">¥{{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}¥{{ formatNum(totalMarketValue - totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}¥{{ formatNum(realizedProfit) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">${{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">${{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}${{ formatNum(totalMarketValue - totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}${{ formatNum(realizedProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
@@ -257,11 +323,11 @@
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
-                            <div class="stock-detail">{{ s.qty }}股 @ ¥{{ s.cost }}</div>
+                            <div class="stock-detail">{{ s.qty }}股 @ ${{ s.cost }}</div>
                             <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
-                                现 ¥{{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
+                                现 ${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
                             </div>
-                            <div class="stock-detail">值 ¥{{ formatNum(s.price * s.qty) }}</div>
+                            <div class="stock-detail">值 ${{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
                                 盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
@@ -274,34 +340,31 @@
                 <div class="card-header">
                     <div class="card-title">交易记录</div>
                 </div>
-                <div style="overflow-x:auto;">
-                    <table style="width:100%;font-size:0.7em;border-collapse:collapse;">
+                <div class="trades-table-wrapper">
+                    <table class="trades-table">
                         <thead>
-                            <tr style="background:#f5f5f5;">
-                                <th style="padding:8px;border:1px solid #ddd;">日期</th>
-                                <th style="padding:8px;border:1px solid #ddd;">类型</th>
-                                <th style="padding:8px;border:1px solid #ddd;">代码</th>
-                                <th style="padding:8px;border:1px solid #ddd;">名称</th>
-                                <th style="padding:8px;border:1px solid #ddd;">价格</th>
-                                <th style="padding:8px;border:1px solid #ddd;">数量</th>
-                                <th style="padding:8px;border:1px solid #ddd;">金额</th>
-                                <th style="padding:8px;border:1px solid #ddd;">原因</th>
+                            <tr>
+                                <th>日期</th>
+                                <th>类型</th>
+                                <th>代码</th>
+                                <th>名称</th>
+                                <th>价格</th>
+                                <th>数量</th>
+                                <th>金额</th>
+                                <th>原因</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="t in transactions" :key="t.id" :style="t.type === '充值' ? 'background:#e8f5e9;' : (t.type === '卖出' ? 'background:#ffebee;' : '')">
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.date }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">
-                                    <span :style="t.type === '充值' ? 'color:#2e7d32;font-weight:bold;' : (t.type === '卖出' ? 'color:#c62828;' : (t.type === '买入' ? 'color:#1565c0;' : 'color:#f57c00;'))">
-                                        {{ t.type }}
-                                    </span>
-                                </td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.code || '-' }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.name }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">¥{{ t.price }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.quantity }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">¥{{ formatNum(t.amount) }}</td>
-                                <td style="padding:6px;border:1px solid #ddd;">{{ t.reason || '-' }}</td>
+                            <tr v-for="t in transactions" :key="t.id" 
+                                :class="{'deposit-row': t.type === '充值', 'sell-row': t.type === '卖出'}">
+                                <td>{{ t.date }}</td>
+                                <td class="type-cell" :class="'type-' + t.type">{{ t.type }}</td>
+                                <td>{{ t.code || '-' }}</td>
+                                <td>{{ t.name }}</td>
+                                <td>${{ t.price }}</td>
+                                <td>{{ t.quantity }}</td>
+                                <td>${{ formatNum(t.amount) }}</td>
+                                <td class="reason-cell">{{ t.reason || '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -348,7 +411,7 @@
                     transactions: [],  // 交易记录
                     stocks: [],  // 从飞书计算
                     indices: [
-                        { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
+                        { name: '比特币', value: '3,380.50', change: 12.35, changePercent: '0.37' },
                         { name: '深证成指', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
                         { name: '科创50', value: '1,250.80', change: 8.90, changePercent: '0.72' }
                     ],
@@ -407,18 +470,23 @@
             methods: {
                 async loadFeishuData() {
                     try {
-                        // 从本地备份文件读取（演示用，实际应调用飞书 API）
-                        // 注意：这里暂时使用硬编码数据，因为需要 OpenClaw 后端代理飞书 API
-                        const actions = [
-                            { '交易类型': '充值', '市场': 'A 股', '名称': '初始资金', '成交价': 1000000, '数量': 1, '成交金额': 1000000 },
-                            { '交易类型': '买入', '市场': 'A 股', '代码': '688297', '名称': '中无人机', '成交价': 55.77, '数量': 1400, '成交金额': 78078, '状态': '已止损' },
-                            { '交易类型': '买入', '市场': 'A 股', '代码': '300750', '名称': '宁德时代', '成交价': 404.9, '数量': 200, '成交金额': 80980 },
-                            { '交易类型': '买入', '市场': 'A 股', '代码': '603986', '名称': '兆易创新', '成交价': 285.8, '数量': 300, '成交金额': 85740 },
-                            { '交易类型': '买入', '市场': 'A 股', '代码': '002594', '名称': '比亚迪', '成交价': 102.46, '数量': 500, '成交金额': 51230 },
-                            { '交易类型': '买入', '市场': 'A 股', '代码': '002389', '名称': '航天彩虹', '成交价': 24.43, '数量': 1200, '成交金额': 29316, '状态': '已止损' },
-                            { '交易类型': '卖出', '市场': 'A 股', '代码': '688297', '名称': '中无人机', '成交价': 50.19, '数量': 1400, '成交金额': 70266, '状态': '已止损' },
-                            { '交易类型': '卖出', '市场': 'A 股', '代码': '002389', '名称': '航天彩虹', '成交价': 22.28, '数量': 1200, '成交金额': 26736, '状态': '已止损' }
-                        ];
+                        // 从 JSON 文件读取飞书数据
+                        const response = await fetch('data/trades_cn.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        // 转换为 processActions 需要的格式
+                        const actions = data.trades.map(t => ({
+                            '交易类型': t.type,
+                            '市场': data.market,
+                            '代码': t.code,
+                            '名称': t.name,
+                            '成交价': t.price,
+                            '数量': t.quantity,
+                            '成交金额': t.amount,
+                            '交易日期': t.date,
+                            '状态': t.status,
+                            '备注': t.reason  // 备注字段就是原因
+                        }));
                         
                         this.processActions(actions);
                         
@@ -486,17 +554,28 @@
                     this.realizedProfit = closed.reduce((sum, c) => sum + c.profit, 0);
                     
                     // 构建交易记录
-                    this.transactions = actions.map((a, i) => ({
-                        id: i,
-                        date: a['交易日期'] ? new Date(a['交易日期']).toLocaleDateString() : '2026-03-16',
-                        type: a['交易类型'],
-                        code: a['代码'] || '-',
-                        name: a['名称'],
-                        price: parseFloat(a['成交价'] || 0).toFixed(2),
-                        quantity: parseFloat(a['数量'] || 0),
-                        amount: parseFloat(a['成交金额'] || 0),
-                        reason: a['原因'] || a['备注'] || ''
-                    }));
+                    this.transactions = actions.map((a, i) => {
+                        // 格式化日期为 YYYY-MM-DD
+                        let dateStr = '2026-03-16';
+                        if (a['交易日期']) {
+                            const d = new Date(a['交易日期']);
+                            const year = d.getFullYear();
+                            const month = String(d.getMonth() + 1).padStart(2, '0');
+                            const day = String(d.getDate()).padStart(2, '0');
+                            dateStr = `${year}-${month}-${day}`;
+                        }
+                        return {
+                            id: i,
+                            date: dateStr,
+                            type: a['交易类型'],
+                            code: a['代码'] || '-',
+                            name: a['名称'],
+                            price: parseFloat(a['成交价'] || 0).toFixed(2),
+                            quantity: parseFloat(a['数量'] || 0),
+                            amount: parseFloat(a['成交金额'] || 0),
+                            reason: a['备注'] || ''  // 直接使用备注字段
+                        };
+                    });
                     
                     this.stocks = Object.keys(holdings).map(code => ({
                         code,
@@ -589,15 +668,15 @@
                         this.apiStatus = '腾讯财经 ✓';
                         this.apiStatusClass = 'success';
                         
-                        // 获取 A 股指数
+                        // 获取 数字货币指数
                         const indexCodes = 'sh000001,sz399001,sz399006';
                         const indexScript = document.createElement('script');
                         indexScript.src = `https://qt.gtimg.cn/q=${indexCodes}`;
                         indexScript.onload = () => {
                             const indexMap = {
-                                'v_sh000001': '上证指数',
+                                'v_sh000001': '比特币',
                                 'v_sz399001': '深证成指',
-                                'v_sz399006': '科创 50'
+                                'v_sz399006': 'BTC'
                             };
                             Object.keys(indexMap).forEach(key => {
                                 if (window[key]) {
