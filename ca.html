@@ -604,34 +604,32 @@
                 
                 async fetchPrices() {
                     try {
-                        // 构建腾讯API股票代码
-                        const codes = this.stocks.map(s => {
-                            const prefix = s.code.startsWith('6') ? 'sh' : 'sz';
-                            return prefix + s.code;
-                        }).join(',');
+                        // 从本地 JSON 读取加拿大个股实时数据
+                        const response = await fetch('data/ca_crypto.json?t=' + Date.now());
+                        const data = await response.json();
                         
-                        const url = `https://qt.gtimg.cn/q=${codes}`;
-                        
-                        // 使用JSONP方式获取数据
-                        const script = document.createElement('script');
-                        script.src = url;
-                        
-                        // 设置超时
-                        const timeout = setTimeout(() => {
-                            this.apiStatus = '连接超时';
-                            this.apiStatusClass = 'error';
-                        }, 5000);
-                        
-                        script.onload = () => {
-                            clearTimeout(timeout);
-                            this.parseTencentData();
-                        };
-                        
-                        script.onerror = () => {
-                            clearTimeout(timeout);
-                            this.apiStatus = '连接失败';
-                            this.apiStatusClass = 'error';
-                        };
+                        if (data.stocks) {
+                            // 更新持仓价格
+                            this.stocks.forEach(stock => {
+                                const stockData = data.stocks[stock.code];
+                                if (stockData) {
+                                    stock.price = parseFloat(stockData.price);
+                                    stock.dayChange = parseFloat(stockData.change);
+                                    stock.dayChangePercent = stockData.changePercent.toFixed(2);
+                                    stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                                }
+                            });
+                            
+                            // 更新顶部指数
+                            if (data.ca && data.ca['TSX']) {
+                                this.indices[0].value = data.ca['TSX'].value.toLocaleString();
+                                this.indices[0].change = data.ca['TSX'].change;
+                                this.indices[0].changePercent = data.ca['TSX'].changePercent.toFixed(2);
+                            }
+                            
+                            this.apiStatus = '实时数据 ✓';
+                            this.apiStatusClass = 'success';
+                        }
                         
                         document.head.appendChild(script);
                         setTimeout(() => document.head.removeChild(script), 1000);
