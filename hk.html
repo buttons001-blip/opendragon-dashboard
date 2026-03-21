@@ -400,23 +400,12 @@
                         { name: '国企指数', value: '8,695.88', change: -139.62, changePercent: '-1.58' },
                         { name: '恒生科技', value: '5,850.30', change: 89.20, changePercent: '1.55' }
                     ],
-                    transactions: [],  // 交易记录
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
                         no: r.序号,
                         title: r.原则
                     })),
                     stocks: []  // 从飞书读取
-                        code: p.code, 
-                        name: p.name, 
-                        cost: p.costPrice, 
-                        price: p.costPrice,
-                        prevClose: p.costPrice,
-                        qty: p.quantity, 
-                        profitRate: 0,
-                        dayChange: 0,
-                        dayChangePercent: '0.00'
-                    }))
                 }
             },
             computed: {
@@ -808,43 +797,5 @@
             }
         }).mount('#app');
     </script>
-            <!-- 交易记录 -->
-            <div class="card" v-if="transactions.length > 0">
-                <div class="card-header">
-                    <div class="card-title">交易记录</div>
-                </div>
-                <div class="trades-table-wrapper">
-                    <table class="trades-table">
-                        <thead>
-                            <tr>
-                                <th>日期</th>
-                                <th>类型</th>
-                                <th>代码</th>
-                                <th>名称</th>
-                                <th>价格</th>
-                                <th>数量</th>
-                                <th>金额</th>
-                                <th>原因</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="t in transactions" :key="t.id" 
-                                :class="{'deposit-row': t.type === '充值', 'sell-row': t.type === '卖出'}">
-                                <td>{{ t.date }}</td>
-                                <td class="type-cell" :class="'type-' + t.type">{{ t.type }}</td>
-                                <td class="code-cell">{{ t.code || '-' }}</td>
-                                <td>{{ t.name }}</td>
-                                <td>HK${{ t.price }}</td>
-                                <td>{{ t.quantity }}</td>
-                                <td>HK${{ formatNum(t.amount) }}</td>
-                                <td class="reason-cell">{{ t.reason || '-' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    
 </body>
 </html>
