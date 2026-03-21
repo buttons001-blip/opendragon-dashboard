@@ -58,6 +58,70 @@
         .stock-profit { font-weight: bold; margin-top: 3px; }
         .api-status { font-size: 0.7em; color: #666; margin-top: 5px; }
         @media (max-width: 500px) { .top-row { flex-direction: column; } }
+    
+        /* 交易记录表格样式 */
+        .trades-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .trades-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            min-width: 600px;
+        }
+        .trades-table th {
+            background: #f5f5f5;
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            color: #333;
+            white-space: nowrap;
+            font-size: 0.95em;
+        }
+        .trades-table td {
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            line-height: 1.6;
+            vertical-align: top;
+        }
+        .trades-table .type-cell { font-weight: bold; white-space: nowrap; }
+        .trades-table .type-充值 { color: #2e7d32; }
+        .trades-table .type-提现 { color: #f57c00; }
+        .trades-table .type-买入 { color: #1565c0; }
+        .trades-table .type-卖出 { color: #c62828; }
+        .trades-table .code-cell { white-space: nowrap; font-family: monospace; font-weight: bold; }
+        .trades-table .reason-cell {
+            color: #666;
+            font-size: 0.9em;
+            white-space: normal;
+            word-break: break-word;
+            min-width: 180px;
+        }
+        .trades-table tr:nth-child(even) { background: #fafafa; }
+        .trades-table tr:hover { background: #f0f0f0; }
+        .trades-table tr.deposit-row { background: #e8f5e9 !important; }
+        .trades-table tr.sell-row { background: #ffebee !important; }
+        
+        @media (max-width: 500px) {
+            .trades-table {
+                font-size: 1.1em;
+                min-width: 700px;
+            }
+            .trades-table th {
+                padding: 14px 8px;
+                font-size: 1em;
+            }
+            .trades-table td {
+                padding: 14px 8px;
+                font-size: 1em;
+            }
+            .trades-table .reason-cell {
+                font-size: 0.95em;
+                min-width: 200px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -205,6 +269,7 @@
                     usdtCash: 81000,
                     realizedProfit: 0,
                     closedPositions: [],
+                    transactions: [],  // 交易记录
                     indices: [
                         { name: 'BTC', value: '67,890.50', change: 1250.30, changePercent: '1.88' },
                         { name: 'ETH', value: '3,520.80', change: 45.20, changePercent: '1.30' },
@@ -225,6 +290,9 @@
                 sortedStocks() { return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); }
             },
             async mounted() {
+                // 从飞书读取交易记录
+                await this.loadFeishuData();
+                
                 this.updateTime();
                 this.loadIndices();
                 this.fetchPrices();
@@ -233,6 +301,128 @@
                 setInterval(() => this.fetchPrices(), 30000);
             },
             methods: {
+                async loadFeishuData() {
+                    try {
+                        // 从 JSON 文件读取飞书数据
+                        const response = await fetch('data/trades_crypto.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        // 转换为 processActions 需要的格式
+                        const actions = data.trades.map(t => ({
+                            '交易类型': t.type,
+                            '市场': data.market,
+                            '代码': t.code,
+                            '名称': t.name,
+                            '成交价': t.price,
+                            '数量': t.quantity,
+                            '成交金额': t.amount,
+                            '交易日期': t.date,
+                            '状态': t.status,
+                            '备注': t.reason
+                        }));
+                        
+                        this.processActions(actions);
+                        
+                        this.apiStatus = '飞书数据 ✓';
+                        this.apiStatusClass = 'success';
+                    } catch (e) {
+                        console.error('读取飞书数据失败:', e);
+                        this.apiStatus = '读取失败';
+                        this.apiStatusClass = 'error';
+                    }
+                },
+                
+                processActions(actions) {
+                    let initialCapital = 0;
+                    let cashBalance = 0;
+                    const holdings = {};
+                    const closed = [];
+                    
+                    actions.forEach(action => {
+                        const type = action['交易类型'];
+                        const code = action['代码'];
+                        const name = action['名称'];
+                        const price = parseFloat(action['成交价'] || 0);
+                        const quantity = parseFloat(action['数量'] || 0);
+                        const amount = parseFloat(action['成交金额'] || 0);
+                        
+                        if (type === '充值') {
+                            initialCapital += amount;
+                            cashBalance += amount;
+                        } else if (type === '提现') {
+                            cashBalance -= amount;
+                        } else if (type === '买入') {
+                            cashBalance -= amount;
+                            if (!holdings[code]) {
+                                holdings[code] = {name, quantity: 0, totalCost: 0};
+                            }
+                            holdings[code].quantity += quantity;
+                            holdings[code].totalCost += amount;
+                            holdings[code].avgCost = holdings[code].totalCost / holdings[code].quantity;
+                        } else if (type === '卖出') {
+                            cashBalance += amount;
+                            if (holdings[code]) {
+                                const cost = holdings[code].avgCost * quantity;
+                                const profit = amount - cost;
+                                closed.push({
+                                    code, name,
+                                    costPrice: holdings[code].avgCost,
+                                    sellPrice: price,
+                                    quantity,
+                                    profit,
+                                    closeDate: '2026-03-20',
+                                    reason: action['状态'] === '已止损' ? '止损' : '止盈'
+                                });
+                                holdings[code].quantity -= quantity;
+                                if (holdings[code].quantity <= 0) {
+                                    delete holdings[code];
+                                }
+                            }
+                        }
+                    });
+                    
+                    this.initialCapital = initialCapital;
+                    this.availableCapital = cashBalance;
+                    this.closedPositions = closed;
+                    this.realizedProfit = closed.reduce((sum, c) => sum + c.profit, 0);
+                    
+                    // 构建交易记录
+                    this.transactions = actions.map((a, i) => {
+                        let dateStr = '2026-03-16';
+                        if (a['交易日期']) {
+                            const d = new Date(a['交易日期']);
+                            const year = d.getFullYear();
+                            const month = String(d.getMonth() + 1).padStart(2, '0');
+                            const day = String(d.getDate()).padStart(2, '0');
+                            dateStr = `${year}-${month}-${day}`;
+                        }
+                        return {
+                            id: i,
+                            date: dateStr,
+                            type: a['交易类型'],
+                            code: a['代码'] || '-',
+                            name: a['名称'],
+                            price: parseFloat(a['成交价'] || 0).toFixed(2),
+                            quantity: parseFloat(a['数量'] || 0),
+                            amount: parseFloat(a['成交金额'] || 0),
+                            reason: a['备注'] || ''
+                        };
+                    });
+                    
+                    this.stocks = Object.keys(holdings).map(code => ({
+                        code,
+                        name: holdings[code].name,
+                        cost: holdings[code].avgCost,
+                        price: holdings[code].avgCost,
+                        prevClose: holdings[code].avgCost,
+                        qty: holdings[code].quantity,
+                        profitRate: 0,
+                        dayChange: 0,
+                        dayChangePercent: '0.00'
+                    }));
+                },
+                
+
                 updateTime() {
                     this.time = new Date().toLocaleString();
                 },
@@ -419,5 +609,43 @@
             }
         }).mount('#app');
     </script>
+            <!-- 交易记录 -->
+            <div class="card" v-if="transactions.length > 0">
+                <div class="card-header">
+                    <div class="card-title">交易记录</div>
+                </div>
+                <div class="trades-table-wrapper">
+                    <table class="trades-table">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>类型</th>
+                                <th>代码</th>
+                                <th>名称</th>
+                                <th>价格</th>
+                                <th>数量</th>
+                                <th>金额</th>
+                                <th>原因</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="t in transactions" :key="t.id" 
+                                :class="{'deposit-row': t.type === '充值', 'sell-row': t.type === '卖出'}">
+                                <td>{{ t.date }}</td>
+                                <td class="type-cell" :class="'type-' + t.type">{{ t.type }}</td>
+                                <td class="code-cell">{{ t.code || '-' }}</td>
+                                <td>{{ t.name }}</td>
+                                <td>${{ t.price }}</td>
+                                <td>{{ t.quantity }}</td>
+                                <td>${{ formatNum(t.amount) }}</td>
+                                <td class="reason-cell">{{ t.reason || '-' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
