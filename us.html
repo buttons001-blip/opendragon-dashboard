@@ -97,10 +97,13 @@
         .top-row > .card { flex: 1; min-width: 0; }
         
         /* 原则 */
-        .rules-container { display: flex; gap: 10px; }
-        .rules-column { flex: 1; }
+        .rules-container { display: flex; gap: 10px; overflow: hidden; position: relative; }
+        .rules-scroller { flex: 1; overflow: hidden; height: 80px; position: relative; }
+        .rules-track { position: absolute; width: 100%; animation: scrollRules 40s linear infinite; }
+        @keyframes scrollRules { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
         .rules-list { list-style: none; }
-        .rules-list li { padding: 3px 0; color: #555; font-size: 0.72em; line-height: 1.3; }
+        .rules-list li { padding: 6px 0; color: #555; font-size: 0.75em; line-height: 1.5; border-bottom: 1px dotted #eee; }
+        .rules-list li:last-child { border-bottom: none; }
         .rules-list li:before { content: '✓ '; color: #1976d2; font-weight: bold; }
         
         /* 总投资 */
@@ -321,6 +324,42 @@
                             <div class="stock-detail" style="color:#999;font-size:0.7em">{{ s.closeDate }}</div>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- 交易记录 -->
+            <div class="card" v-if="transactions.length > 0">
+                <div class="card-header">
+                    <div class="card-title">交易记录</div>
+                </div>
+                <div class="trades-table-wrapper">
+                    <table class="trades-table">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>类型</th>
+                                <th>代码</th>
+                                <th>名称</th>
+                                <th>价格</th>
+                                <th>数量</th>
+                                <th>金额</th>
+                                <th>原因</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="t in transactions" :key="t.id" 
+                                :class="{'deposit-row': t.type === '充值', 'sell-row': t.type === '卖出'}">
+                                <td>{{ t.date }}</td>
+                                <td class="type-cell" :class="'type-' + t.type">{{ t.type }}</td>
+                                <td class="code-cell">{{ t.code || '-' }}</td>
+                                <td>{{ t.name }}</td>
+                                <td>${{ t.price }}</td>
+                                <td>{{ t.quantity }}</td>
+                                <td>${{ formatNum(t.amount) }}</td>
+                                <td class="reason-cell">{{ t.reason || '-' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
