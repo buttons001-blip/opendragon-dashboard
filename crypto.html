@@ -201,7 +201,7 @@
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
-                            <div class="stock-detail">{{ s.qty.toFixed(6) }} @ {{ s.cost }}</div>
+                            <div class="stock-detail">{{ s.qty }} @ {{ s.cost }}</div>
                             <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">现 {{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)</div>
                             <div class="stock-detail">值 {{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%</div>
@@ -219,7 +219,7 @@
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }} <span style="color:#999;font-size:0.8em">(已清仓)</span></div>
-                            <div class="stock-detail">买入：${{ s.costPrice }} × {{ s.quantity.toFixed(6) }}股</div>
+                            <div class="stock-detail">买入：${{ s.costPrice }} × {{ s.quantity }}股</div>
                             <div class="stock-detail" :class="s.profit >= 0 ? 'profit-up' : 'profit-down'">
                                 卖出：${{ s.sellPrice }} | 盈亏 {{ s.profit >= 0 ? '+' : '' }}${{ formatNum(s.profit) }}
                             </div>
@@ -256,7 +256,7 @@
                                 <td class="code-cell">{{ t.code || '-' }}</td>
                                 <td>{{ t.name }}</td>
                                 <td>${{ t.price }}</td>
-                                <td>{{ t.quantity.toFixed(6) }}</td>
+                                <td>{{ t.quantity }}</td>
                                 <td>${{ formatNum(t.amount) }}</td>
                                 <td class="reason-cell">{{ t.reason || '-' }}</td>
                             </tr>
