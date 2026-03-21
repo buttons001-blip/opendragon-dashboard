@@ -744,13 +744,13 @@
             },
             
             methods: {
-                // Hybrid mode: fast cache first, then background refresh
+                // Hybrid mode: fast cache first, then background refresh from JSON
                 async loadInventoryData() {
                     // Step 1: Load from local cache immediately (fast)
                     this.loadFromLocalStorage();
                     
-                    // Step 2: Silently refresh from Feishu in background
-                    this.refreshFromFeishu();
+                    // Step 2: Silently refresh from JSON file in background
+                    this.refreshFromJSON();
                 },
                 
                 // Load from local cache
@@ -760,30 +760,29 @@
                         const parsed = JSON.parse(data);
                         this.inventoryData = parsed.inventory || [];
                         this.brands = parsed.brands || [];
+                        this.lastUpdated = parsed.lastUpdated || '';
                         console.log(`Loaded ${this.inventoryData.length} records from cache`);
                     }
                 },
                 
-                // Refresh from Feishu API (background)
-                async refreshFromFeishu() {
+                // Refresh from JSON file (background)
+                async refreshFromJSON() {
                     try {
-                        const response = await fetch('./api/cigar_inventory.php?t=' + Date.now());
+                        const response = await fetch('./data/cigar_inventory.json?t=' + Date.now());
                         if (response.ok) {
                             const data = await response.json();
-                            if (data.success) {
-                                this.inventoryData = data.inventory || [];
-                                this.brands = data.brands || [];
-                                this.lastUpdated = data.lastUpdated;
-                                
-                                // Update cache
-                                localStorage.setItem('cigarInventory', JSON.stringify({
-                                    inventory: this.inventoryData,
-                                    brands: this.brands,
-                                    lastUpdated: data.lastUpdated
-                                }));
-                                
-                                console.log(`Refreshed ${data.totalRecords} records from Feishu`);
-                            }
+                            this.inventoryData = data.inventory || [];
+                            this.brands = data.brands || [];
+                            this.lastUpdated = data.lastUpdated;
+                            
+                            // Update cache
+                            localStorage.setItem('cigarInventory', JSON.stringify({
+                                inventory: this.inventoryData,
+                                brands: this.brands,
+                                lastUpdated: data.lastUpdated
+                            }));
+                            
+                            console.log(`Refreshed ${data.totalRecords} records from JSON`);
                         }
                     } catch (error) {
                         console.log('Background refresh failed:', error);
@@ -793,7 +792,7 @@
                 // Manual refresh button
                 async manualRefresh() {
                     this.isLoading = true;
-                    await this.refreshFromFeishu();
+                    await this.refreshFromJSON();
                     this.isLoading = false;
                     this.showMessage('数据已刷新', 'success');
                 },

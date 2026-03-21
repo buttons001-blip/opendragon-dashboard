@@ -306,8 +306,8 @@
                             <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
-                        <div class="api-status" :class="apiStatusClass">
-                            数据源: {{ apiStatus }}
+                        <div class="api-status" :class="apiStatusClass" @click="loadFeishuDataRealtime" style="cursor: pointer;" title="点击从飞书实时刷新">
+                            数据源: {{ apiStatus }} 🔄
                         </div>
                     </div>
                 </div>
@@ -468,35 +468,62 @@
                 }, 30000);
             },
             methods: {
+                // 从本地JSON加载（快速）
                 async loadFeishuData() {
                     try {
-                        // 从 JSON 文件读取飞书数据
                         const response = await fetch('data/trades_cn.json?t=' + Date.now());
                         const data = await response.json();
-                        
-                        // 转换为 processActions 需要的格式
-                        const actions = data.trades.map(t => ({
-                            '交易类型': t.type,
-                            '市场': data.market,
-                            '代码': t.code,
-                            '名称': t.name,
-                            '成交价': t.price,
-                            '数量': t.quantity,
-                            '成交金额': t.amount,
-                            '交易日期': t.date,
-                            '状态': t.status,
-                            '备注': t.reason  // 备注字段就是原因
-                        }));
-                        
-                        this.processActions(actions);
-                        
+                        this.processTradeData(data);
                         this.apiStatus = '本地 JSON 数据 ✓';
                         this.apiStatusClass = 'success';
                     } catch (e) {
-                        console.error('读取飞书数据失败:', e);
+                        console.error('读取本地数据失败:', e);
                         this.apiStatus = '读取失败';
                         this.apiStatusClass = 'error';
                     }
+                },
+                
+                // 从飞书实时加载（手动刷新）
+                async loadFeishuDataRealtime() {
+                    this.apiStatus = '正在从飞书刷新...';
+                    this.apiStatusClass = '';
+                    
+                    try {
+                        const response = await fetch('api/trades_realtime.php?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            this.processTradeData(data);
+                            this.apiStatus = '飞书实时数据 ✓ ' + new Date().toLocaleTimeString();
+                            this.apiStatusClass = 'success';
+                        } else {
+                            throw new Error(data.error || 'API error');
+                        }
+                    } catch (e) {
+                        console.error('实时刷新失败:', e);
+                        this.apiStatus = '实时刷新失败，使用本地数据';
+                        this.apiStatusClass = 'error';
+                        // Fallback to local data
+                        await this.loadFeishuData();
+                    }
+                },
+                
+                // 处理交易数据（统一入口）
+                processTradeData(data) {
+                    const actions = data.trades.map(t => ({
+                        '交易类型': t.type,
+                        '市场': t.market || data.market,
+                        '代码': t.code,
+                        '名称': t.name,
+                        '成交价': t.price,
+                        '数量': t.quantity,
+                        '成交金额': t.amount,
+                        '交易日期': t.date,
+                        '状态': t.status,
+                        '备注': t.reason
+                    }));
+                    
+                    this.processActions(actions);
                 },
                 
                 processActions(actions) {
