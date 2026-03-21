@@ -410,7 +410,11 @@
                     closedPositions: [],  // 从飞书读取
                     transactions: [],  // 交易记录
                     stocks: [],  // 从飞书计算
+                    // 指数从 API 读取，初始为空
                     indices: [
+                        { name: "TSX", value: "0", change: 0, changePercent: "0.00" },
+                        { name: "S&P/TSX 60", value: "0", change: 0, changePercent: "0.00" },
+                        { name: "TSX Venture", value: "0", change: 0, changePercent: "0.00" }
                         { name: 'TSX', value: '3,380.50', change: 12.35, changePercent: '0.37' },
                         { name: 'S&P/TSX 60', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
                         { name: '科创50', value: '1,250.80', change: 8.90, changePercent: '0.72' }
