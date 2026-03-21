@@ -30,11 +30,14 @@
         .card { background: #fff; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
         .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
         .card-title { font-size: 0.9em; font-weight: bold; color: #333; }
-        .rules-container { display: flex; gap: 10px; }
-        .rules-column { flex: 1; }
-        .rules-list { list-style: none; font-size: 0.7em; }
-        .rules-list li { padding: 3px 0; color: #555; border-bottom: 1px dotted #eee; }
-        .rules-list li:before { content: '✓ '; color: #d32f2f; font-weight: bold; }
+        .rules-container { display: flex; gap: 10px; overflow: hidden; position: relative; }
+        .rules-scroller { flex: 1; overflow: hidden; height: 80px; position: relative; }
+        .rules-track { position: absolute; width: 100%; animation: scrollRules 40s linear infinite; }
+        @keyframes scrollRules { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+        .rules-list { list-style: none; }
+        .rules-list li { padding: 6px 0; color: #555; font-size: 0.75em; line-height: 1.5; border-bottom: 1px dotted #eee; }
+        .rules-list li:last-child { border-bottom: none; }
+        .rules-list li:before { content: "✓ "; color: #d35400; font-weight: bold; }
         .capital-section { display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .capital-gauges-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
         .capital-gauge { width: 100px; height: 65px; }
@@ -165,15 +168,13 @@
                 <div class="card" style="flex:1;">
                     <div class="card-header"><div class="card-title">利弗摩尔十大原则</div></div>
                     <div class="rules-container">
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(0,5)" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
-                            </ul>
-                        </div>
-                        <div class="rules-column">
-                            <ul class="rules-list">
-                                <li v-for="r in rules.slice(5,10)" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
-                            </ul>
+                        <div class="rules-scroller">
+                            <div class="rules-track">
+                                <ul class="rules-list">
+                                    <li v-for="r in rules" :key="r.id"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                    <li v-for="r in rules" :key="r.id + '-dup'"><strong>{{ r.no }}.</strong> {{ r.title }}</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
