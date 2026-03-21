@@ -179,11 +179,13 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">{{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">{{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">{{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">USDT现金</span><span class="capital-value" style="color:#0a0">{{ formatNum(availableCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}{{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">¥{{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}¥{{ formatNum(totalMarketValue - totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}¥{{ formatNum(realizedProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">数据源: {{ apiStatus }}</div>
@@ -418,6 +420,7 @@
                     
                     // 构建交易记录
                     this.transactions = actions.map((a, i) => {
+                        // 格式化日期为 YYYY-MM-DD
                         let dateStr = '2026-03-16';
                         if (a['交易日期']) {
                             const d = new Date(a['交易日期']);
@@ -433,27 +436,26 @@
                             code: a['代码'] || '-',
                             name: a['名称'],
                             price: parseFloat(a['成交价'] || 0).toFixed(2),
-                            quantity: parseFloat(a['数量'] || 0).toFixed(6),
+                            quantity: parseFloat(a['数量'] || 0),
                             amount: parseFloat(a['成交金额'] || 0),
-                            reason: a['备注'] || ''
+                            reason: a['备注'] || ''  // 直接使用备注字段
                         };
                     });
                     
                     this.stocks = Object.keys(holdings).map(code => ({
                         code,
                         name: holdings[code].name,
-                        cost: parseFloat(holdings[code].avgCost.toFixed(2)),
-                        price: parseFloat(holdings[code].avgCost.toFixed(2)),
-                        prevClose: parseFloat(holdings[code].avgCost.toFixed(2)),
-                        qty: parseFloat(holdings[code].quantity),
+                        cost: holdings[code].avgCost,
+                        price: holdings[code].avgCost,
+                        prevClose: holdings[code].avgCost,
+                        qty: holdings[code].quantity,
                         profitRate: 0,
                         dayChange: 0,
                         dayChangePercent: '0.00'
                     }));
                 },
-                
 
-                updateTime() {
+                                updateTime() {
                     this.time = new Date().toLocaleString();
                 },
                 
