@@ -433,7 +433,7 @@
                             code: a['代码'] || '-',
                             name: a['名称'],
                             price: parseFloat(a['成交价'] || 0).toFixed(2),
-                            quantity: parseFloat(a['数量'] || 0),
+                            quantity: parseFloat(a['数量'] || 0).toFixed(6),
                             amount: parseFloat(a['成交金额'] || 0),
                             reason: a['备注'] || ''
                         };
@@ -442,10 +442,10 @@
                     this.stocks = Object.keys(holdings).map(code => ({
                         code,
                         name: holdings[code].name,
-                        cost: holdings[code].avgCost,
-                        price: holdings[code].avgCost,
-                        prevClose: holdings[code].avgCost,
-                        qty: holdings[code].quantity,
+                        cost: parseFloat(holdings[code].avgCost.toFixed(2)),
+                        price: parseFloat(holdings[code].avgCost.toFixed(2)),
+                        prevClose: parseFloat(holdings[code].avgCost.toFixed(2)),
+                        qty: parseFloat(holdings[code].quantity),
                         profitRate: 0,
                         dayChange: 0,
                         dayChangePercent: '0.00'
