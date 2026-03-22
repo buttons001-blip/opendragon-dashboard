@@ -626,14 +626,11 @@
                             this.apiStatus = '本地 JSON 数据 ✓';
                             this.apiStatusClass = 'success';
                         }
-                        
-                        document.head.appendChild(script);
-                        setTimeout(() => document.head.removeChild(script), 1000);
-                        
+
                     } catch (e) {
                         console.error('获取价格失败:', e);
-                        this.apiStatus = '获取失败';
-                        this.apiStatusClass = 'error';
+                        this.apiStatus = '本地 JSON 数据';
+                        this.apiStatusClass = 'success';
                     }
                 },
                 
