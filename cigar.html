@@ -843,46 +843,28 @@
                     }
                 },
                 
-                // Search cigar image
+                // Search cigar image using DDG API
                 async searchCigarImage() {
                     this.cigarImage = '';
                     this.isSearchingImage = true;
                     
                     const query = `${this.selectedBrand} ${this.selectedModel} cigar`;
-                    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
                     
                     try {
-                        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(searchUrl)}`;
-                        const response = await fetch(proxyUrl);
-                        const html = await response.text();
+                        // Try DuckDuckGo Instant Answer API
+                        const ddgUrl = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`;
+                        const response = await fetch(ddgUrl);
+                        const data = await response.json();
                         
-                        // Extract image URLs from the response
-                        const imgRegex = /"https:\/\/[^"]+\.(jpg|jpeg|png|webp)"/gi;
-                        const matches = html.match(imgRegex);
-                        
-                        if (matches && matches.length > 0) {
-                            // Try to find a good cigar image (usually in the first few results)
-                            for (let i = 0; i < Math.min(5, matches.length); i++) {
-                                const imgUrl = matches[i].replace(/"/g, '');
-                                // Verify the image is accessible
-                                try {
-                                    const testResp = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(imgUrl)}`, { method: 'HEAD' });
-                                    if (testResp.ok) {
-                                        this.cigarImage = imgUrl;
-                                        break;
-                                    }
-                                } catch (e) {
-                                    continue;
-                                }
-                            }
-                        }
-                        
-                        if (!this.cigarImage) {
-                            // Fallback: try Bing Images
-                            await this.searchBingImage();
+                        if (data.Image) {
+                            this.cigarImage = data.Image;
                         }
                     } catch (error) {
-                        console.log('Google search failed, trying Bing:', error);
+                        console.log('DDG API failed:', error);
+                    }
+                    
+                    // Try Bing if DDG failed
+                    if (!this.cigarImage) {
                         await this.searchBingImage();
                     }
                     
@@ -890,23 +872,36 @@
                 },
                 
                 async searchBingImage() {
-                    const query = `${this.selectedBrand} ${this.selectedModel} cigar`;
-                    const searchUrl = `https://www.bing.com/images/search?q=${encodeURIComponent(query)}`;
+                    const query = `${this.selectedBrand} ${this.selectedModel} cigar photo`;
                     
                     try {
-                        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(searchUrl)}`);
-                        const html = await response.text();
+                        // Use Bing Visual Search API alternative
+                        const searchUrl = `https://www.bing.com/images/search?q=${encodeURIComponent(query)}&form=IQFRES`;
                         
-                        // Extract murl from Bing results
-                        const murlRegex = /murl":"(https:\\\/\\\/[^"]+\.(jpg|jpeg|png|webp))"/gi;
-                        const matches = html.match(murlRegex);
+                        // Try a CORS proxy
+                        const proxyUrls = [
+                            `https://api.allorigins.win/get?url=${encodeURIComponent(searchUrl)}`,
+                            `https://corsproxy.io/?${encodeURIComponent(searchUrl)}`
+                        ];
                         
-                        if (matches && matches.length > 0) {
-                            const imgUrl = matches[0].replace('murl":"', '').replace(/\\/g, '').replace(/"/g, '');
-                            this.cigarImage = imgUrl;
+                        for (const proxyUrl of proxyUrls) {
+                            try {
+                                const response = await fetch(proxyUrl);
+                                const data = await response.json();
+                                const html = data.contents || data;
+                                
+                                // Extract image from Bing results
+                                const imgMatch = html.match(/murl":"(https:\\\/\\\/[^"]+\.(jpg|jpeg|png))"/);
+                                if (imgMatch) {
+                                    this.cigarImage = imgMatch[1].replace(/\\\//g, '/');
+                                    break;
+                                }
+                            } catch (e) {
+                                continue;
+                            }
                         }
                     } catch (error) {
-                        console.log('Bing search also failed:', error);
+                        console.log('Bing search failed:', error);
                     }
                 },
                 
