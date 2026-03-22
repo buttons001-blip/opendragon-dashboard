@@ -179,13 +179,13 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">¥{{ formatNum(availableCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">¥{{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}¥{{ formatNum(totalMarketValue - totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}¥{{ formatNum(realizedProfit) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">${{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">${{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}${{ formatNum(totalMarketValue - totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}${{ formatNum(realizedProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="api-status" :class="apiStatusClass">数据源: {{ apiStatus }}</div>
@@ -201,9 +201,9 @@
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
-                            <div class="stock-detail">{{ s.qty }} @ {{ s.cost }}</div>
-                            <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">现 {{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)</div>
-                            <div class="stock-detail">值 {{ formatNum(s.price * s.qty) }}</div>
+                            <div class="stock-detail">{{ s.qty }} @ ${{ s.cost.toFixed(2) }}</div>
+                            <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">现 ${{ s.price.toFixed(2) }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)</div>
+                            <div class="stock-detail">值 ${{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%</div>
                         </div>
                     </div>
@@ -315,22 +315,29 @@
                 totalCost() { return this.stocks.reduce((sum, s) => sum + s.cost * s.qty, 0); },
                 totalMarketValue() { return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); },
                 totalProfit() { return this.totalMarketValue - this.totalCost + this.realizedProfit; },
-                returnRate() { return ((this.totalProfit / this.totalCost) * 100).toFixed(2); },
+                returnRate() { return this.initialCapital > 0 ? ((this.totalProfit / this.initialCapital) * 100).toFixed(2) : '0.00'; },
                 closedPositions() {
                     return this.$data.closedPositions || [];
                 },
                 sortedStocks() { return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); }
             },
             async mounted() {
+                console.log('Crypto page mounted');
                 // 从飞书读取交易记录
-                await this.loadFeishuData();
+                try {
+                    await this.loadFeishuData();
+                } catch (e) {
+                    console.error('loadFeishuData failed:', e);
+                }
                 
                 this.updateTime();
-                this.loadIndices();
-                this.fetchPrices();
+                try {
+                    await this.loadIndices();
+                } catch (e) {
+                    console.error('loadIndices failed:', e);
+                }
                 setInterval(() => this.updateTime(), 1000);
-                setInterval(() => { this.loadIndices(); }, 5000);
-                setInterval(() => this.fetchPrices(), 30000);
+                setInterval(() => this.loadIndices(), 5000);
             },
             methods: {
                 async loadFeishuData() {
@@ -459,54 +466,6 @@
                     this.time = new Date().toLocaleString();
                 },
                 
-                async fetchPrices() {
-                    try {
-                        // 从本地 JSON 读取数字货币价格
-                        const response = await fetch('data/ca_crypto.json?t=' + Date.now());
-                        const data = await response.json();
-                        
-                        if (data.crypto) {
-                            // 更新持仓价格
-                            this.stocks.forEach(stock => {
-                                const cryptoData = data.crypto[stock.code];
-                                if (cryptoData) {
-                                    stock.price = parseFloat(cryptoData.value);
-                                    stock.dayChange = parseFloat(cryptoData.change);
-                                    stock.dayChangePercent = cryptoData.changePercent.toFixed(2);
-                                    stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
-                                }
-                            });
-                            
-                            // 更新顶部指数
-                            if (data.crypto['BTC']) {
-                                this.indices[0].value = data.crypto['BTC'].value.toLocaleString();
-                                this.indices[0].change = data.crypto['BTC'].change;
-                                this.indices[0].changePercent = data.crypto['BTC'].changePercent.toFixed(2);
-                            }
-                            if (data.crypto['ETH']) {
-                                this.indices[1].value = data.crypto['ETH'].value.toLocaleString();
-                                this.indices[1].change = data.crypto['ETH'].change;
-                                this.indices[1].changePercent = data.crypto['ETH'].changePercent.toFixed(2);
-                            }
-                            if (data.crypto['SOL']) {
-                                this.indices[2].value = data.crypto['SOL'].value.toLocaleString();
-                                this.indices[2].change = data.crypto['SOL'].change;
-                                this.indices[2].changePercent = data.crypto['SOL'].changePercent.toFixed(2);
-                            }
-                        }
-                        
-                        this.apiStatus = '本地数据 ✓';
-                        this.apiStatusClass = 'success';
-                        this.$nextTick(() => this.renderGauges());
-                        
-                    } catch (e) {
-                        console.error('获取价格失败:', e);
-                        this.apiStatus = '获取失败';
-                        this.apiStatusClass = 'error';
-                        this.$nextTick(() => this.renderGauges());
-                    }
-                },
-                        
                 renderGauges() {
                     if (typeof echarts === 'undefined') return;
                     
@@ -614,9 +573,16 @@
                 },
                 async loadIndices() {
                     try {
-                        const response = await fetch('data/ca_crypto.json?t=' + Date.now());
+                        // 添加调试信息
+                        console.log('Loading crypto data...');
+                        const response = await fetch('data/ca_crypto.json?t=' + Date.now(), {
+                            cache: 'no-store'
+                        });
+                        const data = await response.json();
+                        console.log('Loaded data:', data);
                         
-                        if (data.crypto && this.indices) {
+                        if (data.crypto) {
+                            // 更新顶部滚动条指数
                             const cryptoMap = {'BTC':0, 'ETH':1, 'SOL':2};
                             Object.keys(data.crypto).forEach(name => {
                                 const idx = cryptoMap[name];
@@ -627,9 +593,26 @@
                                     this.indices[idx].changePercent = val.changePercent.toFixed(2);
                                 }
                             });
+                            
+                            // 同时更新持仓价格（确保滚动条和计算使用同一数据源）
+                            this.stocks.forEach(stock => {
+                                const cryptoData = data.crypto[stock.code];
+                                if (cryptoData) {
+                                    stock.price = parseFloat(cryptoData.value);
+                                    stock.dayChange = parseFloat(cryptoData.change);
+                                    stock.dayChangePercent = cryptoData.changePercent.toFixed(2);
+                                    stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
+                                }
+                            });
+                            
+                            this.apiStatus = '实时数据 ✓';
+                            this.apiStatusClass = 'success';
+                            this.$nextTick(() => this.renderGauges());
                         }
                     } catch (e) {
-                        console.log('加载数字货币数据失败:', e.message);
+                        console.error('加载数字货币数据失败:', e);
+                        this.apiStatus = '加载失败: ' + e.message;
+                        this.apiStatusClass = 'error';
                     }
                 },
 
