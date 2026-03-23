@@ -194,7 +194,7 @@
             </div>
             
             <div class="card">
-                <div class="card-header"><div class="card-title">数字货币持仓 (实时)</div></div>
+                <div class="card-header"><div class="card-title">数字货币持仓 (本地缓存)</div></div>
                 <div class="stocks-row">
                     <div class="stock-item" v-for="s in sortedStocks" :key="s.code">
                         <div :id="'gauge-'+s.code" class="stock-gauge"></div>
@@ -303,9 +303,10 @@
                     closedPositions: [],
                     transactions: [],  // 交易记录
                     indices: [
-                        { name: 'BTC', value: '67,890.50', change: 1250.30, changePercent: '1.88' },
-                        { name: 'ETH', value: '3,520.80', change: 45.20, changePercent: '1.30' },
-                        { name: 'SOL', value: '145.60', change: -2.30, changePercent: '-1.55' }
+                        { name: 'BTC', value: '0', change: 0, changePercent: '0' },
+                        { name: 'ETH', value: '0', change: 0, changePercent: '0' },
+                        { name: 'SOL', value: '0', change: 0, changePercent: '0' },
+                        { name: 'LINK', value: '0', change: 0, changePercent: '0' }
                     ],
                     rules: PRINCIPLES.map((r, i) => ({ id: i+1, no: r.序号, title: r.原则 })),
                     stocks: []  // 从飞书读取
@@ -583,7 +584,7 @@
                         
                         if (data.crypto) {
                             // 更新顶部滚动条指数
-                            const cryptoMap = {'BTC':0, 'ETH':1, 'SOL':2};
+                            const cryptoMap = {'BTC':0, 'ETH':1, 'SOL':2, 'LINK':3};
                             Object.keys(data.crypto).forEach(name => {
                                 const idx = cryptoMap[name];
                                 if (idx !== undefined && this.indices[idx]) {
