@@ -1,6 +1,5 @@
 {
-  "timestamp": "2026-03-21T08:48:00.000Z",
-  "market": "美股",
+  "timestamp": "2026-03-23T09:30:00.000Z",
   "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
@@ -9,21 +8,21 @@
       "name": "Nvidia",
       "costPrice": 182.13,
       "quantity": 40,
-      "reason": "美股第一期建仓，AI 芯片龙头，GPU+ 数据中心"
+      "reason": "AI芯片龙头"
     },
     {
       "code": "MSFT",
       "name": "Microsoft",
       "costPrice": 394.76,
       "quantity": 10,
-      "reason": "美股第一期建仓，软件 + 云+AI 龙头，企业数字化"
+      "reason": "云计算龙头"
     },
     {
       "code": "AMZN",
       "name": "Amazon",
       "costPrice": 211.68,
       "quantity": 6,
-      "reason": "美股第一期建仓，电商 + 云+AI 龙头，全球零售"
+      "reason": "电商龙头"
     }
   ],
   "trades": [
@@ -34,8 +33,8 @@
       "price": 100000,
       "quantity": 1,
       "amount": 100000,
-      "date": "2025-03-16",
-      "reason": "美股模拟交易初始资金，10 万美元启动",
+      "date": "2026-03-18",
+      "reason": "美股模拟交易初始资金",
       "status": ""
     },
     {
@@ -44,9 +43,9 @@
       "name": "Nvidia",
       "price": 182.13,
       "quantity": 40,
-      "amount": 7285.2,
-      "date": "2025-03-16",
-      "reason": "美股第一期建仓，AI 芯片龙头，GPU+ 数据中心",
+      "amount": 7295.20,
+      "date": "2026-03-18",
+      "reason": "AI芯片龙头",
       "status": ""
     },
     {
@@ -55,9 +54,9 @@
       "name": "Microsoft",
       "price": 394.76,
       "quantity": 10,
-      "amount": 3947.6,
-      "date": "2025-03-16",
-      "reason": "美股第一期建仓，软件 + 云+AI 龙头，企业数字化",
+      "amount": 3947.60,
+      "date": "2026-03-18",
+      "reason": "云计算龙头",
       "status": ""
     },
     {
@@ -67,8 +66,8 @@
       "price": 211.68,
       "quantity": 6,
       "amount": 1270.08,
-      "date": "2025-03-16",
-      "reason": "美股第一期建仓，电商 + 云+AI 龙头，全球零售",
+      "date": "2026-03-18",
+      "reason": "电商龙头",
       "status": ""
     }
   ]
