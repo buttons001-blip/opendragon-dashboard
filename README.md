@@ -1,22 +1,107 @@
 # 🐉 OpenDragon 股票仪表盘
 
-> A 股模拟交易系统 · 利弗摩尔原则实践
+> A 股模拟交易系统 · 利弗摩尔原则实践 · 五大市场
+
+## ⚡ 核心功能流程（最重要！）
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           数据流工作流程                                   │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│   1️⃣ 交易操作（买入/卖出）                                             │
+│       ↓                                                                │
+│   2️⃣ 飞书多维表格 "OpenDragon 投资组合"                                 │
+│       📋 https://ocnp5whz0ad6.feishu.cn/wiki/Pk17wdNRFicbQpkaYvwcayW0nrb │
+│       ↓ 手动同步                                                        │
+│   3️⃣ 本地 JSON 文件 (data/trades_*.json)                                │
+│       ↓ 前端读取                                                        │
+│   4️⃣ 网页端显示 + 实时行情                                             │
+│       📡 腾讯财经 API / Yahoo Finance                                   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### 📁 数据文件说明
+
+| 文件 | 用途 | 市场 |
+|:-----|:-----|:-----|
+| `data/trades_cn.json` | 交易记录 | A股 |
+| `data/trades_hk.json` | 交易记录 | 港股 |
+| `data/trades_us.json` | 交易记录 | 美股 |
+| `data/trades_ca.json` | 交易记录 | 加股 |
+| `data/trades_crypto.json` | 交易记录 | 数字货币 |
+| `data/ca_crypto.json` | 实时行情缓存 | 加股/数字货币 |
+| `data/indices.json` | 全球指数 | 全部 |
+
+### 📊 数据源配置
+
+| 市场 | 实时行情 | 初始资金 | 货币 |
+|:-----|:---------|:---------|:-----|
+| A股 | 腾讯财经 API | ¥1,000,000 | ¥ |
+| 港股 | 腾讯财经 API | HK$500,000 | HK$ |
+| 美股 | 腾讯财经 API | $100,000 | $ |
+| 加股 | Yahoo Finance (本地缓存) | C$100,000 | C$ |
+| 数字货币 | Yahoo Finance (本地缓存) | $100,000 | $ |
+
+### 🔧 交易后操作流程
+
+**每次买卖股票后，必须执行以下步骤：**
+
+1. **更新飞书多维表格** - 在"OpenDragon 投资组合"表中添加记录
+2. **同步本地 JSON** - 更新 `data/trades_{market}.json`
+3. **推送 GitHub** - `git add . && git commit && git push`
+4. **等待部署** - Cloudflare Pages 自动部署（1-2分钟）
+
+### JSON 文件格式
+
+```json
+{
+  "timestamp": "2026-03-23T00:00:00.000Z",
+  "initialCapital": 1000000,
+  "realizedProfit": -10392,
+  "holdings": [
+    {
+      "code": "300750",
+      "name": "宁德时代",
+      "costPrice": 404.9,
+      "quantity": 200,
+      "reason": "新能源龙头"
+    }
+  ],
+  "trades": [
+    {
+      "type": "买入",
+      "code": "300750",
+      "name": "宁德时代",
+      "price": 404.9,
+      "quantity": 200,
+      "amount": 80980,
+      "date": "2026-03-16",
+      "reason": "新能源龙头",
+      "status": ""
+    }
+  ]
+}
+```
+
+---
 
 ## 功能特性
 
 - 📜 利弗摩尔十大原则展示
-- 📊 持仓实时行情（新浪财经 API）
+- 📊 持仓实时行情
 - 💰 动态盈亏计算
 - 📈 资金概览仪表盘
 - 📝 操作记录展示
-- 🔄 交易日自动刷新（30 分钟）
+- 🔄 交易日自动刷新
 - 📱 响应式设计（手机/PC 适配）
 
 ## 技术栈
 
 - Vue 3（CDN 引入，无需构建）
 - ECharts 5（图表库）
-- 新浪财经 API（实时行情）
+- 腾讯财经 API / Yahoo Finance（实时行情）
 - Cloudflare Pages（免费托管）
 
 ## 部署到 Cloudflare Pages
@@ -59,24 +144,19 @@ git push -u origin main
 
 ---
 
-## 数据更新
-
-### 手动更新
-编辑 `data/` 目录下的 JSON 文件，然后 push 到 GitHub，Cloudflare 会自动重新部署。
-
-### 文件说明
-- `data/principles.json` - 十大原则
-- `data/positions.json` - 持仓数据
-- `data/records.json` - 操作记录
-
----
-
 ## 本地开发
 
 ```bash
 python3 -m http.server 8888
 # 访问 http://localhost:8888
 ```
+
+---
+
+## 飞书多维表格
+
+- **投资组合**: https://ocnp5whz0ad6.feishu.cn/wiki/Pk17wdNRFicbQpkaYvwcayW0nrb
+- **候选股票池**: https://ocnp5whz0ad6.feishu.cn/base/EGjabj93JaaGyusF4lXcSLb0nYg
 
 ---
 
