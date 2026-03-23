@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-23T23:05:02.210282",
+  "timestamp": "2026-03-23T23:45:01.578795",
   "cn": {
     "上证指数": {
       "value": 3813.28,
@@ -36,26 +36,26 @@
   },
   "us": {
     "道琼斯": {
-      "value": 46689.61,
-      "change": 1112.14,
-      "changePercent": 2.44
+      "value": 46486.56,
+      "change": 909.09,
+      "changePercent": 1.99
     },
     "纳斯达克": {
-      "value": 22178.13,
-      "change": 530.52,
-      "changePercent": 2.45
+      "value": 22062.98,
+      "change": 415.37,
+      "changePercent": 1.92
     },
     "标普 500": {
-      "value": 6650.01,
-      "change": 143.53,
-      "changePercent": 2.21
+      "value": 6617.98,
+      "change": 111.5,
+      "changePercent": 1.71
     }
   },
   "ca": {
     "TSX": {
-      "value": 32016.41,
-      "change": 699.0,
-      "changePercent": 2.23
+      "value": 31863.58,
+      "change": 546.17,
+      "changePercent": 1.74
     },
     "S&P/TSX 60": {
       "value": 0,
@@ -70,19 +70,19 @@
   },
   "crypto": {
     "BTC": {
-      "value": 71623.91,
-      "change": 3768.93,
-      "changePercent": 5.55
+      "value": 70764.96,
+      "change": 2909.98,
+      "changePercent": 4.29
     },
     "ETH": {
-      "value": 2186.2,
-      "change": 132.77,
-      "changePercent": 6.47
+      "value": 2157.28,
+      "change": 103.85,
+      "changePercent": 5.06
     },
     "SOL": {
-      "value": 91.54,
-      "change": 5.39,
-      "changePercent": 6.25
+      "value": 90.66,
+      "change": 4.51,
+      "changePercent": 5.23
     }
   }
 }

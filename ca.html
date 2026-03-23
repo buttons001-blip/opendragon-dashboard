@@ -623,6 +623,7 @@
                             
                             this.apiStatus = '本地 JSON 数据 ✓';
                             this.apiStatusClass = 'success';
+                            this.$nextTick(() => this.renderGauges());
                         }
 
                     } catch (e) {
