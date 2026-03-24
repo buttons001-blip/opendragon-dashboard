@@ -1,73 +1,73 @@
 {
-  "timestamp": "2026-03-23T09:30:00.000Z",
+  "timestamp": "2026-03-25T00:45:03.266133",
   "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
     {
       "code": "RY",
       "name": "皇家银行",
-      "costPrice": 224.74,
-      "quantity": 50,
-      "reason": "加拿大最大的银行"
+      "quantity": 70.0,
+      "costPrice": 220.8,
+      "totalCost": 15456.0
     },
     {
       "code": "ENB",
       "name": "恩桥",
-      "costPrice": 73.46,
-      "quantity": 70,
-      "reason": "北美最大的管道公司"
+      "quantity": 100.0,
+      "costPrice": 74.03,
+      "totalCost": 7403.0
     },
     {
       "code": "SHOP",
       "name": "Shopify",
-      "costPrice": 172.90,
-      "quantity": 20,
-      "reason": "电商SaaS龙头"
+      "quantity": 50.0,
+      "costPrice": 170.07,
+      "totalCost": 8503.5
     }
   ],
   "trades": [
     {
-      "type": "充值",
-      "code": "",
-      "name": "初始资金",
-      "price": 100000,
-      "quantity": 1,
-      "amount": 100000,
-      "date": "2026-03-18",
-      "reason": "加拿大股票模拟交易初始资金",
-      "status": ""
-    },
-    {
       "type": "买入",
       "code": "RY",
       "name": "皇家银行",
-      "price": 224.74,
-      "quantity": 50,
-      "amount": 11237,
-      "date": "2026-03-18",
-      "reason": "加拿大最大的银行",
+      "price": 220.8,
+      "quantity": 70.0,
+      "amount": 15456.0,
+      "date": "2025-03-18",
+      "reason": "加股第一期建仓，金融 50%，加拿大最大银行，高分红，买入价修正为 220.8",
       "status": ""
     },
     {
       "type": "买入",
       "code": "ENB",
       "name": "恩桥",
-      "price": 73.46,
-      "quantity": 70,
-      "amount": 5142.20,
-      "date": "2026-03-18",
-      "reason": "北美最大的管道公司",
+      "price": 74.03,
+      "quantity": 100.0,
+      "amount": 7403.0,
+      "date": "2025-03-18",
+      "reason": "加股第一期建仓，能源 25%，北美最大管道，稳定分红，买入价修正为 74.03",
       "status": ""
     },
     {
       "type": "买入",
       "code": "SHOP",
       "name": "Shopify",
-      "price": 172.90,
-      "quantity": 20,
-      "amount": 3458,
-      "date": "2026-03-18",
-      "reason": "电商SaaS龙头",
+      "price": 170.07,
+      "quantity": 50.0,
+      "amount": 8503.5,
+      "date": "2025-03-18",
+      "reason": "加股第一期建仓，科技 25%，电商平台，高增长，买入价修正为 170.07",
+      "status": ""
+    },
+    {
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 100000.0,
+      "quantity": 1.0,
+      "amount": 100000.0,
+      "date": "2025-03-18",
+      "reason": "加股模拟交易初始资金，10 万加元启动",
       "status": ""
     }
   ]
