@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-25T00:45:03.265195",
+  "timestamp": "2026-03-25T07:10:03.496168",
   "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
@@ -71,7 +71,7 @@
       "status": ""
     },
     {
-      "type": "optdzeWcYn",
+      "type": "卖出",
       "code": "MSFT",
       "name": "Microsoft",
       "price": 373.83,
