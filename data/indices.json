@@ -1,32 +1,32 @@
 {
-  "timestamp": "2026-03-25T15:00:02.473483",
+  "timestamp": "2026-03-25T15:05:02.123627",
   "cn": {
     "上证指数": {
-      "value": 3926.44,
-      "change": 113.16,
-      "changePercent": 2.97
+      "value": 3930.11,
+      "change": 116.83,
+      "changePercent": 3.06
     },
     "深证成指": {
-      "value": 13788.45,
-      "change": 442.95,
-      "changePercent": 3.32
+      "value": 13797.92,
+      "change": 452.42,
+      "changePercent": 3.39
     },
     "科创 50": {
-      "value": 1314.28,
-      "change": 23.49,
-      "changePercent": 1.82
+      "value": 1315.5,
+      "change": 24.71,
+      "changePercent": 1.91
     }
   },
   "hk": {
     "恒生指数": {
-      "value": 25147.57,
-      "change": 83.86,
-      "changePercent": 0.33
+      "value": 25202.27,
+      "change": 138.56,
+      "changePercent": 0.55
     },
     "国企指数": {
-      "value": 8516.1,
-      "change": 16.57,
-      "changePercent": 0.19
+      "value": 8536.27,
+      "change": 36.74,
+      "changePercent": 0.43
     },
     "恒生科技": {
       "value": 0,
@@ -70,19 +70,19 @@
   },
   "crypto": {
     "BTC": {
-      "value": 71085.19,
-      "change": 559.63,
-      "changePercent": 0.79
+      "value": 71002.96,
+      "change": 477.4,
+      "changePercent": 0.68
     },
     "ETH": {
-      "value": 2169.28,
-      "change": 13.49,
-      "changePercent": 0.63
+      "value": 2164.26,
+      "change": 8.47,
+      "changePercent": 0.39
     },
     "SOL": {
-      "value": 92.58,
-      "change": 1.76,
-      "changePercent": 1.94
+      "value": 92.4,
+      "change": 1.58,
+      "changePercent": 1.74
     }
   }
 }
