@@ -1,8 +1,15 @@
 {
-  "timestamp": "2026-03-25T11:05:05.214007",
+  "timestamp": "2026-03-25T11:15:52.750088",
   "initialCapital": 1000000,
   "realizedProfit": -10392.0,
   "holdings": [
+    {
+      "code": "688297",
+      "name": "中无人机",
+      "quantity": 1400.0,
+      "costPrice": 55.77,
+      "totalCost": 156156.0
+    },
     {
       "code": "300750",
       "name": "宁德时代",
@@ -23,6 +30,13 @@
       "quantity": 1000.0,
       "costPrice": 102.46,
       "totalCost": 102460.0
+    },
+    {
+      "code": "002389",
+      "name": "航天彩虹",
+      "quantity": 1200.0,
+      "costPrice": 24.43,
+      "totalCost": 58632.0
     }
   ],
   "trades": [
