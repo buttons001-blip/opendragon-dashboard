@@ -12,8 +12,8 @@ import os
 from datetime import datetime
 
 # Feishu API Config - 雪茄储存记录2026年
-APP_TOKEN = "EvEyb9B0VaHcV9sl5WbcrLZYn7d"  # 需要更新为新的表格token
-TABLE_ID = "tbl1oOymZ0nv8rp2"  # 需要更新为新的表格ID
+APP_TOKEN = "DGVYbJ0mKaN7rVsXA5mcJjQdnTe"  # 雪茄储存记录2026年表格
+TABLE_ID = "tbl35elLH4pejLRr"  # Sheet1
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis/bitable/v1"
 
 def get_feishu_token():
