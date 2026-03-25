@@ -729,28 +729,6 @@
                         <div class="tasting-subtitle">{{ today }}</div>
                     </div>
                     
-                    <!-- Selected Cigar Info -->
-                    <div class="selected-cigar-info">
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <span class="info-label">数量</span>
-                                <span class="info-value">{{ selectedCigar?.quantity || '-' }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">环径</span>
-                                <span class="info-value">{{ selectedCigar?.ringGauge || '-' }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">长度</span>
-                                <span class="info-value">{{ selectedCigar?.length || '-' }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">存放</span>
-                                <span class="info-value">{{ selectedCigar?.location || '-' }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <!-- Cigar Tasting Info from Database -->
                     <div v-if="selectedCigar?.tastingFeedback || selectedCigar?.strengthLevel || selectedCigar?.mainFlavor" class="tasting-experience-section">
                         <div class="section-title">
@@ -773,16 +751,38 @@
                         </div>
                     </div>
                     
-                    <!-- New Tasting Experience Input -->
+                    <!-- Tasting Experience Input - Three Sections -->
                     <div class="tasting-input-section">
                         <div class="section-title">
-                            <span class="section-icon">✍️</span>
-                            <span>{{ selectedCigar?.tastingExperience ? '添加新品吸体验' : '品吸体验' }}</span>
+                            <span class="section-icon" style="background: #ff6b6b;">🔥</span>
+                            <span>前段</span>
                         </div>
                         <textarea 
                             class="tasting-textarea" 
-                            v-model="tastingExperience"
-                            placeholder="记录您的品吸体验：&#10;- 前段口感和香气&#10;- 中段风味变化&#10;- 后段收尾和余韵&#10;- 燃烧情况和整体评价..."></textarea>
+                            v-model="tastingNotes.front"
+                            placeholder="描述前段口感、香气、燃烧情况..."></textarea>
+                    </div>
+                    
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #feca57; color: #333;">✨</span>
+                            <span>中段</span>
+                        </div>
+                        <textarea 
+                            class="tasting-textarea" 
+                            v-model="tastingNotes.middle"
+                            placeholder="描述中段风味变化、强度..."></textarea>
+                    </div>
+                    
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #48dbfb; color: #333;">🌙</span>
+                            <span>后段</span>
+                        </div>
+                        <textarea 
+                            class="tasting-textarea" 
+                            v-model="tastingNotes.end"
+                            placeholder="描述后段收尾、余韵..."></textarea>
                     </div>
                     
                     <!-- Photo Upload -->
@@ -803,7 +803,7 @@
                     
                     <!-- Submit -->
                     <div class="submit-section">
-                        <button class="btn-submit" @click="submitTasting" :disabled="isSubmitting || !tastingExperience.trim()">
+                        <button class="btn-submit" @click="submitTasting" :disabled="isSubmitting || (!tastingNotes.front.trim() && !tastingNotes.middle.trim() && !tastingNotes.end.trim())">
                             {{ isSubmitting ? '保存中...' : '保存品吸记录' }}
                         </button>
                     </div>
@@ -888,8 +888,12 @@
                     selectedModel: '',
                     showTastingForm: false,
                     
-                    // Tasting Experience
-                    tastingExperience: '',
+                    // Tasting Notes (前段/中段/后段)
+                    tastingNotes: {
+                        front: '',
+                        middle: '',
+                        end: ''
+                    },
                     photoData: null,
                     
                     // Records
@@ -998,13 +1002,13 @@
                 onBrandChange() {
                     this.selectedModel = '';
                     this.showTastingForm = false;
-                    this.tastingExperience = '';
+                    this.tastingNotes = { front: '', middle: '', end: '' };
                     this.photoData = null;
                 },
                 
                 onModelChange() {
                     this.showTastingForm = false;
-                    this.tastingExperience = '';
+                    this.tastingNotes = { front: '', middle: '', end: '' };
                     this.photoData = null;
                 },
                 
@@ -1012,17 +1016,13 @@
                     this.selectedBrand = '';
                     this.selectedModel = '';
                     this.showTastingForm = false;
-                    this.tastingExperience = '';
+                    this.tastingNotes = { front: '', middle: '', end: '' };
                     this.photoData = null;
                 },
                 
                 confirmSelection() {
                     if (this.selectedBrand && this.selectedModel) {
                         this.showTastingForm = true;
-                        // Pre-fill with existing experience if available
-                        if (this.selectedCigar?.tastingExperience) {
-                            this.tastingExperience = this.selectedCigar.tastingExperience;
-                        }
                     }
                 },
                 
@@ -1063,12 +1063,19 @@
                     this.isSubmitting = true;
                     
                     try {
+                        // 组合品吸记录
+                        const experienceParts = [];
+                        if (this.tastingNotes.front.trim()) experienceParts.push(`【前段】${this.tastingNotes.front}`);
+                        if (this.tastingNotes.middle.trim()) experienceParts.push(`【中段】${this.tastingNotes.middle}`);
+                        if (this.tastingNotes.end.trim()) experienceParts.push(`【后段】${this.tastingNotes.end}`);
+                        
                         const record = {
                             id: Date.now().toString(),
                             date: this.today,
                             brand: this.selectedBrand,
                             model: this.selectedModel,
-                            experience: this.tastingExperience,
+                            experience: experienceParts.join('\n\n'),
+                            tastingNotes: { ...this.tastingNotes },
                             photo: this.photoData,
                             brandLogo: this.currentBrandLogo,
                             createdAt: new Date().toISOString()
