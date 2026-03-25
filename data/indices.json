@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-25T16:05:02.362072",
+  "timestamp": "2026-03-25T16:10:02.145482",
   "cn": {
     "上证指数": {
       "value": 3931.84,
@@ -19,14 +19,14 @@
   },
   "hk": {
     "恒生指数": {
-      "value": 25245.57,
-      "change": 181.86,
-      "changePercent": 0.73
+      "value": 25266.28,
+      "change": 202.57,
+      "changePercent": 0.81
     },
     "国企指数": {
-      "value": 8554.62,
-      "change": 55.09,
-      "changePercent": 0.65
+      "value": 8559.94,
+      "change": 60.41,
+      "changePercent": 0.71
     },
     "恒生科技": {
       "value": 0,
@@ -70,19 +70,19 @@
   },
   "crypto": {
     "BTC": {
-      "value": 70946.84,
-      "change": 421.28,
-      "changePercent": 0.6
-    },
-    "ETH": {
-      "value": 2165.93,
-      "change": 10.14,
+      "value": 70859.2,
+      "change": 333.64,
       "changePercent": 0.47
     },
+    "ETH": {
+      "value": 2167.06,
+      "change": 11.27,
+      "changePercent": 0.52
+    },
     "SOL": {
-      "value": 91.85,
-      "change": 1.03,
-      "changePercent": 1.14
+      "value": 91.98,
+      "change": 1.16,
+      "changePercent": 1.28
     }
   }
 }
