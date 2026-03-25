@@ -9,12 +9,14 @@
 import json
 import requests
 import os
+import re
 from datetime import datetime
 
 # Feishu API Config - 雪茄储存记录2026年 (新表格)
 APP_TOKEN = "LxtibLI9eajhA3sLXYVcYSfynRf"  # 新多维表格
 TABLE_ID = "tbl2AoMbImpRz0vG"  # Sheet1
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis/bitable/v1"
+FEISHU_DRIVE_BASE = "https://open.feishu.cn/open-apis/drive/v1"
 
 def get_feishu_token():
     """Get Feishu access token"""
@@ -28,7 +30,23 @@ def get_feishu_token():
     except:
         pass
     
-    return None
+    # Get new token
+    app_id = "cli_a93fa577bff89bc2"
+    app_secret = "2Fi2KePv87sLiTmZSPUcdeWa5Ty2MxQF"
+    
+    url = f"https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal"
+    try:
+        resp = requests.post(url, json={"app_id": app_id, "app_secret": app_secret})
+        data = resp.json()
+        token = data.get("app_access_token")
+        if token:
+            os.makedirs('/home/admin/.openclaw/workspace/stock-dashboard', exist_ok=True)
+            with open('/home/admin/.openclaw/workspace/stock-dashboard/feishu_token.txt', 'w') as f:
+                f.write(token)
+        return token
+    except Exception as e:
+        print(f"Error getting token: {e}")
+        return None
 
 def fetch_all_records(app_token, table_id, token):
     """Fetch all records from Feishu Bitable"""
@@ -65,6 +83,45 @@ def fetch_all_records(app_token, table_id, token):
     
     return records
 
+def get_attachment_url(token, file_token):
+    """Get temporary download URL for attachment"""
+    if not file_token:
+        return ""
+    
+    url = f"{FEISHU_DRIVE_BASE}/medias/batch_get_tmp_download_url?file_tokens={file_token}"
+    headers = {"Authorization": f"Bearer {token}"}
+    
+    try:
+        resp = requests.get(url, headers=headers)
+        data = resp.json()
+        if data.get("code") == 0:
+            urls = data.get("data", {}).get("tmp_download_urls", [])
+            if urls and len(urls) > 0:
+                return urls[0].get("tmp_download_url", "")
+    except Exception as e:
+        print(f"Error getting attachment URL: {e}")
+    
+    return ""
+
+def download_image(url, filepath):
+    """Download image from URL"""
+    try:
+        resp = requests.get(url, timeout=30)
+        if resp.status_code == 200:
+            with open(filepath, 'wb') as f:
+                f.write(resp.content)
+            return True
+    except Exception as e:
+        print(f"Error downloading image: {e}")
+    return False
+
+def sanitize_filename(filename):
+    """Sanitize filename for filesystem"""
+    filename = re.sub(r'[<>:"/\\|?*]', '', filename)
+    if len(filename) > 50:
+        filename = filename[:50]
+    return filename
+
 def extract_field_value(field_value, field_type='text'):
     """Extract value from Feishu field format"""
     if field_value is None:
@@ -88,10 +145,13 @@ def extract_field_value(field_value, field_type='text'):
     
     return str(field_value) if field_value else ""
 
-def process_records(records):
+def process_records(records, token):
     """Process records to extract all required fields"""
     inventory = []
     brand_logos = {}
+    
+    logos_dir = "/home/admin/.openclaw/workspace/stock-dashboard/images/brand_logos"
+    os.makedirs(logos_dir, exist_ok=True)
     
     for record in records:
         fields = record.get("fields", {})
@@ -103,20 +163,33 @@ def process_records(records):
         length = extract_field_value(fields.get("长度"))
         location = extract_field_value(fields.get("地点"), 'select')
         
-        # Extract brand logo (附件类型)
+        # Extract brand logo
         brand_logo = ""
         logo_field = fields.get("logo")
-        if logo_field:
+        if logo_field and brand:
+            file_token = None
             if isinstance(logo_field, list) and len(logo_field) > 0:
-                attachment = logo_field[0]
-                brand_logo = attachment.get("tmp_url", "") or attachment.get("url", "")
+                file_token = logo_field[0].get("file_token", "")
             elif isinstance(logo_field, dict):
-                brand_logo = logo_field.get("tmp_url", "") or logo_field.get("url", "")
+                file_token = logo_field.get("file_token", "")
+            
+            if file_token:
+                safe_brand = sanitize_filename(brand)
+                logo_path = f"{logos_dir}/{safe_brand}.png"
+                web_path = f"images/brand_logos/{safe_brand}.png"
+                
+                if os.path.exists(logo_path):
+                    brand_logo = web_path
+                else:
+                    tmp_url = get_attachment_url(token, file_token)
+                    if tmp_url and download_image(tmp_url, logo_path):
+                        brand_logo = web_path
+                        print(f"Downloaded logo for {brand}")
         
         if brand and brand_logo:
             brand_logos[brand] = brand_logo
         
-        # Extract tasting feedback (品吸反馈)
+        # Extract tasting feedback
         tasting_feedback = ""
         feedback_field = fields.get("品吸反馈")
         if feedback_field:
@@ -125,7 +198,7 @@ def process_records(records):
             else:
                 tasting_feedback = str(feedback_field)
         
-        # Extract strength level (强度等级)
+        # Extract strength level
         strength_level = ""
         strength_field = fields.get("强度等级")
         if strength_field:
@@ -134,7 +207,7 @@ def process_records(records):
             else:
                 strength_level = str(strength_field)
         
-        # Extract main flavor (主要风味) - 多选字段
+        # Extract main flavor
         main_flavor = ""
         flavor_field = fields.get("主要风味")
         if flavor_field:
@@ -185,8 +258,10 @@ def export_to_json(inventory, brand_logos, output_path):
                 "logo": item.get("brandLogo", "") or brand_logos.get(brand, "")
             }
     
+    unique_brands = sorted(list(set(item["brand"] for item in inventory)))
+    
     data = {
-        "brands": sorted(list(brands_with_logos.keys())),
+        "brands": unique_brands,
         "brandsWithLogos": brands_with_logos,
         "inventory": inventory,
         "totalRecords": len(inventory),
@@ -196,19 +271,19 @@ def export_to_json(inventory, brand_logos, output_path):
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     
-    print(f"✅ Exported {len(inventory)} records to {output_path}")
-    print(f"✅ Unique brands: {len(data['brands'])}")
+    print(f"✅ Exported {len(inventory)} records")
+    print(f"✅ Unique brands: {len(unique_brands)}")
     print(f"✅ Brands with logos: {sum(1 for b in brands_with_logos.values() if b['logo'])}")
-    
-    return data
 
 def main():
+    print("🚀 Fetching records from Feishu...")
     token = get_feishu_token()
     if not token:
-        print("❌ Error: No Feishu token found")
+        print("❌ Failed to get Feishu token")
         return
     
-    print("🚀 Fetching records from Feishu...")
+    print("✅ Got Feishu token")
+    
     records = fetch_all_records(APP_TOKEN, TABLE_ID, token)
     print(f"✅ Fetched {len(records)} raw records")
     
@@ -216,11 +291,13 @@ def main():
         print("⚠️ No records found.")
         return
     
-    print("🔄 Processing records...")
-    inventory, brand_logos = process_records(records)
+    print("🔄 Processing records and downloading logos...")
+    inventory, brand_logos = process_records(records, token)
     
     output_path = "/home/admin/.openclaw/workspace/stock-dashboard/data/cigar_inventory_v2.json"
     export_to_json(inventory, brand_logos, output_path)
+    
+    print("\n✅ Done!")
 
 if __name__ == "__main__":
     main()
