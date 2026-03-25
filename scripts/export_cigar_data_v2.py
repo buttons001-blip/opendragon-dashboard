@@ -88,6 +88,7 @@ def get_attachment_url(token, file_token):
     if not file_token:
         return ""
     
+    # Method 1: Use batch_get_tmp_download_url API
     url = f"{FEISHU_DRIVE_BASE}/medias/batch_get_tmp_download_url?file_tokens={file_token}"
     headers = {"Authorization": f"Bearer {token}"}
     
@@ -99,7 +100,16 @@ def get_attachment_url(token, file_token):
             if urls and len(urls) > 0:
                 return urls[0].get("tmp_download_url", "")
     except Exception as e:
-        print(f"Error getting attachment URL: {e}")
+        print(f"Error getting attachment URL (method 1): {e}")
+    
+    # Method 2: Try direct download API
+    try:
+        url = f"{FEISHU_DRIVE_BASE}/medias/{file_token}/download"
+        resp = requests.get(url, headers=headers, allow_redirects=False)
+        if resp.status_code == 302 or resp.status_code == 301:
+            return resp.headers.get('Location', '')
+    except Exception as e:
+        print(f"Error getting attachment URL (method 2): {e}")
     
     return ""
 
