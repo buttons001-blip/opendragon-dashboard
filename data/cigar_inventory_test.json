@@ -1,0 +1,70 @@
+{
+  "success": true,
+  "brands": ["Cohiba", "Montecristo", "Partagas", "Romeo y Julieta", "Hoyo de Monterrey"],
+  "brandsWithLogos": {
+    "Cohiba": {"name": "Cohiba", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cohiba_logo.svg/200px-Cohiba_logo.svg.png"},
+    "Montecristo": {"name": "Montecristo", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Montecristo_cigars_logo.png/200px-Montecristo_cigars_logo.png"},
+    "Partagas": {"name": "Partagas", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Partagas_logo.png/200px-Partagas_logo.png"},
+    "Romeo y Julieta": {"name": "Romeo y Julieta", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Romeo_y_Julieta_logo.png/200px-Romeo_y_Julieta_logo.png"},
+    "Hoyo de Monterrey": {"name": "Hoyo de Monterrey", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Hoyo_de_Monterrey_logo.png/200px-Hoyo_de_Monterrey_logo.png"}
+  },
+  "inventory": [
+    {
+      "brand": "Cohiba",
+      "model": "Siglo III A/T",
+      "quantity": "15",
+      "ringGauge": "42",
+      "length": "155",
+      "location": "淀1",
+      "brandLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cohiba_logo.svg/200px-Cohiba_logo.svg.png",
+      "tastingExperience": "前段：淡淡的皮革和坚果香气，口感柔和顺滑。\n中段：可可和咖啡的味道逐渐显现，烟气饱满。\n后段：木质香气增强，余韵悠长，整体非常平衡。",
+      "arrived": "Y"
+    },
+    {
+      "brand": "Cohiba",
+      "model": "Siglo VI",
+      "quantity": "10",
+      "ringGauge": "52",
+      "length": "150",
+      "location": "淀1",
+      "brandLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cohiba_logo.svg/200px-Cohiba_logo.svg.png",
+      "tastingExperience": "",
+      "arrived": "Y"
+    },
+    {
+      "brand": "Montecristo",
+      "model": "Petit A/T",
+      "quantity": "15",
+      "ringGauge": "42",
+      "length": "127",
+      "location": "上",
+      "brandLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Montecristo_cigars_logo.png/200px-Montecristo_cigars_logo.png",
+      "tastingExperience": "前段：经典的蒙特克里斯托香气，略带辛辣。\n中段：奶油和香草的味道，口感丰富。\n后段：胡椒味增强，收尾干净利落。",
+      "arrived": "Y"
+    },
+    {
+      "brand": "Partagas",
+      "model": "Shorts",
+      "quantity": "25",
+      "ringGauge": "42",
+      "length": "112",
+      "location": "淀",
+      "brandLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Partagas_logo.png/200px-Partagas_logo.png",
+      "tastingExperience": "前段：浓郁的泥土和皮革味，典型的帕特加斯风格。\n中段：咖啡和黑巧克力的苦甜交织。\n后段：胡椒和香料味爆发，强度很高。",
+      "arrived": "Y"
+    },
+    {
+      "brand": "Romeo y Julieta",
+      "model": "Exhibicion No.4",
+      "quantity": "25",
+      "ringGauge": "50",
+      "length": "127",
+      "location": "淀",
+      "brandLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Romeo_y_Julieta_logo.png/200px-Romeo_y_Julieta_logo.png",
+      "tastingExperience": "前段：花香和蜂蜜的甜味，非常优雅。\n中段：奶油和坚果的味道，口感丝滑。\n后段：淡淡的柑橘香气，清新收尾。",
+      "arrived": "Y"
+    }
+  ],
+  "totalRecords": 5,
+  "lastUpdated": "2026-03-25 20:30:00"
+}
