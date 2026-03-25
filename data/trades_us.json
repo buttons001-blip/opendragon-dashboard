@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-25T12:45:06.903521",
+  "timestamp": "2026-03-25T12:49:46.045700",
   "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
@@ -9,13 +9,6 @@
       "quantity": 40.0,
       "costPrice": 182.13,
       "totalCost": 7285.2
-    },
-    {
-      "code": "MSFT",
-      "name": "Microsoft",
-      "quantity": 10.0,
-      "costPrice": 394.76,
-      "totalCost": 3947.6
     },
     {
       "code": "AMZN",
@@ -35,17 +28,6 @@
       "amount": 7285.2,
       "date": "2025-03-18",
       "reason": "美股第一期建仓，AI 芯片龙头，GPU+ 数据中心",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "MSFT",
-      "name": "Microsoft",
-      "price": 394.76,
-      "quantity": 10.0,
-      "amount": 3947.6,
-      "date": "2025-03-18",
-      "reason": "美股第一期建仓，2026-03-24 止损卖出，损失 $209.30",
       "status": ""
     },
     {
