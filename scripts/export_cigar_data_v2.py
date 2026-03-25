@@ -103,9 +103,9 @@ def process_records(records):
         length = extract_field_value(fields.get("长度"))
         location = extract_field_value(fields.get("存放地点"), 'select') or extract_field_value(fields.get("地点"), 'select')
         
-        # Extract brand logo
+        # Extract brand logo (字段名: logo)
         brand_logo = ""
-        logo_field = fields.get("品牌logo") or fields.get("Logo") or fields.get("logo")
+        logo_field = fields.get("logo")
         if logo_field:
             if isinstance(logo_field, list) and len(logo_field) > 0:
                 brand_logo = logo_field[0].get("url", "") or logo_field[0].get("tmp_url", "")
@@ -117,9 +117,9 @@ def process_records(records):
         if brand and brand_logo:
             brand_logos[brand] = brand_logo
         
-        # Extract tasting experience
+        # Extract tasting experience (字段名: 品吸反馈)
         tasting_experience = ""
-        taste_field = fields.get("品吸体验") or fields.get("体验") or fields.get("品吸记录")
+        taste_field = fields.get("品吸反馈")
         if taste_field:
             if isinstance(taste_field, dict):
                 tasting_experience = taste_field.get("text", "")
