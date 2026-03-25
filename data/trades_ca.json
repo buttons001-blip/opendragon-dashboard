@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-25T10:45:03.968918",
+  "timestamp": "2026-03-25T10:50:03.714058",
   "initialCapital": 100000,
-  "realizedProfit": -425.1750000000001,
+  "realizedProfit": 0,
   "holdings": [
     {
       "code": "RY",
@@ -16,6 +16,13 @@
       "quantity": 100.0,
       "costPrice": 74.03,
       "totalCost": 7403.0
+    },
+    {
+      "code": "SHOP",
+      "name": "Shopify",
+      "quantity": 50.0,
+      "costPrice": 170.07,
+      "totalCost": 8503.5
     }
   ],
   "trades": [
@@ -62,17 +69,6 @@
       "date": "2025-03-18",
       "reason": "加股模拟交易初始资金，10 万加元启动",
       "status": ""
-    },
-    {
-      "type": "卖出",
-      "code": "SHOP",
-      "name": "Shopify",
-      "price": 161.57,
-      "quantity": 50.0,
-      "amount": 8078.32,
-      "date": "2026-03-25",
-      "reason": "触发 -5% 止损线，严格执行纪律",
-      "status": "已止损"
     }
   ]
 }
