@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>雪茄品吸记录 V2 - OpenDragon</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 15px;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            background: #252542;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .nav-tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .nav-tab:not(.active) {
+            color: #888;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 15px;
+            min-height: 500px;
+        }
+        
+        /* Left Panel - Selection */
+        .left-panel {
+            flex: 0 0 320px;
+            background: #252542;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #3a3a5c;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 15px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Brand Logo Display */
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #1a1a2e;
+            border-radius: 10px;
+            min-height: 80px;
+        }
+        
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #fff;
+            padding: 5px;
+        }
+        
+        .brand-logo-placeholder {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background: #3a3a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .brand-info {
+            flex: 1;
+        }
+        
+        .brand-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .brand-count {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #3a3a5c;
+            color: #eee;
+        }
+        
+        .btn-secondary:hover {
+            background: #4a4a6c;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Right Panel - Tasting Form */
+        .right-panel {
+            flex: 1;
+            background: #252542;
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        
+        .tasting-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tasting-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .tasting-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Selected Cigar Info */
+        .selected-cigar-info {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #3a3a5c;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #888;
+            font-size: 13px;
+        }
+        
+        .info-value {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        /* Tasting Experience Section */
+        .tasting-experience-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* Existing Experience Display */
+        .existing-experience {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #11998e;
+        }
+        
+        .experience-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #11998e;
+        }
+        
+        .experience-content {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        .no-experience {
+            color: #666;
+            font-style: italic;
+            font-size: 13px;
+        }
+        
+        /* Tasting Input */
+        .tasting-input-section {
+            margin-bottom: 20px;
+        }
+        
+        .tasting-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #3a3a5c;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 14px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+        
+        .tasting-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .tasting-textarea::placeholder {
+            color: #666;
+        }
+        
+        /* Photo Upload */
+        .photo-section {
+            margin-bottom: 20px;
+        }
+        
+        .photo-upload {
+            border: 2px dashed #3a3a5c;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .photo-upload:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .photo-upload.has-photo {
+            border-style: solid;
+            border-color: #667eea;
+            padding: 15px;
+        }
+        
+        .photo-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+        }
+        
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .upload-text {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        /* Submit Button */
+        .submit-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #3a3a5c;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4);
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Records List */
+        .records-list {
+            background: #252542;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .record-item {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .record-title {
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .record-brand-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            border-radius: 4px;
+            background: #fff;
+            padding: 2px;
+        }
+        
+        .record-date {
+            color: #888;
+            font-size: 13px;
+        }
+        
+        .record-content {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .record-content div {
+            margin-bottom: 5px;
+        }
+        
+        .record-experience {
+            margin-top: 10px;
+            padding: 10px;
+            background: #252542;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .record-photo {
+            margin-top: 10px;
+        }
+        
+        .record-photo img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .record-photo img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Loading & Messages */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .message.success {
+            background: rgba(17, 153, 142, 0.2);
+            border: 1px solid #11998e;
+            color: #38ef7d;
+        }
+        
+        .message.error {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+        
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            text-align: center;
+        }
+        
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-text {
+            font-size: 16px;
+        }
+        
+        /* Stats */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #252542;
+            border-radius: 10px;
+        }
+        
+        .stat-item {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                flex: none;
+                width: 100%;
+            }
+            
+            .container {
+                padding: 5px;
+            }
+            
+            .stats-bar {
+                flex-wrap: wrap;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1>🚬 雪茄品吸记录 V2</h1>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="nav-tabs">
+                <div class="nav-tab" :class="{ active: currentTab === 'taste' }" @click="currentTab = 'taste'">
+                    品吸
+                </div>
+                <div class="nav-tab" :class="{ active: currentTab === 'records' }" @click="currentTab = 'records'">
+                    记录
+                </div>
+            </div>
+            
+            <!-- Messages -->
+            <div v-if="message" class="message" :class="messageType">
+                {{ message }}
+            </div>
+            
+            <!-- 品吸 Tab -->
+            <div v-if="currentTab === 'taste'" class="main-content">
+                <!-- Left Panel - Selection -->
+                <div class="left-panel">
+                    <div class="panel-title" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>选择雪茄</span>
+                        <button @click="manualRefresh" :disabled="isLoading" style="background: #667eea; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer;">
+                            {{ isLoading ? '刷新中...' : '🔄' }}
+                        </button>
+                    </div>
+                    
+                    <div v-if="lastUpdated" style="font-size: 11px; color: #888; margin-bottom: 15px; text-align: right;">
+                        数据更新: {{ lastUpdated }}
+                    </div>
+                    
+                    <div v-if="isLoading && brands.length === 0" class="loading">
+                        加载库存数据...
+                    </div>
+                    
+                    <div v-else>
+                        <!-- Brand Selection with Logo -->
+                        <div class="form-group">
+                            <label class="form-label">品牌 ({{ brands.length }})</label>
+                            
+                            <!-- Brand Logo Display -->
+                            <div v-if="selectedBrand" class="brand-logo-container">
+                                <img v-if="currentBrandLogo" :src="currentBrandLogo" class="brand-logo" @error="handleLogoError">
+                                <div v-else class="brand-logo-placeholder">🚬</div>
+                                <div class="brand-info">
+                                    <div class="brand-name">{{ selectedBrand }}</div>
+                                    <div class="brand-count">{{ availableModels.length }} 个型号</div>
+                                </div>
+                            </div>
+                            
+                            <select class="form-select" v-model="selectedBrand" @change="onBrandChange">
+                                <option value="">请选择品牌</option>
+                                <option v-for="brand in brands" :key="brand" :value="brand">
+                                    {{ brand }}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <!-- Model Selection -->
+                        <div class="form-group">
+                            <label class="form-label">型号 ({{ availableModels.length }})</label>
+                            <select class="form-select" v-model="selectedModel" :disabled="!selectedBrand" @change="onModelChange">
+                                <option value="">请选择型号</option>
+                                <option v-for="model in availableModels" :key="model" :value="model">
+                                    {{ model }}
+                            </select>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="button-group">
+                            <button class="btn btn-secondary" @click="resetSelection">重选</button>
+                            <button class="btn btn-primary" @click="confirmSelection" :disabled="!selectedModel">
+                                确认
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Panel - Tasting Form -->
+                <div class="right-panel" v-if="showTastingForm">
+                    <div class="tasting-header">
+                        <div class="tasting-title">{{ selectedBrand }} {{ selectedModel }}</div>
+                        <div class="tasting-subtitle">{{ today }}</div>
+                    </div>
+                    
+                    <!-- Selected Cigar Info -->
+                    <div class="selected-cigar-info">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">数量</span>
+                                <span class="info-value">{{ selectedCigar?.quantity || '-' }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">环径</span>
+                                <span class="info-value">{{ selectedCigar?.ringGauge || '-' }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">长度</span>
+                                <span class="info-value">{{ selectedCigar?.length || '-' }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">存放</span>
+                                <span class="info-value">{{ selectedCigar?.location || '-' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Existing Tasting Experience -->
+                    <div v-if="selectedCigar?.tastingExperience" class="tasting-experience-section">
+                        <div class="section-title">
+                            <span class="section-icon">📖</span>
+                            <span>历史品吸体验</span>
+                        </div>
+                        <div class="existing-experience">
+                            <div class="experience-header">
+                                <span>📝</span>
+                                <span>已记录的品吸体验</span>
+                            </div>
+                            <div class="experience-content">{{ selectedCigar.tastingExperience }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- New Tasting Experience Input -->
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon">✍️</span>
+                            <span>{{ selectedCigar?.tastingExperience ? '添加新品吸体验' : '品吸体验' }}</span>
+                        </div>
+                        <textarea 
+                            class="tasting-textarea" 
+                            v-model="tastingExperience"
+                            placeholder="记录您的品吸体验：&#10;- 前段口感和香气&#10;- 中段风味变化&#10;- 后段收尾和余韵&#10;- 燃烧情况和整体评价..."></textarea>
+                    </div>
+                    
+                    <!-- Photo Upload -->
+                    <div class="photo-section">
+                        <div class="section-title">
+                            <span class="section-icon">📷</span>
+                            <span>照片</span>
+                        </div>
+                        <div class="photo-upload" :class="{ 'has-photo': photoData }" @click="triggerFileInput">
+                            <input type="file" ref="fileInput" accept="image/*" style="display: none" @change="handlePhotoUpload">
+                            <div v-if="!photoData">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">点击上传品吸照片</div>
+                            </div>
+                            <img v-else :src="photoData" class="photo-preview">
+                        </div>
+                    </div>
+                    
+                    <!-- Submit -->
+                    <div class="submit-section">
+                        <button class="btn-submit" @click="submitTasting" :disabled="isSubmitting || !tastingExperience.trim()">
+                            {{ isSubmitting ? '保存中...' : '保存品吸记录' }}
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Empty State -->
+                <div v-else class="right-panel">
+                    <div class="empty-state">
+                        <div class="empty-icon">🚬</div>
+                        <div class="empty-text">请选择品牌和型号开始品吸</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 记录 Tab -->
+            <div v-else>
+                <!-- Stats -->
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-value">{{ tastingRecords.length }}</div>
+                        <div class="stat-label">品吸记录</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">{{ uniqueBrandsTasted.length }}</div>
+                        <div class="stat-label">品尝品牌</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">{{ thisMonthRecords }}</div>
+                        <div class="stat-label">本月品吸</div>
+                    </div>
+                </div>
+                
+                <div class="records-list">
+                    <div class="panel-title">品吸记录</div>
+                    
+                    <div v-if="isLoading" class="loading">
+                        加载中...
+                    </div>
+                    
+                    <div v-else-if="tastingRecords.length === 0" class="loading">
+                        暂无品吸记录，快去品吸一支吧！
+                    </div>
+                    
+                    <div v-else>
+                        <div v-for="record in tastingRecords" :key="record.id" class="record-item">
+                            <div class="record-header">
+                                <span class="record-title">
+                                    <img v-if="record.brandLogo" :src="record.brandLogo" class="record-brand-logo" @error="$event.target.style.display='none'">
+                                    {{ record.brand }} {{ record.model }}
+                                </span>
+                                <span class="record-date">{{ record.date }}</span>
+                            </div>
+                            <div v-if="record.experience" class="record-experience">
+                                {{ record.experience }}
+                            </div>
+                            <div v-if="record.photo" class="record-photo">
+                                <img :src="record.photo" @click="viewPhoto(record.photo)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    currentTab: 'taste',
+                    
+                    // Inventory Data
+                    inventoryData: [],
+                    brands: [],
+                    brandsWithLogos: {},
+                    lastUpdated: '',
+                    
+                    // Selection
+                    selectedBrand: '',
+                    selectedModel: '',
+                    showTastingForm: false,
+                    
+                    // Tasting Experience
+                    tastingExperience: '',
+                    photoData: null,
+                    
+                    // Records
+                    tastingRecords: [],
+                    
+                    // UI State
+                    isLoading: false,
+                    isSubmitting: false,
+                    message: '',
+                    messageType: '',
+                    logoErrorBrands: new Set()
+                };
+            },
+            
+            computed: {
+                today() {
+                    const now = new Date();
+                    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                },
+                
+                availableModels() {
+                    if (!this.selectedBrand) return [];
+                    const models = this.inventoryData
+                        .filter(item => item.brand === this.selectedBrand)
+                        .map(item => item.model)
+                        .filter((v, i, a) => a.indexOf(v) === i);
+                    return models.sort();
+                },
+                
+                selectedCigar() {
+                    if (!this.selectedBrand || !this.selectedModel) return null;
+                    return this.inventoryData.find(
+                        item => item.brand === this.selectedBrand && item.model === this.selectedModel
+                    );
+                },
+                
+                currentBrandLogo() {
+                    if (!this.selectedBrand || this.logoErrorBrands.has(this.selectedBrand)) return '';
+                    return this.brandsWithLogos[this.selectedBrand]?.logo || '';
+                },
+                
+                uniqueBrandsTasted() {
+                    const brands = this.tastingRecords.map(r => r.brand);
+                    return [...new Set(brands)];
+                },
+                
+                thisMonthRecords() {
+                    const now = new Date();
+                    const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+                    return this.tastingRecords.filter(r => r.date.startsWith(thisMonth)).length;
+                }
+            },
+            
+            mounted() {
+                this.loadInventoryData();
+                this.loadTastingRecords();
+            },
+            
+            methods: {
+                // Load data from JSON file
+                async loadInventoryData() {
+                    this.isLoading = true;
+                    try {
+                        const response = await fetch('./data/cigar_inventory_v2.json?t=' + Date.now());
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.inventoryData = data.inventory || [];
+                            this.brands = data.brands || [];
+                            this.brandsWithLogos = data.brandsWithLogos || {};
+                            this.lastUpdated = data.lastUpdated;
+                            console.log(`Loaded ${this.inventoryData.length} records`);
+                        } else {
+                            // Fallback to v1 data
+                            const v1Response = await fetch('./data/cigar_inventory.json?t=' + Date.now());
+                            if (v1Response.ok) {
+                                const v1Data = await v1Response.json();
+                                this.inventoryData = v1Data.inventory || [];
+                                this.brands = v1Data.brands || [];
+                                this.lastUpdated = v1Data.lastUpdated;
+                            }
+                        }
+                    } catch (error) {
+                        console.log('Failed to load data:', error);
+                        this.showMessage('加载数据失败', 'error');
+                    }
+                    this.isLoading = false;
+                },
+                
+                // Manual refresh
+                async manualRefresh() {
+                    this.isLoading = true;
+                    await this.loadInventoryData();
+                    this.isLoading = false;
+                    this.showMessage('数据已刷新', 'success');
+                },
+                
+                // Load tasting records from localStorage
+                loadTastingRecords() {
+                    const records = localStorage.getItem('cigarTastingRecordsV2');
+                    if (records) {
+                        this.tastingRecords = JSON.parse(records);
+                    }
+                },
+                
+                // Selection handlers
+                onBrandChange() {
+                    this.selectedModel = '';
+                    this.showTastingForm = false;
+                    this.tastingExperience = '';
+                    this.photoData = null;
+                },
+                
+                onModelChange() {
+                    this.showTastingForm = false;
+                    this.tastingExperience = '';
+                    this.photoData = null;
+                },
+                
+                resetSelection() {
+                    this.selectedBrand = '';
+                    this.selectedModel = '';
+                    this.showTastingForm = false;
+                    this.tastingExperience = '';
+                    this.photoData = null;
+                },
+                
+                confirmSelection() {
+                    if (this.selectedBrand && this.selectedModel) {
+                        this.showTastingForm = true;
+                        // Pre-fill with existing experience if available
+                        if (this.selectedCigar?.tastingExperience) {
+                            this.tastingExperience = this.selectedCigar.tastingExperience;
+                        }
+                    }
+                },
+                
+                handleLogoError(event) {
+                    if (this.selectedBrand) {
+                        this.logoErrorBrands.add(this.selectedBrand);
+                    }
+                },
+                
+                // Photo upload
+                triggerFileInput() {
+                    this.$refs.fileInput.click();
+                },
+                
+                handlePhotoUpload(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    
+                    if (file.size > 5 * 1024 * 1024) {
+                        this.showMessage('图片大小不能超过5MB', 'error');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.photoData = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                },
+                
+                // Submit tasting
+                async submitTasting() {
+                    if (!this.tastingExperience.trim()) {
+                        this.showMessage('请填写品吸体验', 'error');
+                        return;
+                    }
+                    
+                    this.isSubmitting = true;
+                    
+                    try {
+                        const record = {
+                            id: Date.now().toString(),
+                            date: this.today,
+                            brand: this.selectedBrand,
+                            model: this.selectedModel,
+                            experience: this.tastingExperience,
+                            photo: this.photoData,
+                            brandLogo: this.currentBrandLogo,
+                            createdAt: new Date().toISOString()
+                        };
+                        
+                        // Save to local storage
+                        this.tastingRecords.unshift(record);
+                        localStorage.setItem('cigarTastingRecordsV2', JSON.stringify(this.tastingRecords));
+                        
+                        this.showMessage('品吸记录已保存！', 'success');
+                        this.resetSelection();
+                        this.currentTab = 'records';
+                        
+                    } catch (error) {
+                        console.error('Failed to save:', error);
+                        this.showMessage('保存失败，请重试', 'error');
+                    } finally {
+                        this.isSubmitting = false;
+                    }
+                },
+                
+                // View photo
+                viewPhoto(photoUrl) {
+                    window.open(photoUrl, '_blank');
+                },
+                
+                // Message helper
+                showMessage(text, type) {
+                    this.message = text;
+                    this.messageType = type;
+                    setTimeout(() => {
+                        this.message = '';
+                    }, 3000);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
