@@ -725,18 +725,25 @@
                         </div>
                     </div>
                     
-                    <!-- Existing Tasting Experience -->
-                    <div v-if="selectedCigar?.tastingExperience" class="tasting-experience-section">
+                    <!-- Cigar Tasting Info from Database -->
+                    <div v-if="selectedCigar?.tastingFeedback || selectedCigar?.strengthLevel || selectedCigar?.mainFlavor" class="tasting-experience-section">
                         <div class="section-title">
                             <span class="section-icon">📖</span>
-                            <span>历史品吸体验</span>
+                            <span>雪茄品吸信息</span>
                         </div>
                         <div class="existing-experience">
-                            <div class="experience-header">
-                                <span>📝</span>
-                                <span>已记录的品吸体验</span>
+                            <div v-if="selectedCigar?.strengthLevel" class="experience-header">
+                                <span>💪</span>
+                                <span>强度等级: {{ selectedCigar.strengthLevel }}</span>
                             </div>
-                            <div class="experience-content">{{ selectedCigar.tastingExperience }}</div>
+                            <div v-if="selectedCigar?.mainFlavor" class="experience-header" style="margin-top: 8px;">
+                                <span>🌿</span>
+                                <span>主要风味: {{ selectedCigar.mainFlavor }}</span>
+                            </div>
+                            <div v-if="selectedCigar?.tastingFeedback" class="experience-content" style="margin-top: 10px;">
+                                <div style="color: #11998e; margin-bottom: 5px;">📝 品吸反馈:</div>
+                                {{ selectedCigar.tastingFeedback }}
+                            </div>
                         </div>
                     </div>
                     

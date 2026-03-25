@@ -11,9 +11,9 @@ import requests
 import os
 from datetime import datetime
 
-# Feishu API Config - 雪茄储存记录2026年
-APP_TOKEN = "DGVYbJ0mKaN7rVsXA5mcJjQdnTe"  # 雪茄储存记录2026年表格
-TABLE_ID = "tbl35elLH4pejLRr"  # Sheet1
+# Feishu API Config - 雪茄储存记录2026年 (新表格)
+APP_TOKEN = "LxtibLI9eajhA3sLXYVcYSfynRf"  # 新多维表格
+TABLE_ID = "tbl2AoMbImpRz0vG"  # Sheet1
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis/bitable/v1"
 
 def get_feishu_token():
@@ -101,34 +101,59 @@ def process_records(records):
         quantity = extract_field_value(fields.get("数量"))
         ring_gauge = extract_field_value(fields.get("环径"))
         length = extract_field_value(fields.get("长度"))
-        location = extract_field_value(fields.get("存放地点"), 'select') or extract_field_value(fields.get("地点"), 'select')
+        location = extract_field_value(fields.get("地点"), 'select')
         
-        # Extract brand logo (字段名: logo)
+        # Extract brand logo (附件类型)
         brand_logo = ""
         logo_field = fields.get("logo")
         if logo_field:
             if isinstance(logo_field, list) and len(logo_field) > 0:
-                brand_logo = logo_field[0].get("url", "") or logo_field[0].get("tmp_url", "")
+                attachment = logo_field[0]
+                brand_logo = attachment.get("tmp_url", "") or attachment.get("url", "")
             elif isinstance(logo_field, dict):
-                brand_logo = logo_field.get("url", "") or logo_field.get("text", "")
-            else:
-                brand_logo = str(logo_field)
+                brand_logo = logo_field.get("tmp_url", "") or logo_field.get("url", "")
         
         if brand and brand_logo:
             brand_logos[brand] = brand_logo
         
-        # Extract tasting experience (字段名: 品吸反馈)
-        tasting_experience = ""
-        taste_field = fields.get("品吸反馈")
-        if taste_field:
-            if isinstance(taste_field, dict):
-                tasting_experience = taste_field.get("text", "")
+        # Extract tasting feedback (品吸反馈)
+        tasting_feedback = ""
+        feedback_field = fields.get("品吸反馈")
+        if feedback_field:
+            if isinstance(feedback_field, dict):
+                tasting_feedback = feedback_field.get("text", "")
             else:
-                tasting_experience = str(taste_field)
+                tasting_feedback = str(feedback_field)
+        
+        # Extract strength level (强度等级)
+        strength_level = ""
+        strength_field = fields.get("强度等级")
+        if strength_field:
+            if isinstance(strength_field, dict):
+                strength_level = strength_field.get("text", "")
+            else:
+                strength_level = str(strength_field)
+        
+        # Extract main flavor (主要风味) - 多选字段
+        main_flavor = ""
+        flavor_field = fields.get("主要风味")
+        if flavor_field:
+            if isinstance(flavor_field, list):
+                flavors = []
+                for item in flavor_field:
+                    if isinstance(item, dict):
+                        flavors.append(item.get("text", ""))
+                    else:
+                        flavors.append(str(item))
+                main_flavor = ", ".join(flavors)
+            elif isinstance(flavor_field, dict):
+                main_flavor = flavor_field.get("text", "")
+            else:
+                main_flavor = str(flavor_field)
         
         arrived = extract_field_value(fields.get("到货"))
-        price = extract_field_value(fields.get("价格") or fields.get("单价"))
-        total_value = extract_field_value(fields.get("总价") or fields.get("总价值"))
+        price = extract_field_value(fields.get("现单价"))
+        total_value = extract_field_value(fields.get("预估总价"))
         
         if brand and model:
             inventory.append({
@@ -139,7 +164,9 @@ def process_records(records):
                 "length": length,
                 "location": location,
                 "brandLogo": brand_logo,
-                "tastingExperience": tasting_experience,
+                "tastingFeedback": tasting_feedback,
+                "strengthLevel": strength_level,
+                "mainFlavor": main_flavor,
                 "arrived": arrived,
                 "price": price,
                 "totalValue": total_value
