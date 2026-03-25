@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-25T11:45:02.736772",
+  "timestamp": "2026-03-25T11:50:01.728740",
   "ca": {
     "TSX": {
       "value": 31941.59,
@@ -9,24 +9,24 @@
   },
   "crypto": {
     "BTC": {
-      "value": 70725.41,
-      "change": 199.85,
+      "value": 70725.48,
+      "change": 199.92,
       "changePercent": 0.28
     },
     "ETH": {
-      "value": 2157.06,
-      "change": 1.27,
+      "value": 2157.1,
+      "change": 1.32,
       "changePercent": 0.06
     },
     "SOL": {
-      "value": 91.16,
-      "change": 0.34,
-      "changePercent": 0.38
+      "value": 91.21,
+      "change": 0.39,
+      "changePercent": 0.43
     },
     "LINK": {
       "value": 9.22,
       "change": -0.02,
-      "changePercent": -0.25
+      "changePercent": -0.26
     }
   },
   "stocks": {
