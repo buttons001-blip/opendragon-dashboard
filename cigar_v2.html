@@ -661,7 +661,9 @@
                             <!-- Brand Logo Display -->
                             <div v-if="selectedBrand" class="brand-logo-container">
                                 <img v-if="currentBrandLogo" :src="currentBrandLogo" class="brand-logo" @error="handleLogoError">
-                                <div v-else class="brand-logo-placeholder">🚬</div>
+                                <div v-else class="brand-logo" style="background: #3a3a5c; display: flex; align-items: center; justify-content: center; color: #888; font-size: 12px;">
+                                    {{ selectedBrand.substring(0, 2) }}
+                                </div>
                                 <div class="brand-info">
                                     <div class="brand-name">{{ selectedBrand }}</div>
                                     <div class="brand-count">{{ availableModels.length }} 个型号</div>
@@ -683,7 +685,31 @@
                                 <option value="">请选择型号</option>
                                 <option v-for="model in availableModels" :key="model" :value="model">
                                     {{ model }}
+                                </option>
                             </select>
+                        </div>
+                        
+                        <!-- Selected Cigar Info (显示在确认之前) -->
+                        <div v-if="selectedCigar" class="selected-cigar-info" style="margin-top: 20px;">
+                            <div style="font-size: 12px; color: #667eea; margin-bottom: 10px; font-weight: 600;">📋 雪茄信息</div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">环径</span>
+                                    <span class="info-value">{{ selectedCigar?.ringGauge || '-' }}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">长度</span>
+                                    <span class="info-value">{{ selectedCigar?.length || '-' }}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">数量</span>
+                                    <span class="info-value">{{ selectedCigar?.quantity || '-' }}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">存放</span>
+                                    <span class="info-value">{{ selectedCigar?.location || '-' }}</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Buttons -->
