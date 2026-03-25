@@ -1,15 +1,8 @@
 {
-  "timestamp": "2026-03-25T12:40:03.931768",
+  "timestamp": "2026-03-25T12:45:06.902277",
   "initialCapital": 1000000,
   "realizedProfit": -10392.0,
   "holdings": [
-    {
-      "code": "688297",
-      "name": "中无人机",
-      "quantity": 1400.0,
-      "costPrice": 55.77,
-      "totalCost": 156156.0
-    },
     {
       "code": "300750",
       "name": "宁德时代",
@@ -30,27 +23,9 @@
       "quantity": 1000.0,
       "costPrice": 102.46,
       "totalCost": 102460.0
-    },
-    {
-      "code": "002389",
-      "name": "航天彩虹",
-      "quantity": 1200.0,
-      "costPrice": 24.43,
-      "totalCost": 58632.0
     }
   ],
   "trades": [
-    {
-      "type": "买入",
-      "code": "688297",
-      "name": "中无人机",
-      "price": 55.77,
-      "quantity": 1400.0,
-      "amount": 78078.0,
-      "date": "2025-03-15",
-      "reason": "A股第一期建仓",
-      "status": ""
-    },
     {
       "type": "买入",
       "code": "300750",
@@ -80,17 +55,6 @@
       "price": 102.46,
       "quantity": 500.0,
       "amount": 51230.0,
-      "date": "2025-03-15",
-      "reason": "A股第一期建仓",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "002389",
-      "name": "航天彩虹",
-      "price": 24.43,
-      "quantity": 1200.0,
-      "amount": 29316.0,
       "date": "2025-03-15",
       "reason": "A股第一期建仓",
       "status": ""
