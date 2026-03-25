@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-25T10:40:04.157309",
+  "timestamp": "2026-03-25T10:45:03.968185",
   "initialCapital": 100000,
-  "realizedProfit": 0,
+  "realizedProfit": -209.3,
   "holdings": [
     {
       "code": "NVDA",
@@ -11,17 +11,10 @@
       "totalCost": 7285.2
     },
     {
-      "code": "MSFT",
-      "name": "Microsoft",
-      "quantity": 10.0,
-      "costPrice": 394.76,
-      "totalCost": 3947.6
-    },
-    {
       "code": "AMZN",
       "name": "Amazon",
       "quantity": 6.0,
-      "costPrice": 211.67999999999998,
+      "costPrice": 211.68,
       "totalCost": 1270.08
     }
   ],
@@ -71,7 +64,7 @@
       "status": ""
     },
     {
-      "type": "optdzeWcYn",
+      "type": "卖出",
       "code": "MSFT",
       "name": "Microsoft",
       "price": 373.83,
