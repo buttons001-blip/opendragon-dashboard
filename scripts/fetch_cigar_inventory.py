@@ -12,8 +12,8 @@ import sys
 sys.path.insert(0, '/home/admin/.openclaw/workspace/stock-dashboard')
 
 # Feishu Config
-APP_TOKEN = "EvEyb9B0VaHcV9sl5WbcrLZYn7d"
-TABLE_ID = "tbl1oOymZ0nv8rp2"
+APP_TOKEN = "DGVYbJ0mKaN7rVsXA5mcJjQdnTe"
+TABLE_ID = "tbl35elLH4pejLRr"
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis"
 
 def get_feishu_token():

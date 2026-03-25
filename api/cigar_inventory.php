@@ -8,8 +8,8 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
 // Feishu Config
-$appToken = 'EvEyb9B0VaHcV9sl5WbcrLZYn7d';
-$tableId = 'tbl1oOymZ0nv8rp2';
+$appToken = 'DGVYbJ0mKaN7rVsXA5mcJjQdnTe';
+$tableId = 'tbl35elLH4pejLRr';
 $appId = 'cli_a93fa577bff89bc2';
 $appSecret = '2Fi2KePv87sLiTmZSPUcdeWa5Ty2MxQF';
 
