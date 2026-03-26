@@ -1,67 +1,41 @@
 {
-  "timestamp": "2026-03-26T16:20:04.970109",
+  "timestamp": "2026-03-26T16:25:43.425312",
   "initialCapital": 100000,
-  "realizedProfit": -850.5,
-  "holdings": [
-    {
-      "code": "RY",
-      "name": "皇家银行",
-      "quantity": 70.0,
-      "costPrice": 220.8,
-      "totalCost": 15456.0
-    },
-    {
-      "code": "ENB",
-      "name": "恩桥",
-      "quantity": 100.0,
-      "costPrice": 74.03,
-      "totalCost": 7403.0
-    }
-  ],
+  "realizedProfit": 0,
+  "holdings": [],
   "trades": [
     {
-      "type": "买入",
+      "type": "",
       "code": "RY",
       "name": "皇家银行",
-      "price": 220.8,
+      "price": 0.0,
       "quantity": 70.0,
-      "amount": 15456.0,
-      "date": "2025-03-18",
+      "amount": 0.0,
+      "date": "",
       "reason": "加股第一期建仓，金融 50%，加拿大最大银行，高分红，买入价修正为 220.8",
-      "status": ""
+      "status": "optltg7Zqu"
     },
     {
-      "type": "买入",
+      "type": "",
       "code": "ENB",
       "name": "恩桥",
-      "price": 74.03,
+      "price": 0.0,
       "quantity": 100.0,
-      "amount": 7403.0,
-      "date": "2025-03-18",
+      "amount": 0.0,
+      "date": "",
       "reason": "加股第一期建仓，能源 25%，北美最大管道，稳定分红，买入价修正为 74.03",
-      "status": ""
+      "status": "optltg7Zqu"
     },
     {
-      "type": "买入",
+      "type": "",
       "code": "SHOP",
       "name": "Shopify",
-      "price": 170.07,
+      "price": 0.0,
       "quantity": 50.0,
-      "amount": 8503.5,
-      "date": "2025-03-18",
+      "amount": 0.0,
+      "date": "",
       "reason": "加股第一期建仓，科技 25%，电商平台，高增长，买入价修正为 170.07，2026-03-26 止损卖出，损失 C$850.50",
-      "status": ""
-    },
-    {
-      "type": "充值",
-      "code": "",
-      "name": "初始资金",
-      "price": 100000.0,
-      "quantity": 1.0,
-      "amount": 100000.0,
-      "date": "2025-03-18",
-      "reason": "加股模拟交易初始资金，10 万加元启动",
-      "status": ""
+      "status": "opttfrhr16"
     },
     {
       "type": "卖出",
