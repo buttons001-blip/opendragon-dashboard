@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-26T18:40:04.035772",
+  "timestamp": "2026-03-26T18:45:04.835606",
   "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
@@ -16,6 +16,13 @@
       "quantity": 6.0,
       "costPrice": 211.67999999999998,
       "totalCost": 1270.08
+    },
+    {
+      "code": "MSFT",
+      "name": "Microsoft",
+      "quantity": 10.0,
+      "costPrice": 394.76,
+      "totalCost": 3947.6
     }
   ],
   "trades": [
