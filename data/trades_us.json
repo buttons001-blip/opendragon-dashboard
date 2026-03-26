@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-26T19:02:54.584509",
+  "timestamp": "2026-03-26T19:08:29.931351",
   "initialCapital": 100000,
-  "realizedProfit": 0,
+  "realizedProfit": -209.29999999999973,
   "holdings": [
     {
       "code": "NVDA",
@@ -16,13 +16,6 @@
       "quantity": 6.0,
       "costPrice": 211.67999999999998,
       "totalCost": 1270.08
-    },
-    {
-      "code": "MSFT",
-      "name": "Microsoft",
-      "quantity": 10.0,
-      "costPrice": 394.76,
-      "totalCost": 3947.6
     }
   ],
   "trades": [
