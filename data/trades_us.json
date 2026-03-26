@@ -1,44 +1,40 @@
 {
-  "timestamp": "2026-03-26T14:30:00+08:00",
+  "timestamp": "2026-03-26T14:35:04.260924",
   "initialCapital": 100000,
-  "realizedProfit": -209.30,
+  "realizedProfit": 0,
   "holdings": [
     {
       "code": "NVDA",
       "name": "Nvidia",
-      "quantity": 40,
+      "quantity": 40.0,
       "costPrice": 182.13,
       "totalCost": 7285.2
     },
     {
       "code": "AMZN",
       "name": "Amazon",
-      "quantity": 6,
-      "costPrice": 211.68,
+      "quantity": 6.0,
+      "costPrice": 211.67999999999998,
       "totalCost": 1270.08
+    },
+    {
+      "code": "MSFT",
+      "name": "Microsoft",
+      "quantity": 10.0,
+      "costPrice": 394.76,
+      "totalCost": 3947.6
     }
   ],
   "trades": [
-    {
-      "type": "充值",
-      "code": "",
-      "name": "初始资金",
-      "price": 100000,
-      "quantity": 1,
-      "amount": 100000,
-      "date": "2025-03-18",
-      "reason": "美股模拟交易初始资金，10万美元启动",
-      "status": ""
-    },
     {
       "type": "买入",
       "code": "NVDA",
       "name": "Nvidia",
       "price": 182.13,
-      "quantity": 40,
+      "quantity": 40.0,
       "amount": 7285.2,
       "date": "2025-03-18",
-      "reason": "美股第一期建仓，AI芯片龙头，GPU+数据中心",
+      "reason": "美股第一期建仓，AI 芯片龙头，GPU+ 数据中心",
       "status": ""
     },
     {
@@ -46,33 +42,44 @@
       "code": "AMZN",
       "name": "Amazon",
       "price": 211.68,
-      "quantity": 6,
+      "quantity": 6.0,
       "amount": 1270.08,
       "date": "2025-03-18",
-      "reason": "美股第一期建仓，电商+云+AI龙头，全球零售",
+      "reason": "美股第一期建仓，电商 + 云 +AI 龙头，全球零售",
       "status": ""
     },
     {
-      "type": "买入",
-      "code": "MSFT",
-      "name": "Microsoft",
-      "price": 394.76,
-      "quantity": 10,
-      "amount": 3947.6,
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 100000.0,
+      "quantity": 1.0,
+      "amount": 100000.0,
       "date": "2025-03-18",
-      "reason": "美股第一期建仓，云计算龙头",
-      "status": "已止损"
+      "reason": "美股模拟交易初始资金，10 万美元启动",
+      "status": ""
     },
     {
       "type": "卖出",
       "code": "MSFT",
       "name": "Microsoft",
       "price": 373.83,
-      "quantity": 10,
+      "quantity": 10.0,
       "amount": 3738.3,
       "date": "2025-03-24",
-      "reason": "触发-5%止损线，损失$209.30",
+      "reason": "触发 -5% 止损线，严格执行纪律，损失 $209.30",
       "status": "已止损"
+    },
+    {
+      "type": "买入",
+      "code": "MSFT",
+      "name": "Microsoft",
+      "price": 394.76,
+      "quantity": 10.0,
+      "amount": 3947.6,
+      "date": "2025-03-18",
+      "reason": "美股第一期建仓，云计算龙头，2026-03-24 止损卖出，损失 $209.30",
+      "status": ""
     }
   ]
 }
