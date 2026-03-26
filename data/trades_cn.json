@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-26T17:36:36.490544",
+  "timestamp": "2026-03-26T17:41:02.925433",
   "initialCapital": 1000000,
   "realizedProfit": -18966.0,
   "holdings": [
@@ -9,13 +9,6 @@
       "quantity": 400.0,
       "costPrice": 404.9,
       "totalCost": 161960.0
-    },
-    {
-      "code": "603986",
-      "name": "兆易创新",
-      "quantity": 300.0,
-      "costPrice": 285.8,
-      "totalCost": 171480.0
     },
     {
       "code": "002594",
@@ -35,17 +28,6 @@
       "amount": 80980.0,
       "date": "2025-03-15",
       "reason": "A股第一期建仓",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "603986",
-      "name": "兆易创新",
-      "price": 285.8,
-      "quantity": 300.0,
-      "amount": 85740.0,
-      "date": "2025-03-15",
-      "reason": "A股第一期建仓，2026-03-26 触发-5%止损线卖出",
       "status": ""
     },
     {

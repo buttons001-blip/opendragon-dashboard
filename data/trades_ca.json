@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-26T17:36:36.493354",
+  "timestamp": "2026-03-26T17:41:02.927989",
   "initialCapital": 100000,
-  "realizedProfit": -850.5,
+  "realizedProfit": 0,
   "holdings": [
     {
       "code": "RY",
@@ -39,17 +39,6 @@
       "amount": 7403.0,
       "date": "2025-03-18",
       "reason": "加股第一期建仓，能源 25%，北美最大管道，稳定分红，买入价修正为 74.03",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "SHOP",
-      "name": "Shopify",
-      "price": 170.07,
-      "quantity": 50.0,
-      "amount": 8503.5,
-      "date": "2025-03-18",
-      "reason": "加股第一期建仓，科技 25%，电商平台，高增长，买入价修正为 170.07，2026-03-26 止损卖出，损失 C$850.50",
       "status": ""
     },
     {
