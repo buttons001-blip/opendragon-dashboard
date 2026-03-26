@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-26T14:40:03.928783",
+  "timestamp": "2026-03-26T14:45:04.206573",
   "initialCapital": 1000000,
-  "realizedProfit": -10392.0,
+  "realizedProfit": -18966.0,
   "holdings": [
     {
       "code": "300750",
@@ -13,7 +13,7 @@
     {
       "code": "603986",
       "name": "兆易创新",
-      "quantity": 600.0,
+      "quantity": 300.0,
       "costPrice": 285.8,
       "totalCost": 171480.0
     },
@@ -145,6 +145,17 @@
       "amount": 26736.0,
       "date": "2025-03-20",
       "reason": "触发 -5% 止损线，严格执行纪律",
+      "status": "已止损"
+    },
+    {
+      "type": "卖出",
+      "code": "603986",
+      "name": "兆易创新",
+      "price": 257.22,
+      "quantity": 300.0,
+      "amount": 77166.0,
+      "date": "2025-03-25",
+      "reason": "触发-5%止损线，损失¥8,574",
       "status": "已止损"
     }
   ]
