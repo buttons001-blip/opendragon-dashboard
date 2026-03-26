@@ -1,7 +1,56 @@
 {
-  "timestamp": "2026-03-26T22:55:04.188853",
+  "timestamp": "2026-03-26T23:09:11.334082",
   "initialCapital": 1000000,
-  "realizedProfit": 0,
-  "holdings": [],
-  "trades": []
+  "realizedProfit": -18966.0,
+  "holdings": [
+    {
+      "code": "300750",
+      "name": "宁德时代",
+      "quantity": 200.0,
+      "costPrice": 404.9,
+      "totalCost": 80980.0
+    },
+    {
+      "code": "002594",
+      "name": "比亚迪",
+      "quantity": 500.0,
+      "costPrice": 102.46,
+      "totalCost": 51230.0
+    }
+  ],
+  "trades": [
+    {
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 0.0,
+      "quantity": 1.0,
+      "amount": 1000000.0,
+      "date": "2024-03-16",
+      "reason": "A股模拟交易初始资金100万元启动",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "300750",
+      "name": "宁德时代",
+      "price": 404.9,
+      "quantity": 200.0,
+      "amount": 80980.0,
+      "date": "2024-03-16",
+      "reason": "新能源电池龙头 海外扩张 行业领军",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "002594",
+      "name": "比亚迪",
+      "price": 102.46,
+      "quantity": 500.0,
+      "amount": 51230.0,
+      "date": "2024-03-16",
+      "reason": "新能源汽车龙头 销量领先 垂直整合",
+      "status": ""
+    }
+  ]
 }

@@ -1,7 +1,19 @@
 {
-  "timestamp": "2026-03-26T22:55:04.190618",
+  "timestamp": "2026-03-26T23:09:11.336295",
   "initialCapital": 100000,
-  "realizedProfit": 0,
+  "realizedProfit": -1348.78,
   "holdings": [],
-  "trades": []
+  "trades": [
+    {
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 0.0,
+      "quantity": 1.0,
+      "amount": 100000.0,
+      "date": "2026-03-18",
+      "reason": "数字货币模拟交易初始资金10万元投入",
+      "status": ""
+    }
+  ]
 }
