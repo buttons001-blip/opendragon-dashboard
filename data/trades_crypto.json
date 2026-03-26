@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-26T19:25:04.580991",
+  "timestamp": "2026-03-26T19:32:16.633777",
   "initialCapital": 100000,
-  "realizedProfit": -0.07604635000097915,
+  "realizedProfit": -1348.8960463500007,
   "holdings": [
     {
       "code": "BTC",
@@ -136,44 +136,44 @@
       "type": "卖出",
       "code": "BTC",
       "name": "比特币",
-      "price": 73573.73,
+      "price": 69242.56,
       "quantity": 0.108734,
-      "amount": 8000.0,
+      "amount": 7533.51,
       "date": "2025-03-26",
-      "reason": "清仓卖出",
+      "reason": "清仓卖出，当前价格$69,242.56",
       "status": ""
     },
     {
       "type": "卖出",
       "code": "ETH",
       "name": "以太坊",
-      "price": 2268.89,
+      "price": 2065.34,
       "quantity": 2.644461,
-      "amount": 6000.0,
+      "amount": 5461.54,
       "date": "2025-03-26",
-      "reason": "清仓卖出",
+      "reason": "清仓卖出，当前价格$2,065.34",
       "status": ""
     },
     {
       "type": "卖出",
       "code": "SOL",
       "name": "Solana",
-      "price": 93.68,
+      "price": 87.65,
       "quantity": 32.022857,
-      "amount": 3000.0,
+      "amount": 2806.8,
       "date": "2025-03-26",
-      "reason": "清仓卖出",
+      "reason": "清仓卖出，当前价格$87.65",
       "status": ""
     },
     {
       "type": "卖出",
       "code": "LINK",
       "name": "Chainlink",
-      "price": 9.67,
+      "price": 8.94,
       "quantity": 206.859749,
-      "amount": 2000.0,
+      "amount": 1849.33,
       "date": "2025-03-26",
-      "reason": "清仓卖出",
+      "reason": "清仓卖出，当前价格$8.94",
       "status": ""
     }
   ]
