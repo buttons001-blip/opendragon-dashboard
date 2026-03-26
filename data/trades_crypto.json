@@ -1,82 +1,9 @@
 {
-  "timestamp": "2026-03-26T19:32:16.633777",
+  "timestamp": "2026-03-26T19:38:57.538722",
   "initialCapital": 100000,
-  "realizedProfit": -1348.8960463500007,
-  "holdings": [
-    {
-      "code": "BTC",
-      "name": "比特币",
-      "quantity": 0.108734,
-      "costPrice": 73573.84055502419,
-      "totalCost": 7999.97797891
-    },
-    {
-      "code": "ETH",
-      "name": "以太坊",
-      "quantity": 2.644461,
-      "costPrice": 2268.889788559937,
-      "totalCost": 5999.990559145001
-    },
-    {
-      "code": "SOL",
-      "name": "Solana",
-      "quantity": 32.022857,
-      "costPrice": 93.6813858263802,
-      "totalCost": 2999.94562188
-    },
-    {
-      "code": "LINK",
-      "name": "Chainlink",
-      "quantity": 206.859749,
-      "costPrice": 9.669169067854762,
-      "totalCost": 2000.161886415
-    }
-  ],
+  "realizedProfit": -1348.78,
+  "holdings": [],
   "trades": [
-    {
-      "type": "买入",
-      "code": "BTC",
-      "name": "比特币",
-      "price": 73573.73,
-      "quantity": 0.108734,
-      "amount": 7999.965957819999,
-      "date": "2025-03-16",
-      "reason": "数字货币第一期建仓",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "ETH",
-      "name": "以太坊",
-      "price": 2268.89,
-      "quantity": 2.644461,
-      "amount": 5999.9911182900005,
-      "date": "2025-03-16",
-      "reason": "数字货币第一期建仓",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "SOL",
-      "name": "Solana",
-      "price": 93.68,
-      "quantity": 32.022857,
-      "amount": 2999.9012437600004,
-      "date": "2025-03-16",
-      "reason": "数字货币第一期建仓",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "LINK",
-      "name": "Chainlink",
-      "price": 9.67,
-      "quantity": 206.859749,
-      "amount": 2000.3337728299998,
-      "date": "2025-03-16",
-      "reason": "数字货币第一期建仓",
-      "status": ""
-    },
     {
       "type": "买入",
       "code": "BTC",

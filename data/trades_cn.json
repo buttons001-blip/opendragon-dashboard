@@ -1,46 +1,24 @@
 {
-  "timestamp": "2026-03-26T19:32:16.631616",
+  "timestamp": "2026-03-26T19:38:57.536336",
   "initialCapital": 1000000,
   "realizedProfit": -18966.0,
   "holdings": [
     {
       "code": "300750",
       "name": "宁德时代",
-      "quantity": 400.0,
+      "quantity": 200.0,
       "costPrice": 404.9,
-      "totalCost": 161960.0
+      "totalCost": 80980.0
     },
     {
       "code": "002594",
       "name": "比亚迪",
-      "quantity": 1000.0,
+      "quantity": 500.0,
       "costPrice": 102.46,
-      "totalCost": 102460.0
+      "totalCost": 51230.0
     }
   ],
   "trades": [
-    {
-      "type": "买入",
-      "code": "300750",
-      "name": "宁德时代",
-      "price": 404.9,
-      "quantity": 200.0,
-      "amount": 80980.0,
-      "date": "2025-03-15",
-      "reason": "A股第一期建仓",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "002594",
-      "name": "比亚迪",
-      "price": 102.46,
-      "quantity": 500.0,
-      "amount": 51230.0,
-      "date": "2025-03-15",
-      "reason": "A股第一期建仓",
-      "status": ""
-    },
     {
       "type": "充值",
       "code": "",

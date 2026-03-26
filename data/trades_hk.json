@@ -1,28 +1,17 @@
 {
-  "timestamp": "2026-03-26T19:32:16.632381",
+  "timestamp": "2026-03-26T19:38:57.537096",
   "initialCapital": 500000,
   "realizedProfit": 0,
   "holdings": [
     {
       "code": "03690",
       "name": "美团",
-      "quantity": 800.0,
-      "costPrice": 78.75,
-      "totalCost": 63000.0
+      "quantity": 0.0,
+      "costPrice": 0,
+      "totalCost": 0.0
     }
   ],
   "trades": [
-    {
-      "type": "买入",
-      "code": "03690",
-      "name": "美团",
-      "price": 78.75,
-      "quantity": 800.0,
-      "amount": 63000.0,
-      "date": "2025-03-16",
-      "reason": "港股第一期建仓，本地生活龙头，外卖 + 到店 + 优选",
-      "status": ""
-    },
     {
       "type": "卖出",
       "code": "00700",
