@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-26T13:00:02.636397",
+  "timestamp": "2026-03-26T13:05:02.645583",
   "cn": {
     "上证指数": {
       "value": 3909.16,
@@ -70,19 +70,19 @@
   },
   "crypto": {
     "BTC": {
-      "value": 70753.65,
-      "change": -558.01,
-      "changePercent": -0.78
+      "value": 70741.68,
+      "change": -569.98,
+      "changePercent": -0.8
     },
     "ETH": {
-      "value": 2148.61,
-      "change": -19.67,
-      "changePercent": -0.91
+      "value": 2148.77,
+      "change": -19.51,
+      "changePercent": -0.9
     },
     "SOL": {
-      "value": 90.83,
-      "change": -0.88,
-      "changePercent": -0.96
+      "value": 90.79,
+      "change": -0.92,
+      "changePercent": -1.0
     }
   }
 }
