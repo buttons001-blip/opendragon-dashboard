@@ -1,46 +1,9 @@
 {
-  "timestamp": "2026-03-26T19:38:57.537795",
+  "timestamp": "2026-03-26T19:50:04.656555",
   "initialCapital": 100000,
   "realizedProfit": -209.29999999999973,
-  "holdings": [
-    {
-      "code": "NVDA",
-      "name": "Nvidia",
-      "quantity": 40.0,
-      "costPrice": 182.13,
-      "totalCost": 7285.2
-    },
-    {
-      "code": "AMZN",
-      "name": "Amazon",
-      "quantity": 6.0,
-      "costPrice": 211.67999999999998,
-      "totalCost": 1270.08
-    }
-  ],
+  "holdings": [],
   "trades": [
-    {
-      "type": "买入",
-      "code": "NVDA",
-      "name": "Nvidia",
-      "price": 182.13,
-      "quantity": 40.0,
-      "amount": 7285.2,
-      "date": "2025-03-18",
-      "reason": "美股第一期建仓，AI 芯片龙头，GPU+ 数据中心",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "AMZN",
-      "name": "Amazon",
-      "price": 211.68,
-      "quantity": 6.0,
-      "amount": 1270.08,
-      "date": "2025-03-18",
-      "reason": "美股第一期建仓，电商 + 云 +AI 龙头，全球零售",
-      "status": ""
-    },
     {
       "type": "充值",
       "code": "",
