@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-03-26T11:30:05.089011",
+  "timestamp": "2026-03-26T11:40:04.793440",
   "initialCapital": 100000,
-  "realizedProfit": -209.30,
+  "realizedProfit": 0,
   "holdings": [
     {
       "code": "NVDA",
@@ -53,17 +53,6 @@
       "status": ""
     },
     {
-      "type": "买入",
-      "code": "MSFT",
-      "name": "Microsoft",
-      "price": 394.76,
-      "quantity": 10.0,
-      "amount": 3947.60,
-      "date": "2025-03-18",
-      "reason": "美股第一期建仓，云计算龙头",
-      "status": "已止损"
-    },
-    {
       "type": "卖出",
       "code": "MSFT",
       "name": "Microsoft",
@@ -71,7 +60,7 @@
       "quantity": 10.0,
       "amount": 3738.3,
       "date": "2025-03-24",
-      "reason": "触发 -5% 止损线，严格执行纪律，损失 $209.30",
+      "reason": "触发 -5% 止损线，严格执行纪律",
       "status": "已止损"
     }
   ]
