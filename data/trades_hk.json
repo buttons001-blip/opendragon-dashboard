@@ -1,16 +1,8 @@
 {
-  "timestamp": "2026-03-26T21:40:04.041932",
+  "timestamp": "2026-03-26T21:45:04.189366",
   "initialCapital": 500000,
   "realizedProfit": 0,
-  "holdings": [
-    {
-      "code": "03690",
-      "name": "美团",
-      "quantity": 0.0,
-      "costPrice": 0,
-      "totalCost": 0.0
-    }
-  ],
+  "holdings": [],
   "trades": [
     {
       "type": "卖出",
@@ -44,17 +36,6 @@
       "date": "2025-03-24",
       "reason": "触发 -5% 止损线，严格执行纪律，损失 HK$17,450",
       "status": "已止损"
-    },
-    {
-      "type": "买入",
-      "code": "03690",
-      "name": "美团",
-      "price": 0.0,
-      "quantity": 0.0,
-      "amount": 0.0,
-      "date": "2025-03-26",
-      "reason": "2026-03-26 加仓，符合+5%以上盈利条件",
-      "status": ""
     }
   ]
 }
