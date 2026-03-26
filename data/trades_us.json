@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-26T14:05:03.785746",
+  "timestamp": "2026-03-26T14:10:04.656702",
   "initialCapital": 100000,
   "realizedProfit": 0,
   "holdings": [
@@ -16,6 +16,13 @@
       "quantity": 6.0,
       "costPrice": 211.67999999999998,
       "totalCost": 1270.08
+    },
+    {
+      "code": "MSFT",
+      "name": "Microsoft",
+      "quantity": 10.0,
+      "costPrice": 394.76,
+      "totalCost": 3947.6
     }
   ],
   "trades": [
@@ -60,8 +67,19 @@
       "quantity": 10.0,
       "amount": 3738.3,
       "date": "2025-03-24",
-      "reason": "触发 -5% 止损线，严格执行纪律",
+      "reason": "触发 -5% 止损线，严格执行纪律，损失 $209.30",
       "status": "已止损"
+    },
+    {
+      "type": "买入",
+      "code": "MSFT",
+      "name": "Microsoft",
+      "price": 394.76,
+      "quantity": 10.0,
+      "amount": 3947.6,
+      "date": "2025-03-18",
+      "reason": "美股第一期建仓，云计算龙头，2026-03-24 止损卖出，损失 $209.30",
+      "status": ""
     }
   ]
 }
