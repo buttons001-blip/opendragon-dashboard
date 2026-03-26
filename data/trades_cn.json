@@ -1,7 +1,81 @@
 {
-  "timestamp": "2026-03-27T06:30:04.141297",
+  "timestamp": "2026-03-27T06:30:00",
+  "market": "A股",
   "initialCapital": 1000000,
   "realizedProfit": 0,
-  "holdings": [],
-  "trades": []
+  "holdings": [
+    {"code": "688297", "name": "中无人机", "cost": 55.77, "qty": 1400},
+    {"code": "300750", "name": "宁德时代", "cost": 404.90, "qty": 200},
+    {"code": "603986", "name": "兆易创新", "cost": 285.80, "qty": 300},
+    {"code": "002594", "name": "比亚迪", "cost": 102.46, "qty": 500},
+    {"code": "002389", "name": "航天彩虹", "cost": 24.43, "qty": 1200}
+  ],
+  "trades": [
+    {
+      "date": "2026-03-16",
+      "type": "充值",
+      "code": "",
+      "name": "初始资金",
+      "price": 0,
+      "quantity": 0,
+      "amount": 1000000,
+      "status": "已完成",
+      "reason": "A股虚拟交易初始资金"
+    },
+    {
+      "date": "2026-03-16",
+      "type": "买入",
+      "code": "688297",
+      "name": "中无人机",
+      "price": 55.77,
+      "quantity": 1400,
+      "amount": 78078,
+      "status": "已建仓",
+      "reason": "无人机龙头，军工政策支持"
+    },
+    {
+      "date": "2026-03-16",
+      "type": "买入",
+      "code": "300750",
+      "name": "宁德时代",
+      "price": 404.90,
+      "quantity": 200,
+      "amount": 80980,
+      "status": "已建仓",
+      "reason": "新能源龙头，海外扩张"
+    },
+    {
+      "date": "2026-03-16",
+      "type": "买入",
+      "code": "603986",
+      "name": "兆易创新",
+      "price": 285.80,
+      "quantity": 300,
+      "amount": 85740,
+      "status": "已建仓",
+      "reason": "存储芯片龙头，科技自立自强"
+    },
+    {
+      "date": "2026-03-16",
+      "type": "买入",
+      "code": "002594",
+      "name": "比亚迪",
+      "price": 102.46,
+      "quantity": 500,
+      "amount": 51230,
+      "status": "已建仓",
+      "reason": "新能源汽车龙头"
+    },
+    {
+      "date": "2026-03-16",
+      "type": "买入",
+      "code": "002389",
+      "name": "航天彩虹",
+      "price": 24.43,
+      "quantity": 1200,
+      "amount": 29316,
+      "status": "已建仓",
+      "reason": "军工材料龙头，低位反弹"
+    }
+  ]
 }
