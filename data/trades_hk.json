@@ -1,38 +1,7 @@
 {
-  "timestamp": "2026-03-26T23:09:11.334776",
+  "timestamp": "2026-03-26T23:10:04.142858",
   "initialCapital": 500000,
-  "realizedProfit": -23060.0,
-  "holdings": [
-    {
-      "code": "03690",
-      "name": "美团",
-      "quantity": 800.0,
-      "costPrice": 78.75,
-      "totalCost": 63000.0
-    }
-  ],
-  "trades": [
-    {
-      "type": "充值",
-      "code": "",
-      "name": "初始资金",
-      "price": 0.0,
-      "quantity": 1.0,
-      "amount": 500000.0,
-      "date": "2026-03-18",
-      "reason": "港股模拟交易初始资金50万港币启动",
-      "status": ""
-    },
-    {
-      "type": "买入",
-      "code": "03690",
-      "name": "美团",
-      "price": 78.75,
-      "quantity": 800.0,
-      "amount": 63000.0,
-      "date": "2026-03-18",
-      "reason": "本地生活龙头 外卖+到店+优选",
-      "status": ""
-    }
-  ]
+  "realizedProfit": 0,
+  "holdings": [],
+  "trades": []
 }
