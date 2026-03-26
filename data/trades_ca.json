@@ -1,57 +1,7 @@
 {
-  "timestamp": "2026-03-27T06:30:00",
-  "market": "加股",
+  "timestamp": "2026-03-27T06:45:02.955807",
   "initialCapital": 100000,
   "realizedProfit": 0,
-  "holdings": [
-    {"code": "RY", "name": "皇家银行", "cost": 142.50, "qty": 70},
-    {"code": "ENB", "name": "恩桥", "cost": 53.20, "qty": 100},
-    {"code": "SHOP", "name": "Shopify", "cost": 94.10, "qty": 50}
-  ],
-  "trades": [
-    {
-      "date": "2026-03-18",
-      "type": "充值",
-      "code": "",
-      "name": "初始资金",
-      "price": 0,
-      "quantity": 0,
-      "amount": 100000,
-      "status": "已完成",
-      "reason": "加股虚拟交易初始资金"
-    },
-    {
-      "date": "2026-03-18",
-      "type": "买入",
-      "code": "RY",
-      "name": "皇家银行",
-      "price": 142.50,
-      "quantity": 70,
-      "amount": 9975.00,
-      "status": "已建仓",
-      "reason": "加拿大最大银行，稳定分红"
-    },
-    {
-      "date": "2026-03-18",
-      "type": "买入",
-      "code": "ENB",
-      "name": "恩桥",
-      "price": 53.20,
-      "quantity": 100,
-      "amount": 5320.00,
-      "status": "已建仓",
-      "reason": "能源管道巨头，高股息"
-    },
-    {
-      "date": "2026-03-18",
-      "type": "买入",
-      "code": "SHOP",
-      "name": "Shopify",
-      "price": 94.10,
-      "quantity": 50,
-      "amount": 4705.00,
-      "status": "已建仓",
-      "reason": "加拿大科技龙头，电商SaaS"
-    }
-  ]
+  "holdings": [],
+  "trades": []
 }

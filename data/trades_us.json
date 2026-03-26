@@ -1,67 +1,7 @@
 {
-  "timestamp": "2026-03-27T06:30:00",
-  "market": "美股",
+  "timestamp": "2026-03-27T06:45:02.955400",
   "initialCapital": 100000,
-  "realizedProfit": -209.30,
-  "holdings": [
-    {"code": "NVDA", "name": "Nvidia", "cost": 182.13, "qty": 40},
-    {"code": "AMZN", "name": "Amazon", "cost": 211.68, "qty": 6}
-  ],
-  "trades": [
-    {
-      "date": "2026-03-18",
-      "type": "充值",
-      "code": "",
-      "name": "初始资金",
-      "price": 0,
-      "quantity": 0,
-      "amount": 100000,
-      "status": "已完成",
-      "reason": "美股虚拟交易初始资金"
-    },
-    {
-      "date": "2026-03-18",
-      "type": "买入",
-      "code": "NVDA",
-      "name": "Nvidia",
-      "price": 182.13,
-      "quantity": 40,
-      "amount": 7285.20,
-      "status": "已建仓",
-      "reason": "AI芯片龙头"
-    },
-    {
-      "date": "2026-03-18",
-      "type": "买入",
-      "code": "MSFT",
-      "name": "Microsoft",
-      "price": 394.76,
-      "quantity": 20,
-      "amount": 7895.20,
-      "status": "已止损",
-      "reason": "云计算+AI龙头"
-    },
-    {
-      "date": "2026-03-18",
-      "type": "买入",
-      "code": "AMZN",
-      "name": "Amazon",
-      "price": 211.68,
-      "quantity": 6,
-      "amount": 1270.08,
-      "status": "已建仓",
-      "reason": "电商+云服务巨头"
-    },
-    {
-      "date": "2026-03-24",
-      "type": "卖出",
-      "code": "MSFT",
-      "name": "Microsoft",
-      "price": 373.83,
-      "quantity": 20,
-      "amount": 7476.60,
-      "status": "已止损",
-      "reason": "止损触发 -5.3%"
-    }
-  ]
+  "realizedProfit": 0,
+  "holdings": [],
+  "trades": []
 }
