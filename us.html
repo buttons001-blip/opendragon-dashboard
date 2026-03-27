@@ -310,23 +310,6 @@
                 </div>
             </div>
             
-            <div class="card" v-if="closedPositions.length > 0">
-                <div class="card-header">
-                    <div class="card-title">已清仓记录</div>
-                </div>
-                <div class="stocks-row">
-                    <div class="stock-item" v-for="s in closedPositions" :key="s.code" style="opacity:0.7">
-                        <div class="stock-info">
-                            <div class="stock-code">{{ s.code }}</div>
-                            <div class="stock-name">{{ s.name }} <span style="color:#999;font-size:0.8em">(已清仓)</span></div>
-                            <div class="stock-detail">买入：${{ s.costPrice }} × {{ s.quantity }}股</div>
-                            <div class="stock-detail" :class="s.profit >= 0 ? 'profit-up' : 'profit-down'">
-                                卖出：${{ s.sellPrice }} | 盈亏 {{ s.profit >= 0 ? '+' : '' }}${{ formatNum(s.profit) }}
-                            </div>
-                            <div class="stock-detail" style="color:#999;font-size:0.7em">{{ s.closeDate }}</div>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <!-- 交易记录 -->
@@ -391,8 +374,8 @@
 
         // 飞书配置
         const FEISHU_CONFIG = {
-            appToken: 'R9u7b3UTeagvfrsQEiGcgG7snBc',
-            tableId: 'tblYYndqV1vTDg8I'
+            appToken: 'GA4ibckhcahr6asxah0cOFZmn4b',
+            tableId: 'tbl1tSS4VOOCDywu'
         };
         
         const { createApp } = Vue;
