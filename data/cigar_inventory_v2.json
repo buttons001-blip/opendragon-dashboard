@@ -74,47 +74,125 @@
     "Warped ",
     "ZINO NICARAGUA"
   ],
-  "brandsWithLogos": [
-    "Arturo Fuente",
-    "Bolivar",
-    "Camacho",
-    "Cao",
-    "Cohiba",
-    "Cuaba",
-    "Davidoff",
-    "Diplomaticos",
-    "Don Pepin",
-    "Drew Estate",
-    "EI Rey Del Mundo",
-    "Fonseca",
-    "H.Upmann",
-    "Hoyo",
-    "Jose L. Piedra",
-    "Juan Lopez",
-    "La Gloria Cubana",
-    "Montecristo",
-    "My Father",
-    "Oliva",
-    "Padron",
-    "Partagas",
-    "Plasencia",
-    "Por Larranaga",
-    "Punch",
-    "Quai d'Orsay",
-    "Quintero",
-    "Rafael Gonzalez",
-    "Ramon Allones",
-    "Rocky Patel",
-    "Romeo y Julieta",
-    "Saint Luis Rey",
-    "San Cristobal",
-    "Sancho Panza",
-    "Tatuaje",
-    "Trinidad",
-    "Vegas Robaina",
-    "Vegueros",
-    "Warped"
-  ],
+  "brandsWithLogos": {
+    "Punch": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/QXgCbRV5zolQxnxvuiKcj8oMnze/download"
+    },
+    "Romeo y Julieta": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TWhFb50NbobO9Wx0eRccDPE7nzh/download"
+    },
+    "Cohiba": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Ix7QbCPBJoB0R5xwTsacgtfhnvd/download"
+    },
+    "Montecristo": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/JRQsbHsrGoJ1vTxbGNwcplVOnud/download"
+    },
+    "Partagas": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/MxWObjFYwoV7BdxXwb2coI9bncf/download"
+    },
+    "Fonseca": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TbU2bmlGaoaIwSxhzi0cW22enjh/download"
+    },
+    "Hoyo": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Mozcb20CuojYpDxlu7wc39qtnRc/download"
+    },
+    "H.Upmann": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Aiscb1LRKo0RB1xEWkHcvD6sndb/download"
+    },
+    "Juan Lopez": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Wxttb6sFYoIvQgxmC8Vc3wuAn7d/download"
+    },
+    "Por Larranaga": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Tkyyb6kwUo3TWpxZEGGcuZ4Hnsh/download"
+    },
+    "Ramon Allones": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/FIoNbOS6ao6VR8xIr1sc1pSOnBd/download"
+    },
+    "My Father": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/DifBbgejEo0yjdxAmdMcX36fnlf/download"
+    },
+    "Vegueros": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/BVCDbr8eToDbEwxDN0ocQjQ6n1e/download"
+    },
+    "Davidoff": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/LJZybzwcBor7v1xwZf6cBp0Hn2c/download"
+    },
+    "La Gloria Cubana": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/PxBUbi8wboCr85xU2QBcmlB1nvh/download"
+    },
+    "Jose L. Piedra": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/E7wxbeIv1oiq1SxRRxscoomjnTe/download"
+    },
+    "Cao": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/HtyWbvrLcoIPW0xPu5qcWBN1nwd/download"
+    },
+    "Bolivar": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/B8VQbMloqoeTSbxszu9cbkvlnIf/download"
+    },
+    "San Cristobal": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/QP3cbyWxIoX96SxudIVcsT7cn8b/download"
+    },
+    "Trinidad": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/IKfdbEWdMoK3FMxrvmtcS47in6c/download"
+    },
+    "Cuaba": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/EUvWbQbXcoxtiGxyglZcTkQinhe/download"
+    },
+    "Rafael Gonzalez": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Wlweb6BRfo20SPxTTLZc1p1Snrd/download"
+    },
+    "Diplomaticos": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Yrs9b08YQogUVqxjHScc55UOnYb/download"
+    },
+    "EI Rey Del Mundo": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/C4b3bKmj6oqxAnxNLrFcf1xKnhg/download"
+    },
+    "Sancho Panza": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/XMQhbf93nosWcxx3XZyczOMBnDb/download"
+    },
+    "Quintero": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/PUElbvqzLo6PW6xHt2KceldOnse/download"
+    },
+    "Saint Luis Rey": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Z5yqbPNgwolVuixZbVxcnq9SnXe/download"
+    },
+    "Vegas Robaina": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/FN75bqkm7oVVduxfzM1cMXfInGg/download"
+    },
+    "Quai d'Orsay": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/ERtlbEvMeoW2usxeDEjcWm3GnQc/download"
+    },
+    "Don Pepin": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/O7ANbEdtqoVFuLxKkeEc0fXpnyb/download"
+    },
+    "Rocky Patel": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/QDL4bFOIxoBRx8xFYZkc4tOFnlc/download"
+    },
+    "Arturo Fuente": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/KQoRbEt3xoJRrpxU1rPceefvnag/download"
+    },
+    "Padron": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TZgrbqyClowQYDxMOcicIlqfnd2/download"
+    },
+    "Camacho": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TWtpbmSCMoiNDCxDDUicWFK3ngh/download"
+    },
+    "Plasencia": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/XEi2bh1FmoglxGxpnYlcKCZLneg/download"
+    },
+    "Drew Estate": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/AdYfbTVlGoaBV6xRCmrcNPGSnBg/download"
+    },
+    "Tatuaje": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/MzbUb4dZ5oQTXixlpc5cqcGJnmr/download"
+    },
+    "Oliva": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/V4oEb6BYWochnDxItn2cLPjdnNc/download"
+    },
+    "Warped": {
+      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TY2QbjCUzoaVrvxMg8sc2i03nuZ/download"
+    }
+  },
   "inventory": {
     "Punch": [
       {
@@ -27578,5 +27656,5 @@
     ]
   },
   "totalRecords": 1454,
-  "lastUpdated": "2026-03-29T00:35:00+08:00"
+  "lastUpdated": "2026-03-29T00:40:00+08:00"
 }
