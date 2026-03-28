@@ -1,122 +1,130 @@
 {
-  "timestamp": "2026-03-29T07:00:03.685626",
-  "initialCapital": 1000000,
+  "timestamp": "2026-03-29T07:05:04.105887",
+  "market": "A股",
+  "initialCapital": 1000000.0,
   "realizedProfit": -18966.0,
   "holdings": [
     {
       "code": "300750",
       "name": "宁德时代",
-      "quantity": 200.0,
       "costPrice": 404.9,
-      "totalCost": 80980.0
+      "quantity": 200.0
     },
     {
       "code": "002594",
       "name": "比亚迪",
-      "quantity": 500.0,
       "costPrice": 102.46,
-      "totalCost": 51230.0
+      "quantity": 500.0
     }
   ],
   "trades": [
     {
       "type": "充值",
+      "market": "A股",
       "code": "",
       "name": "初始资金",
       "price": 0.0,
       "quantity": 1.0,
       "amount": 1000000.0,
-      "date": "2024-03-16",
-      "reason": "A股模拟交易初始资金100万元启动",
-      "status": ""
+      "date": "2026-03-16",
+      "status": "",
+      "reason": "A股模拟交易初始资金100万元启动"
     },
     {
       "type": "买入",
+      "market": "A股",
       "code": "688297",
       "name": "中无人机",
       "price": 55.77,
       "quantity": 1400.0,
       "amount": 78078.0,
-      "date": "2024-03-16",
-      "reason": "无人机龙头 军工政策支持 低位建仓",
-      "status": ""
+      "date": "2026-03-16",
+      "status": "",
+      "reason": "无人机龙头军工政策支持低位建仓"
     },
     {
       "type": "买入",
+      "market": "A股",
       "code": "300750",
       "name": "宁德时代",
       "price": 404.9,
       "quantity": 200.0,
       "amount": 80980.0,
-      "date": "2024-03-16",
-      "reason": "新能源电池龙头 海外扩张 行业领军",
-      "status": ""
+      "date": "2026-03-16",
+      "status": "",
+      "reason": "新能源电池龙头海外扩张行业领军"
     },
     {
       "type": "买入",
+      "market": "A股",
       "code": "603986",
       "name": "兆易创新",
       "price": 285.8,
       "quantity": 300.0,
       "amount": 85740.0,
-      "date": "2024-03-16",
-      "reason": "存储芯片龙头 科技自立自强 国产替代",
-      "status": ""
+      "date": "2026-03-16",
+      "status": "",
+      "reason": "存储芯片龙头科技自立自强国产替代"
     },
     {
       "type": "买入",
+      "market": "A股",
       "code": "002594",
       "name": "比亚迪",
       "price": 102.46,
       "quantity": 500.0,
       "amount": 51230.0,
-      "date": "2024-03-16",
-      "reason": "新能源汽车龙头 销量领先 垂直整合",
-      "status": ""
+      "date": "2026-03-16",
+      "status": "",
+      "reason": "新能源汽车龙头销量领先垂直整合"
     },
     {
       "type": "买入",
+      "market": "A股",
       "code": "002389",
       "name": "航天彩虹",
       "price": 24.43,
       "quantity": 1200.0,
       "amount": 29316.0,
-      "date": "2024-03-16",
-      "reason": "军工材料龙头 低位反弹 彩虹系列无人机",
-      "status": ""
+      "date": "2026-03-16",
+      "status": "",
+      "reason": "军工材料龙头低位反弹彩虹系列无人机"
     },
     {
       "type": "卖出",
+      "market": "A股",
       "code": "688297",
       "name": "中无人机",
       "price": 50.19,
       "quantity": 1400.0,
       "amount": 70266.0,
       "date": "2026-03-19",
-      "reason": "触发-5%止损线 严格执行纪律",
-      "status": "已止损"
+      "status": "已止损",
+      "reason": "触发-5%止损线严格执行纪律"
     },
     {
       "type": "卖出",
+      "market": "A股",
       "code": "002389",
       "name": "航天彩虹",
       "price": 22.28,
       "quantity": 1200.0,
       "amount": 26736.0,
       "date": "2026-03-19",
-      "reason": "触发-5%止损线 严格执行纪律",
-      "status": "已止损"
+      "status": "已止损",
+      "reason": "触发-5%止损线严格执行纪律"
     },
     {
       "type": "卖出",
+      "market": "A股",
       "code": "603986",
       "name": "兆易创新",
       "price": 257.22,
       "quantity": 300.0,
       "amount": 77166.0,
       "date": "2026-03-26",
-      "reason": "触发-5%止损线 损失8574元",
-      "status": "已止损"
+      "status": "已止损",
+      "reason": "触发-5%止损线损失8574元"
     }
   ]
 }
