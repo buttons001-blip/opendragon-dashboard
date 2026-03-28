@@ -309,10 +309,29 @@
                         <div class="api-status" :class="apiStatusClass" @click="loadFeishuDataRealtime" style="cursor: pointer;" title="点击从飞书实时刷新">
                             数据源: {{ apiStatus }} 🔄
                         </div>
+                        <div class="update-info" style="text-align: center; margin-top: 8px; font-size: 0.75em; color: #888;">
+                            <span v-if="lastUpdateTime">最后更新：{{ lastUpdateTime }}</span>
+                            <span v-else>加载中...</span>
+                            <button @click="refreshData" style="margin-left: 8px; padding: 2px 8px; font-size: 0.9em; background: #1a5c1a; color: white; border: none; border-radius: 4px; cursor: pointer;" :disabled="refreshing">
+                                {{ refreshing ? '刷新中...' : '🔄 刷新' }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             
+            
+            <!-- 更新提示 Toast -->
+            <div v-if="updateToast.show" class="update-toast" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #1a5c1a; color: white; padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; animation: slideDown 0.3s ease;">
+                {{ updateToast.message }}
+            </div>
+            
+            <style>
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translate(-50%, -20px); }
+                    to { opacity: 1; transform: translate(-50%, 0); }
+                }
+            </style>
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">持仓明细 (实时)</div>
@@ -389,8 +408,8 @@
         
         // 飞书配置
         const FEISHU_CONFIG = {
-            appToken: 'R9u7b3UTeagvfrsQEiGcgG7snBc',
-            tableId: 'tblYYndqV1vTDg8I'
+            appToken: 'GA4ibckhcahr6asxah0cOFZmn4b',
+            tableId: 'tbl1tSS4VOOCDywu'
         };
         
         // 不再硬编码 POSITIONS，从飞书读取
@@ -404,6 +423,11 @@
                     statusText: '⚫ 休市中',
                     apiStatus: '连接中...',
                     apiStatusClass: '',
+                    lastUpdateTime: null,
+                    lastVersion: null,
+                    updateToast: { show: false, message: '' },
+                    autoRefreshTimer: null,
+                    refreshing: false,
                     initialCapital: 1000000,
                     availableCapital: 0,  // 从飞书计算
                     realizedProfit: 0,  // 从飞书计算
@@ -508,8 +532,62 @@
                     }
                 },
                 
+                // 检查数据更新（轮询）
+                async checkForUpdates() {
+                    try {
+                        const response = await fetch('data/trades_cn.json?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        // 对比时间戳
+                        if (data.timestamp !== this.lastVersion) {
+                            await this.loadFeishuData();
+                            this.showUpdateToast('📊 数据已更新');
+                        }
+                    } catch (e) {
+                        console.log('轮询检查失败:', e);
+                    }
+                },
+                
+                // 手动刷新数据
+                async refreshData() {
+                    if (this.refreshing) return;
+                    
+                    this.refreshing = true;
+                    try {
+                        // 先尝试实时 API
+                        const response = await fetch('api/trades_realtime.php?t=' + Date.now());
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            this.processTradeData(data);
+                            this.apiStatus = '飞书实时数据 ✓ ' + new Date().toLocaleTimeString();
+                            this.apiStatusClass = 'success';
+                            this.showUpdateToast('✅ 数据已刷新');
+                        } else {
+                            throw new Error(data.error || 'API error');
+                        }
+                    } catch (e) {
+                        console.error('实时刷新失败:', e);
+                        // 降级到本地 JSON
+                        await this.loadFeishuData();
+                        this.showUpdateToast('📊 已加载本地数据');
+                    }
+                    this.refreshing = false;
+                },
+                
+                // 显示更新提示
+                showUpdateToast(message) {
+                    this.updateToast = { show: true, message: message };
+                    setTimeout(() => {
+                        this.updateToast.show = false;
+                    }, 3000);
+                },
+                
                 // 处理交易数据（统一入口）
                 processTradeData(data) {
+                    // 记录最后更新时间
+                    this.lastUpdateTime = new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+                    this.lastVersion = data.timestamp || new Date().toISOString();
                     const actions = data.trades.map(t => ({
                         '交易类型': t.type,
                         '市场': t.market || data.market,
