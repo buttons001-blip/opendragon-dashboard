@@ -280,6 +280,25 @@
                     </div>
                 </div>
             </div>
+                        <div class="update-info" style="text-align: center; margin-top: 8px; font-size: 0.75em; color: #888;">
+                            <span v-if="lastUpdateTime">最后更新：{{ lastUpdateTime }}</span>
+                            <span v-else>加载中...</span>
+                            <button @click="refreshData" style="margin-left: 8px; padding: 2px 8px; font-size: 0.9em; background: #1a5c1a; color: white; border: none; border-radius: 4px; cursor: pointer;" :disabled="refreshing">
+                                {{ refreshing ? '刷新中...' : '🔄 刷新' }}
+                            </button>
+                        </div>
+                    
+            <!-- 更新提示 Toast -->
+            <div v-if="updateToast.show" class="update-toast" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #1a5c1a; color: white; padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; animation: slideDown 0.3s ease;">
+                {{ updateToast.message }}
+            </div>
+            
+            <style>
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translate(-50%, -20px); }
+                    to { opacity: 1; transform: translate(-50%, 0); }
+                }
+            </style>
             
             <div class="card">
                 <div class="card-header">
@@ -372,6 +391,11 @@
                     time: new Date().toLocaleString(),
                     statusText: '⚫ 休市中',
                     apiStatus: '连接中...',
+                    lastUpdateTime: null,
+                    lastVersion: null,
+                    updateToast: { show: false, message: '' },
+                    autoRefreshTimer: null,
+                    refreshing: false,
                     apiStatusClass: '',
                     initialCapital: 0,  // 从飞书计算
                     availableCapital: 0,  // 从飞书计算
@@ -435,6 +459,17 @@
                         this.fetchPrices();
                     }
                 }, 30000);
+                
+                // 每 30 秒自动检查数据更新
+                this.autoRefreshTimer = setInterval(() => {
+                    this.checkForUpdates();
+                }, 30000);
+            },
+            
+            beforeDestroy() {
+                if (this.autoRefreshTimer) {
+                    clearInterval(this.autoRefreshTimer);
+                }
             },
             methods: {
                 async loadFeishuData() {
