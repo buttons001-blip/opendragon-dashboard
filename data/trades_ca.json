@@ -1,78 +1,82 @@
 {
-  "timestamp": "2026-03-29T00:30:03.834987",
-  "initialCapital": 100000,
+  "timestamp": "2026-03-29T00:35:04.301668",
+  "market": "加股",
+  "initialCapital": 100000.0,
   "realizedProfit": -850.5,
   "holdings": [
     {
       "code": "RY",
       "name": "皇家银行",
-      "quantity": 70.0,
       "costPrice": 220.8,
-      "totalCost": 15456.0
+      "quantity": 70.0
     },
     {
       "code": "ENB",
       "name": "恩桥",
-      "quantity": 100.0,
       "costPrice": 74.03,
-      "totalCost": 7403.0
+      "quantity": 100.0
     }
   ],
   "trades": [
     {
       "type": "充值",
+      "market": "加股",
       "code": "",
       "name": "初始资金",
       "price": 0.0,
       "quantity": 1.0,
       "amount": 100000.0,
       "date": "2026-03-18",
-      "reason": "加股模拟交易初始资金10万加元启动",
-      "status": ""
+      "status": "",
+      "reason": "加股模拟交易初始资金10万加元启动"
     },
     {
       "type": "买入",
+      "market": "加股",
       "code": "RY",
       "name": "皇家银行",
       "price": 220.8,
       "quantity": 70.0,
       "amount": 15456.0,
       "date": "2026-03-18",
-      "reason": "金融50% 加拿大最大银行 高分红",
-      "status": ""
+      "status": "",
+      "reason": "金融50%加拿大最大银行高分红"
     },
     {
       "type": "买入",
+      "market": "加股",
       "code": "ENB",
       "name": "恩桥",
       "price": 74.03,
       "quantity": 100.0,
       "amount": 7403.0,
       "date": "2026-03-18",
-      "reason": "能源25% 北美最大管道 稳定分红",
-      "status": ""
+      "status": "",
+      "reason": "能源25%北美最大管道稳定分红"
     },
     {
       "type": "买入",
+      "market": "加股",
       "code": "SHOP",
       "name": "Shopify",
       "price": 170.07,
       "quantity": 50.0,
       "amount": 8503.5,
       "date": "2026-03-18",
-      "reason": "科技25% 电商平台 高增长",
-      "status": ""
+      "status": "",
+      "reason": "科技25%电商平台高增长"
     },
     {
       "type": "卖出",
+      "market": "加股",
       "code": "SHOP",
       "name": "Shopify",
       "price": 153.06,
       "quantity": 50.0,
       "amount": 7653.0,
       "date": "2026-03-26",
-      "reason": "触发-5%止损线 损失850.50加元",
-      "status": "已止损"
+      "status": "已止损",
+      "reason": "触发-5%止损线损失850.50加元"
     }
   ]
 }
