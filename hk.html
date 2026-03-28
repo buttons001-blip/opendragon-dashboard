@@ -410,7 +410,7 @@
                     return this.totalMarketValue - this.totalCost + this.realizedProfit; 
                 },
                 returnRate() { 
-                    return ((this.totalProfit / this.initialCapital) * 100).toFixed(2); 
+                    return ((this.realizedProfit / this.initialCapital) * 100).toFixed(2); 
                 },
                 sortedStocks() { 
                     return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); 

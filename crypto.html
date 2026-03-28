@@ -299,7 +299,7 @@
                 totalCost() { return this.stocks.reduce((sum, s) => sum + s.cost * s.qty, 0); },
                 totalMarketValue() { return this.stocks.reduce((sum, s) => sum + s.price * s.qty, 0); },
                 totalProfit() { return this.totalMarketValue - this.totalCost + this.realizedProfit; },
-                returnRate() { return this.initialCapital > 0 ? ((this.totalProfit / this.initialCapital) * 100).toFixed(2) : '0.00'; },
+                returnRate() { return ((this.realizedProfit / this.initialCapital) * 100).toFixed(2); },
                 closedPositions() {
                     return this.$data.closedPositions || [];
                 },
