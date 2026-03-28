@@ -383,6 +383,7 @@
                         // 对比时间戳
                         if (data.timestamp !== this.lastVersion) {
                             await this.loadFeishuData();
+                            this.lastVersion = data.timestamp;
                             this.showUpdateToast('📊 数据已更新');
                         }
                     } catch (e) {
@@ -396,21 +397,12 @@
                     
                     this.refreshing = true;
                     try {
-                        const response = await fetch('api/trades_realtime.php?t=' + Date.now());
-                        const data = await response.json();
-                        
-                        if (data.success) {
-                            this.processTradeData(data);
-                            this.apiStatus = '飞书实时数据 ✓ ' + new Date().toLocaleTimeString();
-                            this.apiStatusClass = 'success';
-                            this.showUpdateToast('✅ 数据已刷新');
-                        } else {
-                            throw new Error(data.error || 'API error');
-                        }
-                    } catch (e) {
-                        console.error('实时刷新失败:', e);
+                        // 直接重新加载本地数据
                         await this.loadFeishuData();
-                        this.showUpdateToast('📊 已加载本地数据');
+                        this.showUpdateToast('✅ 数据已刷新');
+                    } catch (e) {
+                        console.error('刷新失败:', e);
+                        this.showUpdateToast('📊 刷新失败，请重试');
                     }
                     this.refreshing = false;
                 },
