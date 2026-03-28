@@ -77,75 +77,75 @@
   "brandsWithLogos": {
     "Punch": {
       "name": "Punch",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/QXgCbRV5zolQxnxvuiKcj8oMnze/download"
+      "logo": "./logos/Punch.png"
     },
     "Romeo y Julieta": {
       "name": "Romeo y Julieta",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TWhFb50NbobO9Wx0eRccDPE7nzh/download"
+      "logo": "./logos/Romeo_y_Julieta.png"
     },
     "Cohiba": {
       "name": "Cohiba",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Ix7QbCPBJoB0R5xwTsacgtfhnvd/download"
+      "logo": "./logos/Cohiba.png"
     },
     "Montecristo": {
       "name": "Montecristo",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/JRQsbHsrGoJ1vTxbGNwcplVOnud/download"
+      "logo": "./logos/Montecristo.png"
     },
     "Partagas": {
       "name": "Partagas",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/MxWObjFYwoV7BdxXwb2coI9bncf/download"
+      "logo": "./logos/Partagas.png"
     },
     "Fonseca": {
       "name": "Fonseca",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TbU2bmlGaoaIwSxhzi0cW22enjh/download"
+      "logo": "./logos/Fonseca.png"
     },
     "Hoyo": {
       "name": "Hoyo",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Mozcb20CuojYpDxlu7wc39qtnRc/download"
+      "logo": "./logos/Hoyo.png"
     },
     "H.Upmann": {
       "name": "H.Upmann",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Aiscb1LRKo0RB1xEWkHcvD6sndb/download"
+      "logo": "./logos/H.Upmann.png"
     },
     "Juan Lopez": {
       "name": "Juan Lopez",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Wxttb6sFYoIvQgxmC8Vc3wuAn7d/download"
+      "logo": "./logos/Juan_Lopez.png"
     },
     "Por Larranaga": {
       "name": "Por Larranaga",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Tkyyb6kwUo3TWpxZEGGcuZ4Hnsh/download"
+      "logo": "./logos/Por_Larranaga.png"
     },
     "Ramon Allones": {
       "name": "Ramon Allones",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/FIoNbOS6ao6VR8xIr1sc1pSOnBd/download"
+      "logo": "./logos/Ramon_Allones.png"
     },
     "My Father": {
       "name": "My Father",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/DifBbgejEo0yjdxAmdMcX36fnlf/download"
+      "logo": "./logos/My_Father.png"
     },
     "Vegueros": {
       "name": "Vegueros",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/BVCDbr8eToDbEwxDN0ocQjQ6n1e/download"
+      "logo": "./logos/Vegueros.png"
     },
     "Davidoff": {
       "name": "Davidoff",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/LJZybzwcBor7v1xwZf6cBp0Hn2c/download"
+      "logo": "./logos/Davidoff.png"
     },
     "La Gloria Cubana": {
       "name": "La Gloria Cubana",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/PxBUbi8wboCr85xU2QBcmlB1nvh/download"
+      "logo": "./logos/La_Gloria_Cubana.png"
     },
     "Jose L. Piedra": {
       "name": "Jose L. Piedra",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/E7wxbeIv1oiq1SxRRxscoomjnTe/download"
+      "logo": "./logos/Jose_L._Piedra.png"
     },
     "Cao": {
       "name": "Cao",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/HtyWbvrLcoIPW0xPu5qcWBN1nwd/download"
+      "logo": "./logos/Cao.png"
     },
     "Bolivar": {
       "name": "Bolivar",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/B8VQbMloqoeTSbxszu9cbkvlnIf/download"
+      "logo": "./logos/Bolivar.png"
     },
     "VegaFina": {
       "name": "VegaFina",
@@ -153,7 +153,7 @@
     },
     "San Cristobal": {
       "name": "San Cristobal",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/QP3cbyWxIoX96SxudIVcsT7cn8b/download"
+      "logo": "./logos/San_Cristobal.png"
     },
     "Combinaciones": {
       "name": "Combinaciones",
@@ -165,23 +165,23 @@
     },
     "Trinidad": {
       "name": "Trinidad",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/IKfdbEWdMoK3FMxrvmtcS47in6c/download"
+      "logo": "./logos/Trinidad.png"
     },
     "Cuaba": {
       "name": "Cuaba",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/EUvWbQbXcoxtiGxyglZcTkQinhe/download"
+      "logo": "./logos/Cuaba.png"
     },
     "Rafael Gonzalez": {
       "name": "Rafael Gonzalez",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Wlweb6BRfo20SPxTTLZc1p1Snrd/download"
+      "logo": "./logos/Rafael_Gonzalez.png"
     },
     "Diplomaticos": {
       "name": "Diplomaticos",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Yrs9b08YQogUVqxjHScc55UOnYb/download"
+      "logo": "./logos/Diplomaticos.png"
     },
     "EI Rey Del Mundo": {
       "name": "EI Rey Del Mundo",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/C4b3bKmj6oqxAnxNLrFcf1xKnhg/download"
+      "logo": "./logos/EI_Rey_Del_Mundo.png"
     },
     "Guantanamera": {
       "name": "Guantanamera",
@@ -189,23 +189,23 @@
     },
     "Sancho Panza": {
       "name": "Sancho Panza",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/XMQhbf93nosWcxx3XZyczOMBnDb/download"
+      "logo": "./logos/Sancho_Panza.png"
     },
     "Quintero": {
       "name": "Quintero",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/PUElbvqzLo6PW6xHt2KceldOnse/download"
+      "logo": "./logos/Quintero.png"
     },
     "Saint Luis Rey": {
       "name": "Saint Luis Rey",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/Z5yqbPNgwolVuixZbVxcnq9SnXe/download"
+      "logo": "./logos/Saint_Luis_Rey.png"
     },
     "Vegas Robaina": {
       "name": "Vegas Robaina",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/FN75bqkm7oVVduxfzM1cMXfInGg/download"
+      "logo": "./logos/Vegas_Robaina.png"
     },
     "Quai d'Orsay": {
       "name": "Quai d'Orsay",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/ERtlbEvMeoW2usxeDEjcWm3GnQc/download"
+      "logo": "./logos/Quai_d'Orsay.png"
     },
     "La Flor De Cano": {
       "name": "La Flor De Cano",
@@ -213,7 +213,7 @@
     },
     "Don Pepin": {
       "name": "Don Pepin",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/O7ANbEdtqoVFuLxKkeEc0fXpnyb/download"
+      "logo": "./logos/Don_Pepin.png"
     },
     "Punch London": {
       "name": "Punch London",
@@ -221,7 +221,7 @@
     },
     "Rocky Patel": {
       "name": "Rocky Patel",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/QDL4bFOIxoBRx8xFYZkc4tOFnlc/download"
+      "logo": "./logos/Rocky_Patel.png"
     },
     "Edmundo Dantes": {
       "name": "Edmundo Dantes",
@@ -229,7 +229,7 @@
     },
     "Arturo Fuente": {
       "name": "Arturo Fuente",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/KQoRbEt3xoJRrpxU1rPceefvnag/download"
+      "logo": "./logos/Arturo_Fuente.png"
     },
     "La Escepcion": {
       "name": "La Escepcion",
@@ -237,7 +237,7 @@
     },
     "Padron": {
       "name": "Padron",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TZgrbqyClowQYDxMOcicIlqfnd2/download"
+      "logo": "./logos/Padron.png"
     },
     "Blend 42": {
       "name": "Blend 42",
@@ -249,7 +249,7 @@
     },
     "Camacho": {
       "name": "Camacho",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TWtpbmSCMoiNDCxDDUicWFK3ngh/download"
+      "logo": "./logos/Camacho.png"
     },
     "Ashton": {
       "name": "Ashton",
@@ -273,7 +273,7 @@
     },
     "Plasencia": {
       "name": "Plasencia",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/XEi2bh1FmoglxGxpnYlcKCZLneg/download"
+      "logo": "./logos/Plasencia.png"
     },
     "Viaje": {
       "name": "Viaje",
@@ -289,7 +289,7 @@
     },
     "Drew Estate": {
       "name": "Drew Estate",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/AdYfbTVlGoaBV6xRCmrcNPGSnBg/download"
+      "logo": "./logos/Drew_Estate.png"
     },
     "Gurkha": {
       "name": "Gurkha",
@@ -301,7 +301,7 @@
     },
     "Tatuaje": {
       "name": "Tatuaje",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/MzbUb4dZ5oQTXixlpc5cqcGJnmr/download"
+      "logo": "./logos/Tatuaje.png"
     },
     "Herrera Esteli": {
       "name": "Herrera Esteli",
@@ -337,7 +337,7 @@
     },
     "Oliva": {
       "name": "Oliva",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/V4oEb6BYWochnDxItn2cLPjdnNc/download"
+      "logo": "./logos/Oliva.png"
     },
     "Joya De Nicaragua": {
       "name": "Joya De Nicaragua",
@@ -357,7 +357,7 @@
     },
     "Warped": {
       "name": "Warped",
-      "logo": "https://open.feishu.cn/open-apis/drive/v1/medias/TY2QbjCUzoaVrvxMg8sc2i03nuZ/download"
+      "logo": "./logos/Warped.png"
     },
     "Aganorsa Leaf": {
       "name": "Aganorsa Leaf",
@@ -22181,5 +22181,5 @@
     }
   ],
   "totalRecords": 1454,
-  "lastUpdated": "2026-03-29 07:43:36"
+  "lastUpdated": "2026-03-29 07:45:00"
 }
