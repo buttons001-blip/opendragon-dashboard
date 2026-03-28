@@ -1,112 +1,104 @@
 {
-  "timestamp": "2026-03-28T17:20:04.695100",
-  "market": "美股",
-  "initialCapital": 100000.0,
+  "timestamp": "2026-03-28T17:25:03.997437",
+  "initialCapital": 100000,
   "realizedProfit": -795.18,
   "holdings": [
     {
       "code": "SQQQ",
       "name": "SQQQ",
+      "quantity": 200.0,
       "costPrice": 84.89,
-      "quantity": 200.0
+      "totalCost": 16978.0
     }
   ],
   "trades": [
     {
       "type": "充值",
-      "market": "美股",
       "code": "",
       "name": "初始资金",
       "price": 0.0,
       "quantity": 1.0,
       "amount": 100000.0,
       "date": "2026-03-18",
-      "status": "",
-      "reason": "美股模拟交易初始资金10万美元启动"
+      "reason": "美股模拟交易初始资金10万美元启动",
+      "status": ""
     },
     {
       "type": "买入",
-      "market": "美股",
       "code": "NVDA",
       "name": "Nvidia",
       "price": 182.13,
       "quantity": 40.0,
       "amount": 7295.2,
       "date": "2026-03-18",
-      "status": "",
-      "reason": "AI芯片龙头GPU+数据中心"
+      "reason": "AI芯片龙头 GPU+数据中心",
+      "status": ""
     },
     {
       "type": "买入",
-      "market": "美股",
       "code": "MSFT",
       "name": "Microsoft",
       "price": 394.76,
       "quantity": 10.0,
       "amount": 3947.6,
       "date": "2026-03-18",
-      "status": "",
-      "reason": "云计算龙头"
+      "reason": "云计算龙头",
+      "status": ""
     },
     {
       "type": "买入",
-      "market": "美股",
       "code": "AMZN",
       "name": "Amazon",
       "price": 211.68,
       "quantity": 6.0,
       "amount": 1270.08,
       "date": "2026-03-18",
-      "status": "",
-      "reason": "电商+云+AI龙头全球零售"
+      "reason": "电商+云+AI龙头 全球零售",
+      "status": ""
     },
     {
       "type": "卖出",
-      "market": "美股",
       "code": "MSFT",
       "name": "Microsoft",
       "price": 373.83,
       "quantity": 10.0,
       "amount": 3738.3,
       "date": "2026-03-24",
-      "status": "已止损",
-      "reason": "触发-5%止损线损失209.30美元"
+      "reason": "触发-5%止损线 损失209.30美元",
+      "status": "已止损"
     },
     {
       "type": "卖出",
-      "market": "美股",
       "code": "NVDA",
       "name": "Nvidia",
       "price": 169.32,
       "quantity": 40.0,
       "amount": 6772.8,
       "date": "2026-03-29",
-      "status": "已止损",
-      "reason": "触发-5%止损线严格执行纪律当前跌幅-7.03%"
+      "reason": "触发-5%止损线 严格执行纪律 当前跌幅-7.03%",
+      "status": "已止损"
     },
     {
       "type": "买入",
-      "market": "美股",
       "code": "SQQQ",
       "name": "SQQQ",
       "price": 84.89,
       "quantity": 200.0,
       "amount": 16978.0,
       "date": "2026-03-29",
-      "status": "",
-      "reason": "三倍做空纳斯达克ETF看空科技股"
+      "reason": "三倍做空纳斯达克 ETF 看空科技股",
+      "status": ""
     },
     {
       "type": "卖出",
-      "market": "美股",
       "code": "AMZN",
       "name": "Amazon",
       "price": 201.1,
       "quantity": 6.0,
       "amount": 1206.6,
       "date": "2026-03-29",
-      "status": "已止损",
-      "reason": "触发-5%止损线严格执行纪律当前跌幅-5.00%"
+      "reason": "触发-5%止损线 严格执行纪律 当前跌幅-5.00%",
+      "status": "已止损"
     }
   ]
 }
