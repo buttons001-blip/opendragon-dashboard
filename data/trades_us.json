@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-28T12:45:04.779819",
+  "timestamp": "2026-03-28T12:50:04.708126",
   "initialCapital": 100000,
   "realizedProfit": -731.7,
   "holdings": [
@@ -9,6 +9,13 @@
       "quantity": 6.0,
       "costPrice": 211.67999999999998,
       "totalCost": 1270.08
+    },
+    {
+      "code": "SQQQ",
+      "name": "SQQQ",
+      "quantity": 200.0,
+      "costPrice": 84.89,
+      "totalCost": 16978.0
     }
   ],
   "trades": [
@@ -77,6 +84,17 @@
       "date": "2026-03-29",
       "reason": "触发-5%止损线 严格执行纪律 当前跌幅-7.03%",
       "status": "已止损"
+    },
+    {
+      "type": "买入",
+      "code": "SQQQ",
+      "name": "SQQQ",
+      "price": 84.89,
+      "quantity": 200.0,
+      "amount": 16978.0,
+      "date": "2026-03-29",
+      "reason": "三倍做空纳斯达克 ETF 看空科技股",
+      "status": ""
     }
   ]
 }
