@@ -1,15 +1,9 @@
 {
-  "timestamp": "2026-03-28T13:00:04.626146",
+  "timestamp": "2026-03-28T13:05:04.371811",
   "market": "美股",
   "initialCapital": 100000.0,
-  "realizedProfit": -731.7,
+  "realizedProfit": -795.18,
   "holdings": [
-    {
-      "code": "AMZN",
-      "name": "Amazon",
-      "costPrice": 211.68,
-      "quantity": 6.0
-    },
     {
       "code": "SQQQ",
       "name": "SQQQ",
@@ -101,6 +95,18 @@
       "date": "2026-03-29",
       "status": "",
       "reason": "三倍做空纳斯达克ETF看空科技股"
+    },
+    {
+      "type": "卖出",
+      "market": "美股",
+      "code": "AMZN",
+      "name": "Amazon",
+      "price": 201.1,
+      "quantity": 6.0,
+      "amount": 1206.6,
+      "date": "2026-03-29",
+      "status": "已止损",
+      "reason": "触发-5%止损线严格执行纪律当前跌幅-5.00%"
     }
   ]
 }
