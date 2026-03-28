@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-27T11:20:04.565800",
+  "timestamp": "2026-03-28T08:20:04.847827",
   "market": "数字货币",
   "initialCapital": 100000.0,
   "realizedProfit": -1353.1,
@@ -7,6 +7,7 @@
   "trades": [
     {
       "type": "充值",
+      "market": "数字货币",
       "code": "",
       "name": "初始资金",
       "price": 0.0,
@@ -18,6 +19,7 @@
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "BTC",
       "name": "比特币",
       "price": 73573.73,
@@ -29,6 +31,7 @@
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "ETH",
       "name": "以太坊",
       "price": 2268.89,
@@ -40,6 +43,7 @@
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "SOL",
       "name": "Solana",
       "price": 93.68,
@@ -51,6 +55,7 @@
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "LINK",
       "name": "Chainlink",
       "price": 9.67,
@@ -62,6 +67,7 @@
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "BTC",
       "name": "比特币",
       "price": 69242.56,
@@ -73,6 +79,7 @@
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "ETH",
       "name": "以太坊",
       "price": 2065.34,
@@ -84,6 +91,7 @@
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "SOL",
       "name": "Solana",
       "price": 87.65,
@@ -95,6 +103,7 @@
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "LINK",
       "name": "Chainlink",
       "price": 8.94,

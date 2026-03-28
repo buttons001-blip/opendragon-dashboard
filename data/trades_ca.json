@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-27T11:20:04.565295",
+  "timestamp": "2026-03-28T08:20:04.847272",
   "market": "加股",
   "initialCapital": 100000.0,
   "realizedProfit": -850.5,
@@ -20,6 +20,7 @@
   "trades": [
     {
       "type": "充值",
+      "market": "加股",
       "code": "",
       "name": "初始资金",
       "price": 0.0,
@@ -31,6 +32,7 @@
     },
     {
       "type": "买入",
+      "market": "加股",
       "code": "RY",
       "name": "皇家银行",
       "price": 220.8,
@@ -42,6 +44,7 @@
     },
     {
       "type": "买入",
+      "market": "加股",
       "code": "ENB",
       "name": "恩桥",
       "price": 74.03,
@@ -53,6 +56,7 @@
     },
     {
       "type": "买入",
+      "market": "加股",
       "code": "SHOP",
       "name": "Shopify",
       "price": 170.07,
@@ -64,6 +68,7 @@
     },
     {
       "type": "卖出",
+      "market": "加股",
       "code": "SHOP",
       "name": "Shopify",
       "price": 153.06,
