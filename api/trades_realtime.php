@@ -1,17 +1,17 @@
 <?php
 /**
  * 股票交易数据实时API
- * 直接从飞书读取最新数据
+ * 直接从飞书 openclaw 表格读取最新数据并计算
  */
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
-// Feishu Config
-$appToken = 'R9u7b3UTeagvfrsQEiGcgG7snBc';
-$tableId = 'tblYYndqV1vTDg8I';
-$appId = 'cli_a93fa577bff89bc2';
-$appSecret = '2Fi2KePv87sLiTmZSPUcdeWa5Ty2MxQF';
+// Feishu Config - openclaw 表格
+$appToken = 'GA4ibckhcahr6asxah0cOFZmn4b';
+$tableId = 'tbl1tSS4VOOCDywu';
+$appId = 'cli_a923ab8033781cc6';
+$appSecret = '6znpJICLLDKf30qQE0usGmdgS4kFkt7S';
 
 // Get access token
 function getToken($appId, $appSecret) {
@@ -55,38 +55,108 @@ function fetchRecords($appToken, $tableId, $token) {
     return $records;
 }
 
-// Process records
-function processRecords($records) {
+// Process records and calculate holdings
+function processRecords($records, $marketFilter) {
     $trades = [];
+    $holdings = [];
+    $initialCapital = 0;
+    $realizedProfit = 0;
+    $cashBalance = 0;
     
     foreach ($records as $record) {
         $fields = $record['fields'] ?? [];
         
-        // Map Feishu fields to trade format
+        // Get market
         $market = $fields['市场'] ?? '';
         if (is_array($market)) $market = $market['text'] ?? '';
         
-        $type = $fields['交易类型'] ?? '';
+        // Filter by market
+        if ($market !== $marketFilter) continue;
+        
+        // Get other fields
+        $type = $fields['操作类型'] ?? '';
         if (is_array($type)) $type = $type['text'] ?? '';
         
+        $code = $fields['代码'] ?? '';
+        $name = $fields['名称'] ?? '';
+        $price = floatval($fields['价格'] ?? 0);
+        $quantity = floatval($fields['数量'] ?? 0);
+        $amount = floatval($fields['成交金额'] ?? 0);
+        $reason = $fields['操作原因'] ?? '';
         $status = $fields['状态'] ?? '';
-        if (is_array($status)) $status = $status['text'] ?? '';
         
+        // Process date
+        $dateVal = $fields['日期'] ?? '';
+        if (is_numeric($dateVal)) {
+            $date = date('Y-m-d', $dateVal / 1000);
+            // Fix year 2024 -> 2026
+            if (strpos($date, '2024') === 0) $date = '2026' . substr($date, 4);
+        } else {
+            $date = $dateVal;
+        }
+        
+        // Add to trades
         $trades[] = [
             'type' => $type,
-            'market' => $market,
-            'code' => $fields['代码'] ?? '',
-            'name' => $fields['名称'] ?? '',
-            'price' => $fields['成交价'] ?? 0,
-            'quantity' => $fields['数量'] ?? 0,
-            'amount' => $fields['成交金额'] ?? 0,
-            'date' => $fields['交易日期'] ?? '',
+            'code' => $code,
+            'name' => $name,
+            'price' => $price,
+            'quantity' => $quantity,
+            'amount' => $amount,
+            'date' => $date,
             'status' => $status,
-            'reason' => $fields['备注'] ?? ''
+            'reason' => $reason
         ];
+        
+        // Calculate holdings and profit
+        if ($type === '充值') {
+            $initialCapital += $amount;
+            $cashBalance += $amount;
+        } elseif ($type === '提现') {
+            $cashBalance -= $amount;
+        } elseif ($type === '买入' && $code) {
+            $cashBalance -= $amount;
+            if (!isset($holdings[$code])) {
+                $holdings[$code] = ['name' => $name, 'qty' => 0, 'cost' => 0, 'total_cost' => 0];
+            }
+            $holdings[$code]['qty'] += $quantity;
+            $holdings[$code]['total_cost'] += $amount;
+            if ($holdings[$code]['qty'] > 0) {
+                $holdings[$code]['cost'] = $holdings[$code]['total_cost'] / $holdings[$code]['qty'];
+            }
+        } elseif ($type === '卖出' && $code) {
+            $cashBalance += $amount;
+            if (isset($holdings[$code]) && $holdings[$code]['qty'] > 0) {
+                $avgCost = $holdings[$code]['cost'];
+                $profit = ($price - $avgCost) * $quantity;
+                $realizedProfit += $profit;
+                $holdings[$code]['qty'] -= $quantity;
+                $holdings[$code]['total_cost'] = $holdings[$code]['qty'] * $avgCost;
+            }
+        }
     }
     
-    return $trades;
+    // Build holdings list
+    $holdingsList = [];
+    foreach ($holdings as $code => $h) {
+        if ($h['qty'] > 0) {
+            $holdingsList[] = [
+                'code' => $code,
+                'name' => $h['name'],
+                'costPrice' => round($h['cost'], 2),
+                'quantity' => $h['qty'],
+                'totalCost' => round($h['total_cost'], 2)
+            ];
+        }
+    }
+    
+    return [
+        'trades' => $trades,
+        'holdings' => $holdingsList,
+        'initialCapital' => $initialCapital,
+        'realizedProfit' => round($realizedProfit, 2),
+        'availableCapital' => round($cashBalance, 2)
+    ];
 }
 
 // Main
@@ -97,17 +167,17 @@ if (!$token) {
     exit;
 }
 
-$records = fetchRecords($appToken, $tableId, $token);
-$trades = processRecords($records);
+// Get market from query parameter
+$market = $_GET['market'] ?? 'A股';
 
-// Return in same format as JSON file
-$result = [
-    'success' => true,
-    'market' => 'A股',
-    'trades' => $trades,
-    'totalRecords' => count($trades),
-    'source' => 'feishu_realtime',
-    'lastUpdated' => date('Y-m-d H:i:s')
-];
+$records = fetchRecords($appToken, $tableId, $token);
+$result = processRecords($records, $market);
+
+// Return data
+$result['success'] = true;
+$result['market'] = $market;
+$result['totalRecords'] = count($result['trades']);
+$result['source'] = 'feishu_realtime';
+$result['lastUpdated'] = date('Y-m-d H:i:s');
 
 echo json_encode($result, JSON_UNESCAPED_UNICODE);
