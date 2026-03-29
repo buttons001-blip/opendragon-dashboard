@@ -1,107 +1,117 @@
 {
-  "timestamp": "2026-03-29T09:55:03.494380",
-  "initialCapital": 100000,
-  "realizedProfit": -1348.78,
+  "timestamp": "2026-03-29T10:00:04.080289",
+  "market": "数字货币",
+  "initialCapital": 100000.0,
+  "realizedProfit": -1353.1,
   "holdings": [],
   "trades": [
     {
       "type": "充值",
+      "market": "数字货币",
       "code": "",
       "name": "初始资金",
       "price": 0.0,
       "quantity": 1.0,
       "amount": 100000.0,
       "date": "2026-03-18",
-      "reason": "数字货币模拟交易初始资金10万元投入",
-      "status": ""
+      "status": "",
+      "reason": "数字货币模拟交易初始资金10万元投入"
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "BTC",
       "name": "比特币",
       "price": 73573.73,
       "quantity": 0.108734,
       "amount": 7999.99,
       "date": "2026-03-18",
-      "reason": "数字黄金 价值存储",
-      "status": ""
+      "status": "",
+      "reason": "数字黄金价值存储"
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "ETH",
       "name": "以太坊",
       "price": 2268.89,
       "quantity": 2.644461,
       "amount": 5999.99,
       "date": "2026-03-18",
-      "reason": "智能合约平台 DeFi基础",
-      "status": ""
+      "status": "",
+      "reason": "智能合约平台DeFi基础"
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "SOL",
       "name": "Solana",
       "price": 93.68,
       "quantity": 32.022857,
       "amount": 2999.99,
       "date": "2026-03-18",
-      "reason": "高性能公链 快速低费",
-      "status": ""
+      "status": "",
+      "reason": "高性能公链快速低费"
     },
     {
       "type": "买入",
+      "market": "数字货币",
       "code": "LINK",
       "name": "Chainlink",
       "price": 9.67,
       "quantity": 206.859749,
       "amount": 1999.99,
       "date": "2026-03-18",
-      "reason": "预言机龙头 链上链下桥梁",
-      "status": ""
+      "status": "",
+      "reason": "预言机龙头链上链下桥梁"
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "BTC",
       "name": "比特币",
       "price": 69242.56,
       "quantity": 0.108734,
       "amount": 7533.51,
       "date": "2026-03-26",
-      "reason": "清仓卖出 当前价格69242.56",
-      "status": ""
+      "status": "",
+      "reason": "清仓卖出当前价格69242.56"
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "ETH",
       "name": "以太坊",
       "price": 2065.34,
       "quantity": 2.644461,
       "amount": 5461.54,
       "date": "2026-03-26",
-      "reason": "清仓卖出 当前价格2065.34",
-      "status": ""
+      "status": "",
+      "reason": "清仓卖出当前价格2065.34"
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "SOL",
       "name": "Solana",
       "price": 87.65,
       "quantity": 32.022857,
       "amount": 2806.8,
       "date": "2026-03-26",
-      "reason": "清仓卖出 当前价格87.65",
-      "status": ""
+      "status": "",
+      "reason": "清仓卖出当前价格87.65"
     },
     {
       "type": "卖出",
+      "market": "数字货币",
       "code": "LINK",
       "name": "Chainlink",
       "price": 8.94,
       "quantity": 206.859749,
       "amount": 1849.33,
       "date": "2026-03-26",
-      "reason": "清仓卖出 当前价格8.94",
-      "status": ""
+      "status": "",
+      "reason": "清仓卖出当前价格8.94"
     }
   ]
 }
