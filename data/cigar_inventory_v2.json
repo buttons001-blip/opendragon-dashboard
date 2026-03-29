@@ -77,75 +77,75 @@
   "brandsWithLogos": {
     "Punch": {
       "name": "Punch",
-      "logo": "./logos/Punch.png"
+      "logo": "logos/Punch.png"
     },
     "Romeo y Julieta": {
       "name": "Romeo y Julieta",
-      "logo": "./logos/Romeo_y_Julieta.png"
+      "logo": "logos/Romeo_y_Julieta.png"
     },
     "Cohiba": {
       "name": "Cohiba",
-      "logo": "./logos/Cohiba.png"
+      "logo": "logos/Cohiba.png"
     },
     "Montecristo": {
       "name": "Montecristo",
-      "logo": "./logos/Montecristo.png"
+      "logo": "logos/Montecristo.png"
     },
     "Partagas": {
       "name": "Partagas",
-      "logo": "./logos/Partagas.png"
+      "logo": "logos/Partagas.png"
     },
     "Fonseca": {
       "name": "Fonseca",
-      "logo": "./logos/Fonseca.png"
+      "logo": "logos/Fonseca.png"
     },
     "Hoyo": {
       "name": "Hoyo",
-      "logo": "./logos/Hoyo.png"
+      "logo": "logos/Hoyo.png"
     },
     "H.Upmann": {
       "name": "H.Upmann",
-      "logo": "./logos/H.Upmann.png"
+      "logo": "logos/H.Upmann.png"
     },
     "Juan Lopez": {
       "name": "Juan Lopez",
-      "logo": "./logos/Juan_Lopez.png"
+      "logo": "logos/Juan_Lopez.png"
     },
     "Por Larranaga": {
       "name": "Por Larranaga",
-      "logo": "./logos/Por_Larranaga.png"
+      "logo": "logos/Por_Larranaga.png"
     },
     "Ramon Allones": {
       "name": "Ramon Allones",
-      "logo": "./logos/Ramon_Allones.png"
+      "logo": "logos/Ramon_Allones.png"
     },
     "My Father": {
       "name": "My Father",
-      "logo": "./logos/My_Father.png"
+      "logo": "logos/My_Father.png"
     },
     "Vegueros": {
       "name": "Vegueros",
-      "logo": "./logos/Vegueros.png"
+      "logo": "logos/Vegueros.png"
     },
     "Davidoff": {
       "name": "Davidoff",
-      "logo": "./logos/Davidoff.png"
+      "logo": "logos/Davidoff.png"
     },
     "La Gloria Cubana": {
       "name": "La Gloria Cubana",
-      "logo": "./logos/La_Gloria_Cubana.png"
+      "logo": "logos/La_Gloria_Cubana.png"
     },
     "Jose L. Piedra": {
       "name": "Jose L. Piedra",
-      "logo": "./logos/Jose_L._Piedra.png"
+      "logo": "logos/Jose_L._Piedra.png"
     },
     "Cao": {
       "name": "Cao",
-      "logo": "./logos/Cao.png"
+      "logo": "logos/Cao.png"
     },
     "Bolivar": {
       "name": "Bolivar",
-      "logo": "./logos/Bolivar.png"
+      "logo": "logos/Bolivar.png"
     },
     "VegaFina": {
       "name": "VegaFina",
@@ -153,7 +153,7 @@
     },
     "San Cristobal": {
       "name": "San Cristobal",
-      "logo": "./logos/San_Cristobal.png"
+      "logo": "logos/San_Cristobal.png"
     },
     "Combinaciones": {
       "name": "Combinaciones",
@@ -165,23 +165,23 @@
     },
     "Trinidad": {
       "name": "Trinidad",
-      "logo": "./logos/Trinidad.png"
+      "logo": "logos/Trinidad.png"
     },
     "Cuaba": {
       "name": "Cuaba",
-      "logo": "./logos/Cuaba.png"
+      "logo": "logos/Cuaba.png"
     },
     "Rafael Gonzalez": {
       "name": "Rafael Gonzalez",
-      "logo": "./logos/Rafael_Gonzalez.png"
+      "logo": "logos/Rafael_Gonzalez.png"
     },
     "Diplomaticos": {
       "name": "Diplomaticos",
-      "logo": "./logos/Diplomaticos.png"
+      "logo": "logos/Diplomaticos.png"
     },
     "EI Rey Del Mundo": {
       "name": "EI Rey Del Mundo",
-      "logo": "./logos/EI_Rey_Del_Mundo.png"
+      "logo": "logos/EI_Rey_Del_Mundo.png"
     },
     "Guantanamera": {
       "name": "Guantanamera",
@@ -189,23 +189,23 @@
     },
     "Sancho Panza": {
       "name": "Sancho Panza",
-      "logo": "./logos/Sancho_Panza.png"
+      "logo": "logos/Sancho_Panza.png"
     },
     "Quintero": {
       "name": "Quintero",
-      "logo": "./logos/Quintero.png"
+      "logo": "logos/Quintero.png"
     },
     "Saint Luis Rey": {
       "name": "Saint Luis Rey",
-      "logo": "./logos/Saint_Luis_Rey.png"
+      "logo": "logos/Saint_Luis_Rey.png"
     },
     "Vegas Robaina": {
       "name": "Vegas Robaina",
-      "logo": "./logos/Vegas_Robaina.png"
+      "logo": "logos/Vegas_Robaina.png"
     },
     "Quai d'Orsay": {
       "name": "Quai d'Orsay",
-      "logo": "./logos/Quai_d'Orsay.png"
+      "logo": "logos/Quai_d'Orsay.png"
     },
     "La Flor De Cano": {
       "name": "La Flor De Cano",
@@ -213,7 +213,7 @@
     },
     "Don Pepin": {
       "name": "Don Pepin",
-      "logo": "./logos/Don_Pepin.png"
+      "logo": "logos/Don_Pepin.png"
     },
     "Punch London": {
       "name": "Punch London",
@@ -221,7 +221,7 @@
     },
     "Rocky Patel": {
       "name": "Rocky Patel",
-      "logo": "./logos/Rocky_Patel.png"
+      "logo": "logos/Rocky_Patel.png"
     },
     "Edmundo Dantes": {
       "name": "Edmundo Dantes",
@@ -229,7 +229,7 @@
     },
     "Arturo Fuente": {
       "name": "Arturo Fuente",
-      "logo": "./logos/Arturo_Fuente.png"
+      "logo": "logos/Arturo_Fuente.png"
     },
     "La Escepcion": {
       "name": "La Escepcion",
@@ -237,7 +237,7 @@
     },
     "Padron": {
       "name": "Padron",
-      "logo": "./logos/Padron.png"
+      "logo": "logos/Padron.png"
     },
     "Blend 42": {
       "name": "Blend 42",
@@ -249,7 +249,7 @@
     },
     "Camacho": {
       "name": "Camacho",
-      "logo": "./logos/Camacho.png"
+      "logo": "logos/Camacho.png"
     },
     "Ashton": {
       "name": "Ashton",
@@ -273,7 +273,7 @@
     },
     "Plasencia": {
       "name": "Plasencia",
-      "logo": "./logos/Plasencia.png"
+      "logo": "logos/Plasencia.png"
     },
     "Viaje": {
       "name": "Viaje",
@@ -289,7 +289,7 @@
     },
     "Drew Estate": {
       "name": "Drew Estate",
-      "logo": "./logos/Drew_Estate.png"
+      "logo": "logos/Drew_Estate.png"
     },
     "Gurkha": {
       "name": "Gurkha",
@@ -301,7 +301,7 @@
     },
     "Tatuaje": {
       "name": "Tatuaje",
-      "logo": "./logos/Tatuaje.png"
+      "logo": "logos/Tatuaje.png"
     },
     "Herrera Esteli": {
       "name": "Herrera Esteli",
@@ -337,7 +337,7 @@
     },
     "Oliva": {
       "name": "Oliva",
-      "logo": "./logos/Oliva.png"
+      "logo": "logos/Oliva.png"
     },
     "Joya De Nicaragua": {
       "name": "Joya De Nicaragua",
@@ -357,7 +357,7 @@
     },
     "Warped": {
       "name": "Warped",
-      "logo": "./logos/Warped.png"
+      "logo": "logos/Warped.png"
     },
     "Aganorsa Leaf": {
       "name": "Aganorsa Leaf",
@@ -22181,5 +22181,5 @@
     }
   ],
   "totalRecords": 1454,
-  "lastUpdated": "2026-03-29 07:45:00"
+  "lastUpdated": "2026-03-29 08:25:53"
 }
