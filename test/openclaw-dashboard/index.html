@@ -160,6 +160,11 @@
             background: rgba(255, 82, 82, 0.25);
         }
 
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
         /* Grid */
         .grid {
             display: grid;
@@ -304,6 +309,19 @@
             padding: 14px 16px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agent-item:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .agent-left {
+            display: flex;
+            align-items: center;
             gap: 12px;
         }
 
@@ -332,6 +350,11 @@
             font-size: 12px;
             color: var(--text-secondary);
             margin-top: 2px;
+        }
+
+        .agent-arrow {
+            color: var(--text-secondary);
+            font-size: 18px;
         }
 
         /* Quick Links */
@@ -435,10 +458,16 @@
         }
 
         /* Skills */
+        .skills-container {
+            position: relative;
+        }
+
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
+            max-height: 320px;
+            overflow-y: auto;
         }
 
         .skill-item {
@@ -446,9 +475,13 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 12px;
+        }
+
+        .skill-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 8px;
         }
 
         .skill-info {
@@ -487,6 +520,88 @@
             color: var(--success);
         }
 
+        .skill-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .skills-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* RSS List */
+        .rss-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rss-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rss-info {
+            flex: 1;
+        }
+
+        .rss-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .rss-url {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 300px;
+        }
+
+        .rss-count {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--accent);
+        }
+
         /* Logs */
         .log-container {
             max-height: 200px;
@@ -520,6 +635,98 @@
             margin-top: 16px;
             padding-top: 16px;
             border-top: 1px solid var(--border);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text-primary);
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
         }
 
         /* Toast */
@@ -691,7 +898,7 @@
             <div class="card">
                 <h2>🔗 快捷链接</h2>
                 <div class="quick-links">
-                    <a href="http://opendragon.icu/stock-dashboard/" target="_blank" class="quick-link">
+                    <a href="https://www.opendragon.icu/test/stockmarket/" target="_blank" class="quick-link">
                         <div class="quick-link-icon">📊</div>
                         <div class="quick-link-label">股票看板</div>
                     </a>
@@ -699,7 +906,7 @@
                         <div class="quick-link-icon">🍷</div>
                         <div class="quick-link-label">雪茄页面</div>
                     </a>
-                    <a href="https://github.com/opendragon-ai" target="_blank" class="quick-link">
+                    <a href="https://github.com/buttons001-blip/opendragon-dashboard" target="_blank" class="quick-link">
                         <div class="quick-link-icon">🐙</div>
                         <div class="quick-link-label">GitHub</div>
                     </a>
@@ -726,7 +933,18 @@
         <!-- Skills -->
         <div class="card" style="margin-bottom: 20px;">
             <h2>🛠️ 技能列表</h2>
-            <div class="skills-grid" id="skills">
+            <div class="skills-container">
+                <div class="skills-grid" id="skills">
+                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                </div>
+                <div class="skills-pagination" id="skillsPagination"></div>
+            </div>
+        </div>
+
+        <!-- RSS -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h2>📡 RSS 订阅</h2>
+            <div class="rss-list" id="rssList">
                 <div class="loading"><div class="spinner"></div>加载中...</div>
             </div>
         </div>
@@ -740,22 +958,39 @@
         </div>
     </div>
 
+    <!-- Agent Modal -->
+    <div class="modal-overlay" id="agentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="modalTitle">Agent 配置</span>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <textarea id="agentContent" placeholder="加载中..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="saveAgentConfig()">💾 保存</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div id="toast" class="toast"></div>
 
     <script>
         // ============ 配置 ============
-        // 模拟数据 - 后续对接真实 API
         const MOCK_DATA = {
             skills: [
-                { name: 'rss-monitor', type: '工作', status: 'installed' },
-                { name: 'skill-vetter', type: '安全', status: 'installed' },
-                { name: 'humanizer-zh', type: '工具', status: 'installed' },
-                { name: 'self-improving-agent', type: 'AI', status: 'installed' },
-                { name: 'weather', type: '生活', status: 'installed' },
-                { name: 'pdf', type: '工具', status: 'installed' },
-                { name: 'xlsx', type: '工具', status: 'installed' },
-                { name: 'feishu-doc', type: '集成', status: 'installed' }
+                { name: 'rss-monitor', type: '工作', status: 'installed', desc: '监控 RSS/Atom feeds 和博客更新' },
+                { name: 'skill-vetter', type: '安全', status: 'installed', desc: '安全审查技能，检测权限和可疑模式' },
+                { name: 'humanizer-zh', type: '工具', status: 'installed', desc: '去除文本 AI 痕迹，使其更自然' },
+                { name: 'self-improving-agent', type: 'AI', status: 'installed', desc: '自我进化学习，基于多记忆架构' },
+                { name: 'weather', type: '生活', status: 'installed', desc: '获取天气和天气预报' },
+                { name: 'pdf', type: '工具', status: 'installed', desc: 'PDF 读取、提取、合并等操作' },
+                { name: 'xlsx', type: '工具', status: 'installed', desc: 'Excel 表格读取、编辑、创建' },
+                { name: 'feishu-doc', type: '集成', status: 'installed', desc: '飞书文档读写操作' },
+                { name: 'feishu-wiki', type: '集成', status: 'installed', desc: '飞书知识库导航' },
+                { name: 'feishu-drive', type: '集成', status: 'installed', desc: '飞书云盘文件管理' }
             ],
             tasks: [
                 { name: 'C114 通信网简报', time: '09:00', status: 'active', restDay: null },
@@ -767,8 +1002,8 @@
                 { name: '晚安提醒', time: '22:30', status: 'active', restDay: null }
             ],
             agents: [
-                { name: '亨利大管家', emoji: '👑', meta: 'v1.0 • 精力充沛' },
-                { name: '商业奇才', emoji: '💡', meta: 'v1.0 • 决策分析' }
+                { name: '亨利大管家', emoji: '👑', meta: 'v1.0 • 精力充沛', file: 'SOUL.md' },
+                { name: '商业奇才', emoji: '💡', meta: 'v1.0 • 决策分析', file: 'SOUL.md' }
             ],
             services: [
                 { name: '飞书', latency: 45, online: true },
@@ -776,20 +1011,27 @@
                 { name: 'Cloudflare', latency: 38, online: true },
                 { name: '腾讯财经', latency: 23, online: true }
             ],
+            rss: [
+                { name: 'C114 通信网', url: 'https://www.c114.com.cn/rss', count: 12 },
+                { name: '比特范', url: 'https://www.btcfan.com/feed', count: 8 },
+                { name: '巴比特', url: 'https://www.8btc.com/feed', count: 15 }
+            ],
             logs: [
                 '[08:00] 系统启动完成',
-                '[07:55] 技能加载完成: 8个',
+                '[07:55] 技能加载完成: 10个',
                 '[07:50] 定时任务已注册: 7个',
                 '[07:45] 飞书连接成功',
                 '[07:30] Gateway 启动'
             ]
         };
 
+        const ITEMS_PER_PAGE = 4;
+        let currentPage = 1;
+
         // 判断今天是否为休息日
         function isRestDay() {
             const now = new Date();
             const day = now.getDay();
-            // 0 = 周日, 6 = 周六
             return day === 0 || day === 6;
         }
 
@@ -798,12 +1040,12 @@
             if (!task.restDay) {
                 return task.status === 'active' ? 'active' : 'paused';
             }
-            // 有休息日标记的任务，周六日暂停
             return isRestDay() ? 'paused' : 'active';
         }
 
         let countdown = 30;
         let countdownTimer = null;
+        let currentAgent = null;
 
         // ============ 初始化 ============
         document.addEventListener('DOMContentLoaded', () => {
@@ -817,6 +1059,7 @@
             renderAgents();
             renderTasks();
             renderSkills();
+            renderRSS();
             renderLogs();
             renderStatCards();
             updateConnectionStatus(true);
@@ -826,7 +1069,7 @@
         function renderStatCards() {
             document.getElementById('skillCount').textContent = MOCK_DATA.skills.length;
             document.getElementById('taskCount').textContent = MOCK_DATA.tasks.length;
-            document.getElementById('messageCount').textContent = '1,234'; // 模拟数据
+            document.getElementById('messageCount').textContent = '1,234';
         }
 
         function renderServices() {
@@ -852,14 +1095,17 @@
             const container = document.getElementById('agents');
             let html = '';
             
-            MOCK_DATA.agents.forEach(agent => {
+            MOCK_DATA.agents.forEach((agent, index) => {
                 html += `
-                    <div class="agent-item">
-                        <div class="agent-avatar">${agent.emoji}</div>
-                        <div class="agent-info">
-                            <div class="agent-name">${agent.name}</div>
-                            <div class="agent-meta">${agent.meta}</div>
+                    <div class="agent-item" onclick="openAgentModal(${index})">
+                        <div class="agent-left">
+                            <div class="agent-avatar">${agent.emoji}</div>
+                            <div class="agent-info">
+                                <div class="agent-name">${agent.name}</div>
+                                <div class="agent-meta">${agent.meta}</div>
+                            </div>
                         </div>
+                        <div class="agent-arrow">→</div>
                     </div>
                 `;
             });
@@ -894,19 +1140,59 @@
 
         function renderSkills() {
             const container = document.getElementById('skills');
-            let html = '';
+            const pagination = document.getElementById('skillsPagination');
             
-            MOCK_DATA.skills.slice(0, 8).forEach(skill => {
+            const totalPages = Math.ceil(MOCK_DATA.skills.length / ITEMS_PER_PAGE);
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageSkills = MOCK_DATA.skills.slice(start, end);
+            
+            let html = '';
+            pageSkills.forEach(skill => {
                 html += `
                     <div class="skill-item">
-                        <div class="skill-info">
-                            <div class="skill-icon">⚡</div>
-                            <div>
-                                <div class="skill-name">${skill.name}</div>
-                                <div class="skill-type">${skill.type}</div>
+                        <div class="skill-header">
+                            <div class="skill-info">
+                                <div class="skill-icon">⚡</div>
+                                <div>
+                                    <div class="skill-name">${skill.name}</div>
+                                    <div class="skill-type">${skill.type}</div>
+                                </div>
                             </div>
+                            <span class="skill-status">已安装</span>
                         </div>
-                        <span class="skill-status">已安装</span>
+                        <div class="skill-desc">${skill.desc}</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // 渲染分页
+            let pageHtml = '';
+            for (let i = 1; i <= totalPages; i++) {
+                pageHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            pagination.innerHTML = pageHtml;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderSkills();
+        }
+
+        function renderRSS() {
+            const container = document.getElementById('rssList');
+            let html = '';
+            
+            MOCK_DATA.rss.forEach(rss => {
+                html += `
+                    <div class="rss-item">
+                        <div class="rss-info">
+                            <div class="rss-name">${rss.name}</div>
+                            <div class="rss-url">${rss.url}</div>
+                        </div>
+                        <div class="rss-count">${rss.count} 条更新</div>
                     </div>
                 `;
             });
@@ -934,6 +1220,29 @@
                 status.textContent = '离线';
                 status.classList.add('offline');
             }
+        }
+
+        // ============ Agent Modal ============
+        function openAgentModal(index) {
+            currentAgent = MOCK_DATA.agents[index];
+            document.getElementById('modalTitle').textContent = `${currentAgent.name} - 配置文件`;
+            
+            // 模拟加载文件内容
+            const mockContent = `# ${currentAgent.name}\n\n这是 ${currentAgent.name} 的专属配置文件。\n\n## 核心配置\n- 版本: v1.0\n- 风格: ${currentAgent.meta}\n\n## 说明\n点击保存按钮模拟保存配置（实际需要后端 API 支持）`;
+            
+            document.getElementById('agentContent').value = mockContent;
+            document.getElementById('agentModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('agentModal').classList.remove('show');
+            currentAgent = null;
+        }
+
+        function saveAgentConfig() {
+            // 模拟保存
+            showToast(`${currentAgent.name} 配置已保存`, 'success');
+            closeModal();
         }
 
         // ============ 自动刷新 ============
