@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Logo 测试</title>
+</head>
+<body>
+    <h1>Logo 直接加载测试</h1>
+    <div id="result"></div>
+    <script>
+        fetch('/data/cigar_inventory_v2.json?t=' + Date.now())
+            .then(r => r.json())
+            .then(data => {
+                const logo = data.brandsWithLogos['Punch']?.logo;
+                const div = document.getElementById('result');
+                if (logo && logo.length > 100) {
+                    div.innerHTML = '<p style="color:green">✅ Logo 加载成功！长度：' + logo.length + '</p><img src="' + logo + '" style="max-width:200px">';
+                } else {
+                    div.innerHTML = '<p style="color:red">❌ Logo 加载失败！长度：' + (logo?.length || 0) + '</p><p>' + (logo?.substring(0,100) || '无') + '</p>';
+                }
+            })
+            .catch(e => {
+                document.getElementById('result').innerHTML = '<p style="color:red">❌ 请求失败：' + e + '</p>';
+            });
+    </script>
+</body>
+</html>

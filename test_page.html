@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>雪茄品吸记录 V2 - OpenDragon</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 15px;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            background: #252542;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .nav-tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .nav-tab:not(.active) {
+            color: #888;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 15px;
+            min-height: 500px;
+        }
+        
+        /* Left Panel - Selection */
+        .left-panel {
+            flex: 0 0 320px;
+            background: #252542;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #3a3a5c;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 15px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Form Input */
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #3a3a5c;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-input::placeholder {
+            color: #666;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #3a3a5c;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-input::placeholder {
+            color: #666;
+        }
+        
+        /* Brand Logo Display */
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #1a1a2e;
+            border-radius: 10px;
+            min-height: 80px;
+        }
+        
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #fff;
+            padding: 5px;
+        }
+        
+        .brand-logo-placeholder {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background: #3a3a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .brand-info {
+            flex: 1;
+        }
+        
+        .brand-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .brand-count {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #3a3a5c;
+            color: #eee;
+        }
+        
+        .btn-secondary:hover {
+            background: #4a4a6c;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Right Panel - Tasting Form */
+        .right-panel {
+            flex: 1;
+            background: #252542;
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        
+        .tasting-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tasting-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .tasting-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Selected Cigar Info */
+        .selected-cigar-info {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #3a3a5c;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #888;
+            font-size: 13px;
+        }
+        
+        .info-value {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        /* Tasting Experience Section */
+        .tasting-experience-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* Existing Experience Display */
+        .existing-experience {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #11998e;
+        }
+        
+        .experience-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #11998e;
+        }
+        
+        .experience-content {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        .no-experience {
+            color: #666;
+            font-style: italic;
+            font-size: 13px;
+        }
+        
+        /* Tasting Input */
+        .tasting-input-section {
+            margin-bottom: 20px;
+        }
+        
+        .tasting-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #3a3a5c;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 14px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+        
+        .tasting-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .tasting-textarea::placeholder {
+            color: #666;
+        }
+        
+        /* Photo Upload */
+        .photo-section {
+            margin-bottom: 20px;
+        }
+        
+        .photo-upload {
+            border: 2px dashed #3a3a5c;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .photo-upload:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .photo-upload.has-photo {
+            border-style: solid;
+            border-color: #667eea;
+            padding: 15px;
+        }
+        
+        .photo-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+        }
+        
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .upload-text {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        /* Submit Button */
+        .submit-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #3a3a5c;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4);
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Records List */
+        .records-list {
+            background: #252542;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .record-item {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .record-title {
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .record-brand-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            border-radius: 4px;
+            background: #fff;
+            padding: 2px;
+        }
+        
+        .record-date {
+            color: #888;
+            font-size: 13px;
+        }
+        
+        .record-content {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .record-content div {
+            margin-bottom: 5px;
+        }
+        
+        .record-experience {
+            margin-top: 10px;
+            padding: 10px;
+            background: #252542;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .record-photo {
+            margin-top: 10px;
+        }
+        
+        .record-photo img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .record-photo img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Loading & Messages */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .message.success {
+            background: rgba(17, 153, 142, 0.2);
+            border: 1px solid #11998e;
+            color: #38ef7d;
+        }
+        
+        .message.error {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+        
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            text-align: center;
+        }
+        
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-text {
+            font-size: 16px;
+        }
+        
+        /* Stats */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #252542;
+            border-radius: 10px;
+        }
+        
+        .stat-item {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                flex: none;
+                width: 100%;
+            }
+            
+            .container {
+                padding: 5px;
+            }
+            
+            .stats-bar {
+                flex-wrap: wrap;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1>🚬 雪茄品吸记录 V2</h1>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="nav-tabs">
+                <div class="nav-tab" :class="{ active: currentTab === 'select' }" @click="currentTab = 'select'">
+                    选择
+                </div>
+                <div class="nav-tab" :class="{ active: currentTab === 'taste' }" @click="currentTab = 'taste'">
+                    品吸
+                </div>
+                <div class="nav-tab" :class="{ active: currentTab === 'manage' }" @click="currentTab = 'manage'">
+                    记录
+                </div>
+            </div>
+            
+            <!-- Messages -->
+            <div v-if="message" class="message" :class="messageType">
+                {{ message }}
+            </div>
+            
+            <!-- 选择 Tab -->
+            <div v-if="currentTab === 'select'" class="main-content">
+                <!-- Left Panel - Selection -->
+                <div class="left-panel">
+                    <div class="panel-title" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>📋 选择雪茄</span>
+                        <button @click="manualRefresh" :disabled="isLoading" style="background: #667eea; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer;">
+                            {{ isLoading ? '刷新中...' : '🔄' }}
+                        </button>
+                    </div>
+                    
+                    <div v-if="lastUpdated" style="font-size: 11px; color: #888; margin-bottom: 15px; text-align: right;">
+                        数据更新: {{ lastUpdated }}
+                    </div>
+                    
+                    <!-- Selection -->
+                    <div v-if="!selectedSpecificRecord">
+                        <!-- Brand Selection -->
+                        <div class="form-group">
+                            <label class="form-label">品牌 ({{ brands.length }})</label>
+                            
+                            <!-- Brand Logo Display -->
+                            <div v-if="selectedBrand" class="brand-logo-container">
+                                <img v-if="currentBrandLogo" :src="currentBrandLogo" class="brand-logo" @error="handleLogoError">
+                                <div v-else class="brand-logo" style="background: #3a3a5c; display: flex; align-items: center; justify-content: center; color: #888; font-size: 12px;">
+                                    {{ selectedBrand.substring(0, 2) }}
+                                </div>
+                                <div class="brand-info">
+                                    <div class="brand-name">{{ selectedBrand }}</div>
+                                    <div class="brand-count">{{ availableModels.length }} 个型号</div>
+                                </div>
+                            </div>
+                            
+                            <select class="form-select" v-model="selectedBrand" @change="onBrandChange">
+                                <option value="">请选择品牌</option>
+                                <option v-for="brand in brands" :key="brand" :value="brand">
+                                    {{ brand }}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <!-- Model Selection -->
+                        <div class="form-group">
+                            <label class="form-label">型号 ({{ availableModels.length }})</label>
+                            <select class="form-select" v-model="selectedModel" :disabled="!selectedBrand" @change="onModelChange">
+                                <option value="">请选择型号</option>
+                                <option v-for="model in availableModels" :key="model" :value="model">
+                                    {{ model }}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <!-- Records List (当有多条记录时显示) -->
+                        <div v-if="selectedBrand && selectedModel && selectedRecords.length > 0" class="selected-cigar-info" style="margin-top: 20px;">
+                            <div style="font-size: 12px; color: #667eea; margin-bottom: 10px; font-weight: 600;">📋 选择具体记录（共 {{ selectedRecords.length }} 条）</div>
+                            
+                            <div v-for="(record, index) in selectedRecords" :key="record.id" 
+                                 @click="selectedSpecificRecord = record"
+                                 style="background: #1a1a2e; padding: 12px; border-radius: 8px; margin-bottom: 8px; border: 2px solid transparent; cursor: pointer; transition: all 0.3s;"
+                                 :style="{borderColor: selectedSpecificRecord?.id === record.id ? '#667eea' : '#3a3a5c'}">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="color: #fff; font-weight: 500; margin-bottom: 5px;">📍 {{ record.location || '未指定' }}</div>
+                                        <div style="font-size: 12px; color: #888;">
+                                            <span>{{ record.quantity }}支</span>
+                                            <span v-if="record.unitPrice" style="margin-left: 10px;">¥{{ record.unitPrice }}/支</span>
+                                        </div>
+                                    </div>
+                                    <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid #667eea; display: flex; align-items: center; justify-content: center;"
+                                         :style="{background: selectedSpecificRecord?.id === record.id ? '#667eea' : 'transparent'}">
+                                        <div v-if="selectedSpecificRecord?.id === record.id" style="width: 10px; height: 10px; background: white; border-radius: 50%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 无库存提示 -->
+                        <div v-else-if="selectedBrand && selectedModel" class="selected-cigar-info" style="margin-top: 20px;">
+                            <div style="background: rgba(255, 107, 107, 0.1); padding: 20px; border-radius: 10px; text-align: center; border: 2px dashed #ff6b6b;">
+                                <div style="font-size: 40px; margin-bottom: 10px;">⚠️</div>
+                                <div style="color: #ff6b6b; font-weight: 600; margin-bottom: 10px;">暂无库存记录</div>
+                                <div style="font-size: 12px; color: #888; margin-bottom: 15px;">这款雪茄还没有入库哦</div>
+                                <button @click="currentTab = 'manage'; showAddRecordModal = true" style="background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 14px; cursor: pointer;">
+                                    ➕ 立即添加
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="button-group" v-if="selectedSpecificRecord">
+                            <button class="btn btn-secondary" @click="resetSelection">重选</button>
+                            <button class="btn btn-primary" @click="confirmSelection">
+                                ✏️ 确认并开始品吸
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Selected Info (选择具体记录后显示) -->
+                    <div v-else class="selected-cigar-info">
+                        <div style="font-size: 12px; color: #667eea; margin-bottom: 10px; font-weight: 600;">✅ 已选择</div>
+                        
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: center;">
+                            <div style="font-size: 18px; font-weight: bold; color: white; margin-bottom: 5px;">{{ selectedBrand }} {{ selectedModel }}</div>
+                            <div style="font-size: 14px; color: rgba(255,255,255,0.8);">📍 {{ selectedSpecificRecord.location || '未指定' }}</div>
+                        </div>
+                        
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">数量</span>
+                                <span class="info-value">{{ selectedSpecificRecord.quantity }} 支</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">环径</span>
+                                <span class="info-value">{{ selectedSpecificRecord.ringGauge || '-' }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">长度</span>
+                                <span class="info-value">{{ selectedSpecificRecord.length || '-' }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">单价</span>
+                                <span class="info-value">¥{{ selectedSpecificRecord.unitPrice || '-' }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="button-group" style="margin-top: 20px;">
+                            <button class="btn btn-secondary" @click="resetSelection">重选</button>
+                            <button class="btn btn-primary" @click="confirmSelection">
+                                ✏️ 确认并开始品吸
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Panel - Tasting Form -->
+                <div class="right-panel" v-if="showTastingForm">
+                    <div class="tasting-header">
+                        <div class="tasting-title">{{ selectedBrand }} {{ selectedModel }}</div>
+                        <div class="tasting-subtitle">{{ today }}</div>
+                    </div>
+                    
+                    <!-- Cigar Tasting Info from Database -->
+                    <div v-if="selectedCigar?.tastingFeedback || selectedCigar?.strengthLevel || selectedCigar?.mainFlavor" class="tasting-experience-section">
+                        <div class="section-title">
+                            <span class="section-icon">📖</span>
+                            <span>雪茄品吸信息</span>
+                        </div>
+                        <div class="existing-experience">
+                            <div v-if="selectedCigar?.strengthLevel" class="experience-header">
+                                <span>💪</span>
+                                <span>强度等级: {{ selectedCigar.strengthLevel }}</span>
+                            </div>
+                            <div v-if="selectedCigar?.mainFlavor" class="experience-header" style="margin-top: 8px;">
+                                <span>🌿</span>
+                                <span>主要风味: {{ selectedCigar.mainFlavor }}</span>
+                            </div>
+                            <div v-if="selectedCigar?.tastingFeedback" class="experience-content" style="margin-top: 10px;">
+                                <div style="color: #11998e; margin-bottom: 5px;">📝 品吸反馈:</div>
+                                {{ selectedCigar.tastingFeedback }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Environment & Pairing Section -->
+                    <div class="tasting-input-section" style="margin-bottom: 20px;">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #26de81;">🌍</span>
+                            <span>品吸环境</span>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="form-label">场所</label>
+                            <select class="form-select" v-model="environment.venue">
+                                <option value="">请选择场所（可选）</option>
+                                <option value="室内">🏠 室内</option>
+                                <option value="户外无风">☀️ 户外无风</option>
+                                <option value="户外有风">💨 户外有风</option>
+                                <option value="雪茄吧">🍸 雪茄吧</option>
+                                <option value="其他">📍 其他</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div class="form-group">
+                                <label class="form-label">温度</label>
+                                <input type="number" class="form-input" v-model="environment.temperature" placeholder="25">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">单位</label>
+                                <select class="form-select" v-model="environment.temperatureUnit">
+                                    <option value="C">°C 摄氏</option>
+                                    <option value="F">°F 华氏</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">湿度 (%)</label>
+                            <input type="number" class="form-input" v-model="environment.humidity" placeholder="65" min="0" max="100">
+                        </div>
+                    </div>
+                    
+                    <!-- Pairing Section -->
+                    <div class="tasting-input-section" style="margin-bottom: 20px;">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #ffa502;">🍷</span>
+                            <span>佐饮搭配</span>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="form-label">饮品类型</label>
+                            <select class="form-select" v-model="pairing.type">
+                                <option value="">请选择佐饮（可选）</option>
+                                <optgroup label="🥃 酒类">
+                                    <option value="威士忌">威士忌 (Whisky)</option>
+                                    <option value="白兰地">白兰地 (Brandy)</option>
+                                    <option value="朗姆酒">朗姆酒 (Rum)</option>
+                                    <option value="波特酒">波特酒 (Port)</option>
+                                    <option value="红酒">红酒 (Red Wine)</option>
+                                    <option value="白酒">白酒 (White Wine)</option>
+                                    <option value="香槟">香槟 (Champagne)</option>
+                                </optgroup>
+                                <optgroup label="☕ 非酒精">
+                                    <option value="咖啡">咖啡 (Coffee)</option>
+                                    <option value="茶">茶 (Tea)</option>
+                                    <option value="巧克力">巧克力饮品</option>
+                                    <option value="可乐">可乐 (Cola)</option>
+                                    <option value="果汁">果汁 (Juice)</option>
+                                    <option value="纯净水">纯净水 (Water)</option>
+                                </optgroup>
+                                <optgroup label="➖ 其他">
+                                    <option value="无">无</option>
+                                    <option value="其他">其他</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">具体名称</label>
+                            <input type="text" class="form-input" v-model="pairing.name" placeholder="例如：山崎 12 年、意式浓缩...">
+                        </div>
+                    </div>
+                    
+                    <!-- Tasting Experience Input - Three Sections -->
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #ff6b6b;">🔥</span>
+                            <span>前段</span>
+                        </div>
+                        <textarea 
+                            class="tasting-textarea" 
+                            v-model="tastingNotes.front"
+                            placeholder="描述前段口感、香气、燃烧情况..."></textarea>
+                    </div>
+                    
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #feca57; color: #333;">✨</span>
+                            <span>中段</span>
+                        </div>
+                        <textarea 
+                            class="tasting-textarea" 
+                            v-model="tastingNotes.middle"
+                            placeholder="描述中段风味变化、强度..."></textarea>
+                    </div>
+                    
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #48dbfb; color: #333;">🌙</span>
+                            <span>后段</span>
+                        </div>
+                        <textarea 
+                            class="tasting-textarea" 
+                            v-model="tastingNotes.end"
+                            placeholder="描述后段收尾、余韵..."></textarea>
+                    </div>
+                    
+                    <!-- Photo Upload -->
+                    <div class="photo-section">
+                        <div class="section-title">
+                            <span class="section-icon">📷</span>
+                            <span>照片</span>
+                        </div>
+                        <div class="photo-upload" :class="{ 'has-photo': photoData }" @click="triggerFileInput">
+                            <input type="file" ref="fileInput" accept="image/*" style="display: none" @change="handlePhotoUpload">
+                            <div v-if="!photoData">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">点击上传品吸照片</div>
+                            </div>
+                            <img v-else :src="photoData" class="photo-preview">
+                        </div>
+                    </div>
+                    
+                    <!-- Submit -->
+                    <div class="submit-section">
+                        <button class="btn-submit" @click="submitTasting" :disabled="isSubmitting || (!tastingNotes.front.trim() && !tastingNotes.middle.trim() && !tastingNotes.end.trim())">
+                            {{ isSubmitting ? '保存中...' : '保存品吸记录' }}
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Empty State -->
+                <div v-else class="right-panel">
+                    <div class="empty-state">
+                        <div class="empty-icon">🚬</div>
+                        <div class="empty-text">请选择品牌和型号开始品吸</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 品吸 Tab (填写表单 + 历史记录) -->
+            <div v-else-if="currentTab === 'taste'" style="padding: 20px;">
+                <!-- 品吸表单 (选择雪茄后显示) -->
+                <div v-if="showTastingForm && selectedBrand && selectedModel && selectedSpecificRecord" style="max-width: 800px; margin: 0 auto;">
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        <div style="font-size: 18px; font-weight: 600; color: white; margin-bottom: 5px;">{{ selectedBrand }} {{ selectedModel }}</div>
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.9);">📍 {{ selectedSpecificRecord.location || '未指定' }} | {{ today }}</div>
+                    </div>
+                    
+                    <!-- 雪茄信息 -->
+                    <div style="background: #1a1a2e; border-radius: 10px; padding: 15px; margin-bottom: 20px;">
+                        <div style="font-size: 12px; color: #667eea; margin-bottom: 10px; font-weight: 600;">📋 雪茄信息</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">数量</span>
+                                <span class="info-value">{{ selectedSpecificRecord.quantity }} 支</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">环径</span>
+                                <span class="info-value">{{ selectedSpecificRecord.ringGauge || '-' }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">长度</span>
+                                <span class="info-value">{{ selectedSpecificRecord.length || '-' }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">单价</span>
+                                <span class="info-value">¥{{ selectedSpecificRecord.unitPrice || '-' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 品吸环境 -->
+                    <div class="tasting-input-section" style="margin-bottom: 20px;">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #26de81;">🌍</span>
+                            <span>品吸环境</span>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="form-label">场所</label>
+                            <select class="form-select" v-model="environment.venue">
+                                <option value="">请选择场所（可选）</option>
+                                <option value="室内">🏠 室内</option>
+                                <option value="户外无风">☀️ 户外无风</option>
+                                <option value="户外有风">💨 户外有风</option>
+                                <option value="雪茄吧">🍸 雪茄吧</option>
+                                <option value="其他">📍 其他</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div class="form-group">
+                                <label class="form-label">温度</label>
+                                <input type="number" class="form-input" v-model="environment.temperature" placeholder="25">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">单位</label>
+                                <select class="form-select" v-model="environment.temperatureUnit">
+                                    <option value="C">°C 摄氏</option>
+                                    <option value="F">°F 华氏</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">湿度 (%)</label>
+                            <input type="number" class="form-input" v-model="environment.humidity" placeholder="65" min="0" max="100">
+                        </div>
+                    </div>
+                    
+                    <!-- 佐饮搭配 -->
+                    <div class="tasting-input-section" style="margin-bottom: 20px;">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #ffa502;">🍷</span>
+                            <span>佐饮搭配</span>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="form-label">饮品类型</label>
+                            <select class="form-select" v-model="pairing.type">
+                                <option value="">请选择佐饮（可选）</option>
+                                <optgroup label="🥃 酒类">
+                                    <option value="威士忌">威士忌 (Whisky)</option>
+                                    <option value="白兰地">白兰地 (Brandy)</option>
+                                    <option value="朗姆酒">朗姆酒 (Rum)</option>
+                                    <option value="波特酒">波特酒 (Port)</option>
+                                    <option value="红酒">红酒 (Red Wine)</option>
+                                    <option value="白酒">白酒 (White Wine)</option>
+                                    <option value="香槟">香槟 (Champagne)</option>
+                                </optgroup>
+                                <optgroup label="☕ 非酒精">
+                                    <option value="咖啡">咖啡 (Coffee)</option>
+                                    <option value="茶">茶 (Tea)</option>
+                                    <option value="巧克力">巧克力饮品</option>
+                                    <option value="可乐">可乐 (Cola)</option>
+                                    <option value="果汁">果汁 (Juice)</option>
+                                    <option value="纯净水">纯净水 (Water)</option>
+                                </optgroup>
+                                <optgroup label="➖ 其他">
+                                    <option value="无">无</option>
+                                    <option value="其他">其他</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">具体名称</label>
+                            <input type="text" class="form-input" v-model="pairing.name" placeholder="例如：山崎 12 年、意式浓缩...">
+                        </div>
+                    </div>
+                    
+                    <!-- 前段/中段/后段 -->
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #ff6b6b;">🔥</span>
+                            <span>前段</span>
+                        </div>
+                        <textarea class="tasting-textarea" v-model="tastingNotes.front" placeholder="描述前段口感、香气、燃烧情况..."></textarea>
+                    </div>
+                    
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #feca57; color: #333;">✨</span>
+                            <span>中段</span>
+                        </div>
+                        <textarea class="tasting-textarea" v-model="tastingNotes.middle" placeholder="描述中段风味变化、强度..."></textarea>
+                    </div>
+                    
+                    <div class="tasting-input-section">
+                        <div class="section-title">
+                            <span class="section-icon" style="background: #48dbfb; color: #333;">🌙</span>
+                            <span>后段</span>
+                        </div>
+                        <textarea class="tasting-textarea" v-model="tastingNotes.end" placeholder="描述后段收尾、余韵..."></textarea>
+                    </div>
+                    
+                    <!-- 照片上传 -->
+                    <div class="photo-section">
+                        <div class="section-title">
+                            <span class="section-icon">📷</span>
+                            <span>照片</span>
+                        </div>
+                        <div class="photo-upload" :class="{ 'has-photo': photoData }" @click="triggerFileInput">
+                            <input type="file" ref="fileInput" accept="image/*" style="display: none" @change="handlePhotoUpload">
+                            <div v-if="!photoData">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">点击上传品吸照片</div>
+                            </div>
+                            <img v-else :src="photoData" class="photo-preview">
+                        </div>
+                    </div>
+                    
+                    <!-- 提交 -->
+                    <div class="submit-section">
+                        <button class="btn-submit" @click="submitTasting" :disabled="isSubmitting || (!tastingNotes.front.trim() && !tastingNotes.middle.trim() && !tastingNotes.end.trim())">
+                            {{ isSubmitting ? '保存中...' : '保存品吸记录' }}
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 历史记录 -->
+                <div v-if="!showTastingForm || (!selectedBrand && !selectedModel)" style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #3a3a5c;">
+                    <div style="font-size: 18px; font-weight: 600; color: #667eea; margin-bottom: 20px;">📝 品吸历史记录</div>
+                    
+                    <div v-if="tastingRecords.length === 0" class="empty-state" style="min-height: 200px;">
+                        <div class="empty-icon">📝</div>
+                        <div class="empty-text">暂无品吸记录</div>
+                    </div>
+                    
+                    <div v-else>
+                        <div v-for="record in tastingRecords" :key="record.id" class="record-item" style="margin-bottom: 15px;">
+                            <div class="record-header">
+                                <span class="record-title">
+                                    <img v-if="record.brandLogo" :src="record.brandLogo" class="record-brand-logo" @error="$event.target.style.display='none'">
+                                    {{ record.brand }} {{ record.model }}
+                                </span>
+                                <span class="record-date">{{ record.date }}</span>
+                            </div>
+                            <div v-if="record.experience" class="record-experience">
+                                {{ record.experience }}
+                            </div>
+                            <div v-if="record.photo" class="record-photo">
+                                <img :src="record.photo" @click="viewPhoto(record.photo)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 记录 Tab (库存管理) -->
+            <div v-else-if="currentTab === 'manage'" style="padding: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #667eea; padding-bottom: 10px;">
+                    <div style="font-size: 18px; font-weight: 600; color: #667eea;">📦 库存管理</div>
+                    <button class="btn btn-primary" @click="showAddRecordModal = true" style="padding: 8px 16px; font-size: 14px;">
+                        ➕ 新增记录
+                    </button>
+                </div>
+                
+                <!-- 搜索框 -->
+                <div style="margin-bottom: 20px;">
+                    <input type="text" v-model="searchQuery" placeholder="🔍 搜索品牌或型号..." 
+                           style="width: 100%; padding: 12px 15px; border: 2px solid #3a3a5c; border-radius: 10px; background: #1a1a2e; color: #eee; font-size: 15px;">
+                </div>
+                
+                <!-- 库存列表 -->
+                <div v-if="filteredInventory.length === 0" class="empty-state" style="min-height: 300px;">
+                    <div class="empty-icon">📦</div>
+                    <div class="empty-text">暂无库存记录</div>
+                </div>
+                
+                <div v-else>
+                    <div v-for="(group, brand) in groupedInventory" :key="brand" style="margin-bottom: 25px;">
+                        <div style="font-size: 18px; font-weight: bold; color: #667eea; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #3a3a5c;">
+                            {{ brand }}
+                        </div>
+                        
+                        <div v-for="(models, model) in group" :key="model" style="margin-bottom: 15px;">
+                            <div style="font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 8px; padding: 8px; background: #252542; border-radius: 8px;">
+                                {{ model }} 
+                                <span style="color: #888; font-weight: normal; margin-left: 10px;">
+                                    (总库存：{{ calculateTotal(models) }}支)
+                                </span>
+                            </div>
+                            
+                            <div v-for="record in models" :key="record.id" style="background: #1a1a2e; padding: 12px; border-radius: 8px; margin-bottom: 8px; margin-left: 15px; border-left: 3px solid #667eea;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div>
+                                        <span style="color: #fff; font-weight: 500;">{{ record.quantity }}支</span>
+                                        <span style="color: #888; margin-left: 10px;">| {{ record.location || '未指定' }}</span>
+                                    </div>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button @click="editRecord(record)" style="background: #667eea; color: white; border: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; cursor: pointer;">✏️</button>
+                                        <button @click="deleteRecord(record)" style="background: #ff6b6b; color: white; border: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; cursor: pointer;">🗑️</button>
+                                    </div>
+                                </div>
+                                <div style="font-size: 12px; color: #888;">
+                                    <span v-if="record.unitPrice">单价：¥{{ record.unitPrice }}</span>
+                                    <span v-if="record.unitPrice && record.totalPrice"> | </span>
+                                    <span v-if="record.totalPrice">总价：¥{{ record.totalPrice }}</span>
+                                    <span v-if="record.notes" style="margin-left: 10px;">📝 {{ record.notes }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新增/编辑记录弹窗 -->
+            <div v-if="showAddRecordModal || editingRecord" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000;" @click.self="closeModal">
+                <div style="background: #252542; border-radius: 15px; padding: 30px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto;">
+                    <div style="font-size: 20px; font-weight: bold; color: #fff; margin-bottom: 20px;">
+                        {{ editingRecord ? '✏️ 编辑记录' : '➕ 新增记录' }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">品牌</label>
+                        <div style="display: flex; gap: 8px;">
+                            <select class="form-select" v-model="recordForm.brand" @change="recordForm.model = ''" style="flex: 1;">
+                                <option value="">选择已有品牌</option>
+                                <option v-for="brand in brands" :key="brand" :value="brand">{{ brand }}</option>
+                            </select>
+                            <input type="text" class="form-input" v-model="recordForm.brand" placeholder="或输入新品牌" style="flex: 1;" :disabled="!!editingRecord">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">型号</label>
+                        <div style="display: flex; gap: 8px;">
+                            <select class="form-select" v-model="recordForm.model" style="flex: 1;">
+                                <option value="">选择已有型号</option>
+                                <option v-for="model in getModelsByBrand(recordForm.brand)" :key="model" :value="model">{{ model }}</option>
+                            </select>
+                            <input type="text" class="form-input" v-model="recordForm.model" placeholder="或输入新型号" style="flex: 1;">
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="form-group">
+                            <label class="form-label">数量</label>
+                            <input type="number" class="form-input" v-model.number="recordForm.quantity" placeholder="10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">存放地点</label>
+                            <div style="display: flex; gap: 8px;">
+                                <select class="form-select" v-model="recordForm.location" style="flex: 1;">
+                                    <option value="">选择已有地点</option>
+                                    <option v-for="loc in uniqueLocations" :key="loc" :value="loc">{{ loc }}</option>
+                                </select>
+                                <input type="text" class="form-input" v-model="recordForm.location" placeholder="或输入新地点" style="flex: 1;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                            <label class="form-label">单价 (¥)</label>
+                            <input type="number" class="form-input" v-model.number="recordForm.unitPrice" placeholder="3000" @input="autoCalculateTotal">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">总价 (¥) <span style="color: #888; font-size: 12px;">(自动计算)</span></label>
+                            <input type="number" class="form-input" :value="recordForm.quantity * recordForm.unitPrice" disabled style="background: #252542; color: #888;">
+                        </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="form-group">
+                            <label class="form-label">环径</label>
+                            <input type="number" class="form-input" v-model.number="recordForm.ringGauge" placeholder="52">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">长度 (mm)</label>
+                            <input type="number" class="form-input" v-model.number="recordForm.cigarLength" placeholder="119">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">品牌 Logo</label>
+                        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+                            <img v-if="recordForm.brandLogo" :src="recordForm.brandLogo" style="width: 60px; height: 60px; object-fit: contain; background: #fff; border-radius: 8px; padding: 5px;">
+                            <div v-else style="width: 60px; height: 60px; background: #3a3a5c; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 12px;">
+                                无 Logo
+                            </div>
+                        </div>
+                        <div class="photo-upload" @click.stop="triggerLogoUpload" style="padding: 10px; text-align: center; border: 2px dashed #3a3a5c; border-radius: 8px; cursor: pointer;">
+                            <input type="file" ref="logoFileInput" accept="image/*" style="display: none;" @change="handleLogoUpload">
+                            <div style="font-size: 12px; color: #888;">📷 上传 Logo 图片</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">备注</label>
+                        <textarea class="tasting-textarea" v-model="recordForm.notes" placeholder="备注信息..." style="min-height: 80px;"></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button @click="closeModal" class="btn btn-secondary" style="flex: 1;">取消</button>
+                        <button @click="saveRecord" class="btn btn-primary" style="flex: 1;">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    currentTab: 'select',
+                    
+                    // Inventory Data
+                    inventoryData: [],
+                    brands: [],
+                    brandsWithLogos: {},
+                    lastUpdated: '',
+                    
+                    // Selection
+                    selectedBrand: '',
+                    selectedModel: '',
+                    selectedSpecificRecord: null,  // 用户选择的具体记录
+                    showTastingForm: false,
+                    
+                    // Inventory Management
+                    searchQuery: '',
+                    showAddRecordModal: false,
+                    editingRecord: null,
+                    recordForm: {
+                        id: '',
+                        brand: '',
+                        model: '',
+                        quantity: 0,
+                        location: '',
+                        unitPrice: 0,
+                        totalPrice: 0,
+                        ringGauge: 0,
+                        cigarLength: 0,
+                        brandLogo: '',
+                        notes: '',
+                        deleted: false,
+
+                    
+                    // Tasting Notes (前段/中段/后段)
+                    tastingNotes: {
+                        front: '',
+                        middle: '',
+                        end: ''
+                    },
+                    // 新增：环境和佐饮数据
+                    environment: {
+                        venue: '',
+                        temperature: '',
+                        temperatureUnit: 'C',
+                        humidity: ''
+                    },
+                    pairing: {
+                        type: '',
+                        name: ''
+                    },
+                    photoData: null,
+                    
+                    // Records
+                    tastingRecords: [],
+                    
+                    // UI State
+                    isLoading: false,
+                    isSubmitting: false,
+                    message: '',
+                    messageType: '',
+                    logoErrorBrands: new Set()
+                };
+            },
+            
+            computed: {
+                today() {
+                    const now = new Date();
+                    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                },
+                
+                // 选择 Tab: 可用型号列表
+                availableModels() {
+                    if (!this.selectedBrand) return [];
+                    const models = this.inventoryData
+                        .filter(item => item.brand === this.selectedBrand && !item.deleted)
+                        .map(item => item.model)
+                        .filter((v, i, a) => a.indexOf(v) === i);
+                    return models.sort();
+                },
+                
+                // 选择 Tab: 当前选择的所有记录（同一型号可能有多个存放地点）
+                selectedRecords() {
+                    if (!this.selectedBrand || !this.selectedModel) return [];
+                    return this.inventoryData.filter(
+                        item => item.brand === this.selectedBrand && 
+                               item.model === this.selectedModel && 
+                               !item.deleted
+                    );
+                },
+                
+                // 选择 Tab: 总库存数量
+                totalQuantity() {
+                    return this.selectedRecords.reduce((sum, record) => sum + (parseInt(record.quantity) || 0), 0);
+                },
+                
+                // 选择 Tab: 第一条记录（用于显示环径、长度等）
+                firstRecord() {
+                    return this.selectedRecords[0] || null;
+                },
+                
+                // 选择 Tab: 存放明细（按地点分组）
+                locationDetails() {
+                    const details = {};
+                    this.selectedRecords.forEach(record => {
+                        const loc = record.location || '未指定';
+                        if (!details[loc]) {
+                            details[loc] = { location: loc, quantity: 0, unitPrice: record.unitPrice, totalPrice: record.totalPrice };
+                        }
+                        details[loc].quantity += (parseInt(record.quantity) || 0);
+                    });
+                    return Object.values(details);
+                },
+                
+                // 管理 Tab: 筛选后的库存
+                filteredInventory() {
+                    if (!this.searchQuery) {
+                        return this.inventoryData.filter(item => !item.deleted);
+                    }
+                    const query = this.searchQuery.toLowerCase();
+                    return this.inventoryData.filter(item => 
+                        !item.deleted &&
+                        (item.brand.toLowerCase().includes(query) || 
+                         item.model.toLowerCase().includes(query))
+                    );
+                },
+                
+                // 管理 Tab: 不重复的地点列表
+                uniqueLocations() {
+                    const locations = this.inventoryData
+                        .filter(item => !item.deleted && item.location)
+                        .map(item => item.location)
+                        .filter((v, i, a) => a.indexOf(v) === i);
+                    return locations.sort();
+                },
+                
+                // 管理 Tab: 按品牌和型号分组
+
+                groupedInventory() {
+                    const grouped = {};
+                    this.filteredInventory.forEach(item => {
+                        if (!grouped[item.brand]) grouped[item.brand] = {};
+                        if (!grouped[item.brand][item.model]) grouped[item.brand][item.model] = [];
+                        grouped[item.brand][item.model].push(item);
+                    });
+                    return grouped;
+                },
+                
+                currentBrandLogo() {
+                    if (!this.selectedBrand || this.logoErrorBrands.has(this.selectedBrand)) return '';
+                    return this.brandsWithLogos[this.selectedBrand]?.logo || '';
+                },
+                
+                uniqueBrandsTasted() {
+                    const brands = this.tastingRecords.map(r => r.brand);
+                    return [...new Set(brands)];
+                },
+                
+                thisMonthRecords() {
+                    const now = new Date();
+                    const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+                    return this.tastingRecords.filter(r => r.date.startsWith(thisMonth)).length;
+                }
+            },
+            
+                'recordForm.model'(newModel) {
+                    if (this.recordForm.brand && newModel) {
+                        this.autoFillSpecs(this.recordForm.brand, newModel);
+                    }
+                }
+            },
+            
+            mounted() {
+                this.loadInventoryData();
+                this.loadTastingRecords();
+            },
+            
+            methods: {
+                // Load data from JSON file
+                // 带重试机制的数据加载函数
+                async fetchWithRetry(url, maxRetries = 3) {
+                    for (let i = 0; i < maxRetries; i++) {
+                        try {
+                            const response = await fetch(url + '?v=' + Date.now());
+                            if (response.ok) {
+                                return await response.json();
+                            }
+                        } catch (error) {
+                            console.log(`Load attempt ${i + 1} failed:`, error);
+                            if (i === maxRetries - 1) throw error;
+                            // 等待后重试（指数退避）
+                            await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+                        }
+                    }
+                },
+                
+                async loadInventoryData() {
+                    this.isLoading = true;
+                    try {
+                        // 使用 Cloudflare CDN 加速数据加载
+                        const CLOUDFLARE_DATA_URL = 'https://61d52154.cigar-data.pages.dev/cigar_inventory_v2.json';
+                        
+                        // 显示加载状态
+                        console.log('Loading data from Cloudflare CDN...');
+                        
+                        // 使用重试机制加载
+                        const data = await this.fetchWithRetry(CLOUDFLARE_DATA_URL);
+                        
+                        if (data) {
+                            this.inventoryData = data.inventory || [];
+                            this.brands = data.brands || [];
+                            this.brandsWithLogos = data.brandsWithLogos || {};
+                            this.lastUpdated = data.lastUpdated;
+                            console.log(`✅ Loaded ${this.inventoryData.length} records from Cloudflare`);
+                            console.log(`✅ Brands: ${this.brands.length}`);
+                            console.log(`✅ Logos: ${Object.keys(this.brandsWithLogos).length}`);
+                            
+                            // 验证数据完整性
+                            if (this.brands.length > 0 && Object.keys(this.brandsWithLogos).length > 0) {
+                                console.log('✅ Data validation passed');
+                            } else {
+                                console.warn('⚠️ Data validation warning: missing brands or logos');
+                            }
+                        }
+                    } catch (error) {
+                        console.error('❌ Failed to load data from Cloudflare:', error);
+                        console.log('⚠️ Cloudflare load failed, trying to load from local storage...');
+                        
+                        // 尝试从 localStorage 加载
+                        const localData = localStorage.getItem('cigarInventoryData');
+                        if (localData) {
+                            const data = JSON.parse(localData);
+                            this.inventoryData = data.inventory || [];
+                            this.brands = data.brands || [];
+                            this.brandsWithLogos = data.brandsWithLogos || {};
+                            this.lastUpdated = data.lastUpdated;
+                            console.log(`✅ Loaded from local storage: ${this.inventoryData.length} records`);
+                        } else {
+                            console.error('❌ No local data available');
+                            this.showMessage('数据加载失败，请检查网络连接', 'error');
+                        }
+                    }
+                    this.isLoading = false;
+                },
+                
+                // Manual refresh
+                async manualRefresh() {
+                    this.isLoading = true;
+                    await this.loadInventoryData();
+                    this.isLoading = false;
+                    this.showMessage('数据已刷新', 'success');
+                },
+                
+                // Load tasting records from localStorage
+                loadTastingRecords() {
+                    const records = localStorage.getItem('cigarTastingRecordsV2');
+                    if (records) {
+                        this.tastingRecords = JSON.parse(records);
+                    }
+                },
+                
+                // Selection handlers
+                onBrandChange() {
+                    this.selectedModel = '';
+                    this.selectedSpecificRecord = null;
+                    this.showTastingForm = false;
+                    this.tastingNotes = { front: '', middle: '', end: '' };
+                    this.photoData = null;
+                },
+                
+                onModelChange() {
+                    // 选择型号后不自动跳转，显示记录列表让用户选择
+                    this.selectedSpecificRecord = null;
+                    this.showTastingForm = false;
+                    this.tastingNotes = { front: '', middle: '', end: '' };
+                    this.photoData = null;
+                },
+                
+                resetSelection() {
+                    this.selectedBrand = '';
+                    this.selectedModel = '';
+                    this.selectedSpecificRecord = null;
+                    this.showTastingForm = false;
+                    this.tastingNotes = { front: '', middle: '', end: '' };
+                    this.environment = { venue: '', temperature: '', temperatureUnit: 'C', humidity: '' };
+                    this.pairing = { type: '', name: '' };
+                    this.photoData = null;
+                },
+                
+                confirmSelection() {
+                    if (this.selectedBrand && this.selectedModel && this.selectedSpecificRecord) {
+                        // 跳转到品吸 Tab 并显示表单
+                        this.currentTab = 'taste';
+                        this.showTastingForm = true;
+                    }
+                },
+                
+                handleLogoError(event) {
+                    if (this.selectedBrand) {
+                        this.logoErrorBrands.add(this.selectedBrand);
+                    }
+                },
+                
+                // Photo upload
+                triggerFileInput() {
+                    this.$refs.fileInput.click();
+                },
+                
+                handlePhotoUpload(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    
+                    if (file.size > 5 * 1024 * 1024) {
+                        this.showMessage('图片大小不能超过5MB', 'error');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.photoData = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                },
+                
+                // Submit tasting
+                async submitTasting() {
+                    if (!this.tastingExperience.trim()) {
+                        this.showMessage('请填写品吸体验', 'error');
+                        return;
+                    }
+                    
+                    this.isSubmitting = true;
+                    
+                    try {
+                        // 组合品吸记录
+                        const experienceParts = [];
+                        if (this.tastingNotes.front.trim()) experienceParts.push(`【前段】${this.tastingNotes.front}`);
+                        if (this.tastingNotes.middle.trim()) experienceParts.push(`【中段】${this.tastingNotes.middle}`);
+                        if (this.tastingNotes.end.trim()) experienceParts.push(`【后段】${this.tastingNotes.end}`);
+                        
+                        const record = {
+                            id: Date.now().toString(),
+                            date: this.today,
+                            brand: this.selectedBrand,
+                            model: this.selectedModel,
+                            experience: experienceParts.join('\n\n'),
+                            tastingNotes: { ...this.tastingNotes },
+                            // 新增：环境和佐饮数据
+                            environment: { ...this.environment },
+                            pairing: { ...this.pairing },
+                            photo: this.photoData,
+                            brandLogo: this.currentBrandLogo,
+                            createdAt: new Date().toISOString()
+                        };
+                        
+                        // Save to local storage
+                        this.tastingRecords.unshift(record);
+                        localStorage.setItem('cigarTastingRecordsV2', JSON.stringify(this.tastingRecords));
+                        
+                        this.showMessage('品吸记录已保存！', 'success');
+                        this.resetSelection();
+                        // 切换到品吸 Tab 查看历史记录
+                        this.currentTab = 'taste';
+                        
+                    } catch (error) {
+                        console.error('Failed to save:', error);
+                        this.showMessage('保存失败，请重试', 'error');
+                    } finally {
+                        this.isSubmitting = false;
+                    }
+                },
+                
+                // View photo
+                viewPhoto(photoUrl) {
+                    window.open(photoUrl, '_blank');
+                },
+                
+                // Message helper
+                showMessage(text, type) {
+                    this.message = text;
+                    this.messageType = type;
+                    setTimeout(() => {
+                        this.message = '';
+                    }, 3000);
+                },
+                
+                // 自动填充环径和长度
+                autoFillSpecs(brand, model) {
+                    const cacheKey = `${brand}|${model}`;
+                    if (this.cigarSpecsCache[cacheKey]) {
+                        this.recordForm.ringGauge = this.cigarSpecsCache[cacheKey].ringGauge;
+                        this.recordForm.cigarLength = this.cigarSpecsCache[cacheKey].cigarLength;
+                        console.log(`✅ Auto-filled specs for ${brand} ${model}`);
+                    } else {
+                        // 从现有记录中查找
+                        const existing = this.inventoryData.find(
+                            item => item.brand === brand && item.model === model && item.ringGauge && item.length
+                        );
+                        if (existing) {
+                            this.recordForm.ringGauge = parseFloat(existing.ringGauge) || 0;
+                            this.recordForm.cigarLength = parseFloat(existing.length) || 0;
+                            // 缓存起来
+                            this.cigarSpecsCache[cacheKey] = {
+                                ringGauge: this.recordForm.ringGauge,
+                                cigarLength: this.recordForm.cigarLength
+                            };
+                            console.log(`✅ Cached specs for ${brand} ${model}`);
+                        } else {
+                            console.log(`⚠️ No specs found for ${brand} ${model}`);
+                        }
+                    }
+                },
+                
+                // 自动计算总价
+
+                autoCalculateTotal() {
+                    this.recordForm.totalPrice = this.recordForm.quantity * this.recordForm.unitPrice;
+                },
+                
+                // ============= 库存管理方法 =============
+
+                
+                // 获取某品牌的所有型号
+                getModelsByBrand(brand) {
+                    if (!brand) return [];
+                    const models = this.inventoryData
+                        .filter(item => item.brand === brand && !item.deleted)
+                        .map(item => item.model)
+                        .filter((v, i, a) => a.indexOf(v) === i);
+                    return models.sort();
+                },
+                
+                // 计算总数
+                calculateTotal(records) {
+                    return records.reduce((sum, r) => sum + (parseInt(r.quantity) || 0), 0);
+                },
+                
+                // 编辑记录
+                editRecord(record) {
+                    this.editingRecord = record;
+                    this.recordForm = {
+                        id: record.id,
+                        brand: record.brand,
+                        model: record.model,
+                        quantity: parseInt(record.quantity) || 0,
+                        location: record.location || '',
+                        unitPrice: parseFloat(record.unitPrice) || 0,
+                        totalPrice: parseFloat(record.totalPrice) || 0,
+                        notes: record.notes || '',
+                        deleted: record.deleted || false
+                    };
+                },
+                
+                // 删除记录（软删除）
+                deleteRecord(record) {
+                    if (!confirm(`确定要删除这条记录吗？\n\n${record.brand} ${record.model} - ${record.quantity}支 @ ${record.location || '未指定'}`)) {
+                        return;
+                    }
+                    
+                    // 软删除：标记为 deleted
+                    record.deleted = true;
+                    
+                    // 保存到本地 JSON（实际应该同步到飞书）
+                    this.saveInventoryToLocal();
+                    
+                    this.showMessage('记录已删除', 'success');
+                },
+                
+                // 保存记录（新增或更新）
+                saveRecord() {
+                    // 验证必填字段
+                    if (!this.recordForm.brand || !this.recordForm.model) {
+                        this.showMessage('请选择品牌和型号', 'error');
+                        return;
+                    }
+                    
+                    if (this.editingRecord) {
+                        // 更新现有记录
+                        this.editingRecord.quantity = this.recordForm.quantity;
+                        this.editingRecord.location = this.recordForm.location;
+                        this.editingRecord.unitPrice = this.recordForm.unitPrice;
+                        this.editingRecord.totalPrice = this.recordForm.totalPrice;
+                        this.editingRecord.notes = this.recordForm.notes;
+                        
+                        this.showMessage('记录已更新', 'success');
+                    } else {
+                        // 新增记录
+                        const newRecord = {
+                            id: 'rec_' + Date.now(),
+                            brand: this.recordForm.brand,
+                            model: this.recordForm.model,
+                            quantity: this.recordForm.quantity,
+                            location: this.recordForm.location,
+                            unitPrice: this.recordForm.unitPrice,
+                            totalPrice: this.recordForm.totalPrice,
+                            notes: this.recordForm.notes,
+                            deleted: false,
+                            createdAt: new Date().toISOString()
+                        };
+                        
+                        this.inventoryData.push(newRecord);
+                        // 缓存环径和长度
+                        const cacheKey = `${this.recordForm.brand}|${this.recordForm.model}`;
+                        if (this.recordForm.ringGauge && this.recordForm.cigarLength) {
+                            this.cigarSpecsCache[cacheKey] = {
+                                ringGauge: this.recordForm.ringGauge,
+                                cigarLength: this.recordForm.cigarLength
+                            };
+                            console.log(`✅ Saved specs to cache: ${cacheKey}`);
+                        }
+                        
+                        this.showMessage('记录已添加', 'success');
+                    }
+                    
+                    // 保存到本地
+                    this.saveInventoryToLocal();
+                    this.closeModal();
+                },
+                
+                // 关闭弹窗
+                closeModal() {
+                    this.showAddRecordModal = false;
+                    this.editingRecord = null;
+                    this.recordForm = {
+                        id: '',
+                        brand: '',
+                        model: '',
+                        quantity: 0,
+                        location: '',
+                        unitPrice: 0,
+                        totalPrice: 0,
+                        notes: '',
+                        deleted: false,
+                    };
+                },
+                
+                // 保存到本地 JSON
+                saveInventoryToLocal() {
+                    try {
+                        // 这里应该同步到飞书，目前先保存本地
+                        const data = {
+                            inventory: this.inventoryData,
+                            brands: this.brands,
+                            brandsWithLogos: this.brandsWithLogos,
+                            lastUpdated: new Date().toISOString()
+                        };
+                        
+                        // 保存到 localStorage（临时方案）
+                        localStorage.setItem('cigarInventoryData', JSON.stringify(data));
+                        
+                        console.log('✅ Inventory saved to local storage');
+                    } catch (error) {
+                        console.error('Failed to save inventory:', error);
+                        this.showMessage('保存失败', 'error');
+                    }
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

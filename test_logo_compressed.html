@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Logo 压缩测试</title>
+    <style>
+        .test-item { margin: 20px; padding: 15px; border: 2px solid #ddd; border-radius: 10px; }
+        .logo { max-width: 100px; max-height: 100px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🗜️ Logo 压缩测试</h1>
+    <div id="result">加载中...</div>
+    
+    <script>
+        // 使用服务器 IP 直接访问（绕过 Cloudflare）
+        const serverIP = window.location.hostname;
+        const dataUrl = `http://${serverIP}/stock-dashboard/data/cigar_inventory_v2.json?t=${Date.now()}`;
+        
+        fetch(dataUrl)
+            .then(r => r.json())
+            .then(data => {
+                const result = document.getElementById('result');
+                const brands = ['Punch', 'Cohiba', 'Arturo Fuente OpusX', 'Warped'];
+                
+                let html = `<p class="success">✅ 数据加载成功！文件大小：${(JSON.stringify(data).length/1024/1024).toFixed(2)} MB</p>`;
+                html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">';
+                
+                for (const brand of brands) {
+                    const logo = data.brandsWithLogos[brand]?.logo;
+                    const logoLen = logo?.length || 0;
+                    const isBase64 = logoLen > 100;
+                    
+                    html += `
+                        <div class="test-item">
+                            <h3>${brand}</h3>
+                            <p>Logo 长度：${logoLen.toLocaleString()} 字符</p>
+                            <p>类型：${isBase64 ? '<span class="success">✅ Base64</span>' : '<span class="error">❌ URL</span>'}</p>
+                            ${logo && isBase64 ? `<img src="${logo}" class="logo">` : '<p class="error">无法显示</p>'}
+                        </div>
+                    `;
+                }
+                
+                html += '</div>';
+                result.innerHTML = html;
+            })
+            .catch(e => {
+                document.getElementById('result').innerHTML = `<p class="error">❌ 加载失败：${e}</p>`;
+            });
+    </script>
+</body>
+</html>
