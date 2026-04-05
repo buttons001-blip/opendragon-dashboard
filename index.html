@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenDragon Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container { text-align: center; max-width: 600px; width: 100%; }
+        h1 { color: white; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .subtitle { color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 50px; }
+        .button-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .nav-button {
+            background: rgba(255,255,255,0.95);
+            border: none;
+            border-radius: 16px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .nav-button:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); background: white; }
+        .icon { width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+        .stock-icon { background: #e3f2fd; }
+        .cigar-icon { background: #fff3e0; }
+        .claw-icon { background: #f3e5f5; }
+        .button-content { text-align: left; }
+        .button-title { font-size: 1.3rem; font-weight: 600; color: #1a1a1a; margin-bottom: 5px; }
+        .button-desc { font-size: 0.9rem; color: #666; }
+        .arrow { margin-left: auto; font-size: 24px; color: #999; transition: transform 0.3s; }
+        .nav-button:hover .arrow { transform: translateX(5px); color: #333; }
+        @media (min-width: 640px) {
+            .button-grid { grid-template-columns: repeat(3, 1fr); }
+            .nav-button { flex-direction: column; text-align: center; padding: 40px 20px; }
+            .button-content { text-align: center; }
+            .arrow { margin-left: 0; margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐉 OpenDragon</h1>
+        <p class="subtitle">个人数据管理中心</p>
+        <div class="button-grid">
+            <a href="/test/stockmarket/" class="nav-button">
+                <div class="icon stock-icon">📈</div>
+                <div class="button-content">
+                    <div class="button-title">股票</div>
+                    <div class="button-desc">持仓管理与实时行情</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="/test/cigars/" class="nav-button">
+                <div class="icon cigar-icon">🚬</div>
+                <div class="button-content">
+                    <div class="button-title">雪茄</div>
+                    <div class="button-desc">品牌库与品鉴记录</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="/test/openclaw-dashboard/" class="nav-button">
+                <div class="icon claw-icon">🤖</div>
+                <div class="button-content">
+                    <div class="button-title">OpenClaw 看板</div>
+                    <div class="button-desc">爬虫状态监控</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

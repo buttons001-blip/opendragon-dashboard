@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw Monitor Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --border: #0f3460;
+            --text-primary: #eaeaea;
+            --text-secondary: #a0a0a0;
+            --accent: #00d4ff;
+            --accent-hover: #00a8cc;
+            --success: #00c853;
+            --error: #ff1744;
+            --warning: #ff9100;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .status-badge {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: var(--success);
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .status-badge.offline {
+            background: var(--error);
+        }
+        
+        .auto-refresh {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        #countdown {
+            font-weight: bold;
+            color: var(--accent);
+            min-width: 24px;
+            text-align: center;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .grid-full {
+            grid-column: 1 / -1;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.1);
+        }
+        
+        .card h2 {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Metrics */
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .metric-value {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* Status indicators */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .status.up, .status.installed {
+            background: rgba(0, 200, 83, 0.2);
+            color: var(--success);
+        }
+        
+        .status.up::before, .status.installed::before {
+            background: var(--success);
+        }
+        
+        .status.down {
+            background: rgba(255, 23, 68, 0.2);
+            color: var(--error);
+        }
+        
+        .status.down::before {
+            background: var(--error);
+        }
+        
+        .status.error {
+            background: rgba(255, 145, 0, 0.2);
+            color: var(--warning);
+        }
+        
+        .status.error::before {
+            background: var(--warning);
+        }
+        
+        .status.configured {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent);
+        }
+        
+        .status.configured::before {
+            background: var(--accent);
+        }
+        
+        /* Skills */
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(15, 52, 96, 0.5);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: background 0.2s;
+        }
+        
+        .skill-item:hover {
+            background: rgba(15, 52, 96, 0.8);
+        }
+        
+        .skill-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .skill-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .skill-name {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .skill-type {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+        
+        .skill-desc {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Logs */
+        .log-container {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .log-line {
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .log-line:hover {
+            color: var(--text-primary);
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-primary:disabled {
+            background: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        /* Error states */
+        .error-message {
+            background: rgba(255, 23, 68, 0.1);
+            border: 1px solid var(--error);
+            border-radius: 8px;
+            padding: 15px;
+            color: var(--error);
+            text-align: center;
+        }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--warning);
+            padding: 30px;
+        }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* API Key prompt */
+        .api-key-prompt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .api-key-prompt.hidden {
+            display: none;
+        }
+        
+        .api-key-modal {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .api-key-modal h2 {
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .api-key-modal input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .api-key-modal input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            background: var(--success);
+            color: #000;
+        }
+        
+        .toast.error {
+            background: var(--error);
+        }
+        
+        .toast.warning {
+            background: var(--warning);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- API Key Modal -->
+    <div id="apiKeyModal" class="api-key-prompt hidden">
+        <div class="api-key-modal">
+            <h2>🔐 API 认证</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 15px;">请输入 API Key 以访问监控面板</p>
+            <input type="password" id="apiKeyInput" placeholder="输入 API Key" />
+            <button class="btn btn-primary" style="width: 100%" onclick="verifyApiKey()">确认</button>
+            <p id="apiKeyError" style="color: var(--error); margin-top: 10px; display: none;">API Key 无效，请重试</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>
+                📊 OpenClaw Monitor
+                <span id="connectionStatus" class="status-badge">在线</span>
+            </h1>
+            <div class="auto-refresh">
+                <span>自动刷新:</span>
+                <span id="countdown">30</span>
+                <span>秒</span>
+                <button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="refreshAll()">立即刷新</button>
+            </div>
+        </header>
+        
+        <div class="grid">
+            <!-- Agent Config -->
+            <div class="card">
+                <h2>🤖 Agent 配置</h2>
+                <div id="agent-config">
+                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                </div>
+            </div>
+            
+            <!-- Health Status -->
+            <div class="card">
+                <h2>❤️ 系统健康</h2>
+                <div id="health">
+                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <!-- Skills -->
+            <div class="card">
+                <h2>🛠️ 技能列表</h2>
+                <div id="skills">
+                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                </div>
+            </div>
+            
+            <!-- Tasks -->
+            <div class="card">
+                <h2>⏰ 定时任务</h2>
+                <div id="tasks">
+                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="syncStock()">
+                        📈 同步股票
+                    </button>
+                    <button class="btn btn-primary" onclick="syncCigar()">
+                        🍷 同步雪茄
+                    </button>
+                    <button class="btn btn-primary" onclick="restartGateway()">
+                        🔄 重启网关
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Logs -->
+        <div class="card">
+            <h2>📝 最近日志</h2>
+            <div id="logs">
+                <div class="loading"><div class="spinner"></div>加载中...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ============ 配置 ============
+        // 生产环境使用公网地址
+        const API_BASE = 'https://api.opendragon.icu';
+        let API_KEY = localStorage.getItem('oc_monitor_api_key') || '';
+        let countdown = 30;
+        let countdownTimer = null;
+        
+        // ============ 初始化 ============
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!API_KEY) {
+                document.getElementById('apiKeyModal').classList.remove('hidden');
+            } else {
+                loadAll();
+                startAutoRefresh();
+            }
+            
+            // 回车提交 API Key
+            document.getElementById('apiKeyInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') verifyApiKey();
+            });
+        });
+        
+        // ============ API Key 验证 ============
+        async function verifyApiKey() {
+            const input = document.getElementById('apiKeyInput');
+            const errorMsg = document.getElementById('apiKeyError');
+            const key = input.value.trim();
+            
+            if (!key) {
+                errorMsg.textContent = '请输入 API Key';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            // 测试 API Key
+            try {
+                const res = await fetch(`${API_BASE}/api/health`, {
+                    headers: { 'x-api-key': key }
+                });
+                
+                if (res.ok) {
+                    API_KEY = key;
+                    localStorage.setItem('oc_monitor_api_key', key);
+                    document.getElementById('apiKeyModal').classList.add('hidden');
+                    loadAll();
+                    startAutoRefresh();
+                } else {
+                    errorMsg.textContent = 'API Key 无效，请重试';
+                    errorMsg.style.display = 'block';
+                }
+            } catch (e) {
+                errorMsg.textContent = '无法连接服务器';
+                errorMsg.style.display = 'block';
+            }
+        }
+        
+        // ============ API 请求 ============
+        async function fetchWithAuth(url) {
+            const res = await fetch(url, {
+                headers: { 'x-api-key': API_KEY }
+            });
+            
+            if (res.status === 401) {
+                showToast('API Key 已过期，请重新输入', 'error');
+                localStorage.removeItem('oc_monitor_api_key');
+                API_KEY = '';
+                document.getElementById('apiKeyModal').classList.remove('hidden');
+                throw new Error('Unauthorized');
+            }
+            
+            if (!res.ok) {
+                throw new Error(`HTTP ${res.status}`);
+            }
+            
+            return res.json();
+        }
+        
+        // ============ 加载数据 ============
+        async function loadAll() {
+            try {
+                const [agentRes, healthRes, skillsRes, tasksRes, logsRes] = await Promise.all([
+                    fetchWithAuth(`${API_BASE}/api/agent/config`),
+                    fetchWithAuth(`${API_BASE}/api/health`),
+                    fetchWithAuth(`${API_BASE}/api/skills`),
+                    fetchWithAuth(`${API_BASE}/api/tasks`),
+                    fetchWithAuth(`${API_BASE}/api/logs?lines=30`)
+                ]);
+                
+                renderAgentConfig(agentRes);
+                renderHealth(healthRes);
+                renderSkills(skillsRes);
+                renderTasks(tasksRes);
+                renderLogs(logsRes);
+                
+                updateConnectionStatus(true);
+            } catch (e) {
+                console.error('Load error:', e);
+                updateConnectionStatus(false);
+                showError('数据加载失败: ' + e.message);
+            }
+        }
+        
+        // ============ 渲染函数 ============
+        function renderAgentConfig(data) {
+            const container = document.getElementById('agent-config');
+            let html = '';
+            
+            if (data.name) {
+                html += `<div class="metric"><span class="metric-label">名称</span><span class="metric-value">${data.name}</span></div>`;
+            }
+            if (data.version) {
+                html += `<div class="metric"><span class="metric-label">版本</span><span class="metric-value">${data.version}</span></div>`;
+            }
+            if (data.title) {
+                html += `<div class="metric"><span class="metric-label">标题</span><span class="metric-value">${data.title}</span></div>`;
+            }
+            if (data.vibe) {
+                html += `<div class="metric"><span class="metric-label">风格</span><span class="metric-value">${data.vibe}</span></div>`;
+            }
+            if (data.lastTouched) {
+                html += `<div class="metric"><span class="metric-label">最后更新</span><span class="metric-value">${data.lastTouched.slice(0, 10)}</span></div>`;
+            }
+            if (data.user) {
+                const userInfo = Object.entries(data.user).filter(([k, v]) => v).map(([k, v]) => `${k}: ${v}`).join(', ');
+                if (userInfo) {
+                    html += `<div class="metric"><span class="metric-label">用户</span><span class="metric-value">${userInfo}</span></div>`;
+                }
+            }
+            
+            container.innerHTML = html || '<div class="metric">无数据</div>';
+        }
+        
+        function renderHealth(data) {
+            const container = document.getElementById('health');
+            let html = '';
+            
+            for (const [service, info] of Object.entries(data.services)) {
+                const status = info.status === 'up' ? 'up' : 'down';
+                const latency = info.latency_ms ? `${info.latency_ms}ms` : '-';
+                html += `<div class="metric">
+                    <span class="metric-label">${service}</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span>${latency}</span>
+                        <span class="status ${status}">${info.status}</span>
+                    </div>
+                </div>`;
+            }
+            
+            container.innerHTML = html || '<div class="metric">无数据</div>';
+        }
+        
+        function renderSkills(data) {
+            const container = document.getElementById('skills');
+            
+            if (!data.skills || data.skills.length === 0) {
+                container.innerHTML = '<div class="metric">无技能</div>';
+                return;
+            }
+            
+            let html = '';
+            data.skills.slice(0, 10).forEach(skill => {
+                html += `<div class="skill-item">
+                    <div class="skill-info">
+                        <span class="skill-name">${skill.display_name || skill.name}</span>
+                        <span class="skill-type">${skill.type}</span>
+                        ${skill.description ? `<span class="skill-desc">${skill.description}</span>` : ''}
+                    </div>
+                    <span class="status ${skill.status}">${skill.status}</span>
+                </div>`;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function renderTasks(data) {
+            const container = document.getElementById('tasks');
+            
+            if (!data.tasks || data.tasks.length === 0) {
+                container.innerHTML = '<div class="metric">无定时任务</div>';
+                return;
+            }
+            
+            let html = '';
+            data.tasks.slice(0, 8).forEach(task => {
+                const name = task.name || task.expression || (task.command ? task.command.slice(0, 40) : 'task') + '...';
+                html += `<div class="metric">
+                    <span class="metric-label" title="${task.command || ''}">${name}</span>
+                    <span class="status ${task.status === 'active' ? 'up' : 'configured'}">${task.status}</span>
+                </div>`;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function renderLogs(data) {
+            const container = document.getElementById('logs');
+            
+            if (!data.logs || data.logs.length === 0) {
+                container.innerHTML = '<div class="log-line">无日志</div>';
+                return;
+            }
+            
+            let html = '<div class="log-container">';
+            data.logs.slice(0, 30).forEach(line => {
+                html += `<div class="log-line" title="${line}">${line}</div>`;
+            });
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+        
+        function updateConnectionStatus(online) {
+            const status = document.getElementById('connectionStatus');
+            if (online) {
+                status.textContent = '在线';
+                status.classList.remove('offline');
+            } else {
+                status.textContent = '离线';
+                status.classList.add('offline');
+            }
+        }
+        
+        function showError(msg) {
+            const containers = ['agent-config', 'health', 'skills', 'tasks', 'logs'];
+            containers.forEach(id => {
+                const el = document.getElementById(id);
+                if (el.querySelector('.loading')) {
+                    el.innerHTML = `<div class="error-message">${msg}</div>`;
+                }
+            });
+        }
+        
+        // ============ 自动刷新 ============
+        function startAutoRefresh() {
+            if (countdownTimer) clearInterval(countdownTimer);
+            
+            countdownTimer = setInterval(() => {
+                countdown--;
+                document.getElementById('countdown').textContent = countdown;
+                
+                if (countdown <= 0) {
+                    loadAll();
+                    countdown = 30;
+                }
+            }, 1000);
+        }
+        
+        function refreshAll() {
+            countdown = 30;
+            document.getElementById('countdown').textContent = countdown;
+            loadAll();
+            showToast('数据已刷新', 'success');
+        }
+        
+        // ============ 操作函数 ============
+        async function syncStock() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner" style="width: 14px; height: 14px;"></span> 同步中...';
+            
+            try {
+                const res = await fetchWithAuth(`${API_BASE}/api/sync/stock`, {
+                    method: 'POST'
+                });
+                showToast('股票同步已启动', 'success');
+            } catch (e) {
+                showToast('同步失败: ' + e.message, 'error');
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '📈 同步股票';
+        }
+        
+        async function syncCigar() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner" style="width: 14px; height: 14px;"></span> 同步中...';
+            
+            try {
+                const res = await fetchWithAuth(`${API_BASE}/api/sync/cigar`, {
+                    method: 'POST'
+                });
+                showToast('雪茄同步已启动', 'success');
+            } catch (e) {
+                showToast('同步失败: ' + e.message, 'error');
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '🍷 同步雪茄';
+        }
+        
+        async function restartGateway() {
+            const btn = event.target;
+            if (!confirm('确定要重启网关吗？')) return;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner" style="width: 14px; height: 14px;"></span> 重启中...';
+            
+            try {
+                const res = await fetchWithAuth(`${API_BASE}/api/system/restart`, {
+                    method: 'POST'
+                });
+                showToast('网关重启已启动', 'success');
+            } catch (e) {
+                showToast('重启失败: ' + e.message, 'error');
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '🔄 重启网关';
+        }
+        
+        // ============ Toast 提示 ============
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
