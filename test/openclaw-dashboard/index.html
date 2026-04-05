@@ -1177,12 +1177,24 @@
                 { name: '腾讯财经', latency: 23, online: true }
             ],
             rss: [
-                { name: 'C114 通信网', url: 'https://www.c114.com.cn/rss', count: 12 },
-                { name: '比特范', url: 'https://www.btcfan.com/feed', count: 8 },
-                { name: '巴比特', url: 'https://www.8btc.com/feed', count: 15 },
-                { name: '知乎热榜', url: 'https://www.zhihu.com/rss', count: 20 },
-                { name: '掘金技术', url: 'https://juejin.cn/rss', count: 10 },
-                { name: 'InfoQ', url: 'https://www.infoq.cn/rss', count: 6 }
+                // 国内源
+                { name: '36Kr - 创业投资', url: 'https://36kr.com/feed', count: 12, region: '国内' },
+                { name: '钛媒体 - 科技财经', url: 'https://tmt.post.imger.net/rss', count: 8, region: '国内' },
+                { name: '爱范儿 - 数码产品', url: 'https://www.ifanr.com/feed', count: 15, region: '国内' },
+                { name: '少数派 - 效率工具', url: 'https://sspai.com/feed', count: 10, region: '国内' },
+                { name: '量子位 - AI前沿', url: 'https://www.qbitai.com/feed', count: 6, region: '国内' },
+                { name: '开源中国 - 开发技术', url: 'https://www.oschina.net/news/rss', count: 20, region: '国内' },
+                // 国外源
+                { name: 'TechCrunch - 创业科技', url: 'https://techcrunch.com/feed/', count: 12, region: '国外' },
+                { name: 'The Verge - 科技文化', url: 'https://www.theverge.com/rss/index.xml', count: 8, region: '国外' },
+                { name: 'Wired - 深度科技', url: 'https://www.wired.com/feed/rss', count: 15, region: '国外' },
+                { name: 'Ars Technica - 科技报道', url: 'https://feeds.arstechnica.com/arstechnica/index', count: 10, region: '国外' },
+                { name: 'CNET - 产品评测', url: 'https://www.cnet.com/rss/news/', count: 6, region: '国外' },
+                { name: 'Engadget - 消费科技', url: 'https://www.engadget.com/rss.xml', count: 18, region: '国外' },
+                { name: 'CNBC Technology - 科技商业', url: 'https://www.cnbc.com/id/100003114/device/rss/rss.html', count: 8, region: '国外' },
+                { name: 'Hacker News - 开发者社区', url: 'https://hnrss.org/frontpage', count: 25, region: '国外' },
+                { name: 'GitHub Blog - 开发工具', url: 'https://github.blog/feed/', count: 5, region: '国外' },
+                { name: 'MIT Tech Review - 前沿科技', url: 'https://www.technologyreview.com/feed/', count: 6, region: '国外' }
             ],
             files: [
                 { name: 'SOUL.md', type: 'file', size: '2.4KB', date: '2026-04-05 08:00' },
@@ -1372,10 +1384,13 @@
             
             let html = '';
             pageRSS.forEach(rss => {
+                const regionBadge = rss.region === '国内' 
+                    ? '<span style="font-size:10px;padding:2px 6px;background:rgba(0,230,118,0.15);color:#00e676;border-radius:4px;margin-left:8px;">国内</span>'
+                    : '<span style="font-size:10px;padding:2px 6px;background:rgba(0,212,255,0.15);color:#00d4ff;border-radius:4px;margin-left:8px;">国外</span>';
                 html += `
                     <div class="rss-item">
                         <div class="rss-info">
-                            <div class="rss-name">${rss.name}</div>
+                            <div class="rss-name">${rss.name}${regionBadge}</div>
                             <div class="rss-url">${rss.url}</div>
                         </div>
                         <div class="rss-count">${rss.count} 条更新</div>
