@@ -156,10 +156,6 @@
             border: 1px solid rgba(255, 82, 82, 0.3);
         }
 
-        .btn-danger:hover {
-            background: rgba(255, 82, 82, 0.25);
-        }
-
         .btn-small {
             padding: 6px 12px;
             font-size: 12px;
@@ -458,11 +454,11 @@
         }
 
         /* Skills */
-        .skills-container {
+        .skills-container, .rss-container {
             position: relative;
         }
 
-        .skills-grid {
+        .skills-grid, .rss-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
@@ -530,34 +526,6 @@
             overflow: hidden;
         }
 
-        .skills-pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .page-btn {
-            width: 32px;
-            height: 32px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .page-btn:hover, .page-btn.active {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .page-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
         /* RSS List */
         .rss-list {
             display: flex;
@@ -600,6 +568,126 @@
             border-radius: 12px;
             background: rgba(0, 212, 255, 0.15);
             color: var(--accent);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* File Manager */
+        .file-manager {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .file-toolbar {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+        }
+
+        .path-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            overflow-x: auto;
+        }
+
+        .path-item {
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .path-item:hover {
+            background: var(--bg-card-hover);
+            color: var(--accent);
+        }
+
+        .file-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .file-item:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .file-icon.folder { color: var(--warning); }
+        .file-icon.file { color: var(--text-secondary); }
+        .file-icon.md { color: var(--accent); }
+
+        .file-name {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .file-date {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 140px;
+            text-align: right;
         }
 
         /* Logs */
@@ -783,7 +871,7 @@
             .service-grid {
                 grid-template-columns: 1fr;
             }
-            .skills-grid {
+            .skills-grid, .rss-grid {
                 grid-template-columns: 1fr;
             }
             header {
@@ -793,6 +881,12 @@
             .header-right {
                 width: 100%;
                 justify-content: space-between;
+            }
+            .file-item {
+                flex-wrap: wrap;
+            }
+            .file-size, .file-date {
+                display: none;
             }
         }
 
@@ -902,7 +996,7 @@
                         <div class="quick-link-icon">📊</div>
                         <div class="quick-link-label">股票看板</div>
                     </a>
-                    <a href="http://opendragon.icu/stock-dashboard/cigar_v2.html" target="_blank" class="quick-link">
+                    <a href="https://www.opendragon.icu/test/cigars/" target="_blank" class="quick-link">
                         <div class="quick-link-icon">🍷</div>
                         <div class="quick-link-label">雪茄页面</div>
                     </a>
@@ -937,15 +1031,34 @@
                 <div class="skills-grid" id="skills">
                     <div class="loading"><div class="spinner"></div>加载中...</div>
                 </div>
-                <div class="skills-pagination" id="skillsPagination"></div>
+                <div class="pagination" id="skillsPagination"></div>
             </div>
         </div>
 
         <!-- RSS -->
         <div class="card" style="margin-bottom: 20px;">
             <h2>📡 RSS 订阅</h2>
-            <div class="rss-list" id="rssList">
-                <div class="loading"><div class="spinner"></div>加载中...</div>
+            <div class="rss-container">
+                <div class="rss-list" id="rssList">
+                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                </div>
+                <div class="pagination" id="rssPagination"></div>
+            </div>
+        </div>
+
+        <!-- File Manager -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h2>📁 工作空间</h2>
+            <div class="file-manager">
+                <div class="file-toolbar">
+                    <div class="path-bar" id="pathBar">
+                        <span class="path-item" onclick="navigateTo('')">🏠 workspace</span>
+                    </div>
+                    <button class="btn btn-small btn-primary" onclick="refreshFiles()">🔄</button>
+                </div>
+                <div class="file-list" id="fileList">
+                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                </div>
             </div>
         </div>
 
@@ -966,6 +1079,16 @@
                 <button class="modal-close" onclick="closeModal()">×</button>
             </div>
             <div class="modal-body">
+                <div style="margin-bottom: 12px;">
+                    <label style="color: var(--text-secondary); font-size: 13px;">选择文件:</label>
+                    <select id="fileSelector" onchange="loadAgentFile()" style="margin-left: 12px; padding: 6px 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary);">
+                        <option value="SOUL.md">SOUL.md</option>
+                        <option value="AGENTS.md">AGENTS.md</option>
+                        <option value="USER.md">USER.md</option>
+                        <option value="MEMORY.md">MEMORY.md</option>
+                        <option value="TOOLS.md">TOOLS.md</option>
+                    </select>
+                </div>
                 <textarea id="agentContent" placeholder="加载中..."></textarea>
             </div>
             <div class="modal-footer">
@@ -1002,8 +1125,8 @@
                 { name: '晚安提醒', time: '22:30', status: 'active', restDay: null }
             ],
             agents: [
-                { name: '亨利大管家', emoji: '👑', meta: 'v1.0 • 精力充沛', file: 'SOUL.md' },
-                { name: '商业奇才', emoji: '💡', meta: 'v1.0 • 决策分析', file: 'SOUL.md' }
+                { name: '亨利大管家', emoji: '👑', meta: 'v1.0 • 精力充沛', files: ['SOUL.md', 'AGENTS.md', 'USER.md', 'MEMORY.md', 'TOOLS.md'] },
+                { name: '商业奇才', emoji: '💡', meta: 'v1.0 • 决策分析', files: ['SOUL.md', 'AGENTS.md', 'USER.md'] }
             ],
             services: [
                 { name: '飞书', latency: 45, online: true },
@@ -1014,7 +1137,20 @@
             rss: [
                 { name: 'C114 通信网', url: 'https://www.c114.com.cn/rss', count: 12 },
                 { name: '比特范', url: 'https://www.btcfan.com/feed', count: 8 },
-                { name: '巴比特', url: 'https://www.8btc.com/feed', count: 15 }
+                { name: '巴比特', url: 'https://www.8btc.com/feed', count: 15 },
+                { name: '知乎热榜', url: 'https://www.zhihu.com/rss', count: 20 },
+                { name: '掘金技术', url: 'https://juejin.cn/rss', count: 10 },
+                { name: 'InfoQ', url: 'https://www.infoq.cn/rss', count: 6 }
+            ],
+            files: [
+                { name: 'SOUL.md', type: 'file', size: '2.4KB', date: '2026-04-05 08:00' },
+                { name: 'USER.md', type: 'file', size: '1.8KB', date: '2026-04-05 07:30' },
+                { name: 'MEMORY.md', type: 'file', size: '4.2KB', date: '2026-04-04 22:00' },
+                { name: 'TOOLS.md', type: 'file', size: '6.1KB', date: '2026-04-03 15:20' },
+                { name: 'AGENTS.md', type: 'file', size: '3.5KB', date: '2026-04-02 10:00' },
+                { name: 'stock-dashboard', type: 'folder', size: '-', date: '2026-04-01 09:00' },
+                { name: 'memory', type: 'folder', size: '-', date: '2026-03-28 14:00' },
+                { name: 'skills', type: 'folder', size: '-', date: '2026-03-29 11:00' }
             ],
             logs: [
                 '[08:00] 系统启动完成',
@@ -1026,7 +1162,10 @@
         };
 
         const ITEMS_PER_PAGE = 4;
-        let currentPage = 1;
+        let currentSkillsPage = 1;
+        let currentRSSPage = 1;
+        let currentPath = '';
+        let currentAgent = null;
 
         // 判断今天是否为休息日
         function isRestDay() {
@@ -1045,7 +1184,6 @@
 
         let countdown = 30;
         let countdownTimer = null;
-        let currentAgent = null;
 
         // ============ 初始化 ============
         document.addEventListener('DOMContentLoaded', () => {
@@ -1060,6 +1198,7 @@
             renderTasks();
             renderSkills();
             renderRSS();
+            renderFiles();
             renderLogs();
             renderStatCards();
             updateConnectionStatus(true);
@@ -1143,7 +1282,7 @@
             const pagination = document.getElementById('skillsPagination');
             
             const totalPages = Math.ceil(MOCK_DATA.skills.length / ITEMS_PER_PAGE);
-            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const start = (currentSkillsPage - 1) * ITEMS_PER_PAGE;
             const end = start + ITEMS_PER_PAGE;
             const pageSkills = MOCK_DATA.skills.slice(start, end);
             
@@ -1168,24 +1307,29 @@
             
             container.innerHTML = html;
             
-            // 渲染分页
             let pageHtml = '';
             for (let i = 1; i <= totalPages; i++) {
-                pageHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+                pageHtml += `<button class="page-btn ${i === currentSkillsPage ? 'active' : ''}" onclick="goToSkillsPage(${i})">${i}</button>`;
             }
             pagination.innerHTML = pageHtml;
         }
 
-        function goToPage(page) {
-            currentPage = page;
+        function goToSkillsPage(page) {
+            currentSkillsPage = page;
             renderSkills();
         }
 
         function renderRSS() {
             const container = document.getElementById('rssList');
-            let html = '';
+            const pagination = document.getElementById('rssPagination');
             
-            MOCK_DATA.rss.forEach(rss => {
+            const totalPages = Math.ceil(MOCK_DATA.rss.length / ITEMS_PER_PAGE);
+            const start = (currentRSSPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageRSS = MOCK_DATA.rss.slice(start, end);
+            
+            let html = '';
+            pageRSS.forEach(rss => {
                 html += `
                     <div class="rss-item">
                         <div class="rss-info">
@@ -1198,6 +1342,68 @@
             });
             
             container.innerHTML = html;
+            
+            let pageHtml = '';
+            for (let i = 1; i <= totalPages; i++) {
+                pageHtml += `<button class="page-btn ${i === currentRSSPage ? 'active' : ''}" onclick="goToRSSPage(${i})">${i}</button>`;
+            }
+            pagination.innerHTML = pageHtml;
+        }
+
+        function goToRSSPage(page) {
+            currentRSSPage = page;
+            renderRSS();
+        }
+
+        function renderFiles() {
+            const container = document.getElementById('fileList');
+            
+            let html = '';
+            MOCK_DATA.files.forEach(file => {
+                const iconClass = file.type === 'folder' ? 'folder' : (file.name.endsWith('.md') ? 'md' : 'file');
+                const icon = file.type === 'folder' ? '📁' : (file.name.endsWith('.md') ? '📄' : '📃');
+                
+                html += `
+                    <div class="file-item" onclick="${file.type === 'folder' ? `navigateTo('${file.name}')` : `openFile('${file.name}')`}">
+                        <span class="file-icon ${iconClass}">${icon}</span>
+                        <span class="file-name">${file.name}</span>
+                        <span class="file-size">${file.size}</span>
+                        <span class="file-date">${file.date}</span>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function navigateTo(path) {
+            currentPath = path;
+            updatePathBar();
+            // 模拟进入目录
+            if (path) {
+                showToast(`进入目录: ${path}`, 'success');
+            }
+            refreshFiles();
+        }
+
+        function updatePathBar() {
+            const pathBar = document.getElementById('pathBar');
+            let html = '<span class="path-item" onclick="navigateTo(\'\')">🏠 workspace</span>';
+            
+            if (currentPath) {
+                html += ` <span style="color: var(--text-secondary)">/</span> <span class="path-item">${currentPath}</span>`;
+            }
+            
+            pathBar.innerHTML = html;
+        }
+
+        function refreshFiles() {
+            renderFiles();
+            showToast('文件列表已刷新', 'success');
+        }
+
+        function openFile(filename) {
+            showToast(`打开文件: ${filename}`, 'success');
         }
 
         function renderLogs() {
@@ -1227,11 +1433,29 @@
             currentAgent = MOCK_DATA.agents[index];
             document.getElementById('modalTitle').textContent = `${currentAgent.name} - 配置文件`;
             
-            // 模拟加载文件内容
-            const mockContent = `# ${currentAgent.name}\n\n这是 ${currentAgent.name} 的专属配置文件。\n\n## 核心配置\n- 版本: v1.0\n- 风格: ${currentAgent.meta}\n\n## 说明\n点击保存按钮模拟保存配置（实际需要后端 API 支持）`;
+            // 更新文件选择器
+            const selector = document.getElementById('fileSelector');
+            selector.innerHTML = '';
+            currentAgent.files.forEach(file => {
+                selector.innerHTML += `<option value="${file}">${file}</option>`;
+            });
             
-            document.getElementById('agentContent').value = mockContent;
+            loadAgentFile();
             document.getElementById('agentModal').classList.add('show');
+        }
+
+        function loadAgentFile() {
+            const file = document.getElementById('fileSelector').value;
+            // 模拟文件内容
+            const mockContents = {
+                'SOUL.md': `# ${currentAgent.name}\n\n_You're not a chatbot. You're becoming someone._\n\n## Core Truths\n\n• 真诚帮忙，不做表面功夫\n• 有自己的观点，不是复读机\n• 先尝试解决，再提问\n• 用能力赢得信任\n• 记住自己是客人，尊重隐私`,
+                'AGENTS.md': `# AGENTS.md - Your Workspace\n\nThis folder is home. Treat it that way.\n\n## First Run\n\nIf BOOTSTRAP.md exists, that's your birth certificate. Follow it, figure out who you are, then delete it.`,
+                'USER.md': `# 用户档案\n\n**最后更新**：2026-04-05\n\n## 基本信息\n\n| 项目 | 内容 |\n|------|------|\n| **职业** | 企业家，IT，投资 |\n| **人格类型** | ENTJ |`,
+                'MEMORY.md': `# Long-Term Memory\n\n**最后更新**：2026-04-05\n\n---\n\n## 工作空间结构\n\n位置：/home/admin/.openclaw/workspace/`,
+                'TOOLS.md': `# TOOLS.md - 亨利大管家的工具笔记\n\n**最后更新**：2026-04-05\n\n---\n\n## 飞书配置\n\n| 项目 | 值 |`
+            };
+            
+            document.getElementById('agentContent').value = mockContents[file] || `# ${file}\n\n文件内容...`;
         }
 
         function closeModal() {
@@ -1240,8 +1464,10 @@
         }
 
         function saveAgentConfig() {
+            const file = document.getElementById('fileSelector').value;
+            const content = document.getElementById('agentContent').value;
             // 模拟保存
-            showToast(`${currentAgent.name} 配置已保存`, 'success');
+            showToast(`${file} 已保存到服务器`, 'success');
             closeModal();
         }
 
