@@ -959,7 +959,7 @@
 
             if (timestamp) {
                 const timeEl = document.getElementById('dataTime');
-                timeEl.textContent = timestamp;
+                const dateObj = new Date(timestamp.replace(" ", "T")); const dateStr = dateObj.toLocaleDateString("zh-CN", {month: "numeric", day: "numeric"}); const timeStr = dateObj.toLocaleTimeString("zh-CN", {hour: "2-digit", minute: "2-digit"}); timeEl.textContent = dateStr + " " + timeStr;
 
                 // 检查是否过期（超过15分钟）
                 const dataTime = new Date(timestamp.replace(' ', 'T')).getTime();
