@@ -3,1080 +3,1080 @@
     "name": "Bolivar",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/bolivar.png"
+    "logo": "./logos/bolivar.png"
   },
   {
     "name": "Cohiba",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cohiba.png"
+    "logo": "./logos/cohiba.png"
   },
   {
     "name": "Combinaciones",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/combinaciones.png"
+    "logo": "./logos/combinaciones.png"
   },
   {
     "name": "Cuaba",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cuaba.png"
+    "logo": "./logos/cuaba.png"
   },
   {
     "name": "Diplomaticos",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/diplomaticos.png"
+    "logo": "./logos/diplomaticos.png"
   },
   {
     "name": "Edmundo Dantés",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/edmundo-dants.png"
+    "logo": "./logos/edmundo-dants.png"
   },
   {
     "name": "Fonseca",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/fonseca.png"
+    "logo": "./logos/fonseca.png"
   },
   {
     "name": "Gloria Cubana",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/gloria-cubana.png"
+    "logo": "./logos/gloria-cubana.png"
   },
   {
     "name": "Guantanamera",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/guantanamera.png"
+    "logo": "./logos/guantanamera.png"
   },
   {
     "name": "H.Upmann",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/hupmann.png"
+    "logo": "./logos/hupmann.png"
   },
   {
     "name": "Hoyo de Monterrey",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/hoyo-de-monterrey.png"
+    "logo": "./logos/hoyo-de-monterrey.png"
   },
   {
     "name": "Jose L. Piedra",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/jose-l-piedra.png"
+    "logo": "./logos/jose-l-piedra.png"
   },
   {
     "name": "Juan Lopez",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/juan-lopez.png"
+    "logo": "./logos/juan-lopez.png"
   },
   {
     "name": "La Flor De Cano",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-flor-de-cano.png"
+    "logo": "./logos/la-flor-de-cano.png"
   },
   {
     "name": "Montecristo",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/montecristo.png"
+    "logo": "./logos/montecristo.png"
   },
   {
     "name": "Partagas",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/partagas.png"
+    "logo": "./logos/partagas.png"
   },
   {
     "name": "Por Larranaga",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/por-larranaga.png"
+    "logo": "./logos/por-larranaga.png"
   },
   {
     "name": "Punch",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/punch.png"
+    "logo": "./logos/punch.png"
   },
   {
     "name": "Quai D'Orsay",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/quai-dorsay.png"
+    "logo": "./logos/quai-dorsay.png"
   },
   {
     "name": "Quintero",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/quintero.png"
+    "logo": "./logos/quintero.png"
   },
   {
     "name": "Rafael Gonzalez",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/rafael-gonzalez.png"
+    "logo": "./logos/rafael-gonzalez.png"
   },
   {
     "name": "Ramon Allones",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/ramon-allones.png"
+    "logo": "./logos/ramon-allones.png"
   },
   {
     "name": "El Rey del Mundo",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/el-rey-del-mundo.png"
+    "logo": "./logos/el-rey-del-mundo.png"
   },
   {
     "name": "Romeo y Julieta",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/romeo-y-julieta.png"
+    "logo": "./logos/romeo-y-julieta.png"
   },
   {
     "name": "Saint Luis Rey",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/saint-luis-rey.png"
+    "logo": "./logos/saint-luis-rey.png"
   },
   {
     "name": "San Cristobal",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/san-cristobal.png"
+    "logo": "./logos/san-cristobal.png"
   },
   {
     "name": "Sancho Panza",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/sancho-panza.png"
+    "logo": "./logos/sancho-panza.png"
   },
   {
     "name": "Trinidad",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/trinidad.png"
+    "logo": "./logos/trinidad.png"
   },
   {
     "name": "Vegas Robaina",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/vegas-robaina.png"
+    "logo": "./logos/vegas-robaina.png"
   },
   {
     "name": "Vegueros",
     "origin": "古巴",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/vegueros.png"
+    "logo": "./logos/vegueros.png"
   },
   {
     "name": "Acid",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/acid.png"
+    "logo": "./logos/acid.png"
   },
   {
     "name": "ADVentura",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/adventura.png"
+    "logo": "./logos/adventura.png"
   },
   {
     "name": "Aganorsa Leaf",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/aganorsa-leaf.png"
+    "logo": "./logos/aganorsa-leaf.png"
   },
   {
     "name": "AJ Fernandez",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/aj-fernandez.png"
+    "logo": "./logos/aj-fernandez.png"
   },
   {
     "name": "Aladino",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/aladino.png"
+    "logo": "./logos/aladino.png"
   },
   {
     "name": "Alec Bradley",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/alec-bradley.png"
+    "logo": "./logos/alec-bradley.png"
   },
   {
     "name": "Alfonso",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/alfonso.png"
+    "logo": "./logos/alfonso.png"
   },
   {
     "name": "Arturo Fuente",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/arturo-fuente.png"
+    "logo": "./logos/arturo-fuente.png"
   },
   {
     "name": "Arturo Fuente OpusX",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/arturo-fuente-opusx.png"
+    "logo": "./logos/arturo-fuente-opusx.png"
   },
   {
     "name": "Ashton",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/ashton.png"
+    "logo": "./logos/ashton.png"
   },
   {
     "name": "Asylum",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/asylum.png"
+    "logo": "./logos/asylum.png"
   },
   {
     "name": "Atabey",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/atabey.png"
+    "logo": "./logos/atabey.png"
   },
   {
     "name": "Avo",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/avo.png"
+    "logo": "./logos/avo.png"
   },
   {
     "name": "Baccarat",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/baccarat.png"
+    "logo": "./logos/baccarat.png"
   },
   {
     "name": "Bandolero",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/bandolero.png"
+    "logo": "./logos/bandolero.png"
   },
   {
     "name": "Basulto",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/basulto.png"
+    "logo": "./logos/basulto.png"
   },
   {
     "name": "Bellatto",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/bellatto.png"
+    "logo": "./logos/bellatto.png"
   },
   {
     "name": "Black Label Trading Company",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/black-label-trading-company.png"
+    "logo": "./logos/black-label-trading-company.png"
   },
   {
     "name": "Blackbird",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/blackbird.png"
+    "logo": "./logos/blackbird.png"
   },
   {
     "name": "BOCK",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/bock.png"
+    "logo": "./logos/bock.png"
   },
   {
     "name": "Bolivar",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/bolivar.png"
+    "logo": "./logos/bolivar.png"
   },
   {
     "name": "Bongani",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/bongani.png"
+    "logo": "./logos/bongani.png"
   },
   {
     "name": "Brick House",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/brick-house.png"
+    "logo": "./logos/brick-house.png"
   },
   {
     "name": "Byron",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/byron.png"
+    "logo": "./logos/byron.png"
   },
   {
     "name": "C.L.E.",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cle.png"
+    "logo": "./logos/cle.png"
   },
   {
     "name": "Cain",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cain.png"
+    "logo": "./logos/cain.png"
   },
   {
     "name": "Caldwell Cigar Company",
     "origin": "多米尼加共和国/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/caldwell-cigar-company_-.png"
+    "logo": "./logos/caldwell-cigar-company_-.png"
   },
   {
     "name": "Camacho",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/camacho.png"
+    "logo": "./logos/camacho.png"
   },
   {
     "name": "CAO",
     "origin": "尼加拉瓜/洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cao_-.png"
+    "logo": "./logos/cao_-.png"
   },
   {
     "name": "Capitol",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/capitol.png"
+    "logo": "./logos/capitol.png"
   },
   {
     "name": "Casa Carrillo",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/casa-carrillo.png"
+    "logo": "./logos/casa-carrillo.png"
   },
   {
     "name": "Casdagli",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/casdagli.png"
+    "logo": "./logos/casdagli.png"
   },
   {
     "name": "Cavalier",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cavalier.png"
+    "logo": "./logos/cavalier.png"
   },
   {
     "name": "Chateau Diadem",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/chateau-diadem.png"
+    "logo": "./logos/chateau-diadem.png"
   },
   {
     "name": "CigarKings",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cigarkings.png"
+    "logo": "./logos/cigarkings.png"
   },
   {
     "name": "Cohiba",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cohiba.png"
+    "logo": "./logos/cohiba.png"
   },
   {
     "name": "Corrida",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/corrida.png"
+    "logo": "./logos/corrida.png"
   },
   {
     "name": "Cortez",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cortez.png"
+    "logo": "./logos/cortez.png"
   },
   {
     "name": "Crowned Heads",
     "origin": "尼加拉瓜/多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/crowned-heads_-.png"
+    "logo": "./logos/crowned-heads_-.png"
   },
   {
     "name": "Cuesta Rey",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cuesta-rey.png"
+    "logo": "./logos/cuesta-rey.png"
   },
   {
     "name": "Cumpay",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/cumpay.png"
+    "logo": "./logos/cumpay.png"
   },
   {
     "name": "Curivari",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/curivari.png"
+    "logo": "./logos/curivari.png"
   },
   {
     "name": "Dapper",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/dapper.png"
+    "logo": "./logos/dapper.png"
   },
   {
     "name": "Davidoff",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/davidoff.png"
+    "logo": "./logos/davidoff.png"
   },
   {
     "name": "Diamond Crown",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/diamond-crown.png"
+    "logo": "./logos/diamond-crown.png"
   },
   {
     "name": "Dominico",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/dominico.png"
+    "logo": "./logos/dominico.png"
   },
   {
     "name": "Don Capa",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/don-capa.png"
+    "logo": "./logos/don-capa.png"
   },
   {
     "name": "Don Lino",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/don-lino.png"
+    "logo": "./logos/don-lino.png"
   },
   {
     "name": "Don Pepin Garcia",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/don-pepin-garcia.png"
+    "logo": "./logos/don-pepin-garcia.png"
   },
   {
     "name": "Drew Estate",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/drew-estate.png"
+    "logo": "./logos/drew-estate.png"
   },
   {
     "name": "Dumbarton Tobacco & Trust",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/dumbarton-tobacco--trust.png"
+    "logo": "./logos/dumbarton-tobacco--trust.png"
   },
   {
     "name": "EIROA",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/eiroa.png"
+    "logo": "./logos/eiroa.png"
   },
   {
     "name": "El Rey Del Mundo",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/el-rey-del-mundo.png"
+    "logo": "./logos/el-rey-del-mundo.png"
   },
   {
     "name": "El Septimo",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/el-septimo.png"
+    "logo": "./logos/el-septimo.png"
   },
   {
     "name": "EPC",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/epc.png"
+    "logo": "./logos/epc.png"
   },
   {
     "name": "Espinosa",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/espinosa.png"
+    "logo": "./logos/espinosa.png"
   },
   {
     "name": "Ferio Tego",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/ferio-tego.png"
+    "logo": "./logos/ferio-tego.png"
   },
   {
     "name": "Firecracker",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/firecracker.png"
+    "logo": "./logos/firecracker.png"
   },
   {
     "name": "Flor de Copan",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/flor-de-copan.png"
+    "logo": "./logos/flor-de-copan.png"
   },
   {
     "name": "Flor de las Antillas",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/flor-de-las-antillas.png"
+    "logo": "./logos/flor-de-las-antillas.png"
   },
   {
     "name": "Flor De Selva",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/flor-de-selva.png"
+    "logo": "./logos/flor-de-selva.png"
   },
   {
     "name": "Fonseca",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/fonseca.png"
+    "logo": "./logos/fonseca.png"
   },
   {
     "name": "Foundation Cigar Company",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/foundation-cigar-company.png"
+    "logo": "./logos/foundation-cigar-company.png"
   },
   {
     "name": "Fratello",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/fratello.png"
+    "logo": "./logos/fratello.png"
   },
   {
     "name": "Gilbert De Montsalvat",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/gilbert-de-montsalvat.png"
+    "logo": "./logos/gilbert-de-montsalvat.png"
   },
   {
     "name": "God of Fire",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/god-of-fire.png"
+    "logo": "./logos/god-of-fire.png"
   },
   {
     "name": "Gran Habano",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/gran-habano.png"
+    "logo": "./logos/gran-habano.png"
   },
   {
     "name": "Griffin's",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/griffins.png"
+    "logo": "./logos/griffins.png"
   },
   {
     "name": "Gurkha",
     "origin": "洪都拉斯/尼加拉瓜/多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/gurkha_--.png"
+    "logo": "./logos/gurkha_--.png"
   },
   {
     "name": "H. Upmann",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/h-upmann.png"
+    "logo": "./logos/h-upmann.png"
   },
   {
     "name": "Hedon",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/hedon.png"
+    "logo": "./logos/hedon.png"
   },
   {
     "name": "Henry Clay",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/henry-clay.png"
+    "logo": "./logos/henry-clay.png"
   },
   {
     "name": "Herrera Esteli",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/herrera-esteli.png"
+    "logo": "./logos/herrera-esteli.png"
   },
   {
     "name": "Horacio",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/horacio.png"
+    "logo": "./logos/horacio.png"
   },
   {
     "name": "Hoyo de Monterrey",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/hoyo-de-monterrey.png"
+    "logo": "./logos/hoyo-de-monterrey.png"
   },
   {
     "name": "HR Cigars",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/hr-cigars.png"
+    "logo": "./logos/hr-cigars.png"
   },
   {
     "name": "Illusione",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/illusione.png"
+    "logo": "./logos/illusione.png"
   },
   {
     "name": "Indian Motorcycle",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/indian-motorcycle.png"
+    "logo": "./logos/indian-motorcycle.png"
   },
   {
     "name": "J. London",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/j-london.png"
+    "logo": "./logos/j-london.png"
   },
   {
     "name": "J.C Newman Cigar Co.",
     "origin": "尼加拉瓜/多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/jc-newman-cigar-co_-.png"
+    "logo": "./logos/jc-newman-cigar-co_-.png"
   },
   {
     "name": "Joya de Nicaragua",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/joya-de-nicaragua.png"
+    "logo": "./logos/joya-de-nicaragua.png"
   },
   {
     "name": "L'Atelier",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/latelier.png"
+    "logo": "./logos/latelier.png"
   },
   {
     "name": "La Aroma de Cuba",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-aroma-de-cuba.png"
+    "logo": "./logos/la-aroma-de-cuba.png"
   },
   {
     "name": "La Aroma Del Caribe",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-aroma-del-caribe.png"
+    "logo": "./logos/la-aroma-del-caribe.png"
   },
   {
     "name": "La Aurora",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-aurora.png"
+    "logo": "./logos/la-aurora.png"
   },
   {
     "name": "La Barba",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-barba.png"
+    "logo": "./logos/la-barba.png"
   },
   {
     "name": "La Capitana",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-capitana.png"
+    "logo": "./logos/la-capitana.png"
   },
   {
     "name": "La Estancia",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-estancia.png"
+    "logo": "./logos/la-estancia.png"
   },
   {
     "name": "La Flor Dominicana",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-flor-dominicana.png"
+    "logo": "./logos/la-flor-dominicana.png"
   },
   {
     "name": "La Galera",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-galera.png"
+    "logo": "./logos/la-galera.png"
   },
   {
     "name": "La Gloria Cubana",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-gloria-cubana.png"
+    "logo": "./logos/la-gloria-cubana.png"
   },
   {
     "name": "La Ley",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-ley.png"
+    "logo": "./logos/la-ley.png"
   },
   {
     "name": "La Libertad",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-libertad.png"
+    "logo": "./logos/la-libertad.png"
   },
   {
     "name": "La Palina",
     "origin": "洪都拉斯/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/la-palina_-.png"
+    "logo": "./logos/la-palina_-.png"
   },
   {
     "name": "Liga Privada",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/liga-privada.png"
+    "logo": "./logos/liga-privada.png"
   },
   {
     "name": "Limited Cigar Association",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/limited-cigar-association.png"
+    "logo": "./logos/limited-cigar-association.png"
   },
   {
     "name": "Lost & Found",
     "origin": "多米尼加共和国/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/lost--found_-.png"
+    "logo": "./logos/lost--found_-.png"
   },
   {
     "name": "Lure Cigars",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/lure-cigars.png"
+    "logo": "./logos/lure-cigars.png"
   },
   {
     "name": "Macanudo",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/macanudo.png"
+    "logo": "./logos/macanudo.png"
   },
   {
     "name": "Maestranza",
     "origin": "哥斯达黎加",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/maestranza.png"
+    "logo": "./logos/maestranza.png"
   },
   {
     "name": "Monkey Business",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/monkey-business.png"
+    "logo": "./logos/monkey-business.png"
   },
   {
     "name": "Montecristo",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/montecristo.png"
+    "logo": "./logos/montecristo.png"
   },
   {
     "name": "Muwat",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/muwat.png"
+    "logo": "./logos/muwat.png"
   },
   {
     "name": "My Father",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/my-father.png"
+    "logo": "./logos/my-father.png"
   },
   {
     "name": "Nestor Miranda",
     "origin": "尼加拉瓜/洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/nestor-miranda_-.png"
+    "logo": "./logos/nestor-miranda_-.png"
   },
   {
     "name": "Nicarao",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/nicarao.png"
+    "logo": "./logos/nicarao.png"
   },
   {
     "name": "Nicaroma",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/nicaroma.png"
+    "logo": "./logos/nicaroma.png"
   },
   {
     "name": "Nording",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/nording.png"
+    "logo": "./logos/nording.png"
   },
   {
     "name": "NUB",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/nub.png"
+    "logo": "./logos/nub.png"
   },
   {
     "name": "Odyssey",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/odyssey.png"
+    "logo": "./logos/odyssey.png"
   },
   {
     "name": "Oliva",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/oliva.png"
+    "logo": "./logos/oliva.png"
   },
   {
     "name": "OZ Family",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/oz-family.png"
+    "logo": "./logos/oz-family.png"
   },
   {
     "name": "Padron",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/padron.png"
+    "logo": "./logos/padron.png"
   },
   {
     "name": "Paradiso",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/paradiso.png"
+    "logo": "./logos/paradiso.png"
   },
   {
     "name": "Partagas",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/partagas.png"
+    "logo": "./logos/partagas.png"
   },
   {
     "name": "Patoro",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/patoro.png"
+    "logo": "./logos/patoro.png"
   },
   {
     "name": "Perdomo",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/perdomo.png"
+    "logo": "./logos/perdomo.png"
   },
   {
     "name": "Perla del Mar",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/perla-del-mar.png"
+    "logo": "./logos/perla-del-mar.png"
   },
   {
     "name": "Plasencia",
     "origin": "洪都拉斯/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/plasencia_-.png"
+    "logo": "./logos/plasencia_-.png"
   },
   {
     "name": "Powstanie",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/powstanie.png"
+    "logo": "./logos/powstanie.png"
   },
   {
     "name": "Prometheus",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/prometheus.png"
+    "logo": "./logos/prometheus.png"
   },
   {
     "name": "Punch",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/punch.png"
+    "logo": "./logos/punch.png"
   },
   {
     "name": "Quorum",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/quorum.png"
+    "logo": "./logos/quorum.png"
   },
   {
     "name": "Raices",
     "origin": "洪都拉斯",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/raices.png"
+    "logo": "./logos/raices.png"
   },
   {
     "name": "Red Anchor",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/red-anchor.png"
+    "logo": "./logos/red-anchor.png"
   },
   {
     "name": "Rocky Patel",
     "origin": "洪都拉斯/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/rocky-patel_-.png"
+    "logo": "./logos/rocky-patel_-.png"
   },
   {
     "name": "Rojas",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/rojas.png"
+    "logo": "./logos/rojas.png"
   },
   {
     "name": "RoMa Craft",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/roma-craft.png"
+    "logo": "./logos/roma-craft.png"
   },
   {
     "name": "Romeo y Julieta",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/romeo-y-julieta.png"
+    "logo": "./logos/romeo-y-julieta.png"
   },
   {
     "name": "Room101",
     "origin": "洪都拉斯/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/room101_-.png"
+    "logo": "./logos/room101_-.png"
   },
   {
     "name": "Sampler Packs",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/sampler-packs.png"
+    "logo": "./logos/sampler-packs.png"
   },
   {
     "name": "San Cristobal",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/san-cristobal.png"
+    "logo": "./logos/san-cristobal.png"
   },
   {
     "name": "Serino",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/serino.png"
+    "logo": "./logos/serino.png"
   },
   {
     "name": "Stolen Throne",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/stolen-throne.png"
+    "logo": "./logos/stolen-throne.png"
   },
   {
     "name": "Tabac de la Semois",
     "origin": "比利时",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/tabac-de-la-semois.png"
+    "logo": "./logos/tabac-de-la-semois.png"
   },
   {
     "name": "Tatiana",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/tatiana.png"
+    "logo": "./logos/tatiana.png"
   },
   {
     "name": "Tatuaje",
     "origin": "尼加拉瓜/美国迈阿密",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/tatuaje_-.png"
+    "logo": "./logos/tatuaje_-.png"
   },
   {
     "name": "Toscano",
     "origin": "意大利",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/toscano.png"
+    "logo": "./logos/toscano.png"
   },
   {
     "name": "Tres Hermanos",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/tres-hermanos.png"
+    "logo": "./logos/tres-hermanos.png"
   },
   {
     "name": "Trinidad",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/trinidad.png"
+    "logo": "./logos/trinidad.png"
   },
   {
     "name": "Undercrown",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/undercrown.png"
+    "logo": "./logos/undercrown.png"
   },
   {
     "name": "United Cigar",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/united-cigar.png"
+    "logo": "./logos/united-cigar.png"
   },
   {
     "name": "Vega Fina",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/vega-fina.png"
+    "logo": "./logos/vega-fina.png"
   },
   {
     "name": "Viaje",
     "origin": "洪都拉斯/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/viaje_-.png"
+    "logo": "./logos/viaje_-.png"
   },
   {
     "name": "Villiger",
     "origin": "多米尼加共和国/尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/villiger_-.png"
+    "logo": "./logos/villiger_-.png"
   },
   {
     "name": "Warped",
     "origin": "尼加拉瓜/多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/warped_-.png"
+    "logo": "./logos/warped_-.png"
   },
   {
     "name": "West Tampa",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/west-tampa.png"
+    "logo": "./logos/west-tampa.png"
   },
   {
     "name": "West Tampa Tobacco Company",
     "origin": "尼加拉瓜",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/west-tampa-tobacco-company.png"
+    "logo": "./logos/west-tampa-tobacco-company.png"
   },
   {
     "name": "Wildfire Cigar Company",
     "origin": "非古",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/wildfire-cigar-company.png"
+    "logo": "./logos/wildfire-cigar-company.png"
   },
   {
     "name": "Zino",
     "origin": "多米尼加共和国",
     "story": "",
-    "logo": "https://f8187efce7e73323db7b5d03e2b33bfe.r2.cloudflarestorage.com/cigar-assets/logos/zino.png"
+    "logo": "./logos/zino.png"
   }
 ]
