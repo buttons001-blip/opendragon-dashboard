@@ -233,7 +233,7 @@
 <body>
     <!-- 返回首页导航栏 -->
     <div style="background: #1e3a5f; padding: 12px 20px; border-bottom: 1px solid #334155;">
-        <a href="../../" style="color: #e2e8f0; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.875rem;">← 返回首页</a>
+        <a href="/" style="color: #e2e8f0; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.875rem;">← 返回首页</a>
     </div>
     <div style="background: #0f172a; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155;">
         <div style="display: flex; gap: 20px; align-items: center;">
@@ -939,44 +939,6 @@
                 }
             }
         }).mount('#app');
-    </script>
-    <script>
-    async function checkDataTime() {
-        // 根据市场选择对应的数据文件
-        const market = window.location.pathname.includes('hk') ? 'hk' :
-                       window.location.pathname.includes('us') ? 'us' :
-                       window.location.pathname.includes('ca') ? 'ca' :
-                       window.location.pathname.includes('crypto') ? 'crypto' : 'cn';
-
-        const dataFile = 'data/trades_' + market + '.json';
-
-        try {
-            const res = await fetch(dataFile + '?t=' + Date.now());
-            const data = await res.json();
-
-            // 读取 JSON 内的 timestamp
-            const timestamp = data.timestamp;
-
-            if (timestamp) {
-                const timeEl = document.getElementById('dataTime');
-                const dateObj = new Date(timestamp.replace(" ", "T")); const dateStr = dateObj.toLocaleDateString("zh-CN", {month: "numeric", day: "numeric"}); const timeStr = dateObj.toLocaleTimeString("zh-CN", {hour: "2-digit", minute: "2-digit"}); timeEl.textContent = dateStr + " " + timeStr;
-
-                // 检查是否过期（超过15分钟）
-                const dataTime = new Date(timestamp.replace(' ', 'T')).getTime();
-                const age = Date.now() - dataTime;
-                timeEl.style.color = (age > 15 * 60 * 1000) ? '#ef4444' : '#10b981';
-            } else {
-                document.getElementById('dataTime').textContent = '无时间戳';
-                document.getElementById('dataTime').style.color = '#f59e0b';
-            }
-        } catch(e) {
-            document.getElementById('dataTime').textContent = '读取失败';
-            document.getElementById('dataTime').style.color = '#ef4444';
-            console.error('读取时间戳失败:', e);
-        }
-    }
-
-    checkDataTime();
     </script>
 </body>
 </html>
