@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-04-07T10:00:04.588395",
+  "timestamp": "2026-04-07T21:00:03.929591",
   "initialCapital": 100000,
-  "realizedProfit": -1706.18,
+  "realizedProfit": -2754.18,
   "holdings": [
     {
       "code": "SQQQ",
       "name": "SQQQ",
-      "quantity": 200.0,
+      "quantity": 100.0,
       "costPrice": 86.4,
-      "totalCost": 17280.0
+      "totalCost": 8640.0
     }
   ],
   "trades": [
@@ -121,6 +121,17 @@
       "date": "2026-04-06",
       "reason": "按市场价卖出 100 股 当前价格$77.29",
       "status": ""
+    },
+    {
+      "type": "卖出",
+      "code": "SQQQ",
+      "name": "ProShares UltraPro Short QQQ",
+      "price": 75.92,
+      "quantity": 100.0,
+      "amount": 7592.0,
+      "date": "2026-04-07",
+      "reason": "用户指令卖出",
+      "status": "已成交"
     }
   ]
 }
