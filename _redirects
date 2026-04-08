@@ -1,4 +1,14 @@
+# 静态 HTML 文件直接访问
+/stock.html /stock.html 200
+/hk.html /hk.html 200
+/us.html /us.html 200
+/ca.html /ca.html 200
+/crypto.html /crypto.html 200
+
+# SPA 路由（仅用于 test 目录）
 /test/stockmarket/* /test/stockmarket/index.html 200
 /test/cigars/* /test/cigars/index.html 200
 /test/openclaw-dashboard/* /test/openclaw-dashboard/index.html 200
+
+# 其他所有请求到导航首页
 /* /index.html 200
