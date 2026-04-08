@@ -14,6 +14,9 @@ from datetime import datetime
 # API Key 认证
 API_KEY = os.getenv('OPENCLAW_MONITOR_API_KEY', 'opendragon2026')
 
+# OpenClaw 命令路径
+OPENCLAW_CMD = os.getenv('OPENCLAW_CMD', '/opt/openclaw/bin/openclaw')
+
 class MonitorAPIHandler(BaseHTTPRequestHandler):
     def check_auth(self):
         """验证 API Key"""
@@ -36,12 +39,18 @@ class MonitorAPIHandler(BaseHTTPRequestHandler):
     def run_command(self, cmd):
         """运行 OpenClaw CLI 命令"""
         try:
+            # 设置环境变量，包含 openclaw 命令路径
+            env = os.environ.copy()
+            env['PATH'] = '/home/admin/.local/share/pnpm:' + env.get('PATH', '')
+            
             result = subprocess.run(
                 cmd,
                 shell=True,
-                capture_output=True,
-                text=True,
-                timeout=30
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                timeout=30,
+                env=env
             )
             if result.returncode == 0:
                 # 尝试解析 JSON 输出
