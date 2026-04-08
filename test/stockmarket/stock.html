@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐉 OpenDragon 加股看板</title>
+    <title>🐉 OpenDragon A股看板</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
@@ -16,6 +16,7 @@
         }
         .container { max-width: 900px; margin: 0 auto; }
         
+        /* 顶部导航 */
         .top-nav {
             display: flex;
             align-items: center;
@@ -34,6 +35,7 @@
         }
         .nav-logo span { font-size: 1.5rem; }
         
+        /* 市场切换标签 */
         .market-tabs {
             display: flex;
             gap: 6px;
@@ -59,11 +61,12 @@
             color: white;
         }
         .market-tab.active {
-            background: #e65100;
+            background: #d32f2f;
             color: #fff;
-            box-shadow: 0 4px 15px rgba(230, 81, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
         }
         
+        /* 状态栏 */
         .status-bar {
             display: flex;
             align-items: center;
@@ -78,6 +81,7 @@
             color: #4caf50;
             font-size: 1em;
             font-weight: bold;
+            text-shadow: 0 0 10px rgba(76,175,80,0.5);
             white-space: nowrap;
             display: flex;
             align-items: center;
@@ -95,7 +99,10 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-        .status-closed { color: #888; }
+        .status-closed { 
+            color: #888; 
+            text-shadow: none; 
+        }
         .status-closed::before {
             background: #888;
             animation: none;
@@ -122,12 +129,14 @@
         .index-up { color: #ff6b6b; }
         .index-down { color: #51cf66; }
         
+        /* 卡片样式 */
         .card { 
             background: rgba(255,255,255,0.95); 
             border-radius: 16px; 
             padding: 20px; 
             margin-bottom: 15px; 
             box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
         }
         .card-header { 
             display: flex; 
@@ -146,6 +155,7 @@
             gap: 8px;
         }
         
+        /* 标题区域 */
         .title-section { 
             text-align: center; 
             padding: 15px; 
@@ -165,6 +175,7 @@
             font-size: 0.85em; 
         }
         
+        /* 上半部分布局 */
         .top-row { 
             display: grid; 
             grid-template-columns: 1fr 1fr;
@@ -175,6 +186,7 @@
             .top-row { grid-template-columns: 1fr; }
         }
         
+        /* 原则区域 */
         .rules-container { 
             display: flex; 
             gap: 10px;
@@ -207,10 +219,10 @@
         .rules-list li:last-child { border-bottom: none; }
         .rules-list li::before { 
             content: '✓'; 
-            color: #e65100; 
+            color: #4caf50; 
             font-weight: bold;
             margin-right: 8px;
-            background: #fff3e0;
+            background: #e8f5e9;
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -220,6 +232,7 @@
             font-size: 0.75em;
         }
         
+        /* 投资信息 */
         .capital-section { 
             display: flex; 
             flex-direction: column; 
@@ -256,6 +269,7 @@
         .profit-up { color: #d32f2f; }
         .profit-down { color: #2e7d32; }
         
+        /* 持仓明细 */
         .stocks-row { 
             display: flex; 
             justify-content: center; 
@@ -278,8 +292,7 @@
             margin-top: 8px; 
         }
         .stock-code { 
-            color: #e65100; 
-            font-weight: 600;
+            color: #999; 
             font-size: 0.9em;
         }
         .stock-name { 
@@ -299,6 +312,7 @@
             font-size: 1.1em;
         }
         
+        /* API状态 */
         .api-status { 
             font-size: 0.8em; 
             color: #666; 
@@ -317,6 +331,7 @@
             background: #e8f5e9;
         }
         
+        /* 更新信息 */
         .update-info { 
             text-align: center; 
             margin-top: 12px; 
@@ -330,7 +345,7 @@
         .refresh-btn {
             padding: 6px 14px;
             font-size: 0.9em;
-            background: #e65100;
+            background: #d32f2f;
             color: white;
             border: none;
             border-radius: 8px;
@@ -341,7 +356,7 @@
             gap: 5px;
         }
         .refresh-btn:hover {
-            background: #d84315;
+            background: #b71c1c;
             transform: translateY(-2px);
         }
         .refresh-btn:disabled {
@@ -350,6 +365,7 @@
             transform: none;
         }
         
+        /* 交易记录表格 */
         .trades-table-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -375,7 +391,10 @@
             line-height: 1.5;
             vertical-align: middle;
         }
-        .trades-table .type-cell { font-weight: 600; white-space: nowrap; }
+        .trades-table .type-cell { 
+            font-weight: 600; 
+            white-space: nowrap; 
+        }
         .trades-table .type-充值 { color: #2e7d32; }
         .trades-table .type-提现 { color: #f57c00; }
         .trades-table .type-买入 { color: #1565c0; }
@@ -398,6 +417,7 @@
         .trades-table tr.deposit-row { background: #e8f5e9 !important; }
         .trades-table tr.sell-row { background: #ffebee !important; }
         
+        /* Toast提示 */
         .update-toast {
             position: fixed;
             top: 20px;
@@ -417,6 +437,7 @@
             to { opacity: 1; transform: translate(-50%, 0); }
         }
         
+        /* 移动端优化 */
         @media (max-width: 500px) {
             .market-tabs { flex-wrap: wrap; }
             .market-tab { padding: 6px 10px; font-size: 0.75em; }
@@ -428,6 +449,7 @@
 <body>
     <div id="app">
         <div class="container">
+            <!-- 顶部导航 -->
             <div class="top-nav">
                 <a href="index.html" class="nav-logo">
                     <span>🐉</span>
@@ -435,14 +457,16 @@
                 </a>
             </div>
             
+            <!-- 市场切换标签 -->
             <div class="market-tabs">
-                <a href="stock.html" class="market-tab">A股</a>
+                <a href="stock.html" class="market-tab active">A股</a>
                 <a href="hk.html" class="market-tab">港股</a>
                 <a href="us.html" class="market-tab">美股</a>
-                <a href="ca.html" class="market-tab active">加股</a>
+                <a href="ca.html" class="market-tab">加股</a>
                 <a href="crypto.html" class="market-tab">数字货币</a>
             </div>
             
+            <!-- 状态栏 -->
             <div class="status-bar">
                 <div class="status-indicator" :class="{ 'status-closed': !isTradingTime }">
                     {{ statusText }}
@@ -465,12 +489,15 @@
                 </div>
             </div>
             
+            <!-- 标题区域 -->
             <div class="title-section">
-                <h1>加股看板</h1>
+                <h1>A股看板</h1>
                 <div class="time">{{ time }}</div>
             </div>
             
+            <!-- 上半部分 -->
             <div class="top-row">
+                <!-- 利弗摩尔原则 -->
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">📋 利弗摩尔十大原则</div>
@@ -487,6 +514,7 @@
                     </div>
                 </div>
                 
+                <!-- 总投资 -->
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">💰 总投资</div>
@@ -497,13 +525,13 @@
                             <div class="capital-gauge" id="profit-gauge"></div>
                         </div>
                         <div class="capital-info">
-                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">C${{ formatNum(initialCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">C${{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value profit-down">C${{ formatNum(availableCapital) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">C${{ formatNum(totalMarketValue) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}C${{ formatNum(totalMarketValue - totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}C${{ formatNum(realizedProfit) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}C${{ formatNum(totalProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">¥{{ formatNum(initialCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">¥{{ formatNum(totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value profit-down">¥{{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">¥{{ formatNum(totalMarketValue) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}¥{{ formatNum(totalMarketValue - totalCost) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}¥{{ formatNum(realizedProfit) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}¥{{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
                         </div>
                         <div class="update-info">
@@ -520,10 +548,12 @@
                 </div>
             </div>
             
+            <!-- Toast提示 -->
             <div v-if="updateToast.show" class="update-toast">
                 {{ updateToast.message }}
             </div>
             
+            <!-- 持仓明细 -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">📊 持仓明细 (实时)</div>
@@ -534,11 +564,11 @@
                         <div class="stock-info">
                             <div class="stock-code">{{ s.code }}</div>
                             <div class="stock-name">{{ s.name }}</div>
-                            <div class="stock-detail">{{ s.qty }}股 @ C${{ s.cost }}</div>
+                            <div class="stock-detail">{{ s.qty }}股 @ ¥{{ s.cost }}</div>
                             <div class="stock-detail" :class="s.dayChange >= 0 ? 'profit-up' : 'profit-down'">
-                                现 C${{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
+                                现 ¥{{ s.price }} ({{ s.dayChange >= 0 ? '+' : '' }}{{ s.dayChangePercent }}%)
                             </div>
-                            <div class="stock-detail">值 C${{ formatNum(s.price * s.qty) }}</div>
+                            <div class="stock-detail">值 ¥{{ formatNum(s.price * s.qty) }}</div>
                             <div class="stock-profit" :class="s.profitRate >= 0 ? 'profit-up' : 'profit-down'">
                                 盈亏 {{ s.profitRate >= 0 ? '+' : '' }}{{ s.profitRate }}%
                             </div>
@@ -547,6 +577,7 @@
                 </div>
             </div>
             
+            <!-- 交易记录 -->
             <div class="card" v-if="transactions.length > 0">
                 <div class="card-header">
                     <div class="card-title">📝 交易记录</div>
@@ -572,9 +603,9 @@
                                 <td class="type-cell" :class="'type-' + t.type">{{ t.type }}</td>
                                 <td class="code-cell">{{ t.code || '-' }}</td>
                                 <td>{{ t.name }}</td>
-                                <td>C${{ t.price }}</td>
+                                <td>¥{{ t.price }}</td>
                                 <td>{{ t.quantity }}</td>
-                                <td>C${{ formatNum(t.amount) }}</td>
+                                <td>¥{{ formatNum(t.amount) }}</td>
                                 <td class="reason-cell">{{ t.reason || '-' }}</td>
                             </tr>
                         </tbody>
@@ -604,7 +635,7 @@
             data() {
                 return {
                     time: new Date().toLocaleString(),
-                    statusText: '⚫ 休市',
+                    statusText: '⚫ 休市中',
                     apiStatus: '连接中...',
                     apiStatusClass: '',
                     lastUpdateTime: null,
@@ -612,22 +643,22 @@
                     updateToast: { show: false, message: '' },
                     autoRefreshTimer: null,
                     refreshing: false,
-                    initialCapital: 0,
+                    initialCapital: 1000000,
                     availableCapital: 0,
                     realizedProfit: 0,
                     closedPositions: [],
                     transactions: [],
+                    stocks: [],
                     indices: [
-                        { name: "TSX", value: "0", change: 0, changePercent: "0.00" },
-                        { name: "S&P/TSX 60", value: "0", change: 0, changePercent: "0.00" },
-                        { name: "TSX Venture", value: "0", change: 0, changePercent: "0.00" }
+                        { name: '上证指数', value: '3,380.50', change: 12.35, changePercent: '0.37' },
+                        { name: '深证成指', value: '10,850.20', change: -25.60, changePercent: '-0.24' },
+                        { name: '科创50', value: '1,250.80', change: 8.90, changePercent: '0.72' }
                     ],
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
                         no: r.序号,
                         title: r.原则
-                    })),
-                    stocks: []
+                    }))
                 }
             },
             computed: {
@@ -636,7 +667,7 @@
                     const day = now.getDay();
                     if (day === 0 || day === 6) return false;
                     const time = now.getHours() * 100 + now.getMinutes();
-                    return (time >= 2130 && time <= 2359) || (time >= 0 && time <= 400);
+                    return (time >= 930 && time <= 1130) || (time >= 1300 && time <= 1500);
                 },
                 totalCost() { 
                     return this.stocks.reduce((sum, s) => sum + s.cost * s.qty, 0); 
@@ -661,44 +692,21 @@
                 
                 setInterval(() => this.updateTime(), 1000);
                 setInterval(() => {
-                    this.fetchPrices();
+                    if (this.isTradingTime) {
+                        this.fetchPrices();
+                    }
                 }, 30000);
-                
-                this.autoRefreshTimer = setInterval(() => {
-                    this.checkForUpdates();
-                }, 30000);
-            },
-            
-            beforeDestroy() {
-                if (this.autoRefreshTimer) {
-                    clearInterval(this.autoRefreshTimer);
-                }
             },
             methods: {
                 async loadFeishuData() {
                     try {
-                        const response = await fetch('data/trades_ca.json?t=' + Date.now(), { cache: 'no-store' });
+                        const response = await fetch('data/trades_cn.json?t=' + Date.now());
                         const data = await response.json();
-                        
-                        const actions = data.trades.map(t => ({
-                            '交易类型': t.type,
-                            '市场': data.market,
-                            '代码': t.code,
-                            '名称': t.name,
-                            '成交价': t.price,
-                            '数量': t.quantity,
-                            '成交金额': t.amount,
-                            '交易日期': t.date,
-                            '状态': t.status,
-                            '备注': t.reason
-                        }));
-                        
-                        this.processActions(actions);
-                        
+                        this.processTradeData(data);
                         this.apiStatus = '本地 JSON 数据 ✓';
                         this.apiStatusClass = 'success';
                     } catch (e) {
-                        console.error('读取飞书数据失败:', e);
+                        console.error('读取本地数据失败:', e);
                         this.apiStatus = '读取失败';
                         this.apiStatusClass = 'error';
                     }
@@ -723,18 +731,23 @@
                     }, 3000);
                 },
                 
-                async checkForUpdates() {
-                    try {
-                        const response = await fetch('data/trades_ca.json?t=' + Date.now());
-                        const data = await response.json();
-                        
-                        if (data.timestamp !== this.lastVersion) {
-                            await this.loadFeishuData();
-                            this.showUpdateToast('📊 数据已更新');
-                        }
-                    } catch (e) {
-                        console.log('轮询检查失败:', e);
-                    }
+                processTradeData(data) {
+                    this.lastUpdateTime = new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+                    this.lastVersion = data.timestamp || new Date().toISOString();
+                    const actions = data.trades.map(t => ({
+                        '交易类型': t.type,
+                        '市场': t.market || data.market,
+                        '代码': t.code,
+                        '名称': t.name,
+                        '成交价': t.price,
+                        '数量': t.quantity,
+                        '成交金额': t.amount,
+                        '交易日期': t.date,
+                        '状态': t.status,
+                        '备注': t.reason
+                    }));
+                    
+                    this.processActions(actions);
                 },
                 
                 processActions(actions) {
@@ -834,35 +847,109 @@
                 
                 async fetchPrices() {
                     try {
-                        const response = await fetch('data/ca_crypto.json?t=' + Date.now(), { cache: 'no-store' });
-                        const data = await response.json();
+                        const codes = this.stocks.map(s => {
+                            const prefix = s.code.startsWith('6') ? 'sh' : 'sz';
+                            return prefix + s.code;
+                        }).join(',');
                         
-                        if (data.stocks) {
-                            this.stocks.forEach(stock => {
-                                const stockData = data.stocks[stock.code];
-                                if (stockData) {
-                                    stock.price = parseFloat(stockData.price);
-                                    stock.dayChange = parseFloat(stockData.change);
-                                    stock.dayChangePercent = stockData.changePercent.toFixed(2);
-                                    stock.profitRate = ((stock.price - stock.cost) / stock.cost * 100).toFixed(2);
-                                }
-                            });
-                            
-                            if (data.ca && data.ca['TSX']) {
-                                this.indices[0].value = data.ca['TSX'].value.toLocaleString();
-                                this.indices[0].change = data.ca['TSX'].change;
-                                this.indices[0].changePercent = data.ca['TSX'].changePercent.toFixed(2);
-                            }
-                            
-                            this.apiStatus = '本地 JSON 数据 ✓';
-                            this.apiStatusClass = 'success';
-                            this.$nextTick(() => this.renderGauges());
-                        }
-
+                        const url = `https://qt.gtimg.cn/q=${codes}`;
+                        const script = document.createElement('script');
+                        script.src = url;
+                        
+                        const timeout = setTimeout(() => {
+                            this.apiStatus = '连接超时';
+                            this.apiStatusClass = 'error';
+                        }, 5000);
+                        
+                        script.onload = () => {
+                            clearTimeout(timeout);
+                            this.parseTencentData();
+                        };
+                        
+                        script.onerror = () => {
+                            clearTimeout(timeout);
+                            this.apiStatus = '连接失败';
+                            this.apiStatusClass = 'error';
+                        };
+                        
+                        document.head.appendChild(script);
+                        setTimeout(() => document.head.removeChild(script), 1000);
+                        
                     } catch (e) {
                         console.error('获取价格失败:', e);
-                        this.apiStatus = '本地 JSON 数据';
+                        this.apiStatus = '获取失败';
+                        this.apiStatusClass = 'error';
+                    }
+                },
+                
+                parseTencentData() {
+                    try {
+                        this.stocks.forEach(stock => {
+                            const prefix = stock.code.startsWith('6') ? 'sh' : 'sz';
+                            const varName = `v_${prefix}${stock.code}`;
+                            
+                            if (window[varName]) {
+                                const data = window[varName];
+                                const parts = data.split('~');
+                                
+                                if (parts.length > 3) {
+                                    const currentPrice = parseFloat(parts[3]);
+                                    const prevClose = parseFloat(parts[4]);
+                                    
+                                    if (!isNaN(currentPrice) && currentPrice > 0) {
+                                        stock.price = currentPrice;
+                                        stock.prevClose = prevClose;
+                                        stock.dayChange = currentPrice - prevClose;
+                                        stock.dayChangePercent = ((stock.dayChange / prevClose) * 100).toFixed(2);
+                                        stock.profitRate = ((currentPrice - stock.cost) / stock.cost * 100).toFixed(2);
+                                    }
+                                }
+                            }
+                        });
+                        
+                        this.apiStatus = '腾讯财经 ✓';
                         this.apiStatusClass = 'success';
+                        
+                        const indexCodes = 'sh000001,sz399001,sz399006';
+                        const indexScript = document.createElement('script');
+                        indexScript.src = `https://qt.gtimg.cn/q=${indexCodes}`;
+                        indexScript.onload = () => {
+                            const indexMap = {
+                                'v_sh000001': '上证指数',
+                                'v_sz399001': '深证成指',
+                                'v_sz399006': '科创 50'
+                            };
+                            Object.keys(indexMap).forEach(key => {
+                                if (window[key]) {
+                                    const data = window[key];
+                                    const parts = data.split('~');
+                                    if (parts.length > 3) {
+                                        const current = parseFloat(parts[3]);
+                                        const prevClose = parseFloat(parts[4]);
+                                        const change = current - prevClose;
+                                        const changePercent = ((change / prevClose) * 100).toFixed(2);
+                                        
+                                        const index = this.indices.find(i => i.name === indexMap[key]);
+                                        if (index) {
+                                            index.value = current.toLocaleString();
+                                            index.change = change;
+                                            index.changePercent = changePercent;
+                                        }
+                                    }
+                                }
+                            });
+                        };
+                        document.head.appendChild(indexScript);
+                        setTimeout(() => document.head.removeChild(indexScript), 1000);
+                        
+                        this.$nextTick(() => {
+                            this.renderGauges();
+                        });
+                        
+                    } catch (e) {
+                        console.error('解析数据失败:', e);
+                        this.apiStatus = '解析失败';
+                        this.apiStatusClass = 'error';
                     }
                 },
                 

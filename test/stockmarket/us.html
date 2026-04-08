@@ -10,56 +10,96 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-            padding: 8px;
+            padding: 12px;
         }
-        .container { max-width: 750px; margin: 0 auto; }
+        .container { max-width: 900px; margin: 0 auto; }
         
-        /* 市场切换标签 */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .nav-logo span { font-size: 1.5rem; }
+        
         .market-tabs {
             display: flex;
-            gap: 4px;
-            margin-bottom: 8px;
-            padding: 4px;
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            gap: 6px;
+            padding: 5px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
         }
         .market-tab {
-            flex: 1;
-            padding: 8px 4px;
+            padding: 8px 16px;
             text-align: center;
-            font-size: 0.8em;
-            font-weight: bold;
-            color: #666;
-            background: #f0f0f0;
-            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            background: transparent;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
         }
-        .market-tab:hover { background: #e0e0e0; }
-        .market-tab.active { background: #1976d2; color: #fff; }
+        .market-tab:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .market-tab.active {
+            background: #1976d2;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+        }
         
-        /* 状态栏 */
         .status-bar {
             display: flex;
             align-items: center;
-            padding: 8px 12px;
-            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
-            border-radius: 6px;
-            margin-bottom: 8px;
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 12px;
+            margin-bottom: 15px;
             gap: 15px;
+            backdrop-filter: blur(10px);
         }
         .status-indicator {
-            color: #fff;
-            font-size: 1.1em;
+            color: #4caf50;
+            font-size: 1em;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .status-closed { color: #ccc; text-shadow: none; }
+        .status-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #4caf50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .status-closed { color: #888; }
+        .status-closed::before {
+            background: #888;
+            animation: none;
+        }
         .index-ticker {
             flex: 1;
             overflow: hidden;
@@ -68,104 +108,284 @@
         }
         .index-ticker-content {
             display: flex;
-            gap: 20px;
-            animation: scroll 20s linear infinite;
+            gap: 25px;
+            animation: scroll 25s linear infinite;
             white-space: nowrap;
         }
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        .index-item { display: flex; align-items: center; gap: 5px; }
-        .index-name { color: #ddd; }
+        .index-item { display: flex; align-items: center; gap: 8px; }
+        .index-name { color: rgba(255,255,255,0.6); }
         .index-value { font-weight: bold; }
         .index-up { color: #ff6b6b; }
         .index-down { color: #51cf66; }
         
-        /* 卡片 */
-        .card { background: #fff; border-radius: 6px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
-        .card-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
-        .card-title { font-size: 0.9em; font-weight: bold; color: #333; }
-        
-        /* 标题 */
-        .title-section { text-align: center; padding: 8px; margin-bottom: 8px; }
-        .title-section h1 { color: #1976d2; font-size: 1.1em; }
-        .title-section .time { color: #666; font-size: 0.8em; margin-top: 3px; }
-        
-        /* 上半部分 */
-        .top-row { display: flex; flex-direction: row; gap: 8px; margin-bottom: 8px; }
-        .top-row > .card { flex: 1; min-width: 0; }
-        
-        /* 原则 */
-        .rules-container { display: flex; gap: 10px; overflow: hidden; position: relative; }
-        .rules-scroller { flex: 1; overflow: hidden; height: 80px; position: relative; }
-        .rules-track { position: absolute; width: 100%; animation: scrollRules 40s linear infinite; }
-        @keyframes scrollRules { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
-        .rules-list { list-style: none; }
-        .rules-list li { padding: 6px 0; color: #555; font-size: 0.75em; line-height: 1.5; border-bottom: 1px dotted #eee; }
-        .rules-list li:last-child { border-bottom: none; }
-        .rules-list li:before { content: '✓ '; color: #1976d2; font-weight: bold; }
-        
-        /* 总投资 */
-        .capital-section { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .capital-gauges-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .capital-gauge { width: 100px; height: 65px; }
-        .capital-info { width: 100%; font-size: 0.72em; }
-        .capital-row { display: flex; justify-content: space-between; margin: 3px 0; }
-        .capital-label { color: #888; }
-        .capital-value { font-weight: bold; }
-        .profit-up { color: #d00; }
-        .profit-down { color: #0a0; }
-        
-        /* 持仓明细 */
-        .stocks-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .stock-item { text-align: center; }
-        .stock-gauge { width: 115px; height: 70px; }
-        .stock-info { font-size: 0.65em; margin-top: 5px; }
-        .stock-code { color: #1976d2; font-weight: bold; }
-        .stock-name { font-weight: bold; color: #333; margin: 2px 0; font-size: 0.85em; }
-        .stock-detail { color: #777; margin: 1px 0; }
-        .stock-profit { font-weight: bold; margin-top: 3px; }
-        
-        .api-status { font-size: 0.7em; color: #666; margin-top: 5px; }
-        .api-status.success { color: #0a0; }
-        
-        @media (max-width: 500px) {
-            .top-row { flex-direction: column; }
+        .card { 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 16px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
         }
-    
-        /* 交易记录表格样式 */
+        .card-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding-bottom: 12px; 
+            border-bottom: 1px solid #eee; 
+            margin-bottom: 15px; 
+        }
+        .card-title { 
+            font-size: 1.1em; 
+            font-weight: 600; 
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .title-section { 
+            text-align: center; 
+            padding: 15px; 
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .title-section h1 { 
+            color: white; 
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .title-section .time { 
+            color: rgba(255,255,255,0.7); 
+            font-size: 0.85em; 
+        }
+        
+        .top-row { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr;
+            gap: 15px; 
+            margin-bottom: 15px; 
+        }
+        @media (max-width: 700px) {
+            .top-row { grid-template-columns: 1fr; }
+        }
+        
+        .rules-container { 
+            display: flex; 
+            gap: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .rules-scroller {
+            flex: 1;
+            overflow: hidden;
+            height: 180px;
+            position: relative;
+        }
+        .rules-track {
+            position: absolute;
+            width: 100%;
+            animation: scrollRules 50s linear infinite;
+        }
+        @keyframes scrollRules {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .rules-list { list-style: none; }
+        .rules-list li { 
+            padding: 10px 0; 
+            color: #555; 
+            font-size: 0.9em; 
+            line-height: 1.5;
+            border-bottom: 1px dotted #eee;
+        }
+        .rules-list li:last-child { border-bottom: none; }
+        .rules-list li::before { 
+            content: '✓'; 
+            color: #1976d2; 
+            font-weight: bold;
+            margin-right: 8px;
+            background: #e3f2fd;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75em;
+        }
+        
+        .capital-section { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 12px; 
+        }
+        .capital-gauges-row { 
+            display: flex; 
+            gap: 15px; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+        }
+        .capital-gauge { 
+            width: 120px; 
+            height: 75px; 
+        }
+        .capital-info { 
+            width: 100%; 
+            font-size: 0.85em; 
+        }
+        .capital-row { 
+            display: flex; 
+            justify-content: space-between; 
+            margin: 6px 0;
+            padding: 6px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .capital-row:last-child { border-bottom: none; }
+        .capital-label { color: #888; }
+        .capital-value { 
+            font-weight: 600; 
+            font-family: 'SF Mono', monospace;
+        }
+        .profit-up { color: #d32f2f; }
+        .profit-down { color: #2e7d32; }
+        
+        .stocks-row { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+        }
+        .stock-item { 
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            min-width: 140px;
+        }
+        .stock-gauge { 
+            width: 130px; 
+            height: 80px; 
+        }
+        .stock-info { 
+            font-size: 0.75em; 
+            margin-top: 8px; 
+        }
+        .stock-code { 
+            color: #1976d2; 
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .stock-name { 
+            font-weight: 600; 
+            color: #1a1a1a; 
+            margin: 4px 0; 
+            font-size: 1em; 
+        }
+        .stock-detail { 
+            color: #666; 
+            margin: 3px 0;
+            font-family: 'SF Mono', monospace;
+        }
+        .stock-profit { 
+            font-weight: 600; 
+            margin-top: 5px;
+            font-size: 1.1em;
+        }
+        
+        .api-status { 
+            font-size: 0.8em; 
+            color: #666; 
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .api-status.error { 
+            color: #d32f2f; 
+            background: #ffebee;
+        }
+        .api-status.success { 
+            color: #2e7d32; 
+            background: #e8f5e9;
+        }
+        
+        .update-info { 
+            text-align: center; 
+            margin-top: 12px; 
+            font-size: 0.8em; 
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .refresh-btn {
+            padding: 6px 14px;
+            font-size: 0.9em;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .refresh-btn:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+        }
+        .refresh-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .trades-table-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
         }
         .trades-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9em;
-            min-width: 600px;
+            min-width: 700px;
         }
         .trades-table th {
-            background: #f5f5f5;
-            padding: 12px 10px;
-            border: 1px solid #ddd;
-            font-weight: bold;
+            background: linear-gradient(135deg, #f5f5f5 0%, #eee 100%);
+            padding: 14px 12px;
+            border: 1px solid #e0e0e0;
+            font-weight: 600;
             color: #333;
             white-space: nowrap;
-            font-size: 0.95em;
         }
         .trades-table td {
-            padding: 12px 10px;
-            border: 1px solid #ddd;
-            line-height: 1.6;
-            vertical-align: top;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            line-height: 1.5;
+            vertical-align: middle;
         }
-        .trades-table .type-cell { font-weight: bold; white-space: nowrap; }
+        .trades-table .type-cell { font-weight: 600; white-space: nowrap; }
         .trades-table .type-充值 { color: #2e7d32; }
         .trades-table .type-提现 { color: #f57c00; }
         .trades-table .type-买入 { color: #1565c0; }
         .trades-table .type-卖出 { color: #c62828; }
-        .trades-table .code-cell { white-space: nowrap; font-family: monospace; font-weight: bold; }
+        .trades-table .code-cell { 
+            white-space: nowrap; 
+            font-family: 'SF Mono', monospace;
+            font-weight: 600;
+            color: #666;
+        }
         .trades-table .reason-cell {
             color: #666;
             font-size: 0.9em;
@@ -178,50 +398,51 @@
         .trades-table tr.deposit-row { background: #e8f5e9 !important; }
         .trades-table tr.sell-row { background: #ffebee !important; }
         
-        @media (max-width: 500px) {
-            .trades-table {
-                font-size: 1.1em;
-                min-width: 700px;
-            }
-            .trades-table th {
-                padding: 14px 8px;
-                font-size: 1em;
-            }
-            .trades-table td {
-                padding: 14px 8px;
-                font-size: 1em;
-            }
-            .trades-table .reason-cell {
-                font-size: 0.95em;
-                min-width: 200px;
-            }
+        .update-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2e7d32;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            animation: slideDown 0.3s ease;
+            font-weight: 500;
         }
-
+        @keyframes slideDown {
+            from { opacity: 0; transform: translate(-50%, -20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        
+        @media (max-width: 500px) {
+            .market-tabs { flex-wrap: wrap; }
+            .market-tab { padding: 6px 10px; font-size: 0.75em; }
+            .trades-table { font-size: 0.85em; min-width: 600px; }
+            .stock-item { min-width: 120px; padding: 10px; }
+        }
     </style>
 </head>
 <body>
-    <!-- 返回首页导航栏 -->
-    <div style="background: #1e3a5f; padding: 12px 20px; border-bottom: 1px solid #334155;">
-        <a href="https://www.opendragon.icu" style="color: #e2e8f0; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.875rem;">← 返回首页</a>
-    </div>
-    <div style="background: #0f172a; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155;">
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <span style="color: #94a3b8; font-size: 0.875rem;">数据更新：<span id="dataTime" style="color: #10b981;">加载中...</span></span>
-        </div>
-        <button onclick="location.reload()" style="background: #334155; border: none; color: #e2e8f0; padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">🔄 刷新</button>
-    </div>
     <div id="app">
         <div class="container">
-            <!-- 市场切换标签 -->
+            <div class="top-nav">
+                <a href="index.html" class="nav-logo">
+                    <span>🐉</span>
+                    <span>OpenDragon</span>
+                </a>
+            </div>
+            
             <div class="market-tabs">
-                <a href="index.html" class="market-tab">A股</a>
+                <a href="stock.html" class="market-tab">A股</a>
                 <a href="hk.html" class="market-tab">港股</a>
                 <a href="us.html" class="market-tab active">美股</a>
                 <a href="ca.html" class="market-tab">加股</a>
                 <a href="crypto.html" class="market-tab">数字货币</a>
             </div>
             
-            <!-- 状态栏 -->
             <div class="status-bar">
                 <div class="status-indicator" :class="{ 'status-closed': !isTradingTime }">
                     {{ statusText }}
@@ -244,18 +465,15 @@
                 </div>
             </div>
             
-            <!-- 标题 -->
-            <div class="title-section card">
-                <h1>🐉 OpenDragon 美股看板</h1>
+            <div class="title-section">
+                <h1>美股看板</h1>
                 <div class="time">{{ time }}</div>
             </div>
             
-            <!-- 上半部分：原则 + 总投资 -->
             <div class="top-row">
-                <!-- 利弗摩尔十大原则 -->
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">利弗摩尔十大原则</div>
+                        <div class="card-title">📋 利弗摩尔十大原则</div>
                     </div>
                     <div class="rules-container">
                         <div class="rules-scroller">
@@ -269,10 +487,9 @@
                     </div>
                 </div>
                 
-                <!-- 总投资 -->
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">总投资</div>
+                        <div class="card-title">💰 总投资</div>
                     </div>
                     <div class="capital-section">
                         <div class="capital-gauges-row">
@@ -282,12 +499,19 @@
                         <div class="capital-info">
                             <div class="capital-row"><span class="capital-label">本金</span><span class="capital-value">${{ formatNum(initialCapital) }}</span></div>
                             <div class="capital-row"><span class="capital-label">占用</span><span class="capital-value">${{ formatNum(totalCost) }}</span></div>
-                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value" style="color:#0a0">${{ formatNum(availableCapital) }}</span></div>
+                            <div class="capital-row"><span class="capital-label">可用</span><span class="capital-value profit-down">${{ formatNum(availableCapital) }}</span></div>
                             <div class="capital-row"><span class="capital-label">市值</span><span class="capital-value">${{ formatNum(totalMarketValue) }}</span></div>
                             <div class="capital-row"><span class="capital-label">浮动盈亏</span><span class="capital-value" :class="(totalMarketValue - totalCost) >= 0 ? 'profit-up' : 'profit-down'">{{ (totalMarketValue - totalCost) >= 0 ? '+' : '' }}${{ formatNum(totalMarketValue - totalCost) }}</span></div>
                             <div class="capital-row"><span class="capital-label">实际盈亏</span><span class="capital-value" :class="realizedProfit >= 0 ? 'profit-up' : 'profit-down'">{{ realizedProfit >= 0 ? '+' : '' }}${{ formatNum(realizedProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">总盈亏</span><span class="capital-value" :class="totalProfit >= 0 ? 'profit-up' : 'profit-down'">{{ totalProfit >= 0 ? '+' : '' }}${{ formatNum(totalProfit) }}</span></div>
                             <div class="capital-row"><span class="capital-label">收益率</span><span class="capital-value" :class="returnRate >= 0 ? 'profit-up' : 'profit-down'">{{ returnRate >= 0 ? '+' : '' }}{{ returnRate }}%</span></div>
+                        </div>
+                        <div class="update-info">
+                            <span v-if="lastUpdateTime">最后更新：{{ lastUpdateTime }}</span>
+                            <span v-else>加载中...</span>
+                            <button @click="refreshData" class="refresh-btn" :disabled="refreshing">
+                                {{ refreshing ? '刷新中...' : '🔄 刷新' }}
+                            </button>
                         </div>
                         <div class="api-status" :class="apiStatusClass">
                             数据源: {{ apiStatus }}
@@ -295,30 +519,14 @@
                     </div>
                 </div>
             </div>
-                        <div class="update-info" style="text-align: center; margin-top: 8px; font-size: 0.75em; color: #888;">
-                            <span v-if="lastUpdateTime">最后更新：{{ lastUpdateTime }}</span>
-                            <span v-else>加载中...</span>
-                            <button @click="refreshData" style="margin-left: 8px; padding: 2px 8px; font-size: 0.9em; background: #1a5c1a; color: white; border: none; border-radius: 4px; cursor: pointer;" :disabled="refreshing">
-                                {{ refreshing ? '刷新中...' : '🔄 刷新' }}
-                            </button>
-                        </div>
-                    
-            <!-- 更新提示 Toast -->
-            <div v-if="updateToast.show" class="update-toast" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #1a5c1a; color: white; padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; animation: slideDown 0.3s ease;">
+            
+            <div v-if="updateToast.show" class="update-toast">
                 {{ updateToast.message }}
             </div>
             
-            <style>
-                @keyframes slideDown {
-                    from { opacity: 0; transform: translate(-50%, -20px); }
-                    to { opacity: 1; transform: translate(-50%, 0); }
-                }
-            </style>
-            
-            <!-- 持仓明细 -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">持仓明细 (实时)</div>
+                    <div class="card-title">📊 持仓明细 (实时)</div>
                 </div>
                 <div class="stocks-row">
                     <div class="stock-item" v-for="s in sortedStocks" :key="s.code">
@@ -339,12 +547,9 @@
                 </div>
             </div>
             
-            /div>
-            
-            <!-- 交易记录 -->
             <div class="card" v-if="transactions.length > 0">
                 <div class="card-header">
-                    <div class="card-title">交易记录</div>
+                    <div class="card-title">📝 交易记录</div>
                 </div>
                 <div class="trades-table-wrapper">
                     <table class="trades-table">
@@ -393,41 +598,25 @@
             {"序号": 10, "原则": "最大的敌人是自己"}
         ];
         
-        // 美股持仓数据（2026-03-18 第一周建仓）
-        // 注意：买入价是建仓时的实际成交价，当前价通过API获取
-        const POSITIONS = [
-            {"code": "NVDA", "name": "Nvidia", "costPrice": 182.13, "quantity": 40},
-            {"code": "MSFT", "name": "Microsoft", "costPrice": 394.76, "quantity": 10},
-            {"code": "AMZN", "name": "Amazon", "costPrice": 211.68, "quantity": 6}
-        ];
-
-        // 飞书配置
-        const FEISHU_CONFIG = {
-            appToken: 'R9u7b3UTeagvfrsQEiGcgG7snBc',
-            tableId: 'tblYYndqV1vTDg8I'
-        };
-        
         const { createApp } = Vue;
         
         createApp({
             data() {
                 return {
                     time: new Date().toLocaleString(),
-                    statusText: '🔴 交易中',
+                    statusText: '⚫ 休市',
                     apiStatus: '连接中...',
+                    apiStatusClass: '',
                     lastUpdateTime: null,
                     lastVersion: null,
                     updateToast: { show: false, message: '' },
                     autoRefreshTimer: null,
                     refreshing: false,
-                    apiStatusClass: '',
-                    initialCapital: 0,  // 从飞书计算
-                    availableCapital: 0,  // 从飞书计算
-                    realizedProfit: 0,  // 从飞书计算
-                    closedPositions: [],  // 从飞书读取
-                    transactions: [],  // 交易记录
-                    
+                    initialCapital: 0,
+                    availableCapital: 0,
+                    realizedProfit: 0,
                     closedPositions: [],
+                    transactions: [],
                     indices: [
                         { name: '标普500', value: '5,800.20', change: 0, changePercent: '0.00' },
                         { name: '纳斯达克', value: '18,500.80', change: 0, changePercent: '0.00' },
@@ -438,16 +627,7 @@
                         no: r.序号,
                         title: r.原则
                     })),
-                    stocks: POSITIONS.map(p => ({
-                        code: p.code, 
-                        name: p.name, 
-                        cost: p.costPrice,  // 买入成本价（固定）
-                        price: 0,           // 当前价（从API获取）
-                        qty: p.quantity, 
-                        profitRate: 0,
-                        dayChange: 0,
-                        dayChangePercent: '0.00'
-                    }))
+                    stocks: []
                 }
             },
             computed: {
@@ -456,7 +636,6 @@
                     const day = now.getDay();
                     if (day === 0 || day === 6) return false;
                     const time = now.getHours() * 100 + now.getMinutes();
-                    // 美股交易时间：21:30-04:00 (北京时间)
                     return (time >= 2130 || time <= 400);
                 },
                 totalCost() { 
@@ -471,19 +650,13 @@
                 returnRate() { 
                     return ((this.realizedProfit / this.initialCapital) * 100).toFixed(2); 
                 },
-                closedPositions() {
-                    return this.$data.closedPositions || [];
-                },
                 sortedStocks() { 
                     return [...this.stocks].sort((a, b) => (b.price * b.qty) - (a.price * a.qty)); 
                 }
             },
             async mounted() {
-                // 从飞书读取交易记录
                 await this.loadFeishuData();
-                
                 this.updateTime();
-                // 指数在 fetchPrices 中获取
                 this.fetchPrices();
                 
                 setInterval(() => this.updateTime(), 1000);
@@ -493,11 +666,9 @@
             methods: {
                 async loadFeishuData() {
                     try {
-                        // 从 JSON 文件读取飞书数据
                         const response = await fetch('data/trades_us.json?t=' + Date.now());
                         const data = await response.json();
                         
-                        // 转换为 processActions 需要的格式
                         const actions = data.trades.map(t => ({
                             '交易类型': t.type,
                             '市场': data.market,
@@ -520,6 +691,25 @@
                         this.apiStatus = '读取失败';
                         this.apiStatusClass = 'error';
                     }
+                },
+                
+                async refreshData() {
+                    if (this.refreshing) return;
+                    this.refreshing = true;
+                    try {
+                        await this.loadFeishuData();
+                        this.showUpdateToast('✅ 数据已刷新');
+                    } catch (e) {
+                        this.showUpdateToast('❌ 刷新失败');
+                    }
+                    this.refreshing = false;
+                },
+                
+                showUpdateToast(message) {
+                    this.updateToast = { show: true, message: message };
+                    setTimeout(() => {
+                        this.updateToast.show = false;
+                    }, 3000);
                 },
                 
                 processActions(actions) {
@@ -576,7 +766,6 @@
                     this.closedPositions = closed;
                     this.realizedProfit = closed.reduce((sum, c) => sum + c.profit, 0);
                     
-                    // 构建交易记录
                     this.transactions = actions.map((a, i) => {
                         let dateStr = '2026-03-16';
                         if (a['交易日期']) {
@@ -612,7 +801,6 @@
                     }));
                 },
                 
-
                 updateTime() {
                     const now = new Date();
                     this.time = now.toLocaleString();
@@ -621,14 +809,12 @@
                 
                 async loadIndices() {
                     try {
-                        // 从本地 JSON 读取美股指数
                         const response = await fetch('data/indices.json?t=' + Date.now());
                         const data = await response.json();
                         
                         if (data.us) {
                             const usIndices = data.us;
                             
-                            // 更新标普 500
                             if (usIndices['标普 500']) {
                                 const idx = usIndices['标普 500'];
                                 this.indices[0].value = idx.value.toLocaleString();
@@ -636,7 +822,6 @@
                                 this.indices[0].changePercent = idx.changePercent.toFixed(2);
                             }
                             
-                            // 更新纳斯达克
                             if (usIndices['纳斯达克']) {
                                 const idx = usIndices['纳斯达克'];
                                 this.indices[1].value = idx.value.toLocaleString();
@@ -644,7 +829,6 @@
                                 this.indices[1].changePercent = idx.changePercent.toFixed(2);
                             }
                             
-                            // 更新道琼斯
                             if (usIndices['道琼斯']) {
                                 const idx = usIndices['道琼斯'];
                                 this.indices[2].value = idx.value.toLocaleString();
@@ -659,14 +843,12 @@
                 
                 async fetchPrices() {
                     try {
-                        // 使用腾讯财经API获取美股实时价格和指数（国内可用）
                         const symbols = 'usNVDA,usMSFT,usAMZN,usSQQQ,usSPX,usIXIC,usDJI';
                         const url = `https://qt.gtimg.cn/q=${symbols}`;
                         
                         const response = await fetch(url);
                         const text = await response.text();
                         
-                        // 解析个股数据
                         const priceMap = {
                             'NVDA': this.extractPrice(text, 'v_usNVDA'),
                             'MSFT': this.extractPrice(text, 'v_usMSFT'),
@@ -684,7 +866,6 @@
                             }
                         });
                         
-                        // 解析指数数据
                         const spxData = this.extractPrice(text, 'v_usSPX');
                         const ixicData = this.extractPrice(text, 'v_usIXIC');
                         const djiData = this.extractPrice(text, 'v_usDJI');
@@ -728,7 +909,6 @@
                         const match = text.match(regex);
                         if (match && match[1]) {
                             const parts = match[1].split('~');
-                            // 腾讯格式: v_usNVDA="200~名称~代码~当前价~昨收~..."
                             const price = parseFloat(parts[3]);
                             const prevClose = parseFloat(parts[4]);
                             const change = price - prevClose;
@@ -745,7 +925,6 @@
                     if (typeof echarts === 'undefined') return;
                     
                     setTimeout(() => {
-                        // 资金占用仪表盘
                         const capitalEl = document.getElementById('capital-gauge');
                         if (capitalEl) {
                             const chart = echarts.init(capitalEl);
@@ -757,7 +936,7 @@
                                     endAngle: 0,
                                     min: 0,
                                     max: 100,
-                                    itemStyle: { color: '#0a0' },
+                                    itemStyle: { color: '#2e7d32' },
                                     progress: { show: true, width: 12 },
                                     pointer: { show: true, length: '60%' },
                                     axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
@@ -767,7 +946,7 @@
                                     detail: {
                                         valueAnimation: true,
                                         offsetCenter: [0, '40%'],
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         fontWeight: 'bold',
                                         formatter: '{value}%',
                                         color: '#333'
@@ -777,7 +956,6 @@
                             });
                         }
                         
-                        // 盈亏仪表盘
                         const profitEl = document.getElementById('profit-gauge');
                         if (profitEl) {
                             const isProfit = this.totalProfit >= 0;
@@ -791,7 +969,7 @@
                                     endAngle: 0,
                                     min: -10,
                                     max: 10,
-                                    itemStyle: { color: isProfit ? '#d00' : '#0a0' },
+                                    itemStyle: { color: isProfit ? '#d32f2f' : '#2e7d32' },
                                     progress: { show: true, width: 12 },
                                     pointer: { show: true, length: '60%' },
                                     axisLine: { lineStyle: { width: 12, color: [[1, '#ddd']] } },
@@ -801,17 +979,16 @@
                                     detail: {
                                         valueAnimation: true,
                                         offsetCenter: [0, '40%'],
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         fontWeight: 'bold',
                                         formatter: '{value}%',
-                                        color: isProfit ? '#d00' : '#0a0'
+                                        color: isProfit ? '#d32f2f' : '#2e7d32'
                                     },
                                     data: [{ value: profitRate }]
                                 }]
                             });
                         }
                         
-                        // 个股仪表盘
                         this.stocks.forEach(stock => {
                             const el = document.getElementById('gauge-' + stock.code);
                             if (el) {
@@ -824,7 +1001,7 @@
                                         endAngle: 0,
                                         min: -10,
                                         max: 10,
-                                        itemStyle: { color: stock.dayChange >= 0 ? '#d00' : '#0a0' },
+                                        itemStyle: { color: stock.dayChange >= 0 ? '#d32f2f' : '#2e7d32' },
                                         progress: { show: true, width: 10 },
                                         pointer: { show: true, length: '55%' },
                                         axisLine: { lineStyle: { width: 10, color: [[1, '#ddd']] } },
@@ -834,10 +1011,10 @@
                                         detail: {
                                             valueAnimation: true,
                                             offsetCenter: [0, '35%'],
-                                            fontSize: 11,
+                                            fontSize: 12,
                                             fontWeight: 'bold',
                                             formatter: '{value}%',
-                                            color: stock.dayChange >= 0 ? '#d00' : '#0a0'
+                                            color: stock.dayChange >= 0 ? '#d32f2f' : '#2e7d32'
                                         },
                                         data: [{ value: parseFloat(stock.dayChangePercent) }]
                                     }]
@@ -852,43 +1029,6 @@
                 }
             }
         }).mount('#app');
-        
-    async function checkDataTime() {
-        // 根据市场选择对应的数据文件
-        const market = window.location.pathname.includes('hk') ? 'hk' :
-                       window.location.pathname.includes('us') ? 'us' :
-                       window.location.pathname.includes('ca') ? 'ca' :
-                       window.location.pathname.includes('crypto') ? 'crypto' : 'cn';
-
-        const dataFile = 'data/trades_' + market + '.json';
-
-        try {
-            const res = await fetch(dataFile + '?t=' + Date.now());
-            const data = await res.json();
-
-            // 读取 JSON 内的 timestamp
-            const timestamp = data.timestamp;
-
-            if (timestamp) {
-                const timeEl = document.getElementById('dataTime');
-                const dateObj = new Date(timestamp.replace(" ", "T")); const dateStr = dateObj.toLocaleDateString("zh-CN", {month: "numeric", day: "numeric"}); const timeStr = dateObj.toLocaleTimeString("zh-CN", {hour: "2-digit", minute: "2-digit"}); timeEl.textContent = dateStr + " " + timeStr;
-
-                // 检查是否过期（超过15分钟）
-                const dataTime = new Date(timestamp.replace(' ', 'T')).getTime();
-                const age = Date.now() - dataTime;
-                timeEl.style.color = (age > 15 * 60 * 1000) ? '#ef4444' : '#10b981';
-            } else {
-                document.getElementById('dataTime').textContent = '无时间戳';
-                document.getElementById('dataTime').style.color = '#f59e0b';
-            }
-        } catch(e) {
-            document.getElementById('dataTime').textContent = '读取失败';
-            document.getElementById('dataTime').style.color = '#ef4444';
-            console.error('读取时间戳失败:', e);
-        }
-    }
-
-    checkDataTime();
     </script>
 </body>
 </html>
