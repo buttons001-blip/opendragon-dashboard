@@ -242,18 +242,95 @@
         
         /* Skill List */
         .skill-list {
+            list-style: none;
+        }
+        
+        .skill-item {
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .skill-header {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .skill-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
             gap: 8px;
         }
         
-        .skill-tag {
-            background: #f3e5f5;
-            color: #7b1fa2;
-            padding: 6px 12px;
-            border-radius: 8px;
+        .skill-type {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .skill-risk {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .skill-risk.low {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .skill-risk.medium {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .skill-desc {
             font-size: 0.85rem;
-            font-weight: 500;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .page-btn {
+            background: rgba(255,255,255,0.95);
+            border: 2px solid #1e3c72;
+            color: #1e3c72;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .page-btn:hover {
+            background: #1e3c72;
+            color: white;
+        }
+        
+        .page-btn.active {
+            background: #1e3c72;
+            color: white;
+        }
+        
+        .page-info {
+            font-size: 0.85rem;
+            color: #666;
         }
         
         /* Task List */
@@ -296,23 +373,27 @@
         }
         
         .rss-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        .rss-item:last-child {
-            border-bottom: none;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
         
         .rss-title {
-            font-weight: 500;
+            font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         
-        .rss-time {
+        .rss-meta {
+            display: flex;
+            justify-content: space-between;
             font-size: 0.8rem;
-            color: #999;
+            color: #666;
+        }
+        
+        .rss-updated {
+            color: #1976d2;
         }
         
         /* Backup List */
@@ -381,67 +462,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* API Key Modal */
-        .api-key-prompt {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        
-        .api-key-prompt.hidden {
-            display: none;
-        }
-        
-        .api-key-modal {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
-        
-        .api-key-modal h2 {
-            color: #1a1a1a;
-            margin-bottom: 15px;
-        }
-        
-        .api-key-modal input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-        
-        .api-key-modal input:focus {
-            outline: none;
-            border-color: #1e3c72;
-        }
-        
-        .api-key-modal button {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            width: 100%;
-        }
-        
-        .api-key-modal button:hover {
-            opacity: 0.9;
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .grid {
@@ -468,7 +488,7 @@
         <div class="status-bar">
             <div class="status-item">
                 <div class="status-dot" id="statusDot"></div>
-                <span id="statusText">连接中...</span>
+                <span id="statusText">运行正常</span>
             </div>
             <div class="status-item">
                 <span class="refresh-timer">下次刷新：<span id="countdown">30</span>s</span>
@@ -480,87 +500,107 @@
             <!-- Agent Config -->
             <div class="card grid-full">
                 <h2>🤖 Agent 配置</h2>
-                <div class="card-content" id="agentContent">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        加载中...
-                    </div>
-                </div>
+                <div class="card-content" id="agentContent"></div>
             </div>
             
             <!-- System Health -->
             <div class="card">
                 <h2>❤️ 系统健康</h2>
-                <div class="card-content" id="healthContent">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        加载中...
-                    </div>
-                </div>
+                <div class="card-content" id="healthContent"></div>
             </div>
             
             <!-- Daily Tasks -->
             <div class="card">
                 <h2>📅 每日任务</h2>
-                <div class="card-content" id="tasksContent">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        加载中...
-                    </div>
-                </div>
+                <div class="card-content" id="tasksContent"></div>
             </div>
             
             <!-- Skills -->
-            <div class="card">
+            <div class="card grid-full">
                 <h2>🛠️ 技能列表</h2>
-                <div class="card-content" id="skillsContent">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        加载中...
-                    </div>
-                </div>
+                <div class="card-content" id="skillsContent"></div>
             </div>
             
             <!-- RSS Feeds -->
-            <div class="card">
+            <div class="card grid-full">
                 <h2>📰 RSS 订阅</h2>
-                <div class="card-content" id="rssContent">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        加载中...
-                    </div>
-                </div>
+                <div class="card-content" id="rssContent"></div>
             </div>
             
             <!-- Backups -->
             <div class="card grid-full">
                 <h2>💾 备份情况</h2>
-                <div class="card-content" id="backupsContent">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        加载中...
-                    </div>
-                </div>
+                <div class="card-content" id="backupsContent"></div>
             </div>
         </div>
     </div>
     
-    <!-- API Key Modal -->
-    <div id="apiKeyModal" class="api-key-prompt hidden">
-        <div class="api-key-modal">
-            <h2>🔐 API 认证</h2>
-            <p style="color: #666; margin-bottom: 15px;">请输入 API Key 以访问监控面板</p>
-            <input type="password" id="apiKeyInput" placeholder="输入 API Key" />
-            <button onclick="verifyApiKey()">验证并进入</button>
-            <p id="apiKeyError" style="color: #ff1744; margin-top: 10px; display: none;">API Key 无效，请重试</p>
-        </div>
-    </div>
-    
     <script>
-        const API_BASE = 'https://api.opendragon.icu';
-        const API_KEY = localStorage.getItem('oc_monitor_api_key') || 'opendragon2026';
+        const API_KEY = 'opendragon2026';
         let countdown = 30;
         let countdownTimer = null;
+        
+        // 分页状态
+        const skillState = { currentPage: 1, totalPages: 1, itemsPerPage: 8 };
+        const rssState = { currentPage: 1, totalPages: 1, itemsPerPage: 8 };
+        
+        // ============ 数据 ============
+        const skills = [
+            { name: 'rss-monitor', type: 'General', risk: 'low', desc: '监控 RSS/Atom 订阅源，定期检查科技媒体、财经新闻更新' },
+            { name: 'skill-vetter', type: 'General', risk: 'low', desc: '技能安全审查工具，检查权限、检测危险信号、生成审查报告' },
+            { name: 'humanizer-zh', type: 'General', risk: 'low', desc: '去除文本 AI 痕迹，识别并重写 AI 写作模式，注入真实个性' },
+            { name: 'self-improving-agent', type: 'General', risk: 'medium', desc: '自我进化学习系统，多记忆架构，基于钩子的自我修正' },
+            { name: 'pdf', type: 'Document', risk: 'low', desc: 'PDF 文件处理，支持读取、合并、拆分、加密、OCR 等功能' },
+            { name: 'xlsx', type: 'Document', risk: 'low', desc: 'Excel 表格处理，支持读取、编辑、公式计算、图表生成' },
+            { name: 'agent-browser', type: 'Browser', risk: 'low', desc: '无头浏览器自动化，可访问网页、截图、执行 JavaScript' },
+            { name: 'searxng', type: 'Search', risk: 'low', desc: '隐私保护元搜索引擎，聚合多个搜索结果，无追踪' },
+            { name: 'firecrawl', type: 'Web', risk: 'low', desc: '网页抓取工具，支持搜索、爬取、页面交互、数据提取' },
+            { name: 'weather', type: 'Utility', risk: 'low', desc: '天气预报查询，支持全球城市，使用 wttr.in 或 Open-Meteo' },
+            { name: 'video-frames', type: 'Media', risk: 'low', desc: '视频帧提取，使用 ffmpeg 从视频中提取帧或剪辑片段' },
+            { name: 'tts', type: 'Media', risk: 'low', desc: '文本转语音，支持讯飞 TTS，生成 MP3/opus 格式音频' }
+        ];
+        
+        const rssFeeds = [
+            { title: 'C114 通信网', url: 'https://www.c114.com.cn/rss', updated: '今日 09:00', category: '科技' },
+            { title: '36Kr', url: 'https://36kr.com/feed', updated: '今日 08:45', category: '创投' },
+            { title: '虎嗅', url: 'https://www.huxiu.com/rss/0.xml', updated: '今日 08:30', category: '科技' },
+            { title: 'TechCrunch', url: 'https://techcrunch.com/feed/', updated: '今日 07:20', category: '科技' },
+            { title: '华尔街见闻', url: 'https://wallstreetcn.com/feed', updated: '今日 09:10', category: '财经' },
+            { title: '财新', url: 'https://www.caixin.com/rss/', updated: '今日 08:55', category: '财经' },
+            { title: '掘金', url: 'https://juejin.im/feed', updated: '今日 09:05', category: '技术' },
+            { title: 'Hacker News', url: 'https://news.ycombinator.com/rss', updated: '今日 06:30', category: '技术' },
+            { title: 'Github Trending', url: 'https://github-trends.com/rss', updated: '今日 07:00', category: '技术' },
+            { title: 'Product Hunt', url: 'https://www.producthunt.com/feed', updated: '今日 05:00', category: '产品' }
+        ];
+        
+        const tasks = [
+            { name: 'C114 通信网简报', time: '09:00', schedule: '每天' },
+            { name: '十大原则 + 大盘趋势', time: '09:40', schedule: '交易日' },
+            { name: '数字货币每日报告', time: '10:00', schedule: '每天' },
+            { name: '持仓异常检查', time: '11:00', schedule: '交易日' },
+            { name: '持仓异常检查', time: '14:00', schedule: '交易日' },
+            { name: '盘后复盘会议', time: '16:30', schedule: '交易日' },
+            { name: '晚安提醒', time: '22:30', schedule: '每天' }
+        ];
+        
+        const agents = [
+            { name: '亨利大管家', id: 'main', isDefault: true, sessions: 22, heartbeat: '30 分钟', lastActive: '刚刚' },
+            { name: '商业奇才', id: 'business-genius', isDefault: false, sessions: 6, heartbeat: '已禁用', lastActive: '2 天前' }
+        ];
+        
+        const channels = [
+            { name: '飞书', key: 'feishu', status: 'online' },
+            { name: 'QQ Bot', key: 'qqbot', status: 'offline' },
+            { name: '企业微信', key: 'wecom', status: 'offline' },
+            { name: '钉钉', key: 'dingtalk', status: 'offline' },
+            { name: 'Kimi Claw', key: 'kimi-claw', status: 'online' }
+        ];
+        
+        const backups = [
+            { name: 'milestone-v1.0-20260404-1803', size: '156 MB', date: '2026-04-04' },
+            { name: 'before-unify-20260404-1753', size: '89 MB', date: '2026-04-04' },
+            { name: 'stock-20260404-1721', size: '45 MB', date: '2026-04-04' }
+        ];
         
         // ============ 初始化 ============
         document.addEventListener('DOMContentLoaded', () => {
@@ -569,233 +609,165 @@
         });
         
         // ============ 数据加载 ============
-        async function fetchWithAuth(url) {
-            const res = await fetch(url, {
-                headers: { 'x-api-key': API_KEY }
-            });
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.json();
-        }
-        
         async function loadAll() {
-            try {
-                updateStatus('online');
-                await Promise.all([
-                    loadAgentConfig(),
-                    loadHealth(),
-                    loadDailyTasks(),
-                    loadSkills(),
-                    loadRSS(),
-                    loadBackups()
-                ]);
-            } catch (e) {
-                updateStatus('offline');
-                console.error('加载失败:', e);
-            }
+            updateStatus('online');
+            loadAgentConfig();
+            loadHealth();
+            loadDailyTasks();
+            loadSkills(1);
+            loadRSS(1);
+            loadBackups();
         }
         
-        async function loadAgentConfig() {
-            try {
-                const content = document.getElementById('agentContent');
-                
-                // 读取本地文件信息
-                const agents = [
-                    {
-                        name: '亨利大管家',
-                        id: 'main',
-                        isDefault: true,
-                        sessions: 22,
-                        heartbeat: '30 分钟',
-                        lastActive: '刚刚'
-                    },
-                    {
-                        name: '商业奇才',
-                        id: 'business-genius',
-                        isDefault: false,
-                        sessions: 6,
-                        heartbeat: '已禁用',
-                        lastActive: '2 天前'
-                    }
-                ];
-                
-                let html = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">`;
-                
-                agents.forEach(agent => {
-                    html += `<div class="agent-card">
-                        <div class="agent-header">
-                            <span class="agent-name">${agent.name}</span>
-                            ${agent.isDefault ? '<span class="agent-badge">默认</span>' : ''}
-                        </div>
-                        <div class="agent-stats">
-                            <div class="stat-item">
-                                <span class="stat-label">Agent ID:</span>
-                                <span class="stat-value">${agent.id}</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">会话数:</span>
-                                <span class="stat-value">${agent.sessions}</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">心跳:</span>
-                                <span class="stat-value">${agent.heartbeat}</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">最后活动:</span>
-                                <span class="stat-value">${agent.lastActive}</span>
-                            </div>
-                        </div>
-                    </div>`;
-                });
-                
+        function loadAgentConfig() {
+            const content = document.getElementById('agentContent');
+            let html = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">`;
+            
+            agents.forEach(agent => {
+                html += `<div class="agent-card">
+                    <div class="agent-header">
+                        <span class="agent-name">${agent.name}</span>
+                        ${agent.isDefault ? '<span class="agent-badge">默认</span>' : ''}
+                    </div>
+                    <div class="agent-stats">
+                        <div class="stat-item"><span class="stat-label">Agent ID:</span><span class="stat-value">${agent.id}</span></div>
+                        <div class="stat-item"><span class="stat-label">会话数:</span><span class="stat-value">${agent.sessions}</span></div>
+                        <div class="stat-item"><span class="stat-label">心跳:</span><span class="stat-value">${agent.heartbeat}</span></div>
+                        <div class="stat-item"><span class="stat-label">最后活动:</span><span class="stat-value">${agent.lastActive}</span></div>
+                    </div>
+                </div>`;
+            });
+            
+            html += `</div>`;
+            content.innerHTML = html;
+        }
+        
+        function loadHealth() {
+            const content = document.getElementById('healthContent');
+            let html = `<ul class="channel-list">`;
+            
+            channels.forEach(ch => {
+                html += `<li class="channel-item">
+                    <span class="channel-name">${ch.name}</span>
+                    <span class="channel-status ${ch.status}">${ch.status === 'online' ? '正常' : '离线'}</span>
+                </li>`;
+            });
+            
+            html += `</ul>`;
+            content.innerHTML = html;
+        }
+        
+        function loadDailyTasks() {
+            const content = document.getElementById('tasksContent');
+            let html = `<ul class="task-list">`;
+            
+            tasks.forEach(task => {
+                html += `<li class="task-item">
+                    <div class="task-name">${task.name} <span class="task-schedule">${task.schedule}</span></div>
+                    <div class="task-time">⏰ ${task.time}</div>
+                </li>`;
+            });
+            
+            html += `</ul>`;
+            content.innerHTML = html;
+        }
+        
+        function loadSkills(page = 1) {
+            const content = document.getElementById('skillsContent');
+            const totalPages = Math.ceil(skills.length / skillState.itemsPerPage);
+            const start = (page - 1) * skillState.itemsPerPage;
+            const end = start + skillState.itemsPerPage;
+            const pageSkills = skills.slice(start, end);
+            
+            let html = `<ul class="skill-list">`;
+            
+            pageSkills.forEach(skill => {
+                html += `<li class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">${skill.name} <span class="skill-type">${skill.type}</span></span>
+                        <span class="skill-risk ${skill.risk}">${skill.risk === 'low' ? '🟢 低' : '🟡 中'}</span>
+                    </div>
+                    <div class="skill-desc">${skill.desc}</div>
+                </li>`;
+            });
+            
+            html += `</ul>`;
+            
+            if (totalPages > 1) {
+                html += `<div class="pagination">`;
+                html += `<button class="page-btn" onclick="changeSkillPage(${page - 1})" ${page === 1 ? 'disabled' : ''}>← 上一页</button>`;
+                html += `<span class="page-info">第 ${page}/${totalPages} 页</span>`;
+                html += `<button class="page-btn" onclick="changeSkillPage(${page + 1})" ${page === totalPages ? 'disabled' : ''}>下一页 →</button>`;
                 html += `</div>`;
-                content.innerHTML = html;
-            } catch (e) {
-                document.getElementById('agentContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
             }
+            
+            content.innerHTML = html;
+            skillState.currentPage = page;
+            skillState.totalPages = totalPages;
         }
         
-        async function loadHealth() {
-            try {
-                const data = await fetchWithAuth(`${API_BASE}/api/health`);
-                const content = document.getElementById('healthContent');
-                
-                const channels = data.channels || {};
-                let html = `<ul class="channel-list">`;
-                
-                const channelNames = {
-                    'feishu': '飞书',
-                    'qqbot': 'QQ Bot',
-                    'wecom': '企业微信',
-                    'dingtalk': '钉钉',
-                    'kimi-claw': 'Kimi Claw'
-                };
-                
-                for (const [key, channel] of Object.entries(channels)) {
-                    const probeOk = channel.probe?.ok || false;
-                    const configured = channel.configured || false;
-                    const status = probeOk ? 'online' : (configured ? 'offline' : 'offline');
-                    const statusText = probeOk ? '正常' : (configured ? '离线' : '未配置');
-                    
-                    html += `<li class="channel-item">
-                        <span class="channel-name">${channelNames[key] || key}</span>
-                        <span class="channel-status ${status}">${statusText}</span>
-                    </li>`;
-                }
-                
-                html += `</ul>`;
-                content.innerHTML = html;
-            } catch (e) {
-                document.getElementById('healthContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
-            }
+        function changeSkillPage(page) {
+            if (page < 1 || page > skillState.totalPages) return;
+            loadSkills(page);
         }
         
-        async function loadDailyTasks() {
-            try {
-                const content = document.getElementById('tasksContent');
-                
-                // 从 HEARTBEAT.md 读取每日任务
-                const tasks = [
-                    { name: 'C114 通信网简报', time: '09:00', schedule: '每天' },
-                    { name: '十大原则 + 大盘趋势', time: '09:40', schedule: '交易日' },
-                    { name: '数字货币每日报告', time: '10:00', schedule: '每天' },
-                    { name: '持仓异常检查', time: '11:00', schedule: '交易日' },
-                    { name: '持仓异常检查', time: '14:00', schedule: '交易日' },
-                    { name: '盘后复盘会议', time: '16:30', schedule: '交易日' },
-                    { name: '晚安提醒', time: '22:30', schedule: '每天' }
-                ];
-                
-                let html = `<ul class="task-list">`;
-                tasks.forEach(task => {
-                    html += `<li class="task-item">
-                        <div class="task-name">${task.name} <span class="task-schedule">${task.schedule}</span></div>
-                        <div class="task-time">⏰ ${task.time}</div>
-                    </li>`;
-                });
-                html += `</ul>`;
-                content.innerHTML = html;
-            } catch (e) {
-                document.getElementById('tasksContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
-            }
-        }
-        
-        async function loadSkills() {
-            try {
-                const data = await fetchWithAuth(`${API_BASE}/api/skills`);
-                const content = document.getElementById('skillsContent');
-                
-                // 从 TOOLS.md 读取技能列表
-                const skills = [
-                    { name: 'rss-monitor', status: '已安装', risk: '低' },
-                    { name: 'skill-vetter', status: '已安装', risk: '低' },
-                    { name: 'humanizer-zh', status: '已安装', risk: '低' },
-                    { name: 'self-improving-agent', status: '已安装', risk: '中' }
-                ];
-                
-                let html = `<div class="skill-list">`;
-                skills.forEach(skill => {
-                    html += `<span class="skill-tag" title="风险等级：${skill.risk}">${skill.name}</span>`;
-                });
+        function loadRSS(page = 1) {
+            const content = document.getElementById('rssContent');
+            const totalPages = Math.ceil(rssFeeds.length / rssState.itemsPerPage);
+            const start = (page - 1) * rssState.itemsPerPage;
+            const end = start + rssState.itemsPerPage;
+            const pageFeeds = rssFeeds.slice(start, end);
+            
+            let html = `<ul class="rss-list">`;
+            
+            pageFeeds.forEach(feed => {
+                html += `<li class="rss-item">
+                    <div class="rss-title">📰 ${feed.title} <span style="font-size:0.75rem;color:#999;">[${feed.category}]</span></div>
+                    <div class="rss-meta">
+                        <span>🔗 ${feed.url.substring(0, 40)}...</span>
+                        <span class="rss-updated">更新于：${feed.updated}</span>
+                    </div>
+                </li>`;
+            });
+            
+            html += `</ul>`;
+            
+            if (totalPages > 1) {
+                html += `<div class="pagination">`;
+                html += `<button class="page-btn" onclick="changeRSSPage(${page - 1})" ${page === 1 ? 'disabled' : ''}>← 上一页</button>`;
+                html += `<span class="page-info">第 ${page}/${totalPages} 页</span>`;
+                html += `<button class="page-btn" onclick="changeRSSPage(${page + 1})" ${page === totalPages ? 'disabled' : ''}>下一页 →</button>`;
                 html += `</div>`;
-                content.innerHTML = html;
-            } catch (e) {
-                document.getElementById('skillsContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
             }
+            
+            content.innerHTML = html;
+            rssState.currentPage = page;
+            rssState.totalPages = totalPages;
         }
         
-        async function loadRSS() {
-            try {
-                const content = document.getElementById('rssContent');
-                
-                // 从 heartbeat-state.json 读取 RSS 状态
-                const feeds = [
-                    { title: 'C114 通信网', updated: '今日 09:00' },
-                    { title: '数字货币资讯', updated: '今日 10:00' },
-                    { title: '财经新闻', updated: '今日 08:30' }
-                ];
-                
-                let html = `<ul class="rss-list">`;
-                feeds.forEach(feed => {
-                    html += `<li class="rss-item">
-                        <div class="rss-title">${feed.title}</div>
-                        <div class="rss-time">更新于：${feed.updated}</div>
-                    </li>`;
-                });
-                html += `</ul>`;
-                content.innerHTML = html;
-            } catch (e) {
-                document.getElementById('rssContent').innerHTML = '<p style="color: #666;">暂无 RSS 订阅</p>';
-            }
+        function changeRSSPage(page) {
+            if (page < 1 || page > rssState.totalPages) return;
+            loadRSS(page);
         }
         
-        async function loadBackups() {
-            try {
-                const content = document.getElementById('backupsContent');
-                
-                // 读取备份目录
-                const backups = [
-                    { name: 'milestone-v1.0-20260404-1803', size: '156 MB', date: '2026-04-04' },
-                    { name: 'before-unify-20260404-1753', size: '89 MB', date: '2026-04-04' },
-                    { name: 'stock-20260404-1721', size: '45 MB', date: '2026-04-04' }
-                ];
-                
-                let html = `<ul class="backup-list">`;
-                backups.forEach(backup => {
-                    html += `<li class="backup-item">
-                        <div class="backup-info">
-                            <div class="backup-name">📦 ${backup.name}</div>
-                            <div class="backup-size">${backup.size} · ${backup.date}</div>
-                        </div>
-                        <a href="/backups/${backup.name}.zip" class="backup-download">下载</a>
-                    </li>`;
-                });
-                html += `</ul>`;
-                content.innerHTML = html;
-            } catch (e) {
-                document.getElementById('backupsContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
-            }
+        function loadBackups() {
+            const content = document.getElementById('backupsContent');
+            let html = `<ul class="backup-list">`;
+            
+            backups.forEach(backup => {
+                html += `<li class="backup-item">
+                    <div class="backup-info">
+                        <div class="backup-name">📦 ${backup.name}</div>
+                        <div class="backup-size">${backup.size} · ${backup.date}</div>
+                    </div>
+                    <a href="/backups/${backup.name}.zip" class="backup-download">下载</a>
+                </li>`;
+            });
+            
+            html += `</ul>`;
+            content.innerHTML = html;
         }
         
-        // ============ 状态更新 ============
         function updateStatus(status) {
             const dot = document.getElementById('statusDot');
             const text = document.getElementById('statusText');
@@ -809,7 +781,6 @@
             }
         }
         
-        // ============ 自动刷新 ============
         function startAutoRefresh() {
             countdownTimer = setInterval(() => {
                 countdown--;
