@@ -7,79 +7,82 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        :root {
-            --bg-primary: #0f0f23;
-            --bg-secondary: #1a1a2e;
-            --bg-card: #16213e;
-            --border: #0f3460;
-            --text-primary: #eaeaea;
-            --text-secondary: #a0a0a0;
-            --accent: #00d4ff;
-            --accent-hover: #00a8cc;
-            --success: #00c853;
-            --error: #ff1744;
-            --warning: #ff9100;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-            line-height: 1.6;
+            padding: 20px;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
         
         /* Header */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
+            margin-bottom: 50px;
             padding: 20px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 30px;
         }
         
         h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
-        .status-badge {
-            font-size: 12px;
-            padding: 4px 12px;
+        .subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00c853;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.offline {
+            background: #ff1744;
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .refresh-timer {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
             border-radius: 20px;
-            background: var(--success);
-            color: #000;
-            font-weight: 600;
-        }
-        
-        .status-badge.offline {
-            background: var(--error);
-        }
-        
-        .auto-refresh {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        #countdown {
-            font-weight: bold;
-            color: var(--accent);
-            min-width: 24px;
-            text-align: center;
+            font-size: 0.85rem;
         }
         
         /* Grid Layout */
@@ -90,262 +93,173 @@
             margin-bottom: 20px;
         }
         
-        .grid-full {
-            grid-column: 1 / -1;
-        }
-        
         /* Cards */
         .card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--border);
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
         
         .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         
         .card h2 {
-            color: var(--accent);
-            font-size: 16px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
+            font-size: 1.3rem;
+            color: #1a1a1a;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
-        /* Metrics */
-        .metric {
+        .card-content {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Channel List */
+        .channel-list {
+            list-style: none;
+        }
+        
+        .channel-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
         }
         
-        .metric:last-child {
+        .channel-item:last-child {
             border-bottom: none;
         }
         
-        .metric-label {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        .metric-value {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 14px;
-        }
-        
-        /* Status indicators */
-        .status {
-            display: inline-flex;
+        .channel-name {
+            display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            gap: 10px;
+            font-weight: 500;
+        }
+        
+        .channel-status {
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-weight: 600;
         }
         
-        .status::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .channel-status.online {
+            background: #e8f5e9;
+            color: #2e7d32;
         }
         
-        .status.up, .status.installed {
-            background: rgba(0, 200, 83, 0.2);
-            color: var(--success);
+        .channel-status.offline {
+            background: #ffebee;
+            color: #c62828;
         }
         
-        .status.up::before, .status.installed::before {
-            background: var(--success);
+        /* Skill List */
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         
-        .status.down {
-            background: rgba(255, 23, 68, 0.2);
-            color: var(--error);
+        .skill-tag {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
         
-        .status.down::before {
-            background: var(--error);
+        /* RSS List */
+        .rss-list {
+            list-style: none;
         }
         
-        .status.error {
-            background: rgba(255, 145, 0, 0.2);
-            color: var(--warning);
+        .rss-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
         }
         
-        .status.error::before {
-            background: var(--warning);
+        .rss-item:last-child {
+            border-bottom: none;
         }
         
-        .status.configured {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--accent);
+        .rss-title {
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 4px;
         }
         
-        .status.configured::before {
-            background: var(--accent);
+        .rss-time {
+            font-size: 0.8rem;
+            color: #999;
         }
         
-        /* Skills */
-        .skill-item {
+        /* Agent Info */
+        .agent-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .agent-stat {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: rgba(15, 52, 96, 0.5);
-            border-radius: 8px;
             margin-bottom: 8px;
-            transition: background 0.2s;
         }
         
-        .skill-item:hover {
-            background: rgba(15, 52, 96, 0.8);
-        }
-        
-        .skill-item:last-child {
+        .agent-stat:last-child {
             margin-bottom: 0;
         }
         
-        .skill-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+        .stat-label {
+            color: #666;
         }
         
-        .skill-name {
-            color: var(--accent);
+        .stat-value {
             font-weight: 600;
-            font-size: 14px;
+            color: #1a1a1a;
         }
         
-        .skill-type {
-            color: var(--text-secondary);
-            font-size: 12px;
-        }
-        
-        .skill-desc {
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin-top: 4px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        /* Logs */
-        .log-container {
+        /* Log List */
+        .log-list {
             max-height: 300px;
             overflow-y: auto;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 10px;
-        }
-        
-        .log-line {
-            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
-            font-size: 12px;
-            color: var(--text-secondary);
-            padding: 4px 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .log-line:hover {
-            color: var(--text-primary);
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 4px;
-        }
-        
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-        }
-        
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-        
-        .btn-primary:disabled {
-            background: var(--text-secondary);
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-        
-        /* Error states */
-        .error-message {
-            background: rgba(255, 23, 68, 0.1);
-            border: 1px solid var(--error);
-            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            background: #1a1a2e;
+            color: #00d4ff;
             padding: 15px;
-            color: var(--error);
-            text-align: center;
+            border-radius: 8px;
         }
         
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: var(--warning);
-            padding: 30px;
+        .log-item {
+            margin-bottom: 8px;
+            word-break: break-all;
         }
         
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .log-time {
+            color: #666;
+            margin-right: 10px;
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* API Key prompt */
+        /* API Key Modal */
         .api-key-prompt {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0,0,0,0.8);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -357,33 +271,68 @@
         }
         
         .api-key-modal {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
             max-width: 400px;
             width: 90%;
+            text-align: center;
         }
         
         .api-key-modal h2 {
-            margin-bottom: 20px;
-            color: var(--accent);
+            color: #1a1a1a;
+            margin-bottom: 15px;
         }
         
         .api-key-modal input {
             width: 100%;
             padding: 12px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 14px;
+            font-size: 1rem;
             margin-bottom: 15px;
         }
         
         .api-key-modal input:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: #1e3c72;
+        }
+        
+        .api-key-modal button {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .api-key-modal button:hover {
+            opacity: 0.9;
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1e3c72;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* Responsive */
@@ -392,159 +341,112 @@
                 grid-template-columns: 1fr;
             }
             
-            header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
+            h1 {
+                font-size: 1.8rem;
             }
-            
-            .btn-group {
-                justify-content: center;
-            }
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
-        
-        /* Toast notifications */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 8px;
-            color: #fff;
-            font-weight: 600;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-        
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .toast.success {
-            background: var(--success);
-            color: #000;
-        }
-        
-        .toast.error {
-            background: var(--error);
-        }
-        
-        .toast.warning {
-            background: var(--warning);
-            color: #000;
         }
     </style>
 </head>
 <body>
-    <!-- API Key Modal -->
-    <div id="apiKeyModal" class="api-key-prompt hidden">
-        <div class="api-key-modal">
-            <h2>🔐 API 认证</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 15px;">请输入 API Key 以访问监控面板</p>
-            <input type="password" id="apiKeyInput" placeholder="输入 API Key" />
-            <button class="btn btn-primary" style="width: 100%" onclick="verifyApiKey()">确认</button>
-            <p id="apiKeyError" style="color: var(--error); margin-top: 10px; display: none;">API Key 无效，请重试</p>
-        </div>
-    </div>
-    
     <div class="container">
         <header>
-            <h1>
-                📊 OpenClaw Monitor
-                <span id="connectionStatus" class="status-badge">在线</span>
-            </h1>
-            <div class="auto-refresh">
-                <span>自动刷新:</span>
-                <span id="countdown">30</span>
-                <span>秒</span>
-                <button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="refreshAll()">立即刷新</button>
-            </div>
+            <h1>🤖 OpenClaw Monitor</h1>
+            <p class="subtitle">系统健康监控面板</p>
         </header>
         
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">连接中...</span>
+            </div>
+            <div class="status-item">
+                <span class="refresh-timer">下次刷新：<span id="countdown">30</span>s</span>
+            </div>
+        </div>
+        
+        <!-- Main Grid -->
         <div class="grid">
             <!-- Agent Config -->
             <div class="card">
                 <h2>🤖 Agent 配置</h2>
-                <div id="agent-config">
-                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                <div class="card-content" id="agentContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        加载中...
+                    </div>
                 </div>
             </div>
             
-            <!-- Health Status -->
+            <!-- System Health -->
             <div class="card">
                 <h2>❤️ 系统健康</h2>
-                <div id="health">
-                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                <div class="card-content" id="healthContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        加载中...
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="grid">
+            
             <!-- Skills -->
             <div class="card">
                 <h2>🛠️ 技能列表</h2>
-                <div id="skills">
-                    <div class="loading"><div class="spinner"></div>加载中...</div>
+                <div class="card-content" id="skillsContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        加载中...
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RSS Feeds -->
+            <div class="card">
+                <h2>📰 RSS 订阅</h2>
+                <div class="card-content" id="rssContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        加载中...
+                    </div>
                 </div>
             </div>
             
             <!-- Tasks -->
             <div class="card">
                 <h2>⏰ 定时任务</h2>
-                <div id="tasks">
-                    <div class="loading"><div class="spinner"></div>加载中...</div>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="syncStock()">
-                        📈 同步股票
-                    </button>
-                    <button class="btn btn-primary" onclick="syncCigar()">
-                        🍷 同步雪茄
-                    </button>
-                    <button class="btn btn-primary" onclick="restartGateway()">
-                        🔄 重启网关
-                    </button>
+                <div class="card-content" id="tasksContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        加载中...
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Logs -->
-        <div class="card">
-            <h2>📝 最近日志</h2>
-            <div id="logs">
-                <div class="loading"><div class="spinner"></div>加载中...</div>
+            
+            <!-- Recent Logs -->
+            <div class="card grid-full">
+                <h2>📝 最近日志</h2>
+                <div class="card-content" id="logsContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        加载中...
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- Toast -->
-    <div id="toast" class="toast"></div>
-
+    <!-- API Key Modal -->
+    <div id="apiKeyModal" class="api-key-prompt hidden">
+        <div class="api-key-modal">
+            <h2>🔐 API 认证</h2>
+            <p style="color: #666; margin-bottom: 15px;">请输入 API Key 以访问监控面板</p>
+            <input type="password" id="apiKeyInput" placeholder="输入 API Key" />
+            <button onclick="verifyApiKey()">验证并进入</button>
+            <p id="apiKeyError" style="color: #ff1744; margin-top: 10px; display: none;">API Key 无效，请重试</p>
+        </div>
+    </div>
+    
     <script>
-        // ============ 配置 ============
-        // 生产环境使用公网地址
         const API_BASE = 'https://api.opendragon.icu';
         let API_KEY = localStorage.getItem('oc_monitor_api_key') || '';
         let countdown = 30;
@@ -577,9 +479,8 @@
                 return;
             }
             
-            // 测试 API Key
             try {
-                const res = await fetch(`${API_BASE}/api/health`, {
+                const res = await fetch(`${API_BASE}/health`, {
                     headers: { 'x-api-key': key }
                 });
                 
@@ -599,270 +500,225 @@
             }
         }
         
-        // ============ API 请求 ============
+        // ============ 数据加载 ============
         async function fetchWithAuth(url) {
             const res = await fetch(url, {
                 headers: { 'x-api-key': API_KEY }
             });
-            
-            if (res.status === 401) {
-                showToast('API Key 已过期，请重新输入', 'error');
-                localStorage.removeItem('oc_monitor_api_key');
-                API_KEY = '';
-                document.getElementById('apiKeyModal').classList.remove('hidden');
-                throw new Error('Unauthorized');
-            }
-            
-            if (!res.ok) {
-                throw new Error(`HTTP ${res.status}`);
-            }
-            
+            if (!res.ok) throw new Error('HTTP ' + res.status);
             return res.json();
         }
         
-        // ============ 加载数据 ============
         async function loadAll() {
             try {
-                const [agentRes, healthRes, skillsRes, tasksRes, logsRes] = await Promise.all([
-                    fetchWithAuth(`${API_BASE}/api/agent/config`),
-                    fetchWithAuth(`${API_BASE}/api/health`),
-                    fetchWithAuth(`${API_BASE}/api/skills`),
-                    fetchWithAuth(`${API_BASE}/api/tasks`),
-                    fetchWithAuth(`${API_BASE}/api/logs?lines=30`)
+                updateStatus('online');
+                await Promise.all([
+                    loadAgentConfig(),
+                    loadHealth(),
+                    loadSkills(),
+                    loadRSS(),
+                    loadTasks(),
+                    loadLogs()
                 ]);
-                
-                renderAgentConfig(agentRes);
-                renderHealth(healthRes);
-                renderSkills(skillsRes);
-                renderTasks(tasksRes);
-                renderLogs(logsRes);
-                
-                updateConnectionStatus(true);
             } catch (e) {
-                console.error('Load error:', e);
-                updateConnectionStatus(false);
-                showError('数据加载失败: ' + e.message);
+                updateStatus('offline');
+                console.error('加载失败:', e);
             }
         }
         
-        // ============ 渲染函数 ============
-        function renderAgentConfig(data) {
-            const container = document.getElementById('agent-config');
-            let html = '';
-            
-            if (data.name) {
-                html += `<div class="metric"><span class="metric-label">名称</span><span class="metric-value">${data.name}</span></div>`;
-            }
-            if (data.version) {
-                html += `<div class="metric"><span class="metric-label">版本</span><span class="metric-value">${data.version}</span></div>`;
-            }
-            if (data.title) {
-                html += `<div class="metric"><span class="metric-label">标题</span><span class="metric-value">${data.title}</span></div>`;
-            }
-            if (data.vibe) {
-                html += `<div class="metric"><span class="metric-label">风格</span><span class="metric-value">${data.vibe}</span></div>`;
-            }
-            if (data.lastTouched) {
-                html += `<div class="metric"><span class="metric-label">最后更新</span><span class="metric-value">${data.lastTouched.slice(0, 10)}</span></div>`;
-            }
-            if (data.user) {
-                const userInfo = Object.entries(data.user).filter(([k, v]) => v).map(([k, v]) => `${k}: ${v}`).join(', ');
-                if (userInfo) {
-                    html += `<div class="metric"><span class="metric-label">用户</span><span class="metric-value">${userInfo}</span></div>`;
+        async function loadAgentConfig() {
+            try {
+                const data = await fetchWithAuth(`${API_BASE}/api/agent/config`);
+                const content = document.getElementById('agentContent');
+                
+                const agents = data.agents || [];
+                const defaultAgent = agents.find(a => a.isDefault) || agents[0];
+                
+                let html = `<div class="agent-info">`;
+                html += `<div class="agent-stat">
+                    <span class="stat-label">默认 Agent:</span>
+                    <span class="stat-value">${defaultAgent?.agentId || 'N/A'}</span>
+                </div>`;
+                html += `<div class="agent-stat">
+                    <span class="stat-label">会话数量:</span>
+                    <span class="stat-value">${defaultAgent?.sessions?.count || 0}</span>
+                </div>`;
+                html += `<div class="agent-stat">
+                    <span class="stat-label">心跳间隔:</span>
+                    <span class="stat-value">${defaultAgent?.heartbeat?.every || 'disabled'}</span>
+                </div>`;
+                html += `</div>`;
+                
+                if (defaultAgent?.sessions?.recent?.length > 0) {
+                    html += `<p style="font-size: 0.9rem; margin-top: 15px;"><strong>最近会话:</strong></p>`;
+                    html += `<ul style="font-size: 0.85rem; margin-top: 8px;">`;
+                    defaultAgent.sessions.recent.slice(0, 3).forEach(s => {
+                        const age = Math.floor((Date.now() - s.updatedAt) / 60000);
+                        html += `<li style="color: #666; margin-bottom: 4px;">${s.key.split(':').pop()} (${age}分钟前)</li>`;
+                    });
+                    html += `</ul>`;
                 }
+                
+                content.innerHTML = html;
+            } catch (e) {
+                document.getElementById('agentContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
             }
-            
-            container.innerHTML = html || '<div class="metric">无数据</div>';
         }
         
-        function renderHealth(data) {
-            const container = document.getElementById('health');
-            let html = '';
-            
-            for (const [service, info] of Object.entries(data.services)) {
-                const status = info.status === 'up' ? 'up' : 'down';
-                const latency = info.latency_ms ? `${info.latency_ms}ms` : '-';
-                html += `<div class="metric">
-                    <span class="metric-label">${service}</span>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span>${latency}</span>
-                        <span class="status ${status}">${info.status}</span>
-                    </div>
-                </div>`;
+        async function loadHealth() {
+            try {
+                const data = await fetchWithAuth(`${API_BASE}/api/health`);
+                const content = document.getElementById('healthContent');
+                
+                const channels = data.channels || {};
+                let html = `<ul class="channel-list">`;
+                
+                for (const [key, channel] of Object.entries(channels)) {
+                    const probeOk = channel.probe?.ok || false;
+                    const configured = channel.configured || false;
+                    const status = probeOk ? 'online' : 'offline';
+                    const statusText = probeOk ? '正常' : (configured ? '离线' : '未配置');
+                    
+                    const channelNames = {
+                        'feishu': '飞书',
+                        'qqbot': 'QQ Bot',
+                        'wecom': '企业微信',
+                        'dingtalk': '钉钉',
+                        'kimi-claw': 'Kimi Claw'
+                    };
+                    
+                    html += `<li class="channel-item">
+                        <span class="channel-name">${channelNames[key] || key}</span>
+                        <span class="channel-status ${status}">${statusText}</span>
+                    </li>`;
+                }
+                
+                html += `</ul>`;
+                content.innerHTML = html;
+            } catch (e) {
+                document.getElementById('healthContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
             }
-            
-            container.innerHTML = html || '<div class="metric">无数据</div>';
         }
         
-        function renderSkills(data) {
-            const container = document.getElementById('skills');
-            
-            if (!data.skills || data.skills.length === 0) {
-                container.innerHTML = '<div class="metric">无技能</div>';
-                return;
+        async function loadSkills() {
+            try {
+                const data = await fetchWithAuth(`${API_BASE}/api/skills`);
+                const content = document.getElementById('skillsContent');
+                
+                const skills = data.skills || [];
+                if (skills.length > 0) {
+                    let html = `<div class="skill-list">`;
+                    skills.forEach(skill => {
+                        html += `<span class="skill-tag">${skill.name || skill}</span>`;
+                    });
+                    html += `</div>`;
+                    content.innerHTML = html;
+                } else {
+                    content.innerHTML = '<p style="color: #666;">暂无技能</p>';
+                }
+            } catch (e) {
+                document.getElementById('skillsContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
             }
-            
-            let html = '';
-            data.skills.slice(0, 10).forEach(skill => {
-                html += `<div class="skill-item">
-                    <div class="skill-info">
-                        <span class="skill-name">${skill.display_name || skill.name}</span>
-                        <span class="skill-type">${skill.type}</span>
-                        ${skill.description ? `<span class="skill-desc">${skill.description}</span>` : ''}
-                    </div>
-                    <span class="status ${skill.status}">${skill.status}</span>
-                </div>`;
-            });
-            
-            container.innerHTML = html;
         }
         
-        function renderTasks(data) {
-            const container = document.getElementById('tasks');
-            
-            if (!data.tasks || data.tasks.length === 0) {
-                container.innerHTML = '<div class="metric">无定时任务</div>';
-                return;
+        async function loadRSS() {
+            try {
+                const data = await fetchWithAuth(`${API_BASE}/api/rss`);
+                const content = document.getElementById('rssContent');
+                
+                const feeds = data.feeds || [];
+                if (feeds.length > 0) {
+                    let html = `<ul class="rss-list">`;
+                    feeds.slice(0, 5).forEach(feed => {
+                        const time = new Date(feed.updatedAt || feed.lastBuildDate || Date.now()).toLocaleString('zh-CN');
+                        html += `<li class="rss-item">
+                            <div class="rss-title">${feed.title || '未命名'}</div>
+                            <div class="rss-time">${time}</div>
+                        </li>`;
+                    });
+                    html += `</ul>`;
+                    content.innerHTML = html;
+                } else {
+                    content.innerHTML = '<p style="color: #666;">暂无 RSS 订阅</p>';
+                }
+            } catch (e) {
+                document.getElementById('rssContent').innerHTML = '<p style="color: #666;">RSS 服务未配置</p>';
             }
-            
-            let html = '';
-            data.tasks.slice(0, 8).forEach(task => {
-                const name = task.name || task.expression || (task.command ? task.command.slice(0, 40) : 'task') + '...';
-                html += `<div class="metric">
-                    <span class="metric-label" title="${task.command || ''}">${name}</span>
-                    <span class="status ${task.status === 'active' ? 'up' : 'configured'}">${task.status}</span>
-                </div>`;
-            });
-            
-            container.innerHTML = html;
         }
         
-        function renderLogs(data) {
-            const container = document.getElementById('logs');
-            
-            if (!data.logs || data.logs.length === 0) {
-                container.innerHTML = '<div class="log-line">无日志</div>';
-                return;
+        async function loadTasks() {
+            try {
+                const data = await fetchWithAuth(`${API_BASE}/api/tasks`);
+                const content = document.getElementById('tasksContent');
+                
+                const tasks = data.tasks || [];
+                if (tasks.length > 0) {
+                    let html = `<ul style="font-size: 0.9rem;">`;
+                    tasks.forEach(task => {
+                        html += `<li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                            <strong>${task.name || task.command}</strong>
+                            <span style="color: #666; font-size: 0.85rem;"> - ${task.schedule || 'N/A'}</span>
+                        </li>`;
+                    });
+                    html += `</ul>`;
+                    content.innerHTML = html;
+                } else {
+                    content.innerHTML = '<p style="color: #666;">暂无定时任务</p>';
+                }
+            } catch (e) {
+                document.getElementById('tasksContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
             }
-            
-            let html = '<div class="log-container">';
-            data.logs.slice(0, 30).forEach(line => {
-                html += `<div class="log-line" title="${line}">${line}</div>`;
-            });
-            html += '</div>';
-            
-            container.innerHTML = html;
         }
         
-        function updateConnectionStatus(online) {
-            const status = document.getElementById('connectionStatus');
-            if (online) {
-                status.textContent = '在线';
-                status.classList.remove('offline');
+        async function loadLogs() {
+            try {
+                const data = await fetchWithAuth(`${API_BASE}/api/logs?lines=30`);
+                const content = document.getElementById('logsContent');
+                
+                const logs = data.logs || data.output || [];
+                if (Array.isArray(logs) && logs.length > 0) {
+                    let html = `<div class="log-list">`;
+                    logs.slice(-30).forEach(log => {
+                        const time = new Date().toLocaleTimeString('zh-CN');
+                        html += `<div class="log-item">
+                            <span class="log-time">[${time}]</span>${log}
+                        </div>`;
+                    });
+                    html += `</div>`;
+                    content.innerHTML = html;
+                } else {
+                    content.innerHTML = '<p style="color: #666;">暂无日志</p>';
+                }
+            } catch (e) {
+                document.getElementById('logsContent').innerHTML = '<p style="color: #ff1744;">加载失败</p>';
+            }
+        }
+        
+        // ============ 状态更新 ============
+        function updateStatus(status) {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            
+            if (status === 'online') {
+                dot.classList.remove('offline');
+                text.textContent = '运行正常';
             } else {
-                status.textContent = '离线';
-                status.classList.add('offline');
+                dot.classList.add('offline');
+                text.textContent = '连接断开';
             }
-        }
-        
-        function showError(msg) {
-            const containers = ['agent-config', 'health', 'skills', 'tasks', 'logs'];
-            containers.forEach(id => {
-                const el = document.getElementById(id);
-                if (el.querySelector('.loading')) {
-                    el.innerHTML = `<div class="error-message">${msg}</div>`;
-                }
-            });
         }
         
         // ============ 自动刷新 ============
         function startAutoRefresh() {
-            if (countdownTimer) clearInterval(countdownTimer);
-            
             countdownTimer = setInterval(() => {
                 countdown--;
                 document.getElementById('countdown').textContent = countdown;
                 
                 if (countdown <= 0) {
-                    loadAll();
                     countdown = 30;
+                    loadAll();
                 }
             }, 1000);
-        }
-        
-        function refreshAll() {
-            countdown = 30;
-            document.getElementById('countdown').textContent = countdown;
-            loadAll();
-            showToast('数据已刷新', 'success');
-        }
-        
-        // ============ 操作函数 ============
-        async function syncStock() {
-            const btn = event.target;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner" style="width: 14px; height: 14px;"></span> 同步中...';
-            
-            try {
-                const res = await fetchWithAuth(`${API_BASE}/api/sync/stock`, {
-                    method: 'POST'
-                });
-                showToast('股票同步已启动', 'success');
-            } catch (e) {
-                showToast('同步失败: ' + e.message, 'error');
-            }
-            
-            btn.disabled = false;
-            btn.innerHTML = '📈 同步股票';
-        }
-        
-        async function syncCigar() {
-            const btn = event.target;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner" style="width: 14px; height: 14px;"></span> 同步中...';
-            
-            try {
-                const res = await fetchWithAuth(`${API_BASE}/api/sync/cigar`, {
-                    method: 'POST'
-                });
-                showToast('雪茄同步已启动', 'success');
-            } catch (e) {
-                showToast('同步失败: ' + e.message, 'error');
-            }
-            
-            btn.disabled = false;
-            btn.innerHTML = '🍷 同步雪茄';
-        }
-        
-        async function restartGateway() {
-            const btn = event.target;
-            if (!confirm('确定要重启网关吗？')) return;
-            
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner" style="width: 14px; height: 14px;"></span> 重启中...';
-            
-            try {
-                const res = await fetchWithAuth(`${API_BASE}/api/system/restart`, {
-                    method: 'POST'
-                });
-                showToast('网关重启已启动', 'success');
-            } catch (e) {
-                showToast('重启失败: ' + e.message, 'error');
-            }
-            
-            btn.disabled = false;
-            btn.innerHTML = '🔄 重启网关';
-        }
-        
-        // ============ Toast 提示 ============
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
         }
     </script>
 </body>
