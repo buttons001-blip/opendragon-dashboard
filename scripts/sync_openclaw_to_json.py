@@ -93,10 +93,11 @@ def process_records(records):
         reason = fields.get('操作原因', '').replace(' ', '')
         status = fields.get('状态', '').replace(' ', '')
         
-        # 处理日期 - 飞书时间戳是毫秒
+        # 处理日期 - 飞书时间戳是毫秒（UTC 时间）
         date_val = fields.get('日期', '')
         if isinstance(date_val, int):
-            date_obj = datetime.fromtimestamp(date_val / 1000)
+            # 使用 UTC 时间解析，避免时区转换导致日期偏移
+            date_obj = datetime.utcfromtimestamp(date_val / 1000)
             date = date_obj.strftime('%Y-%m-%d')
             # 将2024年、2025年转换为2026年（测试数据问题）
             if date.startswith('2024') or date.startswith('2025'):
