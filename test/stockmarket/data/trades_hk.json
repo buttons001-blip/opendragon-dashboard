@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-04-09T22:00:03.315196",
+  "timestamp": "2026-04-11T06:00:03.960991",
   "initialCapital": 500000,
   "realizedProfit": -23060.0,
   "holdings": [
     {
       "code": "03690",
       "name": "美团",
-      "quantity": 1200.0,
-      "costPrice": 80.31666666666666,
-      "totalCost": 96380.0
+      "quantity": 1700.0,
+      "costPrice": 82.45882352941176,
+      "totalCost": 140180.0
     }
   ],
   "trades": [
@@ -87,6 +87,17 @@
       "amount": 33380.0,
       "date": "2026-03-29",
       "reason": "盈利+5.97% 符合加仓条件 适度加仓 400 股 控制仓位",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "03690",
+      "name": "美团-W",
+      "price": 87.6,
+      "quantity": 500.0,
+      "amount": 43800.0,
+      "date": "2026-04-10",
+      "reason": "盈利+9.06%符合加仓条件 适中方案加仓500股 控制仓位",
       "status": ""
     }
   ]
