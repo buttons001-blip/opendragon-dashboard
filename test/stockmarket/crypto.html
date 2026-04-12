@@ -666,7 +666,7 @@
                         
                         this.processActions(actions);
                         
-                        this.apiStatus = '本地 JSON 数据 ✓';
+                        this.apiStatus = 'Yahoo 财经 ✓';
                         this.apiStatusClass = 'success';
                     } catch (e) {
                         console.error('读取飞书数据失败:', e);
@@ -818,7 +818,7 @@
                                 }
                             });
                             
-                            this.apiStatus = '本地 JSON 数据 ✓';
+                            this.apiStatus = 'Yahoo 财经 ✓';
                             this.apiStatusClass = 'success';
                             this.$nextTick(() => this.renderGauges());
                         }
