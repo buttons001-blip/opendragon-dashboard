@@ -39,11 +39,11 @@ def main():
         'crypto': {}
     }
     
-    # 加拿大指数
+    # 加拿大指数 (使用TSX ETF作为代理)
     ca_indices = {
         'TSX': '^GSPTSE',
-        'S&P/TSX 60': '^SPTSX60',
-        'TSX Venture': '^JX'
+        'TSX Composite': 'ZCN.TO',    # BMO S&P/TSX Composite ETF
+        'MSCI Canada': 'XIT.TO'      # iShares MSCI Canada ETF
     }
     
     for name, symbol in ca_indices.items():
