@@ -664,7 +664,7 @@
                     this.fetchPrices();
                 }, 30000);
                 
-                this.autoRefreshTimer = setInterval(() => {
+                this.autoRefreshTimer = null; // 禁用自动检查更新
                     this.checkForUpdates();
                 }, 30000);
             },
