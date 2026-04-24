@@ -1,3 +1,8 @@
+/stock /test/stockmarket/stock.html 200
+/hk /test/stockmarket/hk.html 200
+/us /test/stockmarket/us.html 200
+/ca /test/stockmarket/ca.html 200
+/crypto /test/stockmarket/crypto.html 200
 /test/stockmarket/* /test/stockmarket/index.html 200
 /test/cigars/* /test/cigars/index.html 200
 /test/openclaw-dashboard/* /test/openclaw-dashboard/index.html 200
