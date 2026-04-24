@@ -10,7 +10,7 @@
 /crypto /test/stockmarket/crypto.html 200
 
 # 股票子域名根路径 → A股
-https://stock.opendragon.icu/ /test/stockmarket/stock.html 200
+https://stock.opendragon.icu/ /stock 301
 
 # 其他路径回退到主首页
 /*
