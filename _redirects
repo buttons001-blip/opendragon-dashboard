@@ -1,9 +1,17 @@
+# 主域名路由
+/
+/test/index/index.html 200
+
+# 股票子域名路由
 /stock /test/stockmarket/stock.html 200
 /hk /test/stockmarket/hk.html 200
 /us /test/stockmarket/us.html 200
 /ca /test/stockmarket/ca.html 200
 /crypto /test/stockmarket/crypto.html 200
-/
-/test/index/index.html 200
+
+# 股票子域名根路径 → A股
+https://stock.opendragon.icu/ /test/stockmarket/stock.html 200
+
+# 其他路径回退到主首页
 /*
 /test/index/index.html 200
