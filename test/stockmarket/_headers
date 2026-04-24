@@ -1,0 +1,19 @@
+/stock.html
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+
+/hk.html
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+
+/us.html
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+
+/ca.html
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+
+/crypto.html
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
