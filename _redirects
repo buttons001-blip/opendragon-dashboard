@@ -1,13 +1,12 @@
-# 股票市场页面
-/ /test/stockmarket/index.html 200
+# 主首页
+/ /test/index/index.html 200
+
+# 股票市场
 /stock /test/stockmarket/stock.html 200
 /hk /test/stockmarket/hk.html 200
 /us /test/stockmarket/us.html 200
 /ca /test/stockmarket/ca.html 200
 /crypto /test/stockmarket/crypto.html 200
-
-# 主首页
-/test/index/index.html /test/index/index.html 200
 
 # 其他所有路径指向主首页
 /* /test/index/index.html 200
