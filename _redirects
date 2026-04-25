@@ -1,5 +1,5 @@
 # 主首页
-/ /test/index/index.html 200
+/ /index.html 200
 
 # 股票市场
 /stock /test/stockmarket/stock.html 200
