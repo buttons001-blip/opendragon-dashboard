@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雪茄管理系统</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Noto Sans SC', sans-serif; }
+    body { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    .tab-active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #475569;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .logo-img { width: 80px; height: 80px; object-fit: contain; border-radius: 12px; background: #f8fafc; padding: 8px; }
+    .record-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .record-card:hover { border-color: #667eea; }
+    .record-card.selected { border-color: #667eea; background: #f0f4ff; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      background: white;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      left: auto;
+      z-index: 9999;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .home-btn:hover { transform: scale(1.1); }
+  </style>
+</head>
+<body>
+  <a href="https://www.opendragon.icu" class="home-btn" title="返回首页">🐉</a>
+  <div id="app" class="p-4 pb-20">
+    <!-- 顶部标题 -->
+    <div class="glass-card p-6 mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">🚬 雪茄管理系统</h1>
+    </div>
+
+    <!-- Tab 导航 -->
+    <div class="flex gap-2 mb-6">
+      <button @click="currentTab = 'select'" 
+        :class="['flex-1 py-3 px-4 rounded-xl font-medium transition-all', currentTab === 'select' ? 'tab-active' : 'bg-white/80 text-gray-600']">
+        📋 选择
+      </button>
+      <button @click="currentTab = 'taste'" 
+        :class="['flex-1 py-3 px-4 rounded-xl font-medium transition-all', currentTab === 'taste' ? 'tab-active' : 'bg-white/80 text-gray-600']">
+        🍷 品吸
+      </button>
+      <button @click="currentTab = 'records'" 
+        :class="['flex-1 py-3 px-4 rounded-xl font-medium transition-all', currentTab === 'records' ? 'tab-active' : 'bg-white/80 text-gray-600']">
+        📚 记录
+      </button>
+    </div>
+
+    <!-- A. 选择页面 -->
+    <div v-if="currentTab === 'select'" class="glass-card p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">选择雪茄</h2>
+      
+      <!-- 品牌选择 -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-600 mb-2">选择品牌</label>
+        <select v-model="selectedBrand" @change="onBrandChange" class="w-full">
+          <option value="">请选择品牌</option>
+          <option v-for="brand in brands" :key="brand" :value="brand">{{ brand }}</option>
+        </select>
+      </div>
+
+      <!-- 左侧 Logo + 右侧型号选择 -->
+      <div v-if="selectedBrand" class="flex gap-6 mb-4">
+        <!-- 左侧 Logo -->
+        <div class="w-24 flex-shrink-0">
+          <div class="bg-amber-50 rounded-xl p-3 text-center">
+            <img v-if="brandLogo" :src="brandLogo" :alt="selectedBrand" class="logo-img mx-auto">
+            <div v-else class="w-20 h-20 mx-auto bg-amber-100 rounded-lg flex items-center justify-center text-amber-700 font-bold text-3xl">
+              {{ selectedBrand.charAt(0) }}
+            </div>
+            <p class="text-xs text-gray-500 mt-2">{{ selectedBrand }}</p>
+          </div>
+        </div>
+        
+        <!-- 右侧型号选择 -->
+        <div class="flex-1">
+          <label class="block text-sm font-medium text-gray-600 mb-2">选择型号</label>
+          <select v-model="selectedModel" @change="onModelChange" class="w-full">
+            <option value="">请选择型号</option>
+            <option v-for="model in models" :key="model" :value="model">{{ model }}</option>
+          </select>
+          
+          <!-- 型号信息（强度、风味等） -->
+          <div v-if="selectedModel && modelInfo" class="mt-3 p-3 bg-purple-50 rounded-lg border border-purple-200" :key="selectedBrand + '-' + selectedModel">
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span class="text-gray-500">强度:</span>
+                <span class="ml-1 font-medium text-purple-700">{{ modelInfo.strength || '暂无' }}</span>
+              </div>
+              <div>
+                <span class="text-gray-500">产地:</span>
+                <span class="ml-1 font-medium">{{ modelInfo.origin || '暂无' }}</span>
+              </div>
+            </div>
+            <div class="mt-2">
+              <span class="text-gray-500 text-sm">主要风味:</span>
+              <p class="mt-1 text-sm text-purple-700">{{ modelInfo.flavors || '暂无' }}</p>
+            </div>
+            <div class="mt-2">
+              <span class="text-gray-500 text-sm">品吸反馈:</span>
+              <p class="mt-1 text-sm text-amber-700">{{ modelInfo.tastingNotes || '暂无' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 匹配的记录列表 -->
+      <div v-if="matchedRecords.length > 0" class="mb-4">
+        <label class="block text-sm font-medium text-gray-600 mb-2">
+          匹配记录 ({{ matchedRecords.length }} 条) - 总数量：<span class="text-purple-600 font-bold">{{ matchedRecords.reduce((sum, r) => sum + (r.quantity || 0), 0) }}</span> 支
+        </label>
+        <div class="space-y-2 max-h-64 overflow-y-auto">
+          <div v-for="record in matchedRecords" :key="record.id" 
+            @click="selectRecord(record)"
+            :class="['record-card', selectedRecord?.id === record.id ? 'selected' : '']">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="font-medium text-gray-800">{{ record.brand }} - {{ record.model }}</p>
+                <p class="text-sm text-gray-500 mt-1">
+                  环径: {{ record.ringGauge }} | 长度: {{ record.length }}mm | 数量: {{ record.quantity }}
+                </p>
+                <p class="text-sm text-gray-500">
+                  单价：${{ record.price }} | 生产日期：{{ record.year }} | 包装：{{ record.packaging || '未指定' }}
+                </p>
+              </div>
+              <div v-if="selectedRecord?.id === record.id" class="text-purple-600 text-xl">✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部按钮 -->
+      <div v-if="matchedRecords.length > 0" class="flex gap-3 mt-6">
+        <button @click="confirmSelection" :disabled="!selectedRecord" 
+          :class="['flex-1 py-3 rounded-xl font-medium', selectedRecord ? 'btn-primary' : 'bg-gray-300 text-gray-500 cursor-not-allowed']">
+          ✓ 确定
+        </button>
+        <button @click="resetSelection" class="flex-1 py-3 rounded-xl font-medium btn-secondary">
+          ↺ 重选
+        </button>
+      </div>
+    </div>
+
+    <!-- B. 品吸页面 -->
+    <div v-if="currentTab === 'taste'" class="glass-card p-6">
+      <div v-if="!selectedRecordForTaste">
+        <p class="text-gray-500 text-center py-8">请先在"选择"页面选择雪茄</p>
+        <button @click="currentTab = 'select'" class="w-full btn-primary py-3 rounded-xl">
+          去选择
+        </button>
+      </div>
+      
+      <div v-else>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">品吸记录</h2>
+        
+        <!-- 雪茄基本信息 -->
+        <div class="bg-purple-50 rounded-xl p-4 mb-4">
+          <h3 class="font-medium text-purple-800 mb-2">{{ selectedRecordForTaste.brand }} - {{ selectedRecordForTaste.model }}</h3>
+          <div class="grid grid-cols-3 gap-2 text-sm text-purple-700">
+            <p>购买地点：{{ selectedRecordForTaste.purchaseLocation }}</p>
+            <p>存放地点：{{ selectedRecordForTaste.storageLocation || '未指定' }}</p>
+            <p>规格：{{ selectedRecordForTaste.specification }}</p>
+            <p>生产日期：{{ selectedRecordForTaste.year || '未指定' }}</p>
+            <p>包装：{{ selectedRecordForTaste.packaging || '未指定' }}</p>
+            <p>环径：{{ selectedRecordForTaste.ringGauge }}</p>
+            <p>长度：{{ selectedRecordForTaste.length }}mm</p>
+            <p>单价：${{ selectedRecordForTaste.price }}</p>
+          </div>
+        </div>
+
+        <!-- 品牌故事和风味 -->
+        <div v-if="brandStory" class="bg-amber-50 rounded-xl p-4 mb-4">
+          <h4 class="font-medium text-amber-800 mb-2">📖 品牌故事</h4>
+          <p class="text-sm text-amber-700">{{ brandStory }}</p>
+        </div>
+
+        <div v-if="selectedRecordForTaste.flavor" class="bg-amber-50 rounded-xl p-4 mb-4">
+          <h4 class="font-medium text-amber-800 mb-2">🎯 主要风味</h4>
+          <div class="flex flex-wrap gap-2">
+            <span v-for="f in selectedRecordForTaste.flavor" class="px-3 py-1 bg-amber-200 text-amber-800 rounded-full text-sm">
+              {{ f }}
+            </span>
+          </div>
+        </div>
+
+        <!-- 环境选项 -->
+        <div class="mb-4">
+          <h4 class="font-medium text-gray-700 mb-2">🌡️ 环境 (可选)</h4>
+          <div class="grid grid-cols-2 gap-3">
+            <select v-model="tasting.environment" class="w-full">
+              <option value="">环境</option>
+              <option value="室内">室内</option>
+              <option value="户外无风">户外无风</option>
+              <option value="户外有风">户外有风</option>
+              <option value="雪茄吧">雪茄吧</option>
+            </select>
+            <select v-model="tasting.tempUnit" class="w-full">
+              <option value="C">温度 (°C)</option>
+              <option value="F">温度 (°F)</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-3 mt-2">
+            <input type="number" v-model="tasting.temperature" placeholder="温度">
+            <input type="number" v-model="tasting.humidity" placeholder="湿度 %">
+          </div>
+          <div class="mt-2">
+            <select v-model="tasting.drink" class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+              <option value="">选择佐饮（可选）</option>
+              <option value="威士忌">🥃 威士忌</option>
+              <option value="白兰地">🍷 白兰地</option>
+              <option value="朗姆酒">🍹 朗姆酒</option>
+              <option value="咖啡">☕ 咖啡</option>
+              <option value="红茶">🍵 红茶</option>
+              <option value="绿茶">🍵 绿茶</option>
+              <option value="可乐">🥤 可乐</option>
+              <option value="矿泉水">💧 矿泉水</option>
+              <option value="苏打水">💧 苏打水</option>
+              <option value="啤酒">🍺 啤酒</option>
+              <option value="红酒">🍷 红酒</option>
+              <option value="香槟">🍾 香槟</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 品吸笔记 -->
+        <div class="mb-4">
+          <h4 class="font-medium text-gray-700 mb-2">📝 品吸笔记</h4>
+          <div class="space-y-3">
+            <div>
+              <label class="text-sm text-gray-500">前段</label>
+              <textarea v-model="tasting.firstThird" rows="2" placeholder="前段感受..."></textarea>
+            </div>
+            <div>
+              <label class="text-sm text-gray-500">中段</label>
+              <textarea v-model="tasting.middleThird" rows="2" placeholder="中段感受..."></textarea>
+            </div>
+            <div>
+              <label class="text-sm text-gray-500">后段</label>
+              <textarea v-model="tasting.finalThird" rows="2" placeholder="后段感受..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 照片上传 -->
+        <div class="mb-4">
+          <h4 class="font-medium text-gray-700 mb-2">📷 照片 (可选)</h4>
+          <input type="file" @change="handlePhotoUpload" accept="image/*" multiple class="w-full">
+          <div v-if="tasting.photos.length > 0" class="flex gap-2 mt-2 flex-wrap">
+            <img v-for="(photo, idx) in tasting.photos" :key="idx" :src="photo" class="w-20 h-20 object-cover rounded-lg">
+          </div>
+        </div>
+
+        <!-- 保存按钮 -->
+        <button @click="saveTasting" class="w-full btn-primary py-3 rounded-xl font-medium">
+          💾 保存品吸记录
+        </button>
+      </div>
+    </div>
+
+    <!-- C. 记录维护页面 -->
+    <div v-if="currentTab === 'records'" class="glass-card p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">记录维护</h2>
+      
+      <!-- 统计卡片 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="bg-purple-50 rounded-xl p-4 text-center">
+          <p class="text-2xl font-bold text-purple-700">{{ cigars.length }}</p>
+          <p class="text-xs text-gray-500">库存品种</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4 text-center">
+          <p class="text-2xl font-bold text-purple-700">{{ totalQuantity }}</p>
+          <p class="text-xs text-gray-500">总数量</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4 text-center">
+          <p class="text-2xl font-bold text-purple-700">{{ tastingRecords.length }}</p>
+          <p class="text-xs text-gray-500">品吸记录</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4 text-center">
+          <p class="text-2xl font-bold text-purple-700">{{ brands.length }}</p>
+          <p class="text-xs text-gray-500">品牌数</p>
+        </div>
+      </div>
+
+      <!-- 记录类型选择 -->
+      <div class="flex gap-2 mb-4">
+        <button @click="recordType = 'inventory'" 
+          :class="['flex-1 py-2 rounded-lg text-sm font-medium', recordType === 'inventory' ? 'btn-primary' : 'btn-secondary']">
+          📦 库存记录
+        </button>
+        <button @click="recordType = 'tasting'" 
+          :class="['flex-1 py-2 rounded-lg text-sm font-medium', recordType === 'tasting' ? 'btn-primary' : 'btn-secondary']">
+          🍷 品吸记录
+        </button>
+        <button @click="recordType = 'brands'" 
+          :class="['flex-1 py-2 rounded-lg text-sm font-medium', recordType === 'brands' ? 'btn-primary' : 'btn-secondary']">
+          🏷️ 品牌故事
+        </button>
+      </div>
+
+      <!-- 库存记录 -->
+      <div v-if="recordType === 'inventory'" class="space-y-3 max-h-96 overflow-y-auto">
+        <div v-for="c in cigars.slice(0, 50)" :key="c.id" class="bg-gray-50 rounded-lg p-3 flex justify-between items-center">
+          <div>
+            <p class="font-medium text-gray-800">{{ c.brand }} - {{ c.model }}</p>
+            <p class="text-sm text-gray-500">数量: {{ c.quantity }} | 环径: {{ c.ringGauge }} | 长度: {{ c.length }}</p>
+          </div>
+          <button @click="deleteCigar(c.id)" class="text-red-500 hover:text-red-700">🗑️</button>
+        </div>
+      </div>
+
+      <!-- 品吸记录 -->
+      <div v-if="recordType === 'tasting'" class="space-y-3 max-h-96 overflow-y-auto">
+        <div v-for="t in tastingRecords" :key="t.id" class="bg-gray-50 rounded-lg p-3">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="font-medium text-gray-800">{{ t.brand }} - {{ t.model }}</p>
+              <p class="text-sm text-gray-500">{{ t.date }}</p>
+              <p class="text-sm text-gray-600 mt-1">{{ t.firstThird?.substring(0, 50) }}...</p>
+            </div>
+            <button @click="deleteTasting(t.id)" class="text-red-500">🗑️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 品牌故事 -->
+      <div v-if="recordType === 'brands'" class="space-y-3 max-h-96 overflow-y-auto">
+        <div v-for="b in brands" :key="b" class="bg-gray-50 rounded-lg p-3">
+          <p class="font-medium text-gray-800">{{ b }}</p>
+          <p class="text-sm text-gray-500">{{ brandStories[b] || '暂无故事' }}</p>
+        </div>
+      </div>
+
+      <!-- 导入导出 -->
+      <div class="flex gap-3 mt-6">
+        <button @click="exportData" class="flex-1 btn-primary py-3 rounded-xl">
+          ⬇️ 导出数据
+        </button>
+        <label class="flex-1 btn-secondary py-3 rounded-xl text-center cursor-pointer">
+          ⬆️ 导入数据
+          <input type="file" @change="importData" accept=".json" class="hidden">
+        </label>
+      </div>
+    </div>
+
+    <!-- 提示消息 -->
+    <div v-if="toast.show" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg z-50">
+      {{ toast.message }}
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        // 数据
+        const cigars = ref([]);
+        const brands = ref([]);
+        const brandStories = ref({});
+        
+        // 选择状态
+        const currentTab = ref('select');
+        const recordType = ref('inventory');
+        const selectedBrand = ref('');
+        const selectedModel = ref('');
+        const selectedRecord = ref(null);
+        
+        // 可计算的
+        const models = computed(() => {
+          if (!selectedBrand.value) return [];
+          const filtered = cigars.value.filter(c => c.brand === selectedBrand.value);
+          const uniqueModels = [...new Set(filtered.map(c => c.model))];
+          // 按拼音/字母升序排列
+          return uniqueModels.sort((a, b) => a.localeCompare(b, 'zh-CN'));
+        });
+        
+        const matchedRecords = computed(() => {
+          if (!selectedBrand.value || !selectedModel.value) return [];
+          return cigars.value.filter(c => c.brand === selectedBrand.value && c.model === selectedModel.value);
+        });
+        
+        const brandLogo = computed(() => {
+          if (!selectedBrand.value) return null;
+          // 从数据中查找该品牌的logo
+          const cigar = cigars.value.find(c => c.brand === selectedBrand.value);
+          if (cigar && cigar.logo) {
+            return cigar.logo;
+          }
+          // 后备：硬编码常见品牌
+          const logoMap = {
+            'Punch': './logos/punch_古巴.png',
+            'Cohiba': './logos/cohiba_古巴.png',
+            'Montecristo': './logos/montecristo_古巴.png',
+            'Romeo y Julieta': './logos/romeo-y-julieta_古巴.png',
+            'Hoyo de Monterrey': './logos/hoyo-de-monterrey_古巴.png',
+            'Partagas': './logos/partagas_古巴.png',
+          };
+          const key = Object.keys(logoMap).find(k => selectedBrand.value.includes(k));
+          return key ? logoMap[key] : null;
+        });
+
+        const modelInfo = computed(() => {
+          console.log('modelInfo computed 触发:', selectedBrand.value, selectedModel.value);
+          if (!selectedBrand.value || !selectedModel.value) {
+            console.log('modelInfo: 品牌或型号为空');
+            return null;
+          }
+          const cigar = cigars.value.find(c => c.brand === selectedBrand.value && c.model === selectedModel.value);
+          if (!cigar) {
+            console.log('modelInfo: 未找到匹配的型号', selectedBrand.value, selectedModel.value);
+            console.log('cigars 数量:', cigars.value.length);
+            return null;
+          }
+          console.log('modelInfo: 找到雪茄', cigar.brand, cigar.model);
+          console.log('  strength:', cigar.strength);
+          console.log('  flavors:', cigar.flavors);
+          console.log('  tastingNotes:', cigar.tastingNotes ? cigar.tastingNotes.substring(0,30) : null);
+          let flavors = '';
+          if (cigar.flavors) {
+            if (Array.isArray(cigar.flavors)) flavors = cigar.flavors.join(', ');
+            else if (typeof cigar.flavors === 'string') flavors = cigar.flavors;
+          }
+          const result = {
+            strength: cigar.strength || '',
+            origin: cigar.origin || '',
+            flavors: flavors,
+            tastingNotes: cigar.tastingNotes || ''
+          };
+          console.log('  modelInfo 返回:', result);
+          return result;
+        });
+
+        const totalQuantity = computed(() => cigars.value.reduce((sum, c) => sum + (c.quantity || 0), 0));
+        
+        // 品吸相关
+        const selectedRecordForTaste = ref(null);
+        const tastingRecords = ref([]);
+        
+        const tasting = ref({
+          environment: '',
+          tempUnit: 'C',
+          temperature: '',
+          humidity: '',
+          drink: '',
+          firstThird: '',
+          middleThird: '',
+          finalThird: '',
+          photos: []
+        });
+        
+        const brandStory = computed(() => {
+          if (!selectedRecordForTaste.value) return '';
+          return brandStories.value[selectedRecordForTaste.value.brand] || '';
+        });
+
+        // Toast
+        const toast = ref({ show: false, message: '' });
+        const showToast = (msg) => {
+          toast.value = { show: true, message: msg };
+          setTimeout(() => toast.value.show = false, 3000);
+        };
+
+        // 加载数据
+        const loadData = async () => {
+          try {
+            // 从飞书获取数据
+            const appToken = 'B9nSbjepqaXM0dsBgXqc9dDdnJd';
+            const tableId = 'tblTEr0qEQlJPjcu';
+            
+            // 获取 token
+            const tokenResp = await fetch('https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                app_id: 'cli_a923ab8033781cc6',
+                app_secret: '6znpJICLLDKf30qQE0usGmdgS4kFkt7S'
+              })
+            });
+            const tokenData = await tokenResp.json();
+            const token = tokenData.app_access_token;
+            
+            // 获取记录
+            const recordsResp = await fetch(`https://open.feishu.cn/open-apis/bitable/v1/apps/${appToken}/tables/${tableId}/records?page_size=500`, {
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const recordsData = await recordsResp.json();
+            
+            if (recordsData.data && recordsData.data.items) {
+              cigars.value = recordsData.data.items.map(item => ({
+                id: item.record_id,
+                brand: item.fields['品牌'],
+                model: item.fields['型号'],
+                ringGauge: item.fields['环径'],
+                length: item.fields['长度'],
+                quantity: item.fields['数量'],
+                price: item.fields['现单价'] || item.fields['预估总价'] / item.fields['数量'],
+                origin: item.fields['产地'],
+                purchaseLocation: item.fields['购买地点'],
+                storageLocation: item.fields['地点'],
+                specification: item.fields['规格'],
+                year: item.fields['生产日期'],
+                arrived: item.fields['到货'],
+                strength: item.fields['强度等级'],
+                flavors: item.fields['主要风味'] || [],
+                tastingNotes: item.fields['品吸反馈'],
+                flavor: item.fields['主要风味'] || [],
+                packaging: item.fields['包装']
+              }));
+              
+              // 提取品牌列表
+              brands.value = [...new Set(cigars.value.map(c => c.brand).filter(Boolean))].sort();
+            }
+            
+            // 加载本地存储的品吸记录
+            const saved = localStorage.getItem('cigarTastingRecords');
+            if (saved) {
+              tastingRecords.value = JSON.parse(saved);
+            }
+            
+          } catch (e) {
+            console.error('加载数据失败:', e);
+            // 尝试加载本地 JSON 作为后备
+            try {
+              const resp = await fetch('./data/cigar_inventory.json');
+              const data = await resp.json();
+              console.log('本地 JSON 加载成功，记录数:', data.cigars.length);
+              cigars.value = data.cigars;
+              brands.value = [...new Set(data.cigars.map(c => c.brand).filter(Boolean))].sort();
+              console.log('品牌列表:', brands.value);
+            } catch (e2) {
+              console.error('加载本地数据也失败:', e2);
+            }
+          }
+        };
+
+        // 事件处理
+        const onBrandChange = () => {
+          selectedModel.value = '';
+          selectedRecord.value = null;
+        };
+        
+        const onModelChange = () => {
+          console.log('型号改变:', selectedModel.value);
+          console.log('当前品牌:', selectedBrand.value);
+          console.log('cigars 中匹配的数量:', cigars.value.filter(c => c.brand === selectedBrand.value && c.model === selectedModel.value).length);
+          selectedRecord.value = null;
+        };
+        
+        const selectRecord = (record) => {
+          selectedRecord.value = record;
+        };
+        
+        const confirmSelection = () => {
+          if (selectedRecord.value) {
+            selectedRecordForTaste.value = { ...selectedRecord.value };
+            currentTab.value = 'taste';
+          }
+        };
+        
+        const resetSelection = () => {
+          selectedBrand.value = '';
+          selectedModel.value = '';
+          selectedRecord.value = null;
+        };
+        
+        const handlePhotoUpload = (e) => {
+          const files = e.target.files;
+          for (let file of files) {
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+              tasting.value.photos.push(evt.target.result);
+            };
+            reader.readAsDataURL(file);
+          }
+        };
+        
+        const saveTasting = () => {
+          const record = {
+            id: Date.now(),
+            brand: selectedRecordForTaste.value.brand,
+            model: selectedRecordForTaste.value.model,
+            date: new Date().toLocaleDateString('zh-CN'),
+            environment: tasting.value.environment,
+            temperature: tasting.value.temperature,
+            humidity: tasting.value.humidity,
+            drink: tasting.value.drink,
+            firstThird: tasting.value.firstThird,
+            middleThird: tasting.value.middleThird,
+            finalThird: tasting.value.finalThird,
+            photos: tasting.value.photos
+          };
+          
+          tastingRecords.value.unshift(record);
+          localStorage.setItem('cigarTastingRecords', JSON.stringify(tastingRecords.value));
+          
+          // 重置表单
+          tasting.value = {
+            environment: '', tempUnit: 'C', temperature: '', humidity: '', drink: '',
+            firstThird: '', middleThird: '', finalThird: '', photos: []
+          };
+          
+          showToast('品吸记录已保存！');
+        };
+        
+        const deleteCigar = (id) => {
+          if (confirm('确定删除这条记录？')) {
+            cigars.value = cigars.value.filter(c => c.id !== id);
+          }
+        };
+        
+        const deleteTasting = (id) => {
+          if (confirm('确定删除这条品吸记录？')) {
+            tastingRecords.value = tastingRecords.value.filter(t => t.id !== id);
+            localStorage.setItem('cigarTastingRecords', JSON.stringify(tastingRecords.value));
+          }
+        };
+        
+        const exportData = () => {
+          const data = {
+            cigars: cigars.value,
+            tastingRecords: tastingRecords.value,
+            exportDate: new Date().toISOString()
+          };
+          const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `cigar_data_${new Date().toISOString().split('T')[0]}.json`;
+          a.click();
+          showToast('数据导出成功！');
+        };
+        
+        const importData = (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            try {
+              const data = JSON.parse(evt.target.result);
+              if (data.cigars) cigars.value = data.cigars;
+              if (data.tastingRecords) {
+                tastingRecords.value = data.tastingRecords;
+                localStorage.setItem('cigarTastingRecords', JSON.stringify(data.tastingRecords));
+              }
+              showToast('数据导入成功！');
+            } catch (err) {
+              alert('导入失败，请检查文件格式');
+            }
+          };
+          reader.readAsText(file);
+        };
+
+        onMounted(() => {
+          loadData();
+        });
+
+        return {
+          cigars, brands, brandStories, currentTab, recordType,
+          selectedBrand, selectedModel, selectedRecord,
+          models, matchedRecords, brandLogo, totalQuantity, modelInfo,
+          selectedRecordForTaste, tasting, tastingRecords, brandStory,
+          toast, showToast, loadData,
+          onBrandChange, onModelChange, selectRecord, confirmSelection, resetSelection,
+          handlePhotoUpload, saveTasting, deleteCigar, deleteTasting, exportData, importData
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

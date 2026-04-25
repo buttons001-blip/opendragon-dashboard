@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-04-14T07:27:04.330664",
+  "cn": {
+    "上证指数": {
+      "value": 3988.56,
+      "change": 22.39,
+      "changePercent": 0.56
+    },
+    "深证成指": {
+      "value": 14407.86,
+      "change": 411.56,
+      "changePercent": 2.94
+    },
+    "科创 50": {
+      "value": 1375.29,
+      "change": 10.79,
+      "changePercent": 0.79
+    }
+  },
+  "hk": {
+    "恒生指数": {
+      "value": 25660.85,
+      "change": -232.69,
+      "changePercent": -0.9
+    },
+    "国企指数": {
+      "value": 8602.06,
+      "change": -52.98,
+      "changePercent": -0.61
+    },
+    "恒生科技": {
+      "value": "获取失败",
+      "change": 0,
+      "changePercent": 0
+    }
+  },
+  "us": {
+    "道琼斯": {
+      "value": 48218.25,
+      "change": 301.68,
+      "changePercent": 0.63
+    },
+    "纳斯达克": {
+      "value": 23183.74,
+      "change": 280.84,
+      "changePercent": 1.23
+    },
+    "标普 500": {
+      "value": 6886.24,
+      "change": 69.35,
+      "changePercent": 1.02
+    }
+  },
+  "ca": {
+    "TSX": {
+      "value": 33879.24,
+      "change": 183.48,
+      "changePercent": 0.54
+    },
+    "S&P/TSX 60": {
+      "value": "获取失败",
+      "change": 0,
+      "changePercent": 0
+    },
+    "TSX Venture": {
+      "value": "获取失败",
+      "change": 0,
+      "changePercent": 0
+    }
+  },
+  "crypto": {
+    "BTC": {
+      "value": 74638.6,
+      "change": 3897.3,
+      "changePercent": 5.51
+    },
+    "ETH": {
+      "value": 2384.81,
+      "change": 193.15,
+      "changePercent": 8.81
+    },
+    "SOL": {
+      "value": 86.38,
+      "change": 4.84,
+      "changePercent": 5.94
+    }
+  }
+}

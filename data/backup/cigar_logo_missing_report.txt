@@ -1,0 +1,17 @@
+雪茄 Logo 缺失报告
+==================================================
+
+总品牌数：72
+有 logo: 65
+缺失 logo: 7
+覆盖率：90.3%
+
+
+缺失 logo 的品牌列表:
+  Belinda (古巴): 文件不存在：belinda_古巴.png
+  Blend 17 (尼加拉瓜): 文件不存在：blend-17_非古.png
+  Blend 42 (尼加拉瓜): 文件不存在：blend-42_非古.png
+  Ezra Zion (尼加拉瓜): 文件不存在：ezra-zion_非古.png
+  Joya (尼加拉瓜): 文件不存在：joya_非古.png
+  La Escepcion (墨西哥): 文件不存在：la-escepcion_非古.png
+  Los Statos de Luxe (古巴): 文件不存在：los-statos-de-luxe_古巴.png

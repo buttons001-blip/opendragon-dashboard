@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雪茄品吸记录管理</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Noto Sans SC', sans-serif; }
+    body { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+    .input-field {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      margin: 2px;
+    }
+    .tag-blue { background: #dbeafe; color: #1e40af; }
+    .tag-green { background: #d1fae5; color: #065f46; }
+    .tag-purple { background: #ede9fe; color: #5b21b6; }
+    .star-rating {
+      display: inline-flex;
+      gap: 4px;
+    }
+    .star {
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .star:hover {
+      transform: scale(1.2);
+    }
+    .star-active {
+      color: #fbbf24;
+    }
+    .star-inactive {
+      color: #d1d5db;
+    }
+  </style>
+</head>
+<body class="p-4">
+  <div id="app" class="max-w-4xl mx-auto">
+    <!-- 标题 -->
+    <div class="glass-card p-6 mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-800">🍷 雪茄品吸记录</h1>
+          <p class="text-gray-600 mt-1">记录每次品吸的体验和感受</p>
+        </div>
+        <button @click="showNewForm = true" class="btn-primary">
+          ✨ 新增品吸记录
+        </button>
+      </div>
+    </div>
+
+    <!-- 搜索和筛选 -->
+    <div class="glass-card p-4 mb-6">
+      <div class="flex gap-4">
+        <input v-model="searchQuery" @input="loadRecords" placeholder="🔍 搜索品牌、型号..." class="input-field flex-1">
+        <select v-model="filterBrand" @change="loadRecords" class="input-field w-48">
+          <option value="">所有品牌</option>
+          <option v-for="brand in brands" :key="brand" :value="brand">{{ brand }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 加载状态 -->
+    <div v-if="loading" class="glass-card p-8 text-center mb-6">
+      <div class="text-4xl mb-4">⏳</div>
+      <p class="text-gray-600">{{ loadingText }}</p>
+    </div>
+
+    <!-- 品吸记录列表 -->
+    <div v-else class="space-y-4">
+      <div v-for="record in records" :key="record.id" class="glass-card p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">{{ record.brand }} - {{ record.model }}</h3>
+            <p class="text-gray-600 text-sm mt-1">📅 {{ record.tasting_date }}</p>
+          </div>
+          <div class="flex gap-2">
+            <button @click="editRecord(record)" class="btn-secondary px-4 py-2 text-sm">✏️ 编辑</button>
+            <button @click="deleteRecord(record.id)" class="btn-danger px-4 py-2 text-sm">🗑️ 删除</button>
+          </div>
+        </div>
+
+        <!-- 评分 -->
+        <div v-if="record.rating" class="mb-4">
+          <div class="star-rating">
+            <span v-for="i in 5" :key="i" 
+                  :class="i <= record.rating ? 'star-active' : 'star-inactive'"
+                  class="star">⭐</span>
+          </div>
+          <span class="ml-2 text-sm text-gray-600">{{ record.rating }}/5</span>
+        </div>
+
+        <!-- 品吸详情 -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div v-if="record.location" class="text-sm">
+            <span class="font-medium text-gray-700">📍 地点：</span>
+            <span class="text-gray-600">{{ record.location }}</span>
+          </div>
+          <div v-if="record.weather" class="text-sm">
+            <span class="font-medium text-gray-700">🌤️ 天气：</span>
+            <span class="text-gray-600">{{ record.weather }}</span>
+          </div>
+          <div v-if="record.pairing" class="text-sm">
+            <span class="font-medium text-gray-700">🍷 搭配：</span>
+            <span class="text-gray-600">{{ record.pairing }}</span>
+          </div>
+          <div v-if="record.strength" class="text-sm">
+            <span class="font-medium text-gray-700">💪 强度：</span>
+            <span class="text-gray-600">{{ record.strength }}</span>
+          </div>
+        </div>
+
+        <!-- 风味描述 -->
+        <div v-if="record.flavor" class="mb-4">
+          <h4 class="font-medium text-gray-700 mb-2">🎵 风味：</h4>
+          <p class="text-gray-600 text-sm">{{ record.flavor }}</p>
+        </div>
+
+        <!-- 整体评价 -->
+        <div v-if="record.overall" class="mb-4">
+          <h4 class="font-medium text-gray-700 mb-2">💭 整体评价：</h4>
+          <p class="text-gray-600 text-sm">{{ record.overall }}</p>
+        </div>
+
+        <!-- 标签 -->
+        <div v-if="record.tags && record.tags.length" class="mb-4">
+          <span v-for="tag in record.tags" :key="tag" class="tag tag-blue">{{ tag }}</span>
+        </div>
+
+        <!-- 笔记 -->
+        <div v-if="record.notes" class="text-sm text-gray-600">
+          <span class="font-medium">📝 笔记：</span>{{ record.notes }}
+        </div>
+      </div>
+
+      <!-- 空状态 -->
+      <div v-if="records.length === 0" class="glass-card p-8 text-center">
+        <div class="text-4xl mb-4">🍷</div>
+        <p class="text-gray-600">暂无品吸记录</p>
+        <button @click="showNewForm = true" class="btn-primary mt-4">
+          ✨ 创建第一条品吸记录
+        </button>
+      </div>
+    </div>
+
+    <!-- 新增/编辑表单 -->
+    <div v-if="showNewForm || editingRecord" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div class="glass-card p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+          {{ editingRecord ? '✏️ 编辑品吸记录' : '✨ 新增品吸记录' }}
+        </h2>
+
+        <form @submit.prevent="saveRecord">
+          <!-- 选择雪茄 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">选择雪茄 *</label>
+            <select v-model="form.cigar_id" @change="loadCigarInfo" required class="input-field">
+              <option value="">请选择雪茄</option>
+              <option v-for="cigar in cigars" :key="cigar.id" :value="cigar.id">
+                {{ cigar.brand }} - {{ cigar.model }}
+              </option>
+            </select>
+          </div>
+
+          <!-- 品牌型号（自动填充） -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">品牌</label>
+              <input v-model="form.brand" type="text" class="input-field" readonly>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">型号</label>
+              <input v-model="form.model" type="text" class="input-field" readonly>
+            </div>
+          </div>
+
+          <!-- 品吸日期 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">品吸日期</label>
+            <input v-model="form.tasting_date" type="date" class="input-field">
+          </div>
+
+          <!-- 评分 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">评分</label>
+            <div class="star-rating">
+              <span v-for="i in 5" :key="i" 
+                    @click="form.rating = i"
+                    :class="i <= form.rating ? 'star-active' : 'star-inactive'"
+                    class="star">⭐</span>
+            </div>
+          </div>
+
+          <!-- 地点和天气 -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">地点</label>
+              <input v-model="form.location" type="text" placeholder="如：家中雪茄房" class="input-field">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">天气</label>
+              <input v-model="form.weather" type="text" placeholder="如：晴朗 25°C" class="input-field">
+            </div>
+          </div>
+
+          <!-- 搭配 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">搭配饮品/食物</label>
+            <input v-model="form.pairing" type="text" placeholder="如：威士忌、咖啡" class="input-field">
+          </div>
+
+          <!-- 强度 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">强度</label>
+            <select v-model="form.strength" class="input-field">
+              <option value="">请选择</option>
+              <option value="温和">温和</option>
+              <option value="中等">中等</option>
+              <option value="浓郁">浓郁</option>
+            </select>
+          </div>
+
+          <!-- 风味 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">风味描述</label>
+            <textarea v-model="form.flavor" rows="3" placeholder="描述品吸时的风味感受..." class="input-field"></textarea>
+          </div>
+
+          <!-- 整体评价 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">整体评价</label>
+            <textarea v-model="form.overall" rows="3" placeholder="整体评价和感受..." class="input-field"></textarea>
+          </div>
+
+          <!-- 标签 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">标签</label>
+            <div class="flex flex-wrap gap-2 mb-2">
+              <span v-for="tag in availableTags" :key="tag" 
+                    @click="toggleTag(tag)"
+                    :class="form.tags.includes(tag) ? 'tag-blue' : 'bg-gray-200'"
+                    class="tag cursor-pointer">{{ tag }}</span>
+            </div>
+            <input v-model="newTag" @keyup.enter="addTag" type="text" placeholder="添加新标签..." class="input-field">
+          </div>
+
+          <!-- 笔记 -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">笔记</label>
+            <textarea v-model="form.notes" rows="3" placeholder="其他备注..." class="input-field"></textarea>
+          </div>
+
+          <!-- 按钮 -->
+          <div class="flex gap-4">
+            <button type="submit" class="btn-primary flex-1">
+              💾 保存
+            </button>
+            <button type="button" @click="cancelEdit" class="btn-secondary flex-1">
+              ❌ 取消
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div v-if="toast.show" class="fixed top-4 right-4 z-50">
+      <div :class="toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'" class="text-white px-6 py-3 rounded-lg shadow-lg">
+        {{ toast.message }}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, reactive, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        const records = ref([]);
+        const cigars = ref([]);
+        const brands = ref([]);
+        const loading = ref(false);
+        const loadingText = ref('加载中...');
+        const searchQuery = ref('');
+        const filterBrand = ref('');
+        const showNewForm = ref(false);
+        const editingRecord = ref(null);
+        const newTag = ref('');
+        const toast = reactive({ show: false, message: '', type: 'success' });
+
+        const form = reactive({
+          cigar_id: '',
+          brand: '',
+          model: '',
+          tasting_date: '',
+          rating: 0,
+          location: '',
+          weather: '',
+          pairing: '',
+          strength: '',
+          flavor: '',
+          overall: '',
+          tags: [],
+          notes: ''
+        });
+
+        const availableTags = ['日常', '特别', '分享', '陈年', '新入手', '推荐', '待尝试'];
+
+        const showToast = (message, type = 'success') => {
+          toast.message = message;
+          toast.type = type;
+          toast.show = true;
+          setTimeout(() => toast.show = false, 3000);
+        };
+
+        const loadCigars = async () => {
+          try {
+            const resp = await fetch('./data/cigar_inventory.json');
+            const data = await resp.json();
+            cigars.value = data.cigars;
+            brands.value = [...new Set(data.cigars.map(c => c.brand))].sort();
+          } catch (error) {
+            console.error('加载雪茄列表失败:', error);
+          }
+        };
+
+        const loadCigarInfo = () => {
+          const cigar = cigars.value.find(c => c.id === form.cigar_id);
+          if (cigar) {
+            form.brand = cigar.brand;
+            form.model = cigar.model;
+          }
+        };
+
+        const loadRecords = async () => {
+          loading.value = true;
+          loadingText.value = '加载品吸记录中...';
+          
+          try {
+            let url = '/api/tasting/list';
+            const params = new URLSearchParams();
+            if (filterBrand.value) params.append('brand', filterBrand.value);
+            if (searchQuery.value) params.append('search', searchQuery.value);
+            if (params.toString()) url += '?' + params.toString();
+            
+            const resp = await fetch(url);
+            const data = await resp.json();
+            
+            if (data.success) {
+              records.value = data.items;
+            }
+          } catch (error) {
+            console.error('加载品吸记录失败:', error);
+            showToast('加载失败', 'error');
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        const saveRecord = async () => {
+          if (!form.cigar_id || !form.brand || !form.model) {
+            showToast('请填写必填字段', 'error');
+            return;
+          }
+
+          loading.value = true;
+          
+          try {
+            const url = editingRecord.value ? '/api/tasting/update' : '/api/tasting/create';
+            const resp = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                id: editingRecord.value?.id,
+                fields: { ...form }
+              })
+            });
+            
+            const data = await resp.json();
+            
+            if (data.success) {
+              showToast(editingRecord.value ? '更新成功' : '创建成功');
+              cancelEdit();
+              loadRecords();
+            } else {
+              throw new Error(data.error);
+            }
+          } catch (error) {
+            console.error('保存失败:', error);
+            showToast('保存失败：' + error.message, 'error');
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        const editRecord = (record) => {
+          editingRecord.value = record;
+          Object.assign(form, {
+            cigar_id: record.cigar_id,
+            brand: record.brand,
+            model: record.model,
+            tasting_date: record.tasting_date,
+            rating: record.rating || 0,
+            location: record.location,
+            weather: record.weather,
+            pairing: record.pairing,
+            strength: record.strength,
+            flavor: record.flavor,
+            overall: record.overall,
+            tags: [...(record.tags || [])],
+            notes: record.notes
+          });
+        };
+
+        const deleteRecord = async (id) => {
+          if (!confirm('确定要删除这条品吸记录吗？')) return;
+          
+          try {
+            const resp = await fetch('/api/tasting/delete', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id })
+            });
+            
+            const data = await resp.json();
+            
+            if (data.success) {
+              showToast('删除成功');
+              loadRecords();
+            }
+          } catch (error) {
+            console.error('删除失败:', error);
+            showToast('删除失败', 'error');
+          }
+        };
+
+        const cancelEdit = () => {
+          showNewForm.value = false;
+          editingRecord.value = null;
+          resetForm();
+        };
+
+        const resetForm = () => {
+          Object.assign(form, {
+            cigar_id: '',
+            brand: '',
+            model: '',
+            tasting_date: '',
+            rating: 0,
+            location: '',
+            weather: '',
+            pairing: '',
+            strength: '',
+            flavor: '',
+            overall: '',
+            tags: [],
+            notes: ''
+          });
+        };
+
+        const toggleTag = (tag) => {
+          const index = form.tags.indexOf(tag);
+          if (index > -1) {
+            form.tags.splice(index, 1);
+          } else {
+            form.tags.push(tag);
+          }
+        };
+
+        const addTag = () => {
+          if (newTag.value && !form.tags.includes(newTag.value)) {
+            form.tags.push(newTag.value);
+            newTag.value = '';
+          }
+        };
+
+        onMounted(() => {
+          loadCigars();
+          loadRecords();
+        });
+
+        return {
+          records, cigars, brands, loading, loadingText,
+          searchQuery, filterBrand, showNewForm, editingRecord,
+          form, availableTags, newTag, toast,
+          showToast, loadCigarInfo, loadRecords, saveRecord,
+          editRecord, deleteRecord, cancelEdit, resetForm,
+          toggleTag, addTag
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

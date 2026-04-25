@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雪茄库存管理 - 记录编辑</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Noto Sans SC', sans-serif; }
+    body { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #475569;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+    }
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+    }
+    .btn-warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+    }
+    .record-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .record-card:hover { border-color: #667eea; }
+    .record-card.selected { border-color: #667eea; background: #f0f4ff; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      background: white;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .home-btn:hover { transform: scale(1.1); }
+    .logo-preview {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #f8fafc;
+      padding: 8px;
+    }
+    .upload-area {
+      border: 2px dashed #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .upload-area:hover {
+      border-color: #667eea;
+      background: #f8f9ff;
+    }
+    .upload-area.has-file {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+    .upload-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .tab-active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://www.opendragon.icu" class="home-btn" title="返回首页">🐉</a>
+  
+  <div id="app" class="p-4 pb-20 max-w-6xl mx-auto">
+    <!-- 顶部标题 -->
+    <div class="glass-card p-6 mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">📦 雪茄库存管理</h1>
+      <p class="text-sm text-gray-500 mt-1">修改库存记录 | 剩余数量独立字段 | 同步飞书表格</p>
+    </div>
+
+    <!-- Tab 导航 -->
+    <div class="flex gap-2 mb-6">
+      <button @click="currentTab = 'edit'" 
+        :class="['flex-1 py-3 px-4 rounded-xl font-medium transition-all', currentTab === 'edit' ? 'tab-active' : 'bg-white/80 text-gray-600']">
+      ✏️ 编辑记录
+      </button>
+      <button @click="currentTab = 'add'" 
+        :class="['flex-1 py-3 px-4 rounded-xl font-medium transition-all', currentTab === 'add' ? 'tab-active' : 'bg-white/80 text-gray-600']">
+        ➕ 新增记录
+      </button>
+    </div>
+
+    <!-- A. 编辑记录页面 -->
+    <div v-if="currentTab === 'edit'" class="space-y-6">
+      <!-- 步骤 1: 选择记录 -->
+      <div class="glass-card p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">步骤 1: 选择要修改的记录</h2>
+        
+        <!-- 品牌选择 -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-600 mb-2">选择品牌</label>
+          <select v-model="selectedBrand" @change="onBrandChange" class="w-full">
+            <option value="">请选择品牌</option>
+            <option v-for="brand in brands" :key="brand" :value="brand">{{ brand }}</option>
+          </select>
+        </div>
+
+        <!-- 型号选择 -->
+        <div v-if="selectedBrand" class="mb-4">
+          <label class="block text-sm font-medium text-gray-600 mb-2">选择型号</label>
+          <select v-model="selectedModel" @change="onModelChange" class="w-full">
+            <option value="">请选择型号</option>
+            <option v-for="model in models" :key="model" :value="model">{{ model }}</option>
+          </select>
+        </div>
+
+        <!-- 记录列表 -->
+        <div v-if="matchedRecords.length > 0" class="space-y-2 max-h-64 overflow-y-auto">
+          <div v-for="record in matchedRecords" :key="record.id" 
+            @click="selectRecordForEdit(record)"
+            :class="['record-card', editingRecord?.id === record.id ? 'selected' : '']">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="font-medium text-gray-800">{{ record.brand }} - {{ record.model }}</p>
+                <p class="text-sm text-gray-500 mt-1">
+                  环径：{{ record.ringGauge }} | 长度：{{ record.length }}mm | 数量：{{ record.quantity }}
+                </p>
+                <p class="text-sm text-gray-500">
+                  地点：{{ record.storageLocation }} | 单价：${{ record.price }} | 年份：{{ record.year }}
+                </p>
+              </div>
+              <div v-if="editingRecord?.id === record.id" class="text-purple-600 text-xl">✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步骤 2: 编辑记录 -->
+      <div v-if="editingRecord" class="glass-card p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">步骤 2: 修改记录信息</h2>
+        
+        <!-- Logo 预览和上传 -->
+        <div class="mb-6 p-4 bg-amber-50 rounded-xl border border-amber-200">
+          <div class="flex items-center gap-4 mb-3">
+            <img v-if="editForm.logo" :src="editForm.logo" class="logo-preview">
+            <div v-else class="logo-preview bg-gray-200 flex items-center justify-center text-2xl">
+              {{ editingRecord.brand.charAt(0) }}
+            </div>
+            <div class="flex-1">
+              <p class="font-medium text-gray-800">{{ editingRecord.brand }}</p>
+              <p class="text-sm text-gray-500">{{ editingRecord.model }}</p>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">上传新 Logo（可选）</label>
+            <label class="upload-area" :class="{'has-file': editForm.logoFile}">
+              <input type="file" @change="handleLogoUpload" accept="image/*" class="hidden">
+              <div v-if="editForm.logoFile" class="upload-icon">✅</div>
+              <div v-else class="upload-icon">📁</div>
+              <p class="text-sm text-gray-700 font-medium">
+                {{ editForm.logoFile ? '已选择：' + editForm.logoFile.name : '点击选择图片文件' }}
+              </p>
+              <p class="text-xs text-gray-500 mt-1">支持 png, jpg, webp 格式</p>
+            </label>
+            <button v-if="editForm.logoFile" @click="clearLogo('edit')" class="mt-2 btn-warning px-4 py-2 rounded-lg text-sm font-medium">
+              🗑️ 清除已选文件
+            </button>
+          </div>
+        </div>
+
+        <!-- 可修改字段 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">📍 存放地点</label>
+            <input v-model="editForm.storageLocation" type="text" placeholder="例如：淀 1、上、加">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">📅 生产日期</label>
+            <input v-model="editForm.year" type="number" placeholder="例如：2019">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">📦 包装</label>
+            <select v-model="editForm.packaging">
+              <option value="">请选择包装</option>
+              <option value="木盒">木盒</option>
+              <option value="纸盒">纸盒</option>
+              <option value="铝管">铝管</option>
+              <option value="铁盒">铁盒</option>
+              <option value="罐装">罐装</option>
+              <option value="散支">散支</option>
+              <option value="保湿盒">保湿盒</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">💰 单价（元）</label>
+            <input v-model="editForm.price" type="number" step="0.01" placeholder="例如：19.8">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">🔢 原始数量</label>
+            <input v-model="editForm.quantity" type="number" disabled class="bg-gray-100">
+            <p class="text-xs text-gray-500 mt-1">原始数量不可修改</p>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">🔢 剩余数量</label>
+            <input v-model="editForm.remainingQuantity" type="number" class="border-purple-300 focus:border-purple-500">
+            <p class="text-xs text-purple-600 mt-1">独立字段，初始值等于原始数量</p>
+          </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="flex gap-3 mt-6">
+          <button @click="saveEdit" class="flex-1 btn-primary py-3 rounded-xl font-medium">
+            💾 保存到飞书
+          </button>
+          <button @click="cancelEdit" class="flex-1 btn-secondary py-3 rounded-xl font-medium">
+            ✕ 取消
+          </button>
+        </div>
+        
+        <p class="text-xs text-gray-500 mt-4 text-center">
+          ⚠️ 修改将同步到飞书表格，每日凌晨 2:00 会自动同步覆盖
+        </p>
+      </div>
+    </div>
+
+    <!-- B. 新增记录页面 -->
+    <div v-if="currentTab === 'add'" class="glass-card p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">➕ 新增雪茄记录</h2>
+      
+      <!-- Logo 上传 -->
+      <div class="mb-6 p-4 bg-amber-50 rounded-xl border border-amber-200">
+        <label class="block text-sm font-medium text-gray-600 mb-2">品牌 Logo</label>
+        <div class="flex items-start gap-4">
+          <img v-if="newForm.logo" :src="newForm.logo" class="logo-preview">
+          <div v-else class="logo-preview bg-gray-200 flex items-center justify-center text-2xl">
+            ?
+          </div>
+          <div class="flex-1">
+            <label class="upload-area" :class="{'has-file': newForm.logoFile}">
+              <input type="file" @change="handleNewLogoUpload" accept="image/*" class="hidden">
+              <div v-if="newForm.logoFile" class="upload-icon">✅</div>
+              <div v-else class="upload-icon">📁</div>
+              <p class="text-sm text-gray-700 font-medium">
+                {{ newForm.logoFile ? '已选择：' + newForm.logoFile.name : '点击选择图片文件' }}
+              </p>
+              <p class="text-xs text-gray-500 mt-1">支持 png, jpg, webp 格式</p>
+            </label>
+            <button v-if="newForm.logoFile" @click="clearLogo('new')" class="mt-2 btn-warning px-4 py-2 rounded-lg text-sm font-medium">
+              🗑️ 清除已选文件
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 基本信息 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">🏷️ 品牌 *</label>
+          <input v-model="newForm.brand" type="text" placeholder="例如：Cohiba">
+          <p class="text-xs text-gray-500 mt-1">如果是新品牌，将自动创建</p>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">📝 型号 *</label>
+          <input v-model="newForm.model" type="text" placeholder="例如：Siglo III">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">🌍 产地 *</label>
+          <select v-model="newForm.origin">
+            <option value="">请选择产地</option>
+            <option value="古巴">古巴</option>
+            <option value="非古">非古</option>
+            <option value="多米尼加共和国">多米尼加共和国</option>
+            <option value="尼加拉瓜">尼加拉瓜</option>
+            <option value="尼加拉瓜/美国迈阿密">尼加拉瓜/美国迈阿密</option>
+            <option value="洪都拉斯/尼加拉瓜">洪都拉斯/尼加拉瓜</option>
+            <option value="尼加拉瓜/洪都拉斯">尼加拉瓜/洪都拉斯</option>
+            <option value="尼加拉瓜/多米尼加共和国">尼加拉瓜/多米尼加共和国</option>
+            <option value="洪都拉斯">洪都拉斯</option>
+            <option value="洪都拉斯/尼加拉瓜/多米尼加共和国">洪都拉斯/尼加拉瓜/多米尼加共和国</option>
+            <option value="哥斯达黎加">哥斯达黎加</option>
+            <option value="墨西哥">墨西哥</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">🔢 数量 *</label>
+          <input v-model="newForm.quantity" type="number" placeholder="例如：25">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">📏 环径</label>
+          <input v-model="newForm.ringGauge" type="number" step="0.5" placeholder="例如：42">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">📏 长度 (mm)</label>
+          <input v-model="newForm.length" type="number" placeholder="例如：155">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">💰 单价（元）</label>
+          <input v-model="newForm.price" type="number" step="0.01" placeholder="例如：19.8">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">📅 生产日期</label>
+          <input v-model="newForm.year" type="number" placeholder="例如：2019">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">📍 存放地点</label>
+          <input v-model="newForm.storageLocation" type="text" placeholder="例如：淀 1">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">🛒 购买地点</label>
+          <input v-model="newForm.purchaseLocation" type="text" placeholder="例如：COH">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">📦 包装</label>
+          <select v-model="newForm.packaging">
+            <option value="">请选择包装</option>
+            <option value="木盒">木盒</option>
+            <option value="纸盒">纸盒</option>
+            <option value="铝管">铝管</option>
+            <option value="散支">散支</option>
+            <option value="其他">其他</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">📋 规格</label>
+          <input v-model="newForm.specification" type="text" placeholder="例如：25 或 3*5">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-2">💪 强度等级</label>
+          <select v-model="newForm.strength">
+            <option value="">请选择强度</option>
+            <option value="中等">中等</option>
+            <option value="中等至浓郁">中等至浓郁</option>
+            <option value="浓郁">浓郁</option>
+            <option value="温和至中等">温和至中等</option>
+            <option value="中等至偏浓">中等至偏浓</option>
+            <option value="偏浓">偏浓</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 风味标签 -->
+      <div class="mt-4">
+        <label class="block text-sm font-medium text-gray-600 mb-2">🎯 主要风味（用逗号分隔）</label>
+        <input v-model="newForm.flavors" type="text" placeholder="例如：雪松、皮革、咖啡">
+      </div>
+
+      <!-- 品吸反馈 -->
+      <div class="mt-4">
+        <label class="block text-sm font-medium text-gray-600 mb-2">📝 品吸反馈</label>
+        <textarea v-model="newForm.tastingNotes" rows="3" placeholder="前段...中段...后段..."></textarea>
+      </div>
+
+      <!-- 保存按钮 -->
+      <div class="flex gap-3 mt-6">
+        <button @click="saveNewRecord" class="flex-1 btn-success py-3 rounded-xl font-medium">
+          ✅ 创建新记录
+        </button>
+        <button @click="resetNewForm" class="flex-1 btn-secondary py-3 rounded-xl font-medium">
+          ↺ 重置
+        </button>
+      </div>
+    </div>
+
+    <!-- 提示消息 -->
+    <div v-if="toast.show" 
+      :class="['fixed bottom-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 text-white', toast.type === 'success' ? 'bg-green-600' : 'bg-red-600']">
+      {{ toast.message }}
+    </div>
+
+    <!-- 加载状态 -->
+    <div v-if="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="glass-card p-6 text-center">
+        <div class="animate-spin text-4xl mb-3">⏳</div>
+        <p class="text-gray-700">{{ loadingText }}</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        // 数据
+        const cigars = ref([]);
+        const brands = ref([]);
+        const currentTab = ref('edit');
+        const loading = ref(false);
+        const loadingText = ref('加载中...');
+        
+        // 选择状态
+        const selectedBrand = ref('');
+        const selectedModel = ref('');
+        const editingRecord = ref(null);
+        
+        // 编辑表单
+        const editForm = ref({
+          id: '',
+          storageLocation: '',
+          year: '',
+          packaging: '',
+          price: '',
+          quantity: 0,
+          remainingQuantity: 0,
+          logo: '',
+          logoFile: null
+        });
+        
+        // 新增表单
+        const newForm = ref({
+          brand: '',
+          model: '',
+          origin: '',
+          quantity: 0,
+          ringGauge: '',
+          length: '',
+          price: '',
+          year: '',
+          storageLocation: '',
+          purchaseLocation: '',
+          packaging: '',
+          specification: '',
+          strength: '',
+          flavors: '',
+          tastingNotes: '',
+          logo: '',
+          logoFile: null
+        });
+        
+        // Toast
+        const toast = ref({ show: false, message: '', type: 'success' });
+        const showToast = (msg, type = 'success') => {
+          toast.value = { show: true, message: msg, type };
+          setTimeout(() => toast.value.show = false, 3000);
+        };
+
+        // 计算属性
+        const models = computed(() => {
+          if (!selectedBrand.value) return [];
+          const filtered = cigars.value.filter(c => c.brand === selectedBrand.value);
+          const uniqueModels = [...new Set(filtered.map(c => c.model))];
+          return uniqueModels.sort((a, b) => a.localeCompare(b, 'zh-CN'));
+        });
+        
+        const matchedRecords = computed(() => {
+          if (!selectedBrand.value || !selectedModel.value) return [];
+          return cigars.value.filter(c => c.brand === selectedBrand.value && c.model === selectedModel.value);
+        });
+
+        // API 配置 - 支持 Cloudflare Pages + Worker 混合部署
+        // 检测当前域名，自动选择正确的 API 路径
+        const currentHost = window.location.hostname;
+        let API_BASE = '/cigar-api'; // 默认使用 Worker 代理
+        
+        // 如果是 IP 地址访问或本地测试
+        if (currentHost.includes('localhost') || currentHost.match(/^\d+\.\d+\.\d+\.\d+$/)) {
+          API_BASE = '/cigar-api';
+        }
+        
+        const API_VERSION = 'v202604220747'; // 版本号，强制刷新缓存 - 修复 SingleSelect 映射
+        console.log('API 基础地址:', API_BASE, '版本:', API_VERSION, '主机:', currentHost);
+
+        // 保存到本地 API
+        const saveToLocal = async (recordId, fields) => {
+          const resp = await fetch(`${API_BASE}/save`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'save',
+              record_id: recordId,
+              fields: fields
+            })
+          });
+          const data = await resp.json();
+          return data;
+        };
+
+        // 创建新记录
+        const createRecord = async (fields) => {
+          const resp = await fetch(`${API_BASE}/create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'create',
+              fields: fields
+            })
+          });
+          const data = await resp.json();
+          return data;
+        };
+
+        // 加载数据
+        const loadData = async () => {
+          loading.value = true;
+          loadingText.value = '加载数据中...';
+          
+          try {
+            // 优先从本地 JSON 加载（更快）
+            const resp = await fetch('./data/cigar_inventory.json');
+            const data = await resp.json();
+            console.log('本地 JSON 加载成功，记录数:', data.cigars.length);
+            
+            cigars.value = data.cigars.map(c => ({
+              ...c,
+              remainingQuantity: c.remainingQuantity !== undefined ? c.remainingQuantity : c.quantity
+            }));
+            
+            brands.value = [...new Set(cigars.value.map(c => c.brand).filter(Boolean))].sort();
+            console.log('品牌列表:', brands.value.length, '个');
+            
+            showToast('数据加载成功');
+          } catch (e) {
+            console.error('加载数据失败:', e);
+            showToast('加载数据失败，请刷新重试', 'error');
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        // 事件处理
+        const onBrandChange = () => {
+          selectedModel.value = '';
+          editingRecord.value = null;
+        };
+        
+        const onModelChange = () => {
+          editingRecord.value = null;
+        };
+        
+        const selectRecordForEdit = (record) => {
+          editingRecord.value = record;
+          editForm.value = {
+            id: record.record_id || record.id,
+            storageLocation: record.storageLocation || '',
+            year: record.year || '',
+            packaging: record.packaging || '',
+            price: record.price || '',
+            quantity: record.quantity || 0,
+            remainingQuantity: record.remainingQuantity !== undefined ? record.remainingQuantity : record.quantity,
+            logo: record.logo || '',
+            logoFile: null
+          };
+          console.log('选中记录:', editingRecord.value.id, record.brand, record.model);
+        };
+        
+        // Logo 上传（编辑）
+        const handleLogoUpload = (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            editForm.value.logo = evt.target.result;
+            editForm.value.logoFile = file;
+          };
+          reader.readAsDataURL(file);
+        };
+        
+        // Logo 上传（新增）
+        const handleNewLogoUpload = (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            newForm.value.logo = evt.target.result;
+            newForm.value.logoFile = file;
+          };
+          reader.readAsDataURL(file);
+        };
+        
+        // 保存编辑
+        const saveEdit = async () => {
+          if (!editingRecord.value) {
+            console.error('没有选中的记录');
+            return;
+          }
+          
+          const recordId = editingRecord.value.record_id || editingRecord.value.id;
+          console.log('准备保存记录 ID:', recordId);
+          
+          loading.value = true;
+          loadingText.value = '保存到本地 JSON...';
+          
+          try {
+            // 构建更新字段 - 确保数字类型正确
+            const fields = {};
+            
+            if (editForm.value.storageLocation !== undefined) {
+              fields.storageLocation = String(editForm.value.storageLocation);
+            }
+            if (editForm.value.year) {
+              fields.year = parseInt(editForm.value.year, 10);
+            }
+            if (editForm.value.packaging) {
+              fields.packaging = String(editForm.value.packaging);
+            }
+            if (editForm.value.price) {
+              fields.price = parseFloat(editForm.value.price);
+            }
+            if (editForm.value.remainingQuantity !== undefined) {
+              fields.remainingQuantity = parseInt(editForm.value.remainingQuantity, 10);
+            }
+            
+            console.log('更新字段:', fields);
+            
+            // 调用本地 API 保存
+            const result = await saveToLocal(recordId, fields);
+            console.log('保存结果:', result);
+            
+            if (!result.success) {
+              throw new Error(result.error || '保存失败');
+            }
+            
+            // 更新本地数据
+            const localIndex = cigars.value.findIndex(c => c.id === editingRecord.value.id);
+            if (localIndex !== -1) {
+              cigars.value[localIndex] = {
+                ...cigars.value[localIndex],
+                storageLocation: fields.storageLocation,
+                year: fields.year,
+                packaging: fields.packaging,
+                price: fields.price,
+                remainingQuantity: fields.remainingQuantity
+              };
+            }
+            
+            showToast('保存成功！数据已更新到本地 JSON');
+            cancelEdit();
+          } catch (e) {
+            console.error('保存失败:', e);
+            showToast('保存失败：' + e.message, 'error');
+          } finally {
+            loading.value = false;
+          }
+        };
+        
+        const cancelEdit = () => {
+          editingRecord.value = null;
+          editForm.value = {
+            id: '',
+            storageLocation: '',
+            year: '',
+            packaging: '',
+            price: '',
+            quantity: 0,
+            remainingQuantity: 0,
+            logo: '',
+            logoFile: null
+          };
+          selectedBrand.value = '';
+          selectedModel.value = '';
+        };
+        
+        // 保存新记录
+        const saveNewRecord = async () => {
+          // 验证必填字段
+          if (!newForm.value.brand || !newForm.value.model || !newForm.value.origin || !newForm.value.quantity) {
+            showToast('请填写所有必填字段（品牌、型号、产地、数量）', 'error');
+            return;
+          }
+          
+          loading.value = true;
+          loadingText.value = '创建新记录...';
+          
+          try {
+            // 构建新记录字段
+            const fields = {
+              brand: newForm.value.brand,
+              model: newForm.value.model,
+              origin: newForm.value.origin,
+              quantity: Number(newForm.value.quantity),
+              ringGauge: newForm.value.ringGauge ? Number(newForm.value.ringGauge) : null,
+              length: newForm.value.length ? Number(newForm.value.length) : null,
+              price: newForm.value.price ? Number(newForm.value.price) : null,
+              year: newForm.value.year ? Number(newForm.value.year) : null,
+              storageLocation: newForm.value.storageLocation,
+              purchaseLocation: newForm.value.purchaseLocation,
+              packaging: newForm.value.packaging,
+              specification: newForm.value.specification,
+              strength: newForm.value.strength,
+              flavors: newForm.value.flavors ? newForm.value.flavors.split(/[,,]/).map(s => s.trim()).filter(Boolean) : [],
+              tastingNotes: newForm.value.tastingNotes,
+              logo: newForm.value.logo
+            };
+            
+            console.log('创建记录:', fields);
+            
+            // 调用本地 API 创建
+            const result = await createRecord(fields);
+            console.log('创建结果:', result);
+            
+            if (!result.success) {
+              throw new Error(result.error || '创建失败');
+            }
+            
+            // 更新本地数据
+            cigars.value.unshift({
+              id: result.record_id,
+              ...fields,
+              remainingQuantity: fields.quantity
+            });
+            
+            // 如果是新品牌，更新品牌列表
+            if (!brands.value.includes(newForm.value.brand)) {
+              brands.value.push(newForm.value.brand);
+              brands.value.sort();
+            }
+            
+            showToast('新记录创建成功！已保存到本地 JSON');
+            resetNewForm();
+          } catch (e) {
+            console.error('创建失败:', e);
+            showToast('创建失败：' + e.message, 'error');
+          } finally {
+            loading.value = false;
+          }
+        };
+        
+        const resetNewForm = () => {
+          newForm.value = {
+            brand: '',
+            model: '',
+            origin: '',
+            quantity: 0,
+            ringGauge: '',
+            length: '',
+            price: '',
+            year: '',
+            storageLocation: '',
+            purchaseLocation: '',
+            packaging: '',
+            specification: '',
+            strength: '',
+            flavors: '',
+            tastingNotes: '',
+            logo: '',
+            logoFile: null
+          };
+        };
+
+        onMounted(() => {
+          loadData();
+        });
+
+        return {
+          cigars, brands, currentTab, loading, loadingText,
+          selectedBrand, selectedModel, editingRecord,
+          models, matchedRecords,
+          editForm, newForm,
+          toast, showToast,
+          loadData,
+          onBrandChange, onModelChange, selectRecordForEdit,
+          handleLogoUpload, handleNewLogoUpload,
+          saveEdit, cancelEdit,
+          saveNewRecord, resetNewForm
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
