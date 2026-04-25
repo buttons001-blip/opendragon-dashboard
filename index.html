@@ -1,33 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>OpenDragon Redirect</title>
-    <script>
-        // 基于域名的重定向
-        const hostname = window.location.hostname;
-        
-        if (hostname === 'www.opendragon.icu' || hostname === 'opendragon.icu') {
-            // 主站点
-            window.location.href = '/test/index/index.html';
-        } else if (hostname === 'stock.opendragon.icu') {
-            // 股票站点 - 默认重定向到 A股
-            if (window.location.pathname === '/' || window.location.pathname === '') {
-                window.location.href = '/stock';
-            }
-        } else if (hostname === 'cigars.opendragon.icu') {
-            // 雪茄站点
-            window.location.href = '/test/cigars/';
-        } else if (hostname === 'openclaw.opendragon.icu') {
-            // OpenClaw 站点
-            window.location.href = '/test/openclaw-dashboard/';
-        } else {
-            // 默认主站点
-            window.location.href = '/test/index/index.html';
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenDragon Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .loading { color: #666; margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <p>Redirecting...</p>
+    <h1>🐉 OpenDragon</h1>
+    <p class="loading">加载中...</p>
+    
+    <script>
+        // 等待 DOM 加载完成后再重定向，避免 SEO 问题
+        document.addEventListener('DOMContentLoaded', function() {
+            const hostname = window.location.hostname;
+            
+            if (hostname.includes('cigars.opendragon.icu')) {
+                // 雪茄站点 - 直接加载雪茄内容而不改变 URL
+                fetch('/test/cigars/index.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.open();
+                        document.write(html);
+                        document.close();
+                    })
+                    .catch(() => {
+                        // 如果加载失败，重定向
+                        window.location.href = '/test/cigars/';
+                    });
+            } else if (hostname.includes('stock.opendragon.icu')) {
+                // 股票站点
+                if (window.location.pathname === '/' || window.location.pathname === '') {
+                    window.location.href = '/stock';
+                }
+            } else if (hostname.includes('openclaw.opendragon.icu')) {
+                // OpenClaw 站点
+                window.location.href = '/test/openclaw-dashboard/';
+            } else {
+                // 主站点 - 加载主站点内容
+                fetch('/test/index/index.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.open();
+                        document.write(html);
+                        document.close();
+                    })
+                    .catch(() => {
+                        // 如果加载失败，显示基本导航
+                        document.querySelector('.loading').textContent = '加载失败，请稍后重试';
+                    });
+            }
+        });
+    </script>
 </body>
 </html>
