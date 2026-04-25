@@ -1,2 +1,21 @@
-# 主站点 - www.opendragon.icu
+# 基于主机名的重定向
+
+# www.opendragon.icu - 主站点
+www.opendragon.icu/ /test/index/index.html 200
+
+# stock.opendragon.icu - 股票站点
+stock.opendragon.icu/ /test/stockmarket/stock.html 200
+stock.opendragon.icu/stock /test/stockmarket/stock.html 200
+stock.opendragon.icu/hk /test/stockmarket/hk.html 200
+stock.opendragon.icu/us /test/stockmarket/us.html 200
+stock.opendragon.icu/ca /test/stockmarket/ca.html 200
+stock.opendragon.icu/crypto /test/stockmarket/crypto.html 200
+
+# cigars.opendragon.icu - 雪茄站点  
+cigars.opendragon.icu/ /test/cigars/index.html 200
+
+# openclaw.opendragon.icu - OpenClaw 站点
+openclaw.opendragon.icu/ /test/openclaw-dashboard/index.html 200
+
+# 默认回退到主站点
 / /test/index/index.html 200
