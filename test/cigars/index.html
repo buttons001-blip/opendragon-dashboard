@@ -255,16 +255,22 @@
           </div>
         </div>
 
+        <!-- 品吸反馈 -->
+        <div v-if="selectedRecordForTaste.tastingNotes" class="bg-green-50 rounded-xl p-4 mb-4">
+          <h4 class="font-medium text-green-800 mb-2">📝 品吸反馈</h4>
+          <p class="text-sm text-green-700">{{ selectedRecordForTaste.tastingNotes }}</p>
+        </div>
+
         <!-- 品牌故事和风味 -->
         <div v-if="brandStory" class="bg-amber-50 rounded-xl p-4 mb-4">
           <h4 class="font-medium text-amber-800 mb-2">📖 品牌故事</h4>
           <p class="text-sm text-amber-700">{{ brandStory }}</p>
         </div>
 
-        <div v-if="selectedRecordForTaste.flavor" class="bg-amber-50 rounded-xl p-4 mb-4">
+        <div v-if="selectedRecordForTaste.flavors && selectedRecordForTaste.flavors.length > 0" class="bg-amber-50 rounded-xl p-4 mb-4">
           <h4 class="font-medium text-amber-800 mb-2">🎯 主要风味</h4>
           <div class="flex flex-wrap gap-2">
-            <span v-for="f in selectedRecordForTaste.flavor" class="px-3 py-1 bg-amber-200 text-amber-800 rounded-full text-sm">
+            <span v-for="f in selectedRecordForTaste.flavors" class="px-3 py-1 bg-amber-200 text-amber-800 rounded-full text-sm">
               {{ f }}
             </span>
           </div>
@@ -482,19 +488,54 @@
         
         const brandLogo = computed(() => {
           if (!selectedBrand.value) return null;
-          // 从数据中查找该品牌的logo
+          
+          // 从数据中查找该品牌的logo和产地
           const cigar = cigars.value.find(c => c.brand === selectedBrand.value);
           if (cigar && cigar.logo) {
             return cigar.logo;
           }
-          // 后备：硬编码常见品牌
+          
+          // 动态生成 logo 路径: ./logos/{brand}_{origin}.png
+          if (cigar && cigar.origin) {
+            // 处理品牌名：转小写、空格替换为连字符
+            // 特殊品牌名映射
+            const brandMapping = {
+              'arturo fuente': 'arturo-fuente',
+              'romeo y julieta': 'romeo-y-julieta',
+              'hoyo de monterrey': 'hoyo-de-monterrey',
+              'san cristobal': 'san-cristobal',
+              'la flor de cano': 'la-flor-de-cano',
+              'el rey del mundo': 'el-rey-del-mundo',
+              'jose l piedra': 'jose-l-piedra',
+              'la aurora': 'la-aurora',
+              'la gloria cubana': 'la-gloria-cubana',
+              'black label trading company': 'black-label-trading-company',
+              'don pepin garcia': 'don-pepin-garcia',
+              'la arora de cuba': 'la-aroma-de-cuba',
+              'la flor dominicana': 'la-flor-dominicana',
+              'liga privada': 'liga-privada'
+            };
+            
+            const normalizedBrand = brandMapping[selectedBrand.value.toLowerCase()] || 
+                                  selectedBrand.value.toLowerCase().replace(/\s+/g, '-');
+            
+            // 直接使用原始产地名称（文件系统支持中文）
+            const originName = cigar.origin;
+            
+            // 构建完整路径
+            const logoPath = `./logos/${normalizedBrand}_${originName}.png`;
+            
+            return logoPath;
+          }
+          
+          // 后备：硬编码常见古巴品牌
           const logoMap = {
-            'Punch': './logos/punch_%E5%8F%A4%E5%B7%B4.png',
-            'Cohiba': './logos/cohiba_%E5%8F%A4%E5%B7%B4.png',
-            'Montecristo': './logos/montecristo_%E5%8F%A4%E5%B7%B4.png',
-            'Romeo y Julieta': './logos/romeo-y-julieta_%E5%8F%A4%E5%B7%B4.png',
-            'Hoyo de Monterrey': './logos/hoyo-de-monterrey_%E5%8F%A4%E5%B7%B4.png',
-            'Partagas': './logos/partagas_%E5%8F%A4%E5%B7%B4.png',
+            'Punch': './logos/punch_古巴.png',
+            'Cohiba': './logos/cohiba_古巴.png',
+            'Montecristo': './logos/montecristo_古巴.png',
+            'Romeo y Julieta': './logos/romeo-y-julieta_古巴.png',
+            'Hoyo de Monterrey': './logos/hoyo-de-monterrey_古巴.png',
+            'Partagas': './logos/partagas_古巴.png',
           };
           const key = Object.keys(logoMap).find(k => selectedBrand.value.includes(k));
           return key ? logoMap[key] : null;
@@ -618,6 +659,20 @@
               tastingRecords.value = JSON.parse(saved);
             }
             
+            // 加载品牌故事数据
+            try {
+              const storiesResp = await fetch('./data/cigar_brand_stories.json');
+              const storiesData = await storiesResp.json();
+              const storyMap = {};
+              storiesData.forEach(story => {
+                storyMap[story.品牌名称] = story.品牌故事;
+              });
+              brandStories.value = storyMap;
+              console.log('品牌故事加载成功，共', Object.keys(storyMap).length, '个品牌');
+            } catch (e3) {
+              console.error('加载品牌故事失败:', e3);
+            }
+            
           } catch (e) {
             console.error('加载数据失败:', e);
             // 尝试加载本地 JSON 作为后备
@@ -628,6 +683,20 @@
               cigars.value = data.cigars;
               brands.value = [...new Set(data.cigars.map(c => c.brand).filter(Boolean))].sort();
               console.log('品牌列表:', brands.value);
+              
+              // 同时加载品牌故事
+              try {
+                const storiesResp = await fetch('./data/cigar_brand_stories.json');
+                const storiesData = await storiesResp.json();
+                const storyMap = {};
+                storiesData.forEach(story => {
+                  storyMap[story.品牌名称] = story.品牌故事;
+                });
+                brandStories.value = storyMap;
+                console.log('品牌故事加载成功（后备方案），共', Object.keys(storyMap).length, '个品牌');
+              } catch (e3) {
+                console.error('加载品牌故事失败（后备方案）:', e3);
+              }
             } catch (e2) {
               console.error('加载本地数据也失败:', e2);
             }
