@@ -1,4 +1,4 @@
-// ✅ 最终修复版 - 路径匹配包含 /cigar-api 前缀
+// ✅ ES Module 格式 - 完全支持 D1 绑定
 const corsHeaders = {
  'Access-Control-Allow-Origin': '*',
  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -22,36 +22,30 @@ function jsToDbField(jsField) {
  return jsField.replace(/([A-Z])/g, '_$1').toLowerCase();
 }
 
-function handleOptions(request) {
+export default {
+ async fetch(request, env) {
+ if (request.method === 'OPTIONS') {
  return new Response(null, { headers: corsHeaders });
-}
-
-async function handleRequest(request) {
- // ✅ 关键：在 Service Worker 格式中，DB 是全局绑定变量
- const db = DB;
-  
+ }
+ 
  const url = new URL(request.url);
  const path = url.pathname;
 
- // 调试日志
- console.log('Received path:', path);
- 
  try {
- // ✅ 关键修正：匹配完整路径 /cigar-api/api/v1/...
+ // ✅ ES Module 格式：通过 env.DB 访问 D1
  if (path === '/cigar-api/api/v1/inventory/create' && request.method === 'POST') {
- return await createInventoryRecord(request, db);
+ return await createInventoryRecord(request, env.DB);
  }
  if (path === '/cigar-api/api/v1/inventory/update' && request.method === 'POST') {
- return await updateInventoryRecord(request, db);
+ return await updateInventoryRecord(request, env.DB);
  }
  if (path === '/cigar-api/api/v1/tasting/create' && request.method === 'POST') {
- return await createTastingRecord(request, db);
+ return await createTastingRecord(request, env.DB);
  }
  if (path === '/cigar-api/api/v1/inventory/list' && request.method === 'GET') {
- return await listInventoryRecords(request, db);
+ return await listInventoryRecords(request, env.DB);
  }
 
- console.log('Path not matched:', path);
  return new Response('Not found', {
  status: 404,
  headers: corsHeaders
@@ -66,7 +60,8 @@ async function handleRequest(request) {
  headers: corsHeaders
  });
  }
-}
+ }
+};
 
 async function createInventoryRecord(request, db) {
  const data = await request.json();
@@ -83,10 +78,11 @@ async function createInventoryRecord(request, db) {
  }
 
  try {
- const result = await db.prepare(
+ const newId = crypto.randomUUID();
+ await db.prepare(
  "INSERT INTO cigar_inventory (id, brand, model, origin, quantity, ring_gauge, length, price, storage_location, purchase_location, packaging, specification, year, strength, flavors, tasting_notes, logo, remaining_quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
  ).bind(
- crypto.randomUUID(),
+ newId,
  fields.brand,
  fields.model,
  fields.origin,
@@ -108,7 +104,7 @@ async function createInventoryRecord(request, db) {
 
  return new Response(JSON.stringify({
  success: true,
- record_id: result.meta.last_row_id
+ record_id: newId
  }), {
  headers: corsHeaders
  });
@@ -144,7 +140,7 @@ async function updateInventoryRecord(request, db) {
  if (!allowedFields.includes(dbField)) {
  throw new Error('Invalid field: ' + name);
  }
- return `${dbField} = ?`; // ✅ 修正：添加反引号
+ return `${dbField} = ?`;
  }).join(', ');
 
  const values = fieldNames.map(name => {
@@ -155,14 +151,10 @@ async function updateInventoryRecord(request, db) {
  return value;
  });
 
- const sql = `UPDATE cigar_inventory SET ${setClause}, updated_at = CURRENT_TIMESTAMP WHERE id = ?`; // ✅ 修正：添加反引号
+ const sql = `UPDATE cigar_inventory SET ${setClause}, updated_at = CURRENT_TIMESTAMP WHERE id = ?`;
  const allValues = [...values, record_id];
 
- let stmt = db.prepare(sql);
- for (const value of allValues) {
- stmt = stmt.bind(value);
- }
- await stmt.run();
+ await db.prepare(sql).bind(...allValues).run();
 
  return new Response(JSON.stringify({
  success: true
@@ -189,10 +181,11 @@ async function createTastingRecord(request, db) {
  }
 
  try {
- const result = await db.prepare(
+ const newId = crypto.randomUUID();
+ await db.prepare(
  "INSERT INTO tasting_records (id, inventory_id, brand, model, environment, date_time, notes, photos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
  ).bind(
- crypto.randomUUID(),
+ newId,
  fields.inventory_id,
  fields.brand,
  fields.model,
@@ -204,7 +197,7 @@ async function createTastingRecord(request, db) {
 
  return new Response(JSON.stringify({
  success: true,
- record_id: result.meta.last_row_id
+ record_id: newId
  }), {
  headers: corsHeaders
  });
@@ -233,13 +226,3 @@ async function listInventoryRecords(request, db) {
  throw new Error('List failed: ' + error.message);
  }
 }
-
-// ✅ 修正：Service Worker 格式下直接使用全局 DB 变量
-addEventListener('fetch', event => {
- const request = event.request;
- if (request.method === 'OPTIONS') {
- event.respondWith(handleOptions(request));
- return;
- }
- event.respondWith(handleRequest(request)); // 不再传递 env 参数
-});
