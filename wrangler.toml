@@ -1,0 +1,29 @@
+name = "opendragon-dashboard"
+main = "workers/cigar-api.js"
+compatibility_date = "2025-09-27"
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB"
+database_name = "cigars-db"
+database_id = "8aab2131-8ff2-4834-906a-e"
+
+# R2 存储桶绑定
+[[r2_buckets]]
+binding = "LOGOS_BUCKET"
+bucket_name = "pub-727cb02ccda144a285bc7a689d17f44c"
+
+# 兼容性标志
+compatibility_flags = ["nodejs_compat"]
+
+# 资产托管（静态文件）
+[assets]
+directory = "./test"
+include = ["**/*"]
+exclude = ["workers/**", ".git/**"]
+
+# 开发设置
+[dev]
+port = 8787
+local_protocol = "http"
+upstream_protocol = "https"
