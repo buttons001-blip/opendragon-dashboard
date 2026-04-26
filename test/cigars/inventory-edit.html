@@ -528,13 +528,12 @@
         const API_VERSION = 'v202604220747'; // 版本号，强制刷新缓存 - 修复 SingleSelect 映射
         console.log('API 基础地址:', API_BASE, '版本:', API_VERSION, '主机:', currentHost);
 
-        // 保存到本地 API
+        // 保存到 D1 数据库
         const saveToLocal = async (recordId, fields) => {
-          const resp = await fetch(`${API_BASE}/save`, {
+          const resp = await fetch(`${API_BASE}/api/v1/inventory/update`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              action: 'save',
               record_id: recordId,
               fields: fields
             })
@@ -545,11 +544,10 @@
 
         // 创建新记录
         const createRecord = async (fields) => {
-          const resp = await fetch(`${API_BASE}/create`, {
+          const resp = await fetch(`${API_BASE}/api/v1/inventory/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              action: 'create',
               fields: fields
             })
           });
