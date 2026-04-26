@@ -1092,9 +1092,11 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "温和至中等",
+      "flavors": [
+        "奶油、坚果、雪松、焦糖、轻微香料"
+      ],
+      "tastingNotes": "VegaFina 主打性价比与稳定品质，前段奶油与坚果甜香柔和，中段雪松与焦糖香气浮现，尾段带轻微香料刺激，口感顺滑，是入门级精品非古的优选。",
       "logo": "./logos/vega-fina_非古.png"
     },
     {
@@ -1113,9 +1115,11 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "温和至中等",
+      "flavors": [
+        "奶油、坚果、雪松、焦糖、轻微香料"
+      ],
+      "tastingNotes": "VegaFina 主打性价比与稳定品质，前段奶油与坚果甜香柔和，中段雪松与焦糖香气浮现，尾段带轻微香料刺激，口感顺滑，是入门级精品非古的优选。",
       "logo": "./logos/vega-fina_非古.png"
     },
     {
@@ -7460,9 +7464,11 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -7481,9 +7487,11 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -7502,9 +7510,11 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -7523,9 +7533,11 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -11601,9 +11613,11 @@
       "storageLocation": "上",
       "purchaseLocation": "COC",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等浓郁",
+      "flavors": [
+        "可可、皮革、雪松、焦糖、香料"
+      ],
+      "tastingNotes": "作为蒙特克里斯托姊妹款，Edmundo Dantes 风味饱满，前段焦糖甜香明显，中段可可与皮革交织，尾段雪松与香料收尾，层次丰富，适配资深爱好者。",
       "logo": "./logos/edmundo-dantes_古巴.png"
     },
     {
@@ -11622,9 +11636,11 @@
       "storageLocation": "上",
       "purchaseLocation": "网友",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等浓郁",
+      "flavors": [
+        "可可、皮革、雪松、焦糖、香料"
+      ],
+      "tastingNotes": "作为蒙特克里斯托姊妹款，Edmundo Dantes 风味饱满，前段焦糖甜香明显，中段可可与皮革交织，尾段雪松与香料收尾，层次丰富，适配资深爱好者。",
       "logo": "./logos/edmundo-dantes_古巴.png"
     },
     {
@@ -12400,9 +12416,11 @@
       "storageLocation": "上",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "温和至中等",
+      "flavors": [
+        "香草、雪松、蜂蜜、轻微胡椒、木质"
+      ],
+      "tastingNotes": "La Escepcion 风格优雅细腻，前段香草与蜂蜜甜香柔和，中段雪松与木质香气浮现，尾段带轻微胡椒刺激，整体顺滑平衡，适合入门或日常品鉴。",
       "logo": "./logos/la-escepcion_非古.jpg"
     },
     {
@@ -12651,9 +12669,11 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -12948,9 +12968,11 @@
       "storageLocation": "上",
       "purchaseLocation": "网友",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "温和至中等",
+      "flavors": [
+        "奶油、坚果、雪松、焦糖、轻微香料"
+      ],
+      "tastingNotes": "VegaFina 主打性价比与稳定品质，前段奶油与坚果甜香柔和，中段雪松与焦糖香气浮现，尾段带轻微香料刺激，口感顺滑，是入门级精品非古的优选。",
       "logo": "./logos/vega-fina_非古.png"
     },
     {
@@ -13241,9 +13263,11 @@
       "storageLocation": "上",
       "purchaseLocation": "J.FOX",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "浓郁",
+      "flavors": [
+        "黑巧克力、咖啡、香料、泥土、木质"
+      ],
+      "tastingNotes": "Blend 42 风味厚重浓郁，前段黑巧克力与咖啡香气浓郁，中段香料与泥土感交织，尾段木质香气悠长，口感强劲，适合追求强烈风味的资深茄客。",
       "logo": "./logos/blend-42_非古.png"
     },
     {
@@ -13262,9 +13286,11 @@
       "storageLocation": "上",
       "purchaseLocation": "J.FOX",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "浓郁",
+      "flavors": [
+        "黑巧克力、咖啡、香料、泥土、木质"
+      ],
+      "tastingNotes": "Blend 42 风味厚重浓郁，前段黑巧克力与咖啡香气浓郁，中段香料与泥土感交织，尾段木质香气悠长，口感强劲，适合追求强烈风味的资深茄客。",
       "logo": "./logos/blend-42_非古.png"
     },
     {
@@ -13283,9 +13309,11 @@
       "storageLocation": "上",
       "purchaseLocation": "J.FOX",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等浓郁",
+      "flavors": [
+        "黑胡椒、皮革、雪松、焦糖、柑橘"
+      ],
+      "tastingNotes": "Blend 17 以尼加拉瓜烟叶为主，前段柑橘与焦糖甜香开场，中段黑胡椒与皮革感逐渐增强，尾段雪松香气收尾，层次递进鲜明，口感饱满有力。",
       "logo": "./logos/blend-17_非古.png"
     },
     {
@@ -13808,9 +13836,11 @@
       "storageLocation": "上",
       "purchaseLocation": "J.FOX",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等浓郁",
+      "flavors": [
+        "黑胡椒、皮革、雪松、焦糖、柑橘"
+      ],
+      "tastingNotes": "Blend 17 以尼加拉瓜烟叶为主，前段柑橘与焦糖甜香开场，中段黑胡椒与皮革感逐渐增强，尾段雪松香气收尾，层次递进鲜明，口感饱满有力。",
       "logo": "./logos/blend-17_非古.png"
     },
     {
@@ -14174,9 +14204,11 @@
       "storageLocation": "上",
       "purchaseLocation": "J.FOX",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等浓郁",
+      "flavors": [
+        "黑胡椒、皮革、雪松、焦糖、柑橘"
+      ],
+      "tastingNotes": "Blend 17 以尼加拉瓜烟叶为主，前段柑橘与焦糖甜香开场，中段黑胡椒与皮革感逐渐增强，尾段雪松香气收尾，层次递进鲜明，口感饱满有力。",
       "logo": "./logos/blend-17_非古.png"
     },
     {
@@ -14607,9 +14639,11 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -15176,9 +15210,11 @@
       "storageLocation": "加",
       "purchaseLocation": "美国代购A",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -16341,9 +16377,11 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等浓郁",
+      "flavors": [
+        "黑巧克力、咖啡、雪松、坚果、香料"
+      ],
+      "tastingNotes": "ZINO NICARAGUA 融合尼加拉瓜风土与瑞士工艺，前段黑巧克力与咖啡香气浓郁，中段雪松与坚果感增强，尾段香料香气收尾，口感饱满均衡，是 Zino 品牌的现代旗舰线。",
       "logo": "./logos/zino_非古.png"
     },
     {
@@ -16362,9 +16400,11 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等浓郁",
+      "flavors": [
+        "黑巧克力、咖啡、雪松、坚果、香料"
+      ],
+      "tastingNotes": "ZINO NICARAGUA 融合尼加拉瓜风土与瑞士工艺，前段黑巧克力与咖啡香气浓郁，中段雪松与坚果感增强，尾段香料香气收尾，口感饱满均衡，是 Zino 品牌的现代旗舰线。",
       "logo": "./logos/zino_非古.png"
     },
     {
@@ -16383,9 +16423,11 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、咖啡、泥土、雪松"
+      ],
+      "tastingNotes": "尼加拉瓜鼻祖品牌 Joya De Nicaragua，前段黑胡椒与皮革刺激感强烈，中段咖啡与泥土感增强，尾段雪松香气收尾，口感浓郁有力，风土特征鲜明。",
       "logo": "./logos/joya-de-nicaragua_非古.png"
     },
     {
@@ -16883,9 +16925,11 @@
       "storageLocation": "上",
       "purchaseLocation": "网友",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "温和至中等",
+      "flavors": [
+        "奶油、坚果、雪松、焦糖、轻微香料"
+      ],
+      "tastingNotes": "VegaFina 主打性价比与稳定品质，前段奶油与坚果甜香柔和，中段雪松与焦糖香气浮现，尾段带轻微香料刺激，口感顺滑，是入门级精品非古的优选。",
       "logo": "./logos/vega-fina_非古.png"
     },
     {
@@ -20050,9 +20094,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -20071,9 +20117,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -20092,9 +20140,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -20113,9 +20163,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -20134,9 +20186,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -20592,9 +20646,11 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "温和至中等",
+      "flavors": [
+        "香草、烤面包、轻微胡椒、木质香气"
+      ],
+      "tastingNotes": "Belinda 口感顺滑柔和，前段以清甜香草与烤面包香为主，中段浮现细腻木质气息，尾段带轻微胡椒刺激，整体平衡舒适，适合入门或日常品吸。",
       "logo": "./logos/belinda_古巴.jpg"
     },
     {
@@ -20613,9 +20669,11 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑巧克力、咖啡、泥土、坚果、烟熏"
+      ],
+      "tastingNotes": "重启后的 Los Statos de Luxe 风味浓郁有力，前段黑巧克力与咖啡香气突出，中段泥土与坚果感增强，尾段带淡淡烟熏，口感醇厚，适合偏好浓郁风格的茄客。",
       "logo": "./logos/los-statos-de-luxe_古巴.jpg"
     },
     {
@@ -21542,9 +21600,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、咖啡、泥土、坚果、木质"
+      ],
+      "tastingNotes": "洪都拉斯 Eiroa 风味醇厚，前段黑胡椒与咖啡香气突出，中段泥土与坚果感增强，尾段木质香气悠长，口感饱满，带有鲜明的中美洲风土特色。",
       "logo": "./logos/eiroa_非古.png"
     },
     {
@@ -21563,9 +21623,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、咖啡、泥土、坚果、木质"
+      ],
+      "tastingNotes": "洪都拉斯 Eiroa 风味醇厚，前段黑胡椒与咖啡香气突出，中段泥土与坚果感增强，尾段木质香气悠长，口感饱满，带有鲜明的中美洲风土特色。",
       "logo": "./logos/eiroa_非古.png"
     },
     {
@@ -21814,9 +21876,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -21835,9 +21899,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -21856,9 +21922,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -24439,9 +24507,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购A",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、咖啡、泥土、雪松"
+      ],
+      "tastingNotes": "尼加拉瓜鼻祖品牌 Joya De Nicaragua，前段黑胡椒与皮革刺激感强烈，中段咖啡与泥土感增强，尾段雪松香气收尾，口感浓郁有力，风土特征鲜明。",
       "logo": "./logos/joya-de-nicaragua_非古.png"
     },
     {
@@ -24460,9 +24530,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购A",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、咖啡、泥土、雪松"
+      ],
+      "tastingNotes": "尼加拉瓜鼻祖品牌 Joya De Nicaragua，前段黑胡椒与皮革刺激感强烈，中段咖啡与泥土感增强，尾段雪松香气收尾，口感浓郁有力，风土特征鲜明。",
       "logo": "./logos/joya-de-nicaragua_非古.png"
     },
     {
@@ -25678,9 +25750,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、咖啡、泥土、坚果、木质"
+      ],
+      "tastingNotes": "洪都拉斯 Eiroa 风味醇厚，前段黑胡椒与咖啡香气突出，中段泥土与坚果感增强，尾段木质香气悠长，口感饱满，带有鲜明的中美洲风土特色。",
       "logo": "./logos/eiroa_非古.png"
     },
     {
@@ -26473,9 +26547,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、香草、雪松、焦糖"
+      ],
+      "tastingNotes": "Don Pepin 以手工卷制与浓郁风味著称，前段黑胡椒与皮革刺激感明显，中段香草与焦糖甜香中和，尾段雪松香气收尾，口感层次丰富，力量感十足。",
       "logo": "./logos/don-pepin-garcia_非古.png"
     },
     {
@@ -26517,9 +26593,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、咖啡、泥土、坚果、木质"
+      ],
+      "tastingNotes": "洪都拉斯 Eiroa 风味醇厚，前段黑胡椒与咖啡香气突出，中段泥土与坚果感增强，尾段木质香气悠长，口感饱满，带有鲜明的中美洲风土特色。",
       "logo": "./logos/eiroa_非古.png"
     },
     {
@@ -27661,9 +27739,11 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、咖啡、泥土、雪松"
+      ],
+      "tastingNotes": "尼加拉瓜鼻祖品牌 Joya De Nicaragua，前段黑胡椒与皮革刺激感强烈，中段咖啡与泥土感增强，尾段雪松香气收尾，口感浓郁有力，风土特征鲜明。",
       "logo": "./logos/joya-de-nicaragua_非古.png"
     },
     {
@@ -33063,9 +33143,11 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等至浓郁",
+      "flavors": [
+        "黑胡椒、皮革、咖啡、泥土、雪松"
+      ],
+      "tastingNotes": "尼加拉瓜鼻祖品牌 Joya De Nicaragua，前段黑胡椒与皮革刺激感强烈，中段咖啡与泥土感增强，尾段雪松香气收尾，口感浓郁有力，风土特征鲜明。",
       "logo": "./logos/joya-de-nicaragua_非古.png"
     },
     {
