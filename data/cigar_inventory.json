@@ -502,9 +502,14 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "花香",
+        "蜂蜜",
+        "奶油",
+        "白胡椒"
+      ],
+      "tastingNotes": "品牌经典款，口感极为温和，新手友好，适合晨间或空腹品吸",
       "logo": "./logos/fonseca_古巴.png"
     },
     {
@@ -868,9 +873,14 @@
       "storageLocation": "上加",
       "purchaseLocation": "微商驿站",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "香草",
+        "坚果",
+        "淡淡奶香",
+        "木质"
+      ],
+      "tastingNotes": "KDT尺寸小巧，燃烧时间短，风味简单直接，适合快速品吸",
       "logo": "./logos/fonseca_古巴.png"
     },
     {
@@ -912,9 +922,14 @@
       "storageLocation": "上",
       "purchaseLocation": "微商驿站",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "蜂蜜",
+        "花香",
+        "烤杏仁",
+        "奶油"
+      ],
+      "tastingNotes": "甜美风格明显，烟气柔和顺滑，女性茄客或甜味爱好者首选",
       "logo": "./logos/fonseca_古巴.png"
     },
     {
@@ -933,9 +948,14 @@
       "storageLocation": "上",
       "purchaseLocation": "微商驿站",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "泥土",
+        "皮革",
+        "坚果",
+        "黑胡椒"
+      ],
+      "tastingNotes": "性价比极高的机制雪茄，口感朴实有力，适合作为口粮茄 [^10^]",
       "logo": "./logos/jose-l-piedra_古巴.png"
     },
     {
@@ -1276,9 +1296,15 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "苦甜香料",
+        "松木",
+        "肉豆蔻",
+        "纸板",
+        "醋栗"
+      ],
+      "tastingNotes": "小尺寸温和款，前段略刺鼻，后段转为旧木柜和尘埃感，适合午后搭配咖啡，持续约45分钟 [^40^]",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -1297,9 +1323,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "坚果",
+        "烤面包",
+        "雪松",
+        "可可"
+      ],
+      "tastingNotes": "组合装入门款，口感温和，适合新手体验古巴风味基础轮廓",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -1318,9 +1349,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -1339,9 +1375,14 @@
       "storageLocation": "上调",
       "purchaseLocation": "Time",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "蜂蜜",
+        "花香",
+        "烤杏仁",
+        "奶油"
+      ],
+      "tastingNotes": "甜美风格明显，烟气柔和顺滑，女性茄客或甜味爱好者首选",
       "logo": "./logos/fonseca_古巴.png"
     },
     {
@@ -2050,9 +2091,14 @@
       "storageLocation": "上调",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "雪松",
+        "肉桂",
+        "柑橘",
+        "皮革"
+      ],
+      "tastingNotes": "双尖鱼雷造型独特，点燃需技巧，风味层次丰富但需耐心品吸",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -2347,9 +2393,14 @@
       "storageLocation": "淀",
       "purchaseLocation": "Time",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "雪松",
+        "肉桂",
+        "柑橘",
+        "皮革"
+      ],
+      "tastingNotes": "双尖鱼雷造型独特，点燃需技巧，风味层次丰富但需耐心品吸",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -2368,9 +2419,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "香草",
+        "坚果",
+        "淡淡奶香",
+        "木质"
+      ],
+      "tastingNotes": "KDT尺寸小巧，燃烧时间短，风味简单直接，适合快速品吸",
       "logo": "./logos/fonseca_古巴.png"
     },
     {
@@ -2918,9 +2974,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "烤杏仁",
+        "泥土"
+      ],
+      "tastingNotes": "经典罗布图尺寸，口感圆润，适合日常品吸",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -2962,9 +3023,14 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -2983,9 +3049,14 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "烤杏仁",
+        "泥土"
+      ],
+      "tastingNotes": "经典罗布图尺寸，口感圆润，适合日常品吸",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -3441,9 +3512,14 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -4106,9 +4182,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "干草",
+        "淡淡花香",
+        "泥土",
+        "轻微甜味"
+      ],
+      "tastingNotes": "机制雪茄入门款，价格亲民，风味简单直接，适合新手尝试或日常大量品吸",
       "logo": "./logos/guantanamera_古巴.png"
     },
     {
@@ -4150,9 +4231,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "泥土",
+        "皮革",
+        "坚果",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "古巴本土畅销品牌，口感朴实直接，性价比高，适合日常品吸 [^10^]",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -4217,9 +4303,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "木质",
+        "烤面包",
+        "咖啡",
+        "淡淡香料"
+      ],
+      "tastingNotes": "铁盒装便于携带，风味稳定，燃烧性能良好，适合户外品吸",
       "logo": "./logos/jose-l-piedra_古巴.png"
     },
     {
@@ -4537,9 +4628,14 @@
       "storageLocation": "上",
       "purchaseLocation": "COC",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "木质",
+        "蜂蜜",
+        "白胡椒",
+        "干草"
+      ],
+      "tastingNotes": "澳门地区特供组合，包装精美，风味较为柔和平衡",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -4581,9 +4677,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COC",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑胡椒",
+        "烤面包",
+        "谷物",
+        "干草",
+        "薄荷"
+      ],
+      "tastingNotes": "亚太地区版2009，力量感高于中等水平，面包和谷物味主导，略有酸味，燃烧偶有偏差 [^29^]",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -5292,9 +5394,14 @@
       "storageLocation": "上",
       "purchaseLocation": "微商文化",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "烤面包",
+        "饼干",
+        "胡椒",
+        "木味"
+      ],
+      "tastingNotes": "比利时卢森堡地区版2018，55环径握感饱满，烟气顺滑，香气宜人，适合进阶者 [^41^]",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -5336,9 +5443,14 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -5357,9 +5469,14 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -5470,9 +5587,14 @@
       "storageLocation": "上",
       "purchaseLocation": "Time",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "坚果",
+        "雪松",
+        "泥土",
+        "白胡椒"
+      ],
+      "tastingNotes": "小骑士尺寸，浓郁度适中，适合短时间品吸或工作间隙",
       "logo": "./logos/jose-l-piedra_古巴.png"
     },
     {
@@ -5583,9 +5705,14 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -5627,9 +5754,14 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "烤杏仁",
+        "泥土"
+      ],
+      "tastingNotes": "经典罗布图尺寸，口感圆润，适合日常品吸",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -6131,9 +6263,14 @@
       "storageLocation": "加",
       "purchaseLocation": "LCDH.H",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "雪松",
+        "肉桂",
+        "柑橘",
+        "皮革"
+      ],
+      "tastingNotes": "双尖鱼雷造型独特，点燃需技巧，风味层次丰富但需耐心品吸",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -6267,9 +6404,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "泥土",
+        "皮革",
+        "坚果",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "古巴本土畅销品牌，口感朴实直接，性价比高，适合日常品吸 [^10^]",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -6357,9 +6499,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "浓缩咖啡",
+        "黑胡椒",
+        "可可"
+      ],
+      "tastingNotes": "猎人尺寸风味更集中，烟气量足，适合有经验的茄客",
       "logo": "./logos/jose-l-piedra_古巴.png"
     },
     {
@@ -6378,9 +6525,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "木质",
+        "烤面包",
+        "咖啡",
+        "淡淡香料"
+      ],
+      "tastingNotes": "铁盒装便于携带，风味稳定，燃烧性能良好，适合户外品吸",
       "logo": "./logos/jose-l-piedra_古巴.png"
     },
     {
@@ -6399,9 +6551,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "木质",
+        "烤面包",
+        "咖啡",
+        "泥土"
+      ],
+      "tastingNotes": "传统尺寸，风味简单真实，燃烧稳定，适合户外或劳动时品吸",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -6420,9 +6577,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "坚果",
+        "雪松",
+        "淡淡香料",
+        "焦糖"
+      ],
+      "tastingNotes": "伦敦 extra 尺寸，烟气量适中，风味较为丰富，适合进阶尝试",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -6441,9 +6603,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "泥土",
+        "皮革",
+        "坚果",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "古巴本土畅销品牌，口感朴实直接，性价比高，适合日常品吸 [^10^]",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -6462,9 +6629,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "泥土",
+        "皮革",
+        "烤面包",
+        "黑胡椒"
+      ],
+      "tastingNotes": "铝管包装便于保存，风味与常规款类似，适合旅行携带",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -6483,9 +6655,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "坚果",
+        "木质",
+        "淡淡花香",
+        "白胡椒"
+      ],
+      "tastingNotes": "铝管 favoritos，便携性好，风味稳定，适合作为备用茄",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -6504,9 +6681,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "泥土",
+        "皮革",
+        "坚果",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "古巴本土畅销品牌，口感朴实直接，性价比高，适合日常品吸 [^10^]",
       "logo": "./logos/quintero_古巴.png"
     },
     {
@@ -6525,9 +6707,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "淡淡花香",
+        "蜂蜜"
+      ],
+      "tastingNotes": "小皇冠尺寸经典，口感温和平衡，适合新手入门或作为日常轻柔选择 [^10^]",
       "logo": "./logos/la-flor-de-cano_古巴.png"
     },
     {
@@ -7167,9 +7354,14 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "泥土",
+        "焦糖"
+      ],
+      "tastingNotes": "加拿大地区版，浓郁度一般，木味和烤面包味为主，尾段胡椒感增强",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -8131,9 +8323,14 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "纸盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "浓缩咖啡",
+        "黑胡椒",
+        "可可"
+      ],
+      "tastingNotes": "猎人尺寸风味更集中，烟气量足，适合有经验的茄客",
       "logo": "./logos/jose-l-piedra_古巴.png"
     },
     {
@@ -8336,9 +8533,15 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "咖啡",
+        "黑胡椒",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "10周年纪念公牛型， Rocky Patel经典系列，口感圆润有力",
       "logo": "./logos/rocky-patel_非古.png"
     },
     {
@@ -8495,9 +8698,14 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "坚果",
+        "烤面包",
+        "雪松",
+        "可可"
+      ],
+      "tastingNotes": "组合装入门款，口感温和，适合新手体验古巴风味基础轮廓",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -8930,9 +9138,17 @@
       "storageLocation": "上",
       "purchaseLocation": "COC",
       "packaging": "木盒",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "花香",
+        "奶油",
+        "盐味",
+        "泥土",
+        "矿物质",
+        "皮革",
+        "谷物"
+      ],
+      "tastingNotes": "金字塔型经典款，前段意外 creamy，中段转为泥土和盐味，尾段皮革感强烈，整体轻于品牌官方强度 [^27^]",
       "logo": "./logos/vegas-robaina_古巴.png"
     },
     {
@@ -9871,9 +10087,15 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "强",
+      "flavors": [
+        "皮革",
+        "浓缩咖啡",
+        "黑胡椒",
+        "可可",
+        "坚果"
+      ],
+      "tastingNotes": "丘吉尔尺寸浓郁度极高，烟气饱满，适合资深茄客长时间品吸",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -10743,9 +10965,14 @@
       "storageLocation": "上",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "淡淡花香",
+        "烤面包"
+      ],
+      "tastingNotes": "法国地区版2010小罗布图，尺寸适中，风味温和，适合日常品吸",
       "logo": "./logos/vegas-robaina_古巴.png"
     },
     {
@@ -11454,9 +11681,15 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "强",
+      "flavors": [
+        "黑巧克力",
+        "皮革",
+        "橡木",
+        "干果",
+        "香料"
+      ],
+      "tastingNotes": "西班牙地区版2016，限量发行，风味复杂深邃，陈年潜力优秀",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -12165,9 +12398,14 @@
       "storageLocation": "上",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑巧克力",
+        "皮革",
+        "浓缩咖啡",
+        "肉桂"
+      ],
+      "tastingNotes": "古巴本土地区版，品质上乘，复杂度较高，陈年表现优秀",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -13014,9 +13252,14 @@
       "storageLocation": "上",
       "purchaseLocation": "德国杜站",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "烤杏仁",
+        "泥土"
+      ],
+      "tastingNotes": "经典罗布图尺寸，口感圆润，适合日常品吸",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -13058,9 +13301,14 @@
       "storageLocation": "上",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "花香",
+        "蜂蜜",
+        "坚果",
+        "白胡椒"
+      ],
+      "tastingNotes": "皇冠尺寸优雅，烟气柔和，前段花香突出，适合午后品吸",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -13677,9 +13925,14 @@
       "storageLocation": "上",
       "purchaseLocation": "网友",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "坚果",
+        "雪松",
+        "泥土",
+        "白胡椒"
+      ],
+      "tastingNotes": "小骑士尺寸，浓郁度适中，适合短时间品吸或工作间隙",
       "logo": "./logos/jose-l-piedra_古巴.png"
     },
     {
@@ -14777,9 +15030,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑胡椒",
+        "皮革",
+        "可可",
+        "咖啡",
+        "泥土"
+      ],
+      "tastingNotes": "边缘尼加拉瓜鱼雷型，浓郁度较高，风味直接有力，性价比高",
       "logo": "./logos/rocky-patel_非古.png"
     },
     {
@@ -14890,9 +15149,15 @@
       "storageLocation": "加",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "淡淡花香",
+        "蜂蜜",
+        "泥土"
+      ],
+      "tastingNotes": "古巴本土2020地区版，新鲜烟叶气息，建议陈放2-3年后品吸更佳",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -15850,9 +16115,14 @@
       "storageLocation": "加",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "淡淡香料",
+        "烤面包"
+      ],
+      "tastingNotes": "比利时卢森堡2010地区版，陈年十余年，风味圆润，收藏价值高",
       "logo": "./logos/fonseca_古巴.png"
     },
     {
@@ -16860,9 +17130,15 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑巧克力",
+        "橡木",
+        "香料",
+        "坚果",
+        "焦糖"
+      ],
+      "tastingNotes": "加拿大15周年纪念版2012，限量发行，风味深邃复杂，陈年表现佳",
       "logo": "./logos/vegas-robaina_古巴.png"
     },
     {
@@ -16881,9 +17157,14 @@
       "storageLocation": "加",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "雪松",
+        "肉桂",
+        "柑橘",
+        "皮革"
+      ],
+      "tastingNotes": "双尖鱼雷造型独特，点燃需技巧，风味层次丰富但需耐心品吸",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -16971,9 +17252,15 @@
       "storageLocation": "上",
       "purchaseLocation": "德国杜站",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "浓缩咖啡",
+        "黑胡椒",
+        "焦糖",
+        "干果"
+      ],
+      "tastingNotes": "哈瓦那20周年LCDH纪念版，限量发行，风味浓郁复杂，极具收藏价值",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -17061,9 +17348,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "咖啡",
+        "巧克力",
+        "淡淡香料"
+      ],
+      "tastingNotes": "牛年生肖限量版， Plasencia家族精心调配，风味平衡复杂，收藏佳品",
       "logo": "./logos/plasencia_非古.png"
     },
     {
@@ -17105,9 +17398,15 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "木质",
+        "烤面包",
+        "坚果",
+        "淡淡奶香",
+        "白胡椒"
+      ],
+      "tastingNotes": "LCDH独家销售款，品质控制严格，口感圆润平衡",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -17977,9 +18276,15 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "浓缩咖啡",
+        "黑胡椒",
+        "焦糖",
+        "干果"
+      ],
+      "tastingNotes": "哈瓦那20周年LCDH纪念版，限量发行，风味浓郁复杂，极具收藏价值",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -18688,9 +18993,15 @@
       "storageLocation": "上",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "焦糖",
+        "烤面包",
+        "泥土"
+      ],
+      "tastingNotes": "古巴本土地区版2016，品质稳定，浓郁度适中，尾段回甘",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -18847,9 +19158,14 @@
       "storageLocation": "上",
       "purchaseLocation": "ONE",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "香草",
+        "烤杏仁",
+        "雪松",
+        "淡淡花香"
+      ],
+      "tastingNotes": "经典编号系列，口感平衡，入门友好，燃烧性能稳定",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -18983,9 +19299,15 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "蜂蜜",
+        "花香",
+        "坚果",
+        "淡淡奶香",
+        "木质"
+      ],
+      "tastingNotes": "哥斯达黎加地区版2020，口感温和清新，适合热带气候品吸",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -19073,9 +19395,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香料",
+        "坚果",
+        "淡淡甜味",
+        "花香"
+      ],
+      "tastingNotes": "马来西亚地区版2020，带有东南亚风格的柔和香气，适合搭配茶品",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -19370,9 +19698,15 @@
       "storageLocation": "加",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "淡淡花香",
+        "蜂蜜",
+        "泥土"
+      ],
+      "tastingNotes": "古巴本土2020地区版，新鲜烟叶气息，建议陈放2-3年后品吸更佳",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -19437,9 +19771,15 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "强",
+      "flavors": [
+        "皮革",
+        "浓缩咖啡",
+        "黑胡椒",
+        "可可",
+        "坚果"
+      ],
+      "tastingNotes": "丘吉尔尺寸浓郁度极高，烟气饱满，适合资深茄客长时间品吸",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -19642,9 +19982,14 @@
       "storageLocation": "加",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "浓缩咖啡",
+        "黑巧克力",
+        "皮革",
+        "香料"
+      ],
+      "tastingNotes": "2008年限量版，陈年潜力佳，浓郁度较高，尾段焦糖回甘",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -19686,9 +20031,14 @@
       "storageLocation": "上",
       "purchaseLocation": "网友",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "干果",
+        "橡木",
+        "香料",
+        "蜂蜜"
+      ],
+      "tastingNotes": "西班牙私人收藏系列2020，限量发行，风味精致复杂，收藏价值高",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -19868,9 +20218,15 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "蜂蜜",
+        "花香",
+        "坚果",
+        "淡淡奶香",
+        "木质"
+      ],
+      "tastingNotes": "哥斯达黎加地区版2020，口感温和清新，适合热带气候品吸",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -20784,9 +21140,14 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "烤杏仁",
+        "泥土"
+      ],
+      "tastingNotes": "经典罗布图尺寸，口感圆润，适合日常品吸",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -20989,9 +21350,15 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "焦糖",
+        "烤面包",
+        "泥土"
+      ],
+      "tastingNotes": "古巴本土地区版2016，品质稳定，浓郁度适中，尾段回甘",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -21010,9 +21377,15 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "蜂蜜",
+        "花香",
+        "坚果",
+        "淡淡奶香",
+        "木质"
+      ],
+      "tastingNotes": "哥斯达黎加地区版2020，口感温和清新，适合热带气候品吸",
       "logo": "./logos/saint-luis-rey_古巴.png"
     },
     {
@@ -21031,9 +21404,15 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "咖啡",
+        "巧克力",
+        "坚果",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "BOTL兰塞罗社区版，长细型燃烧均匀，风味集中，适合慢品",
       "logo": "./logos/drew-estate_非古.png"
     },
     {
@@ -21098,9 +21477,15 @@
       "storageLocation": "加",
       "purchaseLocation": "Toronto",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "坚果",
+        "焦糖",
+        "淡淡香料"
+      ],
+      "tastingNotes": "酒窖珍藏18年享乐主义，陈年老叶调配，口感圆润甜美，适合特殊场合",
       "logo": "./logos/gurkha_非古.png"
     },
     {
@@ -21579,9 +21964,15 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑胡椒",
+        "雪松",
+        "咖啡",
+        "皮革",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "黑标科罗纳戈达， Drew Estate大师调配，浓郁度适中偏高，风味直接",
       "logo": "./logos/herrera-esteli_非古.png"
     },
     {
@@ -22587,9 +22978,15 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "奶油",
+        "雪松",
+        "坚果",
+        "蜂蜜",
+        "淡淡花香"
+      ],
+      "tastingNotes": "20英亩农场戈迪托， Drew Estate农场系列，口感温和圆润",
       "logo": "./logos/drew-estate_非古.png"
     },
     {
@@ -23298,9 +23695,15 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购A",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "奶油",
+        "淡淡花香",
+        "蜂蜜"
+      ],
+      "tastingNotes": "大卫杜夫旗下品牌，口感极为温和细腻，适合新手或晨间品吸",
       "logo": "./logos/griffins_非古.png"
     },
     {
@@ -23319,9 +23722,18 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购A",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "核桃",
+        "面包",
+        "甜香料",
+        "胡椒",
+        "杏仁",
+        "太妃糖"
+      ],
+      "tastingNotes": "时间大师5205朗斯代尔，尼加拉瓜puro，中等浓郁度，前中段豆味和奶香突出，巅峰持续性略差 [^23^][^30^][^32^]",
       "logo": "./logos/warped_非古.png"
     },
     {
@@ -23363,9 +23775,19 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购A",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "强",
+      "flavors": [
+        "肉桂",
+        "香草",
+        "树皮",
+        "泥土",
+        "胡椒",
+        "果仁",
+        "栗子",
+        "乳酪",
+        "烤面包"
+      ],
+      "tastingNotes": "尼安德特人HN旗型，含宾州双里格罗烟叶，尼古丁含量极高，中段果仁和栗子香突出，巅峰期较短但体验极佳 [^13^][^31^]",
       "logo": "./logos/roma-craft_非古.png"
     },
     {
@@ -23407,9 +23829,14 @@
       "storageLocation": "加",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "坚果",
+        "烤面包",
+        "白胡椒",
+        "奶油"
+      ],
+      "tastingNotes": "荷兰地区版2015，口感温和细腻，香气持久，适合搭配咖啡",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -24210,9 +24637,15 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑巧克力",
+        "皮革",
+        "浓缩咖啡",
+        "黑胡椒",
+        "雪松"
+      ],
+      "tastingNotes": "V系列梅拉尼奥鱼雷型， Oliva旗舰产品，多次入选年度雪茄，浓郁复杂",
       "logo": "./logos/oliva_非古.png"
     },
     {
@@ -24553,9 +24986,15 @@
       "storageLocation": "加",
       "purchaseLocation": "Absolute",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑胡椒",
+        "皮革",
+        "可可",
+        "咖啡",
+        "坚果"
+      ],
+      "tastingNotes": "125周年纪念鱼雷型，浓郁度较高，风味复杂，包装奢华",
       "logo": "./logos/gurkha_非古.png"
     },
     {
@@ -24827,9 +25266,15 @@
       "storageLocation": "美",
       "purchaseLocation": "Corona",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "奶油",
+        "坚果",
+        "淡淡花香",
+        "香草"
+      ],
+      "tastingNotes": "精选烟草超陈年#3，口感圆润细腻，陈年风味明显，适合特殊场合",
       "logo": "./logos/alfonso_非古.png"
     },
     {
@@ -25032,9 +25477,18 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "白胡椒",
+        "雪松",
+        "牛角面包",
+        "奶油",
+        "柑橘",
+        "肉豆蔻",
+        "杏仁",
+        "淡淡巧克力"
+      ],
+      "tastingNotes": "21世纪杰出款，5年陈年后发布，口感丝绒般顺滑，古巴风格明显，风味多维但部分评测认为变化不够丰富 [^22^][^34^][^35^]",
       "logo": "./logos/byron_非古.png"
     },
     {
@@ -25053,9 +25507,15 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "奶油",
+        "淡淡花香",
+        "蜂蜜"
+      ],
+      "tastingNotes": "20世纪梅索朗吉款，尺寸优雅，风味温和精致，适合搭配香槟",
       "logo": "./logos/byron_非古.png"
     },
     {
@@ -25074,9 +25534,15 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "皮革",
+        "可可",
+        "咖啡",
+        "坚果",
+        "淡淡香料"
+      ],
+      "tastingNotes": "19世纪史诗诗篇款，浓郁度适中，风味古典优雅，陈年潜力佳",
       "logo": "./logos/byron_非古.png"
     },
     {
@@ -25302,9 +25768,14 @@
       "storageLocation": "加",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "泥土",
+        "焦糖"
+      ],
+      "tastingNotes": "加拿大地区版，浓郁度一般，木味和烤面包味为主，尾段胡椒感增强",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -25369,9 +25840,17 @@
       "storageLocation": "上",
       "purchaseLocation": "美国代购C",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "烤面包",
+        "木质",
+        "奶油",
+        "糖蜜",
+        "巧克力慕斯",
+        "柑橘",
+        "胡椒"
+      ],
+      "tastingNotes": "阿塔贝伊精灵款，超高端定位，风味精致复杂，如甜点般层次丰富 [^37^]",
       "logo": "./logos/atabey_非古.png"
     },
     {
@@ -25436,9 +25915,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "奶油",
+        "雪松",
+        "坚果",
+        "淡淡花香",
+        "蜂蜜"
+      ],
+      "tastingNotes": "伴侣罗斯柴尔德，口感温和圆润，适合日常品吸或搭配咖啡",
       "logo": "./logos/warped_非古.png"
     },
     {
@@ -25595,9 +26080,15 @@
       "storageLocation": "加",
       "purchaseLocation": "加拿大网",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "蜂蜜",
+        "花香",
+        "坚果",
+        "奶油",
+        "淡淡木质"
+      ],
+      "tastingNotes": "品牌经典款，口感温和优雅，适合新手或作为轻柔日常选择 [^2^]",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -25616,9 +26107,14 @@
       "storageLocation": "上",
       "purchaseLocation": "张弦",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "可可",
+        "黑胡椒",
+        "干果"
+      ],
+      "tastingNotes": "加勒比珍藏版，选用优质烟叶，浓郁度较高，尾段回甘明显",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -25637,9 +26133,14 @@
       "storageLocation": "上",
       "purchaseLocation": "张弦",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "香草",
+        "坚果",
+        "淡淡甜味"
+      ],
+      "tastingNotes": "地区特供版，风味较为标准，适合作为外交礼品或商务场合",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -26072,9 +26573,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑胡椒",
+        "雪松",
+        "咖啡",
+        "皮革",
+        "坚果"
+      ],
+      "tastingNotes": "GR88限量款，浓郁度适中偏高，风味复杂，适合资深茄客",
       "logo": "./logos/warped_非古.png"
     },
     {
@@ -26093,9 +26600,14 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "木质",
+        "烤面包",
+        "坚果",
+        "淡淡奶香"
+      ],
+      "tastingNotes": "传统款式，口感中规中矩，性价比高，适合作为日常口粮",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -26183,9 +26695,14 @@
       "storageLocation": "",
       "purchaseLocation": "COC",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "雪松",
+        "肉桂",
+        "柑橘",
+        "皮革"
+      ],
+      "tastingNotes": "双尖鱼雷造型独特，点燃需技巧，风味层次丰富但需耐心品吸",
       "logo": "./logos/cuaba_古巴.png"
     },
     {
@@ -26457,9 +26974,15 @@
       "storageLocation": "上",
       "purchaseLocation": "LCDH.H",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "可可",
+        "黑胡椒",
+        "烤面包",
+        "坚果"
+      ],
+      "tastingNotes": "LCDH独家普拉多，浓郁度较高，风味层次丰富，适合资深茄客",
       "logo": "./logos/san-cristobal_古巴.png"
     },
     {
@@ -26708,9 +27231,17 @@
       "storageLocation": "上",
       "purchaseLocation": "ONE",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "花香",
+        "奶油",
+        "盐味",
+        "泥土",
+        "矿物质",
+        "皮革",
+        "谷物"
+      ],
+      "tastingNotes": "金字塔型经典款，前段意外 creamy，中段转为泥土和盐味，尾段皮革感强烈，整体轻于品牌官方强度 [^27^]",
       "logo": "./logos/vegas-robaina_古巴.png"
     },
     {
@@ -27396,9 +27927,14 @@
       "storageLocation": "上",
       "purchaseLocation": "HOG",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "轻柔",
+      "flavors": [
+        "花香",
+        "蜂蜜",
+        "奶油",
+        "白胡椒"
+      ],
+      "tastingNotes": "品牌经典款，口感极为温和，新手友好，适合晨间或空腹品吸",
       "logo": "./logos/fonseca_古巴.png"
     },
     {
@@ -27808,9 +28344,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "蜂蜜",
+        "雪松",
+        "奶油",
+        "坚果",
+        "淡淡花香"
+      ],
+      "tastingNotes": "黑蜂蜜系列，甜味明显，口感柔和，适合喜欢甜味的茄客",
       "logo": "./logos/warped_非古.png"
     },
     {
@@ -27944,9 +28486,17 @@
       "storageLocation": "上",
       "purchaseLocation": "ONE",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "花香",
+        "奶油",
+        "盐味",
+        "泥土",
+        "矿物质",
+        "皮革",
+        "谷物"
+      ],
+      "tastingNotes": "金字塔型经典款，前段意外 creamy，中段转为泥土和盐味，尾段皮革感强烈，整体轻于品牌官方强度 [^27^]",
       "logo": "./logos/vegas-robaina_古巴.png"
     },
     {
@@ -28678,9 +29228,15 @@
       "storageLocation": "加",
       "purchaseLocation": "现场拍卖",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "咖啡",
+        "黑胡椒",
+        "干果",
+        "蜂蜜"
+      ],
+      "tastingNotes": "加拿大地区版周年纪念，浓郁度适中偏高，尾段回甘明显",
       "logo": "./logos/vegas-robaina_古巴.png"
     },
     {
@@ -29456,9 +30012,14 @@
       "storageLocation": "上",
       "purchaseLocation": "代购蒙特",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -29868,9 +30429,14 @@
       "storageLocation": "加",
       "purchaseLocation": "网友",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "烤面包",
+        "木味",
+        "焦糖",
+        "轻微花香"
+      ],
+      "tastingNotes": "古巴本土2023地区版，新鲜烟叶气息明显，建议陈年后品吸",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -30945,9 +31511,14 @@
       "storageLocation": "上",
       "purchaseLocation": "吉隆坡",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "皮革",
+        "黑胡椒",
+        "咖啡",
+        "焦糖"
+      ],
+      "tastingNotes": "金字塔型燃烧均匀，风味集中度好，中段坚果香突出",
       "logo": "./logos/combinaciones_古巴.png"
     },
     {
@@ -31334,9 +31905,15 @@
       "storageLocation": "加",
       "purchaseLocation": "Corona",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等偏强",
+      "flavors": [
+        "黑胡椒",
+        "雪松",
+        "咖啡",
+        "坚果",
+        "泥土"
+      ],
+      "tastingNotes": "Aganorsa农场守护者系列，尼加拉瓜puro，浓郁度适中偏高，风味直接有力",
       "logo": "./logos/aganorsa-leaf_非古.png"
     },
     {
@@ -31723,9 +32300,14 @@
       "storageLocation": "加",
       "purchaseLocation": "网友",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "烤面包",
+        "木味",
+        "焦糖",
+        "轻微花香"
+      ],
+      "tastingNotes": "古巴本土2023地区版，新鲜烟叶气息明显，建议陈年后品吸",
       "logo": "./logos/diplomaticos_古巴.png"
     },
     {
@@ -33166,9 +33748,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "强",
+      "flavors": [
+        "黑胡椒",
+        "皮革",
+        "浓缩咖啡",
+        "可可",
+        "泥土"
+      ],
+      "tastingNotes": "克罗马农下颌款，浓郁度极高，风味原始粗犷，适合重口味茄客",
       "logo": "./logos/roma-craft_非古.png"
     },
     {
@@ -33210,9 +33798,15 @@
       "storageLocation": "上",
       "purchaseLocation": "COH",
       "packaging": "",
-      "strength": "",
-      "flavors": "",
-      "tastingNotes": "",
+      "strength": "中等",
+      "flavors": [
+        "雪松",
+        "坚果",
+        "奶油",
+        "淡淡香料",
+        "花香"
+      ],
+      "tastingNotes": "亚洲独家版，风味温和优雅，适合亚洲市场口味偏好",
       "logo": "./logos/warped_非古.png"
     }
   ]
