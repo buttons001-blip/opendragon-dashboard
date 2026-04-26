@@ -592,7 +592,16 @@
         
         const brandStory = computed(() => {
           if (!selectedRecordForTaste.value) return '';
-          return brandStories.value[selectedRecordForTaste.value.brand] || '';
+          
+          // 确定品牌类型：古巴 or 非古
+          let brandType = '非古';
+          if (selectedRecordForTaste.value.origin && selectedRecordForTaste.value.origin.includes('古巴')) {
+            brandType = '古巴';
+          }
+          
+          // 使用复合键查找品牌故事
+          const key = `${selectedRecordForTaste.value.brand}|${brandType}`;
+          return brandStories.value[key] || '';
         });
 
         // Toast
@@ -663,12 +672,14 @@
             try {
               const storiesResp = await fetch('./data/cigar_brand_stories.json');
               const storiesData = await storiesResp.json();
+              // 创建复合键映射：品牌名称 + 类型
               const storyMap = {};
               storiesData.forEach(story => {
-                storyMap[story.品牌名称] = story.品牌故事;
+                const key = `${story.品牌名称}|${story.类型}`;
+                storyMap[key] = story.品牌故事;
               });
               brandStories.value = storyMap;
-              console.log('品牌故事加载成功，共', Object.keys(storyMap).length, '个品牌');
+              console.log('品牌故事加载成功，共', Object.keys(storyMap).length, '个品牌故事（含古巴/非古区分）');
             } catch (e3) {
               console.error('加载品牌故事失败:', e3);
             }
@@ -684,16 +695,18 @@
               brands.value = [...new Set(data.cigars.map(c => c.brand).filter(Boolean))].sort();
               console.log('品牌列表:', brands.value);
               
-              // 同时加载品牌故事
+                // 同时加载品牌故事
               try {
                 const storiesResp = await fetch('./data/cigar_brand_stories.json');
                 const storiesData = await storiesResp.json();
+                // 创建复合键映射：品牌名称 + 类型
                 const storyMap = {};
                 storiesData.forEach(story => {
-                  storyMap[story.品牌名称] = story.品牌故事;
+                  const key = `${story.品牌名称}|${story.类型}`;
+                  storyMap[key] = story.品牌故事;
                 });
                 brandStories.value = storyMap;
-                console.log('品牌故事加载成功（后备方案），共', Object.keys(storyMap).length, '个品牌');
+                console.log('品牌故事加载成功（后备方案），共', Object.keys(storyMap).length, '个品牌故事（含古巴/非古区分）');
               } catch (e3) {
                 console.error('加载品牌故事失败（后备方案）:', e3);
               }
