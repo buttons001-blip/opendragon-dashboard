@@ -81,7 +81,7 @@
   </style>
 </head>
 <body>
-  <a href="/" class="home-btn" title="返回首页">🐉</a>
+  <a href="https://www.opendragon.icu" class="home-btn" title="返回首页">🐉</a>
   <div id="app" class="p-4 pb-20">
     <!-- 顶部标题 -->
     <div class="glass-card p-6 mb-6">
@@ -181,7 +181,7 @@
                 <p class="text-sm text-gray-500">
                   单价：${{ record.price }} | 生产日期：{{ record.year }} | 包装：{{ record.packaging || '未指定' }}
                 </p>
-                <p class="text-sm text-purple-600 mt-1" v-if="record.remainingQuantity !== record.quantity">
+                <p class="text-sm text-purple-600 mt-1">
                   剩余：{{ record.remainingQuantity }} / {{ record.quantity }}
                 </p>
               </div>
@@ -451,22 +451,16 @@
 
     createApp({
       setup() {
-        // ========== API 配置 ==========
         const API_BASE = '/cigar-api/api/v1';
-        
-        // 数据
         const cigars = ref([]);
         const brands = ref([]);
         const brandStories = ref({});
-        
-        // 选择状态
         const currentTab = ref('select');
         const recordType = ref('inventory');
         const selectedBrand = ref('');
         const selectedModel = ref('');
         const selectedRecord = ref(null);
         
-        // 可计算的
         const models = computed(() => {
           if (!selectedBrand.value) return [];
           const filtered = cigars.value.filter(c => c.brand === selectedBrand.value);
@@ -481,49 +475,22 @@
         
         const brandLogo = computed(() => {
           if (!selectedBrand.value) return null;
-          
-          // 从数据中查找该品牌的logo和产地
           const cigar = cigars.value.find(c => c.brand === selectedBrand.value);
-          if (cigar && cigar.logo) {
-            return cigar.logo;
-          }
-          
-          // 动态生成 logo 路径
+          if (cigar && cigar.logo) return cigar.logo;
           if (cigar && cigar.origin) {
             const brandMapping = {
-              'arturo fuente': 'arturo-fuente',
-              'romeo y julieta': 'romeo-y-julieta',
-              'hoyo de monterrey': 'hoyo-de-monterrey',
-              'san cristobal': 'san-cristobal',
-              'la flor de cano': 'la-flor-de-cano',
-              'el rey del mundo': 'el-rey-del-mundo',
-              'jose l piedra': 'jose-l-piedra',
-              'la aurora': 'la-aurora',
-              'la gloria cubana': 'la-gloria-cubana',
-              'black label trading company': 'black-label-trading-company',
-              'don pepin garcia': 'don-pepin-garcia',
-              'la arora de cuba': 'la-aroma-de-cuba',
-              'la flor dominicana': 'la-flor-dominicana',
-              'liga privada': 'liga-privada'
+              'arturo fuente': 'arturo-fuente', 'romeo y julieta': 'romeo-y-julieta',
+              'hoyo de monterrey': 'hoyo-de-monterrey', 'san cristobal': 'san-cristobal',
+              'la flor de cano': 'la-flor-de-cano', 'el rey del mundo': 'el-rey-del-mundo',
+              'jose l piedra': 'jose-l-piedra', 'la aurora': 'la-aurora',
+              'la gloria cubana': 'la-gloria-cubana', 'black label trading company': 'black-label-trading-company',
+              'don pepin garcia': 'don-pepin-garcia', 'la arora de cuba': 'la-aroma-de-cuba',
+              'la flor dominicana': 'la-flor-dominicana', 'liga privada': 'liga-privada'
             };
-            
-            const normalizedBrand = brandMapping[selectedBrand.value.toLowerCase()] || 
-                                  selectedBrand.value.toLowerCase().replace(/\s+/g, '-');
-            const originName = cigar.origin;
-            const logoPath = `./logos/${normalizedBrand}_${originName}.png`;
-            return logoPath;
+            const normalizedBrand = brandMapping[selectedBrand.value.toLowerCase()] || selectedBrand.value.toLowerCase().replace(/\s+/g, '-');
+            return `./logos/${normalizedBrand}_${cigar.origin}.png`;
           }
-          
-          const logoMap = {
-            'Punch': './logos/punch_古巴.png',
-            'Cohiba': './logos/cohiba_古巴.png',
-            'Montecristo': './logos/montecristo_古巴.png',
-            'Romeo y Julieta': './logos/romeo-y-julieta_古巴.png',
-            'Hoyo de Monterrey': './logos/hoyo-de-monterrey_古巴.png',
-            'Partagas': './logos/partagas_古巴.png',
-          };
-          const key = Object.keys(logoMap).find(k => selectedBrand.value.includes(k));
-          return key ? logoMap[key] : null;
+          return null;
         });
 
         const modelInfo = computed(() => {
@@ -544,41 +511,25 @@
         });
 
         const totalQuantity = computed(() => cigars.value.reduce((sum, c) => sum + (c.quantity || 0), 0));
-        
-        // 品吸相关
         const selectedRecordForTaste = ref(null);
         const tastingRecords = ref([]);
-        
         const tasting = ref({
-          environment: '',
-          tempUnit: 'C',
-          temperature: '',
-          humidity: '',
-          drink: '',
-          firstThird: '',
-          middleThird: '',
-          finalThird: '',
-          photos: []
+          environment: '', tempUnit: 'C', temperature: '', humidity: '', drink: '',
+          firstThird: '', middleThird: '', finalThird: '', photos: []
         });
         
         const brandStory = computed(() => {
           if (!selectedRecordForTaste.value) return '';
-          let brandType = '非古';
-          if (selectedRecordForTaste.value.origin && selectedRecordForTaste.value.origin.includes('古巴')) {
-            brandType = '古巴';
-          }
-          const key = `${selectedRecordForTaste.value.brand}|${brandType}`;
-          return brandStories.value[key] || '';
+          let brandType = selectedRecordForTaste.value.origin && selectedRecordForTaste.value.origin.includes('古巴') ? '古巴' : '非古';
+          return brandStories.value[`${selectedRecordForTaste.value.brand}|${brandType}`] || '';
         });
 
-        // Toast
         const toast = ref({ show: false, message: '' });
         const showToast = (msg) => {
           toast.value = { show: true, message: msg };
           setTimeout(() => toast.value.show = false, 3000);
         };
 
-        // ========== 从 D1 加载库存数据 ==========
         const loadInventoryFromD1 = async () => {
           const resp = await fetch(`${API_BASE}/inventory/list?limit=3000`);
           if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -587,143 +538,68 @@
           return data.records || [];
         };
 
-        // 加载数据
         const loadData = async () => {
           try {
-            // 1. 从 D1 加载库存数据
             const records = await loadInventoryFromD1();
-            console.log('D1 加载成功，记录数:', records.length);
-            
-            // 适配 D1 字段名到前端 camelCase
             cigars.value = records.map(r => ({
-              id: r.id,
-              brand: r.brand,
-              model: r.model,
-              origin: r.origin,
-              quantity: r.quantity,
-              remainingQuantity: r.remaining_quantity !== undefined ? r.remaining_quantity : r.quantity,
-              ringGauge: r.ring_gauge,
-              length: r.length,
-              price: r.price,
-              storageLocation: r.storage_location,
-              purchaseLocation: r.purchase_location,
-              packaging: r.packaging,
-              specification: r.specification,
-              year: r.year,
-              strength: r.strength,
-              flavors: typeof r.flavors === 'string' ? JSON.parse(r.flavors || '[]') : (r.flavors || []),
-              tastingNotes: r.tasting_notes,
-              logo: r.logo,
-              created_at: r.created_at,
-              updated_at: r.updated_at
+              id: r.id, brand: r.brand, model: r.model, origin: r.origin,
+              quantity: r.quantity, remainingQuantity: r.remaining_quantity !== undefined ? r.remaining_quantity : r.quantity,
+              ringGauge: r.ring_gauge, length: r.length, price: r.price,
+              storageLocation: r.storage_location, purchaseLocation: r.purchase_location,
+              packaging: r.packaging, specification: r.specification, year: r.year,
+              strength: r.strength, flavors: typeof r.flavors === 'string' ? JSON.parse(r.flavors || '[]') : (r.flavors || []),
+              tastingNotes: r.tasting_notes, logo: r.logo
             }));
-            
             brands.value = [...new Set(cigars.value.map(c => c.brand).filter(Boolean))].sort();
-            console.log('品牌列表:', brands.value.length, '个');
             
-            // 2. 加载本地存储的品吸记录
             const saved = localStorage.getItem('cigarTastingRecords');
-            if (saved) {
-              tastingRecords.value = JSON.parse(saved);
-            }
+            if (saved) tastingRecords.value = JSON.parse(saved);
             
-            // 3. 加载品牌故事数据（继续读JSON）
             try {
               const storiesResp = await fetch('./data/cigar_brand_stories.json');
               const storiesData = await storiesResp.json();
               const storyMap = {};
               storiesData.forEach(story => {
-                const key = `${story.品牌名称}|${story.类型}`;
-                storyMap[key] = story.品牌故事;
+                storyMap[`${story.品牌名称}|${story.类型}`] = story.品牌故事;
               });
               brandStories.value = storyMap;
-              console.log('品牌故事加载成功，共', Object.keys(storyMap).length, '个');
-            } catch (e3) {
-              console.error('加载品牌故事失败:', e3);
-            }
-            
+            } catch (e) { console.error('加载品牌故事失败:', e); }
           } catch (e) {
             console.error('加载D1数据失败:', e);
             showToast('加载失败：' + e.message);
-            
-            // 后备：尝试加载本地JSON
-            try {
-              const resp = await fetch('./data/cigar_inventory.json');
-              const data = await resp.json();
-              cigars.value = data.cigars.map(c => ({
-                ...c,
-                remainingQuantity: c.remainingQuantity !== undefined ? c.remainingQuantity : c.quantity
-              }));
-              brands.value = [...new Set(cigars.value.map(c => c.brand).filter(Boolean))].sort();
-              showToast('已加载本地后备数据');
-            } catch (e2) {
-              console.error('后备加载也失败:', e2);
-            }
           }
         };
 
-        // 事件处理
-        const onBrandChange = () => {
-          selectedModel.value = '';
-          selectedRecord.value = null;
-        };
-        
-        const onModelChange = () => {
-          selectedRecord.value = null;
-        };
-        
-        const selectRecord = (record) => {
-          selectedRecord.value = record;
-        };
-        
+        const onBrandChange = () => { selectedModel.value = ''; selectedRecord.value = null; };
+        const onModelChange = () => { selectedRecord.value = null; };
+        const selectRecord = (record) => { selectedRecord.value = record; };
         const confirmSelection = () => {
           if (selectedRecord.value) {
             selectedRecordForTaste.value = { ...selectedRecord.value };
             currentTab.value = 'taste';
           }
         };
-        
-        const resetSelection = () => {
-          selectedBrand.value = '';
-          selectedModel.value = '';
-          selectedRecord.value = null;
-        };
+        const resetSelection = () => { selectedBrand.value = ''; selectedModel.value = ''; selectedRecord.value = null; };
         
         const handlePhotoUpload = (e) => {
-          const files = e.target.files;
-          for (let file of files) {
+          for (let file of e.target.files) {
             const reader = new FileReader();
-            reader.onload = (evt) => {
-              tasting.value.photos.push(evt.target.result);
-            };
+            reader.onload = (evt) => { tasting.value.photos.push(evt.target.result); };
             reader.readAsDataURL(file);
           }
         };
         
         const saveTasting = () => {
           const record = {
-            id: Date.now(),
-            brand: selectedRecordForTaste.value.brand,
-            model: selectedRecordForTaste.value.model,
-            date: new Date().toLocaleDateString('zh-CN'),
-            environment: tasting.value.environment,
-            temperature: tasting.value.temperature,
-            humidity: tasting.value.humidity,
-            drink: tasting.value.drink,
-            firstThird: tasting.value.firstThird,
-            middleThird: tasting.value.middleThird,
-            finalThird: tasting.value.finalThird,
-            photos: tasting.value.photos
+            id: Date.now(), brand: selectedRecordForTaste.value.brand, model: selectedRecordForTaste.value.model,
+            date: new Date().toLocaleDateString('zh-CN'), environment: tasting.value.environment,
+            temperature: tasting.value.temperature, humidity: tasting.value.humidity, drink: tasting.value.drink,
+            firstThird: tasting.value.firstThird, middleThird: tasting.value.middleThird,
+            finalThird: tasting.value.finalThird, photos: tasting.value.photos
           };
-          
           tastingRecords.value.unshift(record);
           localStorage.setItem('cigarTastingRecords', JSON.stringify(tastingRecords.value));
-          
-          tasting.value = {
-            environment: '', tempUnit: 'C', temperature: '', humidity: '', drink: '',
-            firstThird: '', middleThird: '', finalThird: '', photos: []
-          };
-          
+          tasting.value = { environment: '', tempUnit: 'C', temperature: '', humidity: '', drink: '', firstThird: '', middleThird: '', finalThird: '', photos: [] };
           showToast('品吸记录已保存！');
         };
         
@@ -734,9 +610,7 @@
           }
         };
 
-        onMounted(() => {
-          loadData();
-        });
+        onMounted(() => { loadData(); });
 
         return {
           cigars, brands, brandStories, currentTab, recordType,
