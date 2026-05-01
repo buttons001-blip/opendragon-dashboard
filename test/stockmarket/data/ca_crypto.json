@@ -1,49 +1,49 @@
 {
-  "timestamp": "2026-05-02T02:30:01.807343",
+  "timestamp": "2026-05-02T03:00:02.545185",
   "ca": {
     "TSX": {
-      "value": 33942.32,
-      "change": -22.01,
-      "changePercent": -0.06
+      "value": 33921.94,
+      "change": -42.39,
+      "changePercent": -0.12
     }
   },
   "crypto": {
     "BTC": {
-      "value": 78538.55,
-      "change": 2232.0,
-      "changePercent": 2.93
+      "value": 78458.01,
+      "change": 2151.46,
+      "changePercent": 2.82
     },
     "ETH": {
-      "value": 2308.6,
-      "change": 52.21,
-      "changePercent": 2.31
+      "value": 2304.41,
+      "change": 48.02,
+      "changePercent": 2.13
     },
     "SOL": {
-      "value": 84.09,
-      "change": 1.07,
-      "changePercent": 1.29
+      "value": 83.97,
+      "change": 0.95,
+      "changePercent": 1.14
     },
     "LINK": {
-      "value": 9.21,
-      "change": 0.11,
-      "changePercent": 1.16
+      "value": 9.2,
+      "change": 0.09,
+      "changePercent": 1.0
     }
   },
   "stocks": {
     "RY": {
-      "price": 244.15,
-      "change": -0.16,
-      "changePercent": -0.07
+      "price": 244.06,
+      "change": -0.25,
+      "changePercent": -0.1
     },
     "ENB": {
-      "price": 74.66,
-      "change": -0.68,
-      "changePercent": -0.9
+      "price": 74.75,
+      "change": -0.59,
+      "changePercent": -0.79
     },
     "SHOP": {
-      "price": 173.04,
-      "change": 8.16,
-      "changePercent": 4.95
+      "price": 172.69,
+      "change": 7.81,
+      "changePercent": 4.74
     }
   }
 }
