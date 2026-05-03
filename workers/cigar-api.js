@@ -32,6 +32,11 @@ var cigar_api_default = {
  const url = new URL(request.url);
  const path = url.pathname;
 
+ // === 根路径重定向到雪茄主页 ===
+ if (path === "/" || path === "/index.html") {
+ return Response.redirect("https://cigars.opendragon.icu/cigars/", 301);
+ }
+
  try {
  // === 库存 API ===
  // 适配完整路径 /cigar-api/api/v1/...
