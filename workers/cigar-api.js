@@ -32,9 +32,9 @@ var cigar_api_default = {
  const url = new URL(request.url);
  const path = url.pathname;
 
- // === 根路径重定向到雪茄主页 ===
+ // === 根路径返回雪茄主页 ===
  if (path === "/" || path === "/index.html") {
- return Response.redirect("https://cigars.opendragon.icu/cigars/", 301);
+ return env.ASSETS.fetch(new Request(url.origin + "/cigars/"));
  }
 
  try {
