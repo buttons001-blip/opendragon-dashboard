@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-05-05T21:30:02.151346",
+  "timestamp": "2026-05-05T22:00:02.126540",
   "ca": {
     "TSX": {
-      "value": 33638.87,
-      "change": -252.31,
-      "changePercent": -0.74
+      "value": 33756.81,
+      "change": 117.94,
+      "changePercent": 0.35
     }
   },
   "crypto": {
@@ -31,19 +31,19 @@
   },
   "stocks": {
     "RY": {
-      "price": 243.0,
-      "change": 0.63,
-      "changePercent": 0.26
+      "price": 244.32,
+      "change": 1.95,
+      "changePercent": 0.8
     },
     "ENB": {
-      "price": 74.5,
-      "change": -0.08,
-      "changePercent": -0.11
+      "price": 75.03,
+      "change": 0.53,
+      "changePercent": 0.71
     },
     "SHOP": {
-      "price": 173.37,
-      "change": -0.11,
-      "changePercent": -0.06
+      "price": 159.35,
+      "change": -14.02,
+      "changePercent": -8.09
     }
   }
 }
