@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-14T14:02:40.224121",
+  "cn": {
+    "宁德时代": {
+      "price": 433.62,
+      "change": -0.43,
+      "changePercent": -0.1
+    },
+    "比亚迪": {
+      "price": 99.27,
+      "change": 0.67,
+      "changePercent": 0.68
+    }
+  },
+  "hk": {}
+}
