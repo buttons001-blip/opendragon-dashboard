@@ -1,8 +1,15 @@
 {
-  "timestamp": "2026-05-19T15:28:49.430225",
+  "timestamp": "2026-05-20T15:27:46.949091",
   "initialCapital": 500000,
-  "realizedProfit": -23060.0,
+  "realizedProfit": -17770.0,
   "holdings": [
+    {
+      "code": "00700",
+      "name": "腾讯控股",
+      "quantity": 100.0,
+      "costPrice": 508.1,
+      "totalCost": 50810.0
+    },
     {
       "code": "03690",
       "name": "美团",
@@ -98,6 +105,17 @@
       "amount": 43800.0,
       "date": "2026-04-10",
       "reason": "盈利+9.06%符合加仓条件 适中方案加仓500股 控制仓位",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "00700",
+      "name": "腾讯控股",
+      "price": 455.2,
+      "quantity": 100.0,
+      "amount": 45520.0,
+      "date": "2025-05-20",
+      "reason": "港股核心资产 中美缓和受益",
       "status": ""
     }
   ]

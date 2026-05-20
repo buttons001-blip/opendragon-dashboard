@@ -1,8 +1,29 @@
 {
-  "timestamp": "2026-05-19T15:28:49.429616",
+  "timestamp": "2026-05-20T15:27:46.948642",
   "initialCapital": 1000000,
   "realizedProfit": -18966.0,
   "holdings": [
+    {
+      "code": "300274",
+      "name": "阳光电源",
+      "quantity": 800.0,
+      "costPrice": 167.51,
+      "totalCost": 134008.0
+    },
+    {
+      "code": "002475",
+      "name": "立讯精密",
+      "quantity": 2000.0,
+      "costPrice": 70.32,
+      "totalCost": 140640.0
+    },
+    {
+      "code": "600036",
+      "name": "招商银行",
+      "quantity": 2600.0,
+      "costPrice": 37.19,
+      "totalCost": 96694.0
+    },
     {
       "code": "300750",
       "name": "宁德时代",
@@ -136,9 +157,42 @@
       "price": 95.22,
       "quantity": 500.0,
       "amount": 47610.0,
-      "date": "1970-01-01",
+      "date": "2025-05-19",
       "reason": "触发-5%止损线 损失3620元",
       "status": "已止损"
+    },
+    {
+      "type": "买入",
+      "code": "300274",
+      "name": "阳光电源",
+      "price": 167.51,
+      "quantity": 800.0,
+      "amount": 134008.0,
+      "date": "2025-05-20",
+      "reason": "储能+光伏出海龙头 关税缓和直接受益",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "002475",
+      "name": "立讯精密",
+      "price": 70.32,
+      "quantity": 2000.0,
+      "amount": 140640.0,
+      "date": "2025-05-20",
+      "reason": "Apple AI供应链+汽车电子 估值合理",
+      "status": ""
+    },
+    {
+      "type": "买入",
+      "code": "600036",
+      "name": "招商银行",
+      "price": 37.19,
+      "quantity": 2600.0,
+      "amount": 96694.0,
+      "date": "2025-05-20",
+      "reason": "PE 6.2x 股息率>5% 经济复苏受益",
+      "status": ""
     }
   ]
 }
