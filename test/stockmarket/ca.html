@@ -253,7 +253,7 @@
                 <div class="status-indicator" :class="{ 'status-closed': !isTradingTime }">
                     {{ statusText }}
                 </div>
-                <div class="index-ticker">
+                <div class="index-ticker" v-show="indices.length > 0">
                     <div class="index-ticker-content">
                         <div class="index-item" v-for="i in indices" :key="i.name">
                             <span class="index-name">{{ i.name }}</span>
@@ -442,11 +442,9 @@
                     transactions: [],  // 交易记录
                     stocks: [],  // 从飞书计算
                     // 指数从 API 读取，初始为空
-                    indices: [
-                        { name: "TSX", value: "0", change: 0, changePercent: "0.00" },
-                        { name: "S&P/TSX 60", value: "0", change: 0, changePercent: "0.00" },
-                        { name: "TSX Venture", value: "0", change: 0, changePercent: "0.00" }
-                    ],
+                    // TSX 系列指数暂无可用免费信源（腾讯无覆盖、Yahoo 已限流），
+                    // 按用户决定移除，仅保留加股个股行情。
+                    indices: [],
                     rules: PRINCIPLES.map((r, i) => ({
                         id: i+1,
                         no: r.序号,
@@ -657,7 +655,8 @@
                             });
                             
                             // 更新顶部指数
-                            if (data.ca && data.ca['TSX']) {
+                            // TSX 指数已移除（无可用信源）
+                            if (data.ca && data.ca['TSX'] && this.indices.length > 0) {
                                 this.indices[0].value = data.ca['TSX'].value.toLocaleString();
                                 this.indices[0].change = data.ca['TSX'].change;
                                 this.indices[0].changePercent = data.ca['TSX'].changePercent.toFixed(2);

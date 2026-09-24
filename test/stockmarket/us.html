@@ -657,7 +657,7 @@
                 async fetchPrices() {
                     try {
                         // 使用腾讯财经API获取美股实时价格和指数（国内可用）
-                        const symbols = 'usNVDA,usMSFT,usAMZN,usSQQQ,usSPX,usIXIC,usDJI';
+                        const symbols = 'usNVDA,usMSFT,usAMZN,usSQQQ,us.INX,usIXIC,usDJI';
                         const url = `https://qt.gtimg.cn/q=${symbols}`;
                         
                         const response = await fetch(url);
@@ -682,7 +682,7 @@
                         });
                         
                         // 解析指数数据
-                        const spxData = this.extractPrice(text, 'v_usSPX');
+                        const spxData = this.extractPrice(text, 'v_us.INX');
                         const ixicData = this.extractPrice(text, 'v_usIXIC');
                         const djiData = this.extractPrice(text, 'v_usDJI');
                         
@@ -721,7 +721,9 @@
                 
                 extractPrice(text, varName) {
                     try {
-                        const regex = new RegExp(`${varName}="([^"]+)"`);
+                        // 变量名可能含点号(如 v_us.INX)，必须转义后再构造正则
+                        const safe = varName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(safe + '="([^"]+)"');
                         const match = text.match(regex);
                         if (match && match[1]) {
                             const parts = match[1].split('~');

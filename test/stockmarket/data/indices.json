@@ -1,88 +1,77 @@
 {
-  "timestamp": "2026-04-24T14:04:43.293045",
+  "timestamp": "2026-09-24T21:41:15.183883",
   "cn": {
     "上证指数": {
-      "value": 4073.48,
-      "change": -32.78,
-      "changePercent": -0.8
+      "value": 3888.37,
+      "change": -48.15,
+      "changePercent": -1.22
     },
     "深证成指": {
-      "value": 14899.83,
-      "change": -277.47,
-      "changePercent": -1.83
+      "value": 13316.97,
+      "change": -319.1,
+      "changePercent": -2.34
     },
     "科创 50": {
-      "value": 1454.38,
-      "change": 21.79,
-      "changePercent": 1.52
+      "value": 1621.87,
+      "change": -38.98,
+      "changePercent": -2.35
     }
   },
   "hk": {
     "恒生指数": {
-      "value": 25905.71,
-      "change": -9.49,
-      "changePercent": -0.04
+      "value": 24761.13,
+      "change": -72.99,
+      "changePercent": -0.29
     },
     "国企指数": {
-      "value": 8751.69,
-      "change": 19.06,
-      "changePercent": 0.22
+      "value": 8266.01,
+      "change": -7.8,
+      "changePercent": -0.09
     },
     "恒生科技": {
-      "value": "获取失败",
-      "change": 0,
-      "changePercent": 0
+      "value": 4361.13,
+      "change": -17.94,
+      "changePercent": -0.41
     }
   },
   "us": {
     "道琼斯": {
-      "value": 49310.32,
-      "change": -179.71,
-      "changePercent": -0.36
+      "value": 51298.88,
+      "change": -212.71,
+      "changePercent": -0.41
     },
     "纳斯达克": {
-      "value": 24438.5,
-      "change": -219.06,
-      "changePercent": -0.89
+      "value": 26778.83,
+      "change": -157.21,
+      "changePercent": -0.58
     },
     "标普 500": {
-      "value": 7108.4,
-      "change": -29.5,
-      "changePercent": -0.41
+      "value": 7677.54,
+      "change": -28.49,
+      "changePercent": -0.37
     }
   },
-  "ca": {
-    "TSX": {
-      "value": 33912.93,
-      "change": -42.18,
-      "changePercent": -0.12
-    },
-    "S&P/TSX 60": {
-      "value": "获取失败",
-      "change": 0,
-      "changePercent": 0
-    },
-    "TSX Venture": {
-      "value": "获取失败",
-      "change": 0,
-      "changePercent": 0
-    }
-  },
+  "ca": {},
   "crypto": {
     "BTC": {
-      "value": 77972.99,
-      "change": -305.67,
-      "changePercent": -0.39
+      "value": 84028.0,
+      "change": -1835.77,
+      "changePercent": -2.14
     },
     "ETH": {
-      "value": 2315.38,
-      "change": -16.16,
-      "changePercent": -0.69
+      "value": 2665.01,
+      "change": -58.31,
+      "changePercent": -2.14
     },
     "SOL": {
-      "value": 85.68,
-      "change": -0.46,
-      "changePercent": -0.54
+      "value": 114.91,
+      "change": -2.23,
+      "changePercent": -1.9
+    },
+    "LINK": {
+      "value": 12.46,
+      "change": -0.27,
+      "changePercent": -2.15
     }
   }
 }

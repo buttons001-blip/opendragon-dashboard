@@ -1,16 +1,42 @@
 {
-  "timestamp": "2026-05-14T14:02:40.224121",
+  "timestamp": "2026-09-24T21:41:29.673170",
   "cn": {
-    "宁德时代": {
-      "price": 433.62,
-      "change": -0.43,
-      "changePercent": -0.1
+    "sz300274": {
+      "price": 84.21,
+      "change": -2.62,
+      "changePercent": -3.02
     },
-    "比亚迪": {
-      "price": 99.27,
-      "change": 0.67,
-      "changePercent": 0.68
+    "sz002475": {
+      "price": 52.0,
+      "change": -2.37,
+      "changePercent": -4.36
+    },
+    "sh600036": {
+      "price": 40.69,
+      "change": 0.09,
+      "changePercent": 0.22
+    },
+    "sz300750": {
+      "price": 293.5,
+      "change": -7.5,
+      "changePercent": -2.49
+    },
+    "sz002594": {
+      "price": 84.34,
+      "change": -1.51,
+      "changePercent": -1.76
     }
   },
-  "hk": {}
+  "hk": {
+    "hk00700": {
+      "price": 438.4,
+      "change": -2.6,
+      "changePercent": -0.59
+    },
+    "hk03690": {
+      "price": 72.25,
+      "change": -0.6,
+      "changePercent": -0.82
+    }
+  }
 }

@@ -781,14 +781,15 @@
                         this.apiStatusClass = 'success';
                         
                         // 获取 A 股指数
-                        const indexCodes = 'sh000001,sz399001,sz399006';
+                        const indexCodes = 'sh000001,sz399001,sh000688,sz399006';
                         const indexScript = document.createElement('script');
                         indexScript.src = `https://qt.gtimg.cn/q=${indexCodes}`;
                         indexScript.onload = () => {
                             const indexMap = {
                                 'v_sh000001': '上证指数',
                                 'v_sz399001': '深证成指',
-                                'v_sz399006': '科创 50'
+                                'v_sh000688': '科创 50',
+                                'v_sz399006': '创业板指'
                             };
                             Object.keys(indexMap).forEach(key => {
                                 if (window[key]) {
